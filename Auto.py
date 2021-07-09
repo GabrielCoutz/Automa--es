@@ -3,28 +3,32 @@ import pyautogui as py
 from time import sleep
 import webbrowser
 import winsound
+import importlib.util
 from random import randint
 from datetime import date
 import locale
 import os
-
-app = r'E:\Backup\backup PC\Imagens\app.png'
-mais = r'E:\Backup\backup PC\Imagens\mais.png'
-razer2 = r'E:\Backup\backup PC\Imagens\razer2.png'
-razera = r'E:\Backup\backup PC\Imagens\razer.png'
-conf = r'E:\Backup\backup PC\Imagens\conf.png'
-conf2 = r'E:\Backup\backup PC\Imagens\conf2.png'
-fechar = r'E:\Backup\backup PC\Imagens\fechar.png'
-blue2 = r'E:\Backup\backup PC\Imagens\Blue2.png'
-blue42 = r'E:\Backup\backup PC\Imagens\Blue42.png'
-blue = r'E:\Backup\backup PC\Imagens\Blue.png'
-blue43 = r'E:\Backup\backup PC\Imagens\Blue4.png'
-blue3 = r'E:\Backup\backup PC\Imagens\Blue3.png'
-agent = r'E:\Backup\backup PC\Imagens\Agent.png'
-f = r'E:\Backup\backup PC\Imagens\Fechar2.png'
-loc = r'E:\Backup\backup PC\Imagens\loc.png'
+import psutil
+import pygetwindow as window
 
 locale.setlocale(locale.LC_ALL, 'pt_BR.utf8')
+osu = ''
+dia = date.today().weekday()
+f = 0
+bluestacks = window.getWindowsWithTitle('Blue')
+barra, play = 1593, 1564
+barras = [389, 454, 579, 702, 765]
+plays = [387, 456, 577, 705, 766]
+
+if dia < 5:
+    osu = "https://osu.ppy.sh/beatmapsets?m=0&s=pending"
+else:
+    osu = "https://osu.ppy.sh/beatmapsets?m=0"
+
+spec = importlib.util.spec_from_file_location(
+    "name", "C:\\Users\\Gabri\\PycharmProjects\\pythonProject\\Imagens.py")
+Imagens = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(Imagens)
 
 
 def finalizar(a):
@@ -33,6 +37,32 @@ def finalizar(a):
     py.press('down')
     sleep(0.5)
     py.press('enter')
+    sleep(0.5)
+
+
+def fechar(name):
+    os.system("taskkill /f /im " + name)
+
+
+def login(x, y):
+    py.click(x, y)
+    while verificar(Imagens.Imagens.conta1) is False:
+        sleep(0.1)
+    py.press('tab', 5)
+    sleep(1)
+    py.press('enter')
+    sleep(1.5)
+    while verificar(Imagens.Imagens.log33) is False:
+        sleep(0.1)
+    log3 = py.locateCenterOnScreen(r'E:\Backup\backup PC\Imagens\log33.png')
+    py.click(log3)
+    sleep(4)
+
+
+def verificar(a):
+    if py.locateCenterOnScreen(a):
+        return True
+    return False
 
 
 def inicio():
@@ -43,43 +73,66 @@ def inicio():
 
 
 def som():
-    os.startfile(r"C:\Program Files\BlueStacks\Bluestacks.exe")
-    sleep(8)
-    py.leftClick(x=1917, y=1078)
-    sleep(2)
-    py.leftClick(mais)
-    sleep(2)
-    razer2 = py.locateCenterOnScreen(r'E:\Backup\backup PC\Imagens\razer2.png')
-    py.doubleClick(razer2)
-    sleep(2)
-    py.leftClick(razer2[0] + 92, razer2[1] - 150)
-    sleep(2)
-    py.leftClick(x=1565, y=849)
+    global bluestacks
 
-    try:
-        py.doubleClick(razera)
-        sleep(0.5)
-    except:
-        py.leftClick(mais)
-        sleep(1)
-        py.doubleClick(razera)
+    os.startfile(r"C:\Program Files\BlueStacks\Bluestacks.exe")
+    while True:
+        if ("Bluestacks.exe" in (i.name() for i in psutil.process_iter())) is True and len(bluestacks) >= 1:
+            break
+        else:
+            bluestacks = window.getWindowsWithTitle('Blue')
+    sleep(1)
+    fechar("Bluestacks.exe")
+    sleep(1)
+    fechar("HD-Agent.exe")
     sleep(1)
 
+    py.leftClick(Imagens.Imagens.mais)
+
+    sleep(2.5)
     try:
-        py.moveTo(loc)
+        razer2 = py.locateCenterOnScreen(r'E:\Backup\backup PC\Imagens\razer2.png')
+        py.doubleClick(razer2)
     except:
-        py.leftClick(mais)
+        razeratt = py.locateCenterOnScreen(r'E:\Backup\backup PC\Imagens\attrazer.png')
+        py.doubleClick(razeratt)
+    sleep(2)
+    mouse = py.locateCenterOnScreen(r'E:\Backup\backup PC\Imagens\mouse.png')
+    if mouse is not None:
+        py.moveTo(mouse)
+        mou = py.position()
+        py.click(mou[0] + 90, mou[1])
         sleep(1)
-        py.doubleClick(razera)
-        sleep(1)
+        py.click(mou[0] - 180, mou[1] + 10)
+        f = 0
+    else:
+        f = 1
+        py.doubleClick(Imagens.Imagens.mais)
+
     try:
-        py.leftClick(conf2)
+        py.doubleClick(Imagens.Imagens.razera)
+        sleep(0.5)
     except:
-        py.leftClick(conf)
+        py.leftClick(Imagens.Imagens.mais)
+        sleep(1)
+        py.doubleClick(Imagens.Imagens.razera)
+    sleep(1)
+
+    if verificar(Imagens.Imagens.loc) is False:
+        py.leftClick(Imagens.Imagens.mais)
+        sleep(1)
+        py.doubleClick(Imagens.Imagens.razera)
+        sleep(1)
+
+    try:
+        py.leftClick(Imagens.Imagens.conf2)
+    except:
+        py.leftClick(Imagens.Imagens.conf)
 
     pos1 = py.position()
     xp2 = pos1[0]
     yp2 = pos1[1]
+    py.leftClick(xp2 - 34, yp2 + 82)
     py.leftClick(xp2 - 34, yp2 + 82)
     py.leftClick(xp2 - 34, yp2 + 82)
 
@@ -90,71 +143,54 @@ def som():
     yp = pos[1]
     py.leftClick(xp - 70, yp)
     py.leftClick(xp - 70, yp)
+    py.leftClick(xp - 70, yp)
     sleep(1)
 
-    py.moveTo(fechar)
-    py.doubleClick()
-    py.doubleClick()
+    janrazer = window.getWindowsWithTitle("Razer")
+    window.Window.close(janrazer[0])
 
-    py.hotkey('ctrlleft', 'shift', 'esc')
-    sleep(4)
-
-    py.doubleClick(blue)
-
-    sleep(0.5)
-
-    try:
-        finalizar(blue2)
-        py.moveTo(app)
-    except:
+    if f != 0:
         try:
-            finalizar(blue42)
-            py.moveTo(app)
-        except:
+            py.leftClick(Imagens.Imagens.mais)
+            sleep(2.5)
             try:
-                py.locateCenterOnScreen(blue)
-                sleep(1)
-                finalizar(blue43)
+                razer2 = py.locateCenterOnScreen(r'E:\Backup\backup PC\Imagens\razer2.png')
+                py.doubleClick(razer2)
             except:
-                pass
-
-    sleep(0.5)
-
-    sleep(1)
-    py.scroll(-1000)
-
-    try:
-        py.locateCenterOnScreen(agent)
-        finalizar(agent)
-    except:
-        pass
-
-    py.leftClick(f)
+                razeratt = py.locateCenterOnScreen(r'E:\Backup\backup PC\Imagens\attrazer.png')
+                py.doubleClick(razeratt)
+            sleep(2)
+            mouse = py.locateCenterOnScreen(r'E:\Backup\backup PC\Imagens\mouse.png')
+            py.moveTo(mouse)
+            mou = py.position()
+            py.click(mou[0] + 90, mou[1])
+            sleep(1)
+            py.click(mou[0] - 180, mou[1] + 10)
+        except:
+            pass
 
 
 def google():
-    url = 'google.com'
+    sites = ['https://www.youtube.com', 'https://www.imissmybar.com/',
+             'https://mail.google.com/mail/u/0/?zx=7quikovz9bly#inbox']
     webbrowser.register('chrome',
                         None,
                         webbrowser.BackgroundBrowser(r"C:\Program Files\Google\Chrome\Application\chrome.exe"))
+    for a in sites:
+        webbrowser.open(a)
+        sleep(1)
+    webbrowser.open(osu)
     sleep(0.5)
-    webbrowser.get('chrome').open(url)
-    sleep(1.2)
-    webbrowser.open('https://www.youtube.com/results?search_query=Lofi')
-    sleep(0.5)
-    webbrowser.open('https://www.imissmybar.com/')
-    sleep(0.5)
-    webbrowser.open('https://mail.google.com/mail/u/0/?zx=7quikovz9bly#inbox')
-    sleep(0.5)
-    webbrowser.open('https://osu.ppy.sh/beatmapsets?m=0')
-    sleep(0.5)
+    if verificar(Imagens.Imagens.max) is False:
+        try:
+            py.click(Imagens.Imagens.max2)
+        except:
+            py.click(Imagens.Imagens.max3)
+    sleep(1)
     py.leftClick(x=164, y=17)
-    py.hotkey('ctrlleft', 'w')
-    sleep(0.5)
     py.rightClick(x=164, y=17)
-    py.press('down')
     sleep(0.5)
-    py.press('down')
+    py.press('down', 3)
     sleep(0.5)
     py.press('enter')
     sleep(0.5)
@@ -173,9 +209,7 @@ def google():
     py.leftClick(x=1526, y=296)
     sleep(1)
     py.rightClick(x=365, y=12)
-    py.press('down')
-    sleep(0.5)
-    py.press('down')
+    py.press('down', 3)
     sleep(0.5)
     py.press('enter')
     sleep(0.5)
@@ -183,66 +217,62 @@ def google():
     sleep(0.5)
     py.press('enter')
     sleep(0.5)
+    py.rightClick(x=365, y=12)
+    py.press('down', 9)
+    sleep(0.5)
+    py.press('enter')
+    py.leftClick(x=164, y=17)
+    sleep(0.5)
+    if verificar(Imagens.Imagens.log3) is False:
+        login(1856, 129)
+    py.click(x=662, y=128)
+    sleep(1.5)
+    py.write('lofi')
+    sleep(1.5)
+    py.press('enter')
+    sleep(1.5)
     py.leftClick(x=365, y=12)
-    sleep(0.5)
-    py.rightClick()
-    py.press('down', 8)
-    sleep(0.5)
-    py.press('enter')
-    sleep(10)
-    py.leftClick(x=1593, y=389)
-    sleep(0.2)
-    py.leftClick(x=1564, y=387)
-    sleep(0.5)
-    py.leftClick(x=1593, y=454)
-    sleep(0.2)
-    py.leftClick(x=1564, y=456)
-    sleep(0.5)
-    py.leftClick(x=1593, y=579)
-    sleep(0.2)
-    py.leftClick(x=1564, y=577)
-    sleep(0.5)
-    py.leftClick(x=1593, y=702)
-    sleep(0.2)
-    py.leftClick(x=1564, y=705)
-    sleep(0.5)
-    py.leftClick(x=1593, y=765)
-    sleep(0.2)
-    py.leftClick(x=1564, y=766)
-    sleep(0.5)
+    while verificar(Imagens.Imagens.lofi) is False:
+        sleep(0.1)
+
+    for a, b in enumerate(barras):
+        py.leftClick(barra, barras[a])
+        sleep(0.5)
+    for b, c in enumerate(plays):
+        py.leftClick(play, plays[b])
+        sleep(0.5)
+
     py.leftClick(x=25, y=14)
     sleep(0.5)
     py.moveTo(x=922, y=564)
 
 
 def googlefds():
-    url = 'google.com'
     webbrowser.register('chrome',
                         None,
                         webbrowser.BackgroundBrowser(r"C:\Program Files\Google\Chrome\Application\chrome.exe"))
     sleep(0.5)
-    webbrowser.get('chrome').open(url)
+    webbrowser.get('chrome').open('https://mail.google.com/mail/u/0/?zx=7quikovz9bly#inbox')
     sleep(1)
-    webbrowser.open('https://mail.google.com/mail/u/0/?zx=7quikovz9bly#inbox')
-    sleep(0.3)
-    webbrowser.open('https://osu.ppy.sh/beatmapsets?m=0')
-    sleep(0.5)
-    py.leftClick(x=164, y=17)
-    sleep(0.5)
-    py.hotkey('ctrlleft', 'w')
+    webbrowser.open(osu)
     sleep(0.5)
     py.moveTo(x=922, y=564)
 
 
 num = date.today().weekday()
+num2 = date.today().day
+texto = ''
 
 sem = ("Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo")
+
+if num2 == 1:
+    texto = 'A propósito, hoje é dia de Limpar os Equipamentos!! XD'
 
 if num < 5:
     inicio()
     som()
     google()
-    py.alert(f"Processo finalizado!\nTenha uma boa {sem[num]}-Feira =D")
+    py.alert(f"Processo finalizado!\nTenha uma boa {sem[num]}-Feira =D\n{texto}")
 else:
     inicio()
     som()
