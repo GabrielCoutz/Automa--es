@@ -89,7 +89,7 @@ layout_aviso = [
     [pys.Text(
         f'Agora execute novamente e veja se o problema foi resolvido =)\n Caso não for, entre em contato pelo meu GitHub'
         f'\nLink:github.com/GabrielCoutz/Problema-Chiado', size=(50, 0))],
-    [pys.Button('Salvar', key='S_manual'), pys.Button('Cancelar', key='N_manual')]
+    [pys.Button('Salvar', key='S_aviso'), pys.Button('Cancelar', key='N_aviso')]
 ]
 # Verifica se o arquivo txt existe, se não, é criado
 try:
@@ -128,17 +128,30 @@ if not existe:
             for diretorio in drives:
                 diretorio = find("Bluestacks.exe", diretorio)
                 if diretorio:
+                    # Então é feita a gravação do local em um arquivo txt, para que na prox execução seja muito mais rápida
+                    x = open('local_bluestacks.txt', 'w+')
+                    x.write(diretorio)
+                    x.close()
+                    # Inicia o bluestacks baseado no local salvo no arquivo txt e faz a chamada da função explicada no início
+                    os.startfile(diretorio)
+                    resolver()
                     break
                 else:
                     jan_erro = pys.Window('Resolvendo Chiado', layout=layout_erro, finalize=True)
                     events, value = jan_erro.read()
                     if events == pys.WIN_CLOSED:
                         break
+                    if events == 'N_erro':
+                        jan_erro.close()
+                        break
                     if events == 'S_erro':
                         jan_erro.close()
                         jan_manual = pys.Window('Resolvendo Chiado', layout=layout_manual, finalize=True)
                         events, value = jan_manual.read()
                         if events == pys.WIN_CLOSED:
+                            break
+                        if events == 'N_manual':
+                            jan_manual.close()
                             break
                         if events == 'S_manual':
                             x = open('local_bluestacks.txt', 'w+')
@@ -147,30 +160,16 @@ if not existe:
                             jan_manual.close()
                             jan_aviso = pys.Window('Resolvendo Chiado', layout=layout_aviso, finalize=True)
                             events, value = jan_aviso.read()
+                            if events == 'S_aviso':
+                                jan_aviso.close()
+                                break
                             if events == pys.WIN_CLOSED:
                                 break
-                        if events == 'N_manual':
-                            jan_manual.close()
-                    if events == 'N_erro':
-                        jan_erro.close()
+                            if events == 'N_aviso':
+                                jan_aviso.close()
+                                break
                 # Para ver essa parte, retire o # abaixo
                 # print(diretorio)
-
-            # Então é feita a gravação do local em um arquivo txt, para que na prox execução seja muito mais rápida
-            x = open('local_bluestacks.txt', 'w+')
-            x.write(diretorio)
-            x.close()
-
-            # Inicia o bluestacks baseado no local salvo no arquivo txt e faz a chamada da função explicada no início
-            os.startfile(diretorio)
-            resolver()
-
-        # Essa parte ainda fiquei meio confuso, por enquanto vou deixá-la para futura avaliação
-        if existe:
-            x = open('local_bluestacks.txt', 'r')
-            x = x.readlines()
-            os.startfile(x[0])
-            resolver()
 
         # Caso for clicado o botão 'Cancelar' tudo é parado
         if events == 'Nao':
