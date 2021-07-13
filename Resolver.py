@@ -72,6 +72,25 @@ layout = [
     [pys.Button('Começar', key='Sim'), pys.Button('Cancelar', key='Nao')]
 ]
 
+layout_erro = [
+    [pys.Text(f'Não foi possível encontrar o diretório do seu BlueStacks'
+              f'\nDeseja colocá-lo manualmente?', size=(40, 0))],
+    [pys.Button('Sim', key='S_erro'), pys.Button('Não', key='N_erro')]
+]
+
+layout_manual = [
+    [pys.Text(f'Insira o local do seu BlueStacks\n\nExemplo: C:\Program Files\BlueStacks\Bluestacks.exe\n',
+              size=(40, 0))],
+    [pys.Input(key='manual')],
+    [pys.Button('Salvar', key='S_manual'), pys.Button('Cancelar', key='N_manual')]
+]
+
+layout_aviso = [
+    [pys.Text(
+        f'Agora execute novamente e veja se o problema foi resolvido =)\n Caso não for, entre em contato pelo meu GitHub'
+        f'\nLink:github.com/GabrielCoutz/Problema-Chiado', size=(50, 0))],
+    [pys.Button('Salvar', key='S_manual'), pys.Button('Cancelar', key='N_manual')]
+]
 # Verifica se o arquivo txt existe, se não, é criado
 try:
     x = open('local_bluestacks.txt', 'r')
@@ -84,7 +103,7 @@ except FileNotFoundError:
 # Se o arquivo existir, já é resolvido
 
 if existe:
-        resolver()
+    resolver()
 
 # Se não existir, o processo de procura é iniciado
 jan = pys.Window('Resolvendo Chiado', layout=layout, finalize=True)
@@ -110,7 +129,30 @@ if not existe:
                 diretorio = find("Bluestacks.exe", diretorio)
                 if diretorio:
                     break
-
+                else:
+                    jan_erro = pys.Window('Resolvendo Chiado', layout=layout_erro, finalize=True)
+                    events, value = jan_erro.read()
+                    if events == pys.WIN_CLOSED:
+                        break
+                    if events == 'S_erro':
+                        jan_erro.close()
+                        jan_manual = pys.Window('Resolvendo Chiado', layout=layout_manual, finalize=True)
+                        events, value = jan_manual.read()
+                        if events == pys.WIN_CLOSED:
+                            break
+                        if events == 'S_manual':
+                            x = open('local_bluestacks.txt', 'w+')
+                            x.write(value['manual'])
+                            x.close()
+                            jan_manual.close()
+                            jan_aviso = pys.Window('Resolvendo Chiado', layout=layout_aviso, finalize=True)
+                            events, value = jan_aviso.read()
+                            if events == pys.WIN_CLOSED:
+                                break
+                        if events == 'N_manual':
+                            jan_manual.close()
+                    if events == 'N_erro':
+                        jan_erro.close()
                 # Para ver essa parte, retire o # abaixo
                 # print(diretorio)
 
