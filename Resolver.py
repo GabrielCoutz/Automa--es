@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 import fnmatch
 import os
+import winsound
 import psutil
 import pygetwindow as window
 from time import sleep
@@ -117,6 +118,7 @@ if not existe:
             break
         if events == 'Sim':
             jan.close()
+            winsound.PlaySound(r'lib\\Musica_Maneira.wav', winsound.SND_ASYNC)
             # Verifica quantos discos de armazenamento existem no pc, como C: ou D:
             drives = win32api.GetLogicalDriveStrings()
             drives = drives.split('\000')[:-1]
