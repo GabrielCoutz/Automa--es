@@ -129,6 +129,11 @@ layout_aviso = [
     [pys.Button('Salvar', key='S_aviso'), pys.Button('Cancelar', key='N_aviso')]
 ]
 
+layout_encontrou = [
+    [pys.Text(
+        f'O diretório do BlueStacks foi encontrado com sucesso! XD\nPodemos continuar?', size=(45, 0))],
+    [pys.Button('Sim', key='S_find'), pys.Button('Não', key='N_find')]
+]
 # Verifica se o arquivo txt existe, e muda a variavel 'existe' de acordo
 try:
     x = open('local_bluestacks.txt', 'r')
@@ -170,6 +175,15 @@ if not existe:
             for diretorio in drives:
                 diretorio = find("Bluestacks.exe", diretorio)
                 if diretorio:
+                    jan_find = pys.Window('Resolvendo Chiado', layout=layout_encontrou, finalize=True)
+                    events, value = jan_find.read()
+                    if events == pys.WIN_CLOSED:
+                        break
+                    if events == 'N_find':
+                        jan_find.close()
+                        break
+                    if events == 'S_find':
+                        jan_find.close()
                     # Então é feita a gravação do local em um arquivo txt
                     # Para que na prox execução seja muito mais rápida
                     x = open('local_bluestacks.txt', 'w+')
@@ -195,10 +209,10 @@ if not existe:
             break
 # Apenas a janela final de execução do código
 jan.close()
-layout2 = [
+layout_final = [
     [pys.Text(f'Processo finalizado!', size=(25, 0))],
     [pys.Text(f'Caso precise de qualquer ajuda, só volte ao meu GitHub e leia o final da página =)', size=(50, 0))],
     [pys.Text(f'\nLink:github.com/GabrielCoutz/Problema-Chiado\n\nObrigado por usar meu programa <3', size=(50, 0))],
 ]
-jan2 = pys.Window('Resolvendo Chiado', layout=layout2, finalize=True)
-jan2.read()
+jan_final = pys.Window('Resolvendo Chiado', layout=layout_final, finalize=True)
+jan_final.read()
