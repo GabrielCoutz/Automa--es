@@ -94,21 +94,22 @@ def som():
         razer2 = py.locateCenterOnScreen(r'E:\Backup\backup PC\Imagens\razer2.png')
         py.doubleClick(razer2)
     except:
-        razeratt = py.locateCenterOnScreen(r'E:\Backup\backup PC\Imagens\attrazer.png')
-        py.doubleClick(razeratt)
-    sleep(2)
-    mouse = py.locateCenterOnScreen(r'E:\Backup\backup PC\Imagens\mouse.png')
-    if mouse is not None:
-        py.moveTo(mouse)
-        mou = py.position()
-        py.click(mou[0] + 90, mou[1])
+        pass
+    if py.locateCenterOnScreen(r'E:\Backup\backup PC\Imagens\attrazer.png') is None:
         sleep(1)
-        py.click(mou[0] - 180, mou[1] + 10)
-        f = 0
+        mouse = py.locateCenterOnScreen(r'E:\Backup\backup PC\Imagens\mouse.png')
+        if mouse is not None:
+            py.moveTo(mouse)
+            mou = py.position()
+            py.click(mou[0] + 90, mou[1])
+            sleep(1)
+            py.click(mou[0] - 180, mou[1] + 10)
+            f = 0
+        else:
+            f = 1
+            py.doubleClick(Imagens.Imagens.mais)
     else:
-        f = 1
-        py.doubleClick(Imagens.Imagens.mais)
-
+        pass
     try:
         py.doubleClick(Imagens.Imagens.razera)
         sleep(0.5)
@@ -118,7 +119,7 @@ def som():
         py.doubleClick(Imagens.Imagens.razera)
     sleep(1)
 
-    if verificar(Imagens.Imagens.loc) is False:
+    if window.getWindowsWithTitle('Razer') is None:
         py.leftClick(Imagens.Imagens.mais)
         sleep(1)
         py.doubleClick(Imagens.Imagens.razera)
