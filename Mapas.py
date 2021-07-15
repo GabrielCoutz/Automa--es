@@ -24,6 +24,11 @@ driver = webdriver.Chrome(executable_path=r"C:\Users\Gabri\anaconda3\chromedrive
 wait: WebDriverWait = WebDriverWait(driver, 15)
 driver.get(site)
 
+layout_mais = [
+    [pys.Text(f'Deseja mais mapas?', size=(30, 0))],
+    [pys.Button('Sim', key='Sim'), pys.Button('Não', key='Nao')]
+]
+
 
 def not1():
     layout2 = [
@@ -145,10 +150,36 @@ esperar_css(
     div:nth-child(2) > div > div > div.beatmapsets-search__input-container > input""")
 
 number_of_maps = not1()
+jan_mais = pys.Window('Pergunta', layout=layout_mais, finalize=True)
+jan_mais.hide()
 while True:
     if len(final) == number_of_maps:
         winsound.PlaySound(r'E:\Backup\Musicas\fim.wav', winsound.SND_ASYNC)
-        break
+        notificacao2 = not2()
+
+        if notificacao2[0] == 'Sim':
+            notificacao2[1].close()
+            webbrowser.register('chrome',
+                                None,
+                                webbrowser.BackgroundBrowser(r"C:\Program Files\Google\Chrome\Application\chrome.exe"))
+            for a in final:
+                webbrowser.open(a)
+                sleep(1)
+        jan_mais.un_hide()
+        events, value = jan_mais.read()
+        if events == 'Sim':
+            jan_mais.hide()
+            final.clear()
+            number_of_maps = not1()
+        if events == 'Nao':
+            jan_mais.close()
+            break
+        if events == pys.WIN_CLOSED:
+            break
+
+        if notificacao2[0] == 'Nao':
+            notificacao2[1].close()
+            break
 
     if loop == 21:
         line = line - 1
@@ -208,18 +239,4 @@ while True:
     c += 1
     f = 0
 
-notificacao2 = not2()
-
-if notificacao2[0] == 'Sim':
-    driver.quit()
-    notificacao2[1].close()
-    webbrowser.register('chrome',
-                        None,
-                        webbrowser.BackgroundBrowser(r"C:\Program Files\Google\Chrome\Application\chrome.exe"))
-    for a in final:
-        webbrowser.open(a)
-        sleep(1)
-
-if notificacao2[0] == 'Nao':
-    driver.quit()
-    notificacao2[1].close()
+driver.quit()
