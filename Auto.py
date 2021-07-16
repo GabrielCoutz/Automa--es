@@ -59,10 +59,20 @@ def login(x, y):
     sleep(4)
 
 
-def verificar(a):
-    if py.locateCenterOnScreen(a):
-        return True
-    return False
+def verificar(imagem, posicao=None):
+    if posicao:
+        if py.locateOnScreen(imagem, posicao):
+            return True
+        return False
+    else:
+        if py.locateCenterOnScreen(imagem):
+            return True
+        return False
+
+
+def esperar(imagem):
+    while verificar(imagem) is False:
+        pass
 
 
 def inicio():
@@ -73,7 +83,7 @@ def inicio():
 
 
 def som():
-    global bluestacks
+    global bluestacks, f
 
     os.startfile(r"C:\Program Files\BlueStacks\Bluestacks.exe")
     while True:
@@ -86,87 +96,57 @@ def som():
     sleep(1)
     fechar("HD-Agent.exe")
     sleep(1)
-
-    py.leftClick(Imagens.Imagens.mais)
-
-    sleep(2.5)
-    try:
-        razer2 = py.locateCenterOnScreen(r'E:\Backup\backup PC\Imagens\razer2.png')
-        py.doubleClick(razer2)
-    except:
-        pass
-    if py.locateCenterOnScreen(r'E:\Backup\backup PC\Imagens\attrazer.png') is None:
-        sleep(1)
-        mouse = py.locateCenterOnScreen(r'E:\Backup\backup PC\Imagens\mouse.png')
-        if mouse is not None:
-            py.moveTo(mouse)
-            mou = py.position()
-            py.click(mou[0] + 90, mou[1])
-            sleep(1)
-            py.click(mou[0] - 180, mou[1] + 10)
-            f = 0
-        else:
+    py.leftClick(py.locateOnScreen(Imagens.Imagens.mais))
+    if verificar(Imagens.Imagens.razeratt) is False:
+        try:
+            esperar(Imagens.Imagens.razer2)
+            py.doubleClick(py.locateOnScreen(Imagens.Imagens.razer2))
+            esperar(Imagens.Imagens.teste)
+            if verificar(Imagens.Imagens.mouse) is True:
+                esperar(Imagens.Imagens.teste)
+                aaaaa = py.locateOnScreen(Imagens.Imagens.teste)
+                py.moveTo(aaaaa[0] + 200, aaaaa[1] + 150)
+                sleep(1)
+                py.click(aaaaa[0] - 100, aaaaa[1] + 160)
+            else:
+                f = 1
+        except:
             f = 1
-            py.doubleClick(Imagens.Imagens.mais)
     else:
         pass
-    try:
-        py.doubleClick(Imagens.Imagens.razera)
-        sleep(0.5)
-    except:
-        py.leftClick(Imagens.Imagens.mais)
-        sleep(1)
-        py.doubleClick(Imagens.Imagens.razera)
-    sleep(1)
-
-    if window.getWindowsWithTitle('Razer') is None:
-        py.leftClick(Imagens.Imagens.mais)
-        sleep(1)
-        py.doubleClick(Imagens.Imagens.razera)
-        sleep(1)
-
+    os.startfile(r'C:\Program Files (x86)\Razer\Synapse\RzSynapse.exe')
+    while not window.getWindowsWithTitle('Razer'):
+        pass
     try:
         py.leftClick(Imagens.Imagens.conf2)
     except:
         py.leftClick(Imagens.Imagens.conf)
 
     pos1 = py.position()
-    xp2 = pos1[0]
-    yp2 = pos1[1]
-    py.leftClick(xp2 - 34, yp2 + 82)
-    py.leftClick(xp2 - 34, yp2 + 82)
-    py.leftClick(xp2 - 34, yp2 + 82)
+    py.leftClick(pos1[0] - 34, pos1[1] + 82)
+    py.leftClick(pos1[0] - 34, pos1[1] + 82)
+    py.leftClick(pos1[0] - 34, pos1[1] + 82)
 
-    sleep(1.3)
+    sleep(1.5)
 
     pos = py.position()
-    xp = pos[0]
-    yp = pos[1]
-    py.leftClick(xp - 70, yp)
-    py.leftClick(xp - 70, yp)
-    py.leftClick(xp - 70, yp)
-    sleep(1)
+    py.leftClick(pos[0] - 70, pos[1])
+    py.leftClick(pos[0] - 70, pos[1])
+    py.leftClick(pos[0] - 70, pos[1])
 
     janrazer = window.getWindowsWithTitle("Razer")
     window.Window.close(janrazer[0])
 
     if f != 0:
         try:
-            py.leftClick(Imagens.Imagens.mais)
-            sleep(2.5)
-            try:
-                razer2 = py.locateCenterOnScreen(r'E:\Backup\backup PC\Imagens\razer2.png')
-                py.doubleClick(razer2)
-            except:
-                razeratt = py.locateCenterOnScreen(r'E:\Backup\backup PC\Imagens\attrazer.png')
-                py.doubleClick(razeratt)
-            sleep(2)
-            mouse = py.locateCenterOnScreen(r'E:\Backup\backup PC\Imagens\mouse.png')
-            py.moveTo(mouse)
-            mou = py.position()
-            py.click(mou[0] + 90, mou[1])
+            py.leftClick(py.locateOnScreen(Imagens.Imagens.mais))
+            esperar(Imagens.Imagens.razer2)
+            py.doubleClick(py.locateOnScreen(Imagens.Imagens.razer2))
+            esperar(Imagens.Imagens.teste)
+            aaaaa = py.locateOnScreen(Imagens.Imagens.teste)
+            py.moveTo(aaaaa[0] + 200, aaaaa[1] + 150)
             sleep(1)
-            py.click(mou[0] - 180, mou[1] + 10)
+            py.click(aaaaa[0] - 100, aaaaa[1] + 160)
         except:
             pass
 
@@ -235,7 +215,7 @@ def google():
     py.leftClick(x=365, y=12)
     while verificar(Imagens.Imagens.lofi) is False:
         sleep(0.1)
-
+    sleep(0.5)
     for a, b in enumerate(barras):
         py.leftClick(barra, barras[a])
         sleep(0.5)
