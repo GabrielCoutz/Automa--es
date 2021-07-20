@@ -24,11 +24,6 @@ driver = webdriver.Chrome(executable_path=r"C:\Users\Gabri\anaconda3\chromedrive
 wait: WebDriverWait = WebDriverWait(driver, 15)
 driver.get(site)
 
-layout_mais = [
-    [pys.Text(f'Deseja mais mapas?', size=(30, 0))],
-    [pys.Button('Sim', key='Sim'), pys.Button('Não', key='Nao')]
-]
-
 
 def not1():
     layout2 = [
@@ -69,6 +64,14 @@ def not2():
     return l
 
 
+def not3():
+    layout_mais = [
+        [pys.Text(f'Deseja mais mapas?', size=(30, 0))],
+        [pys.Button('Sim', key='Sim'), pys.Button('Não', key='Nao')]
+    ]
+    return layout_mais
+
+
 def inicio():
     global line, column, c, loop, nome_mapa
     games = driver.find_element_by_css_selector(
@@ -76,10 +79,9 @@ def inicio():
                    .beatmapset-panel__info-row--extra""")
 
     nome_mapa = achar_css(
-        f"""body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > div > 
-            div.osu-layout__row.osu-layout__row--page-compact > div > div.beatmapsets__content.js-audio--group > div 
-            > div > div:nth-child({line}) > div:nth-child({column}) > div > div > div.beatmapset-panel__info > 
-            div.beatmapset-panel__info-row.beatmapset-panel__info-row--title > a""")
+        f""".beatmapsets__content.js-audio--group > 
+        div > div > div:nth-child({line}) > div:nth-child({column}) > div > div > div.beatmapset-panel__info > 
+        div.beatmapset-panel__info-row.beatmapset-panel__info-row--title > a""")
 
     for nome in nome_mapa:
         nome_mapa = nome.text
@@ -93,23 +95,16 @@ def inicio():
     actions.move_to_element(games).perform()
 
     esperar_css(".beatmaps-popup__group")
-    scores = achar_css(
-        ".difficulty-badge")
+    scores = achar_css(".difficulty-badge")
 
     l = [games, scores, nome_mapa]
     return l
 
 
 def pegar_link():
-    esperar_css(f"""body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_show > 
-                    div > div > div.osu-layout__row.osu-layout__row--page-compact > div.beatmapset-header > div > 
-                    div.beatmapset-header__box.beatmapset-header__box--main > div.beatmapset-header__buttons > 
-                    a.btn-osu-big.btn-osu-big--beatmapset-header.js-beatmapset-download-link > span""")
-    nome_mapa = achar_css(
-        """body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_show > div > div > 
-        div.osu-layout__row.osu-layout__row--page-compact > div.beatmapset-header > div > 
-        div.beatmapset-header__box.beatmapset-header__box--main > 
-        span.beatmapset-header__details-text.beatmapset-header__details-text--title > a""")
+    global c
+    esperar_css(f""".js-beatmapset-download-link > span""")
+    nome_mapa = achar_css(""".beatmapset-header__details-text--title > a""")
     link_test = ''
     for nome in nome_mapa:
         nome_mapa = nome.text
@@ -118,6 +113,8 @@ def pegar_link():
     driver.back()
     esperar_css(f"""body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > 
                             div > div:nth-child(2) > div > div > div.beatmapsets-search__input-container > input""")
+    if c > 22:
+        sleep(1)
 
     return nome_mapa
 
@@ -150,8 +147,9 @@ esperar_css(
     div:nth-child(2) > div > div > div.beatmapsets-search__input-container > input""")
 
 number_of_maps = not1()
-jan_mais = pys.Window('Pergunta', layout=layout_mais, finalize=True)
+jan_mais = pys.Window('Pergunta', layout=not3(), finalize=True)
 jan_mais.hide()
+
 while True:
     if len(final) == number_of_maps:
         winsound.PlaySound(r'E:\Backup\Musicas\fim.wav', winsound.SND_ASYNC)
