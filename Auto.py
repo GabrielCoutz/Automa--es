@@ -1,4 +1,4 @@
-# -*-coding: utf-8-*-
+# -*- encoding: utf-8 -*-
 import pyautogui as py
 from time import sleep
 import webbrowser
@@ -103,7 +103,6 @@ def som():
             py.doubleClick(py.locateOnScreen(Imagens.Imagens.razer2))
             esperar(Imagens.Imagens.teste)
             if verificar(Imagens.Imagens.mouse) is True:
-                esperar(Imagens.Imagens.teste)
                 aaaaa = py.locateOnScreen(Imagens.Imagens.teste)
                 py.moveTo(aaaaa[0] + 200, aaaaa[1] + 150)
                 sleep(1)
@@ -117,6 +116,7 @@ def som():
     os.startfile(r'C:\Program Files (x86)\Razer\Synapse\RzSynapse.exe')
     while not window.getWindowsWithTitle('Razer'):
         pass
+    sleep(1)
     try:
         py.leftClick(Imagens.Imagens.conf2)
     except:
@@ -143,10 +143,13 @@ def som():
             esperar(Imagens.Imagens.razer2)
             py.doubleClick(py.locateOnScreen(Imagens.Imagens.razer2))
             esperar(Imagens.Imagens.teste)
-            aaaaa = py.locateOnScreen(Imagens.Imagens.teste)
-            py.moveTo(aaaaa[0] + 200, aaaaa[1] + 150)
-            sleep(1)
-            py.click(aaaaa[0] - 100, aaaaa[1] + 160)
+            if verificar(Imagens.Imagens.mouse) is True:
+                aaaaa = py.locateOnScreen(Imagens.Imagens.teste)
+                py.moveTo(aaaaa[0] + 200, aaaaa[1] + 150)
+                sleep(1)
+                py.click(aaaaa[0] - 100, aaaaa[1] + 160)
+            else:
+                pass
         except:
             pass
 
