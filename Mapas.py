@@ -10,7 +10,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 
 lista = {}
-nome_mapa, site = '', ''
+nome_mapa, site, games = '', '', ''
 num = date.today().weekday()
 links, difficulty, final, nomes = [], [], [], []
 line, column, loop, c, f = 1, 1, 1, 1, 0
@@ -19,7 +19,6 @@ if num < 5:
     site = "https://osu.ppy.sh/beatmapsets?m=0&s=pending"
 else:
     site = "https://osu.ppy.sh/beatmapsets?m=0"
-games = ''
 driver = webdriver.Chrome(executable_path=r"C:\Users\Gabri\anaconda3\chromedriver.exe")
 wait: WebDriverWait = WebDriverWait(driver, 15)
 driver.get(site)
