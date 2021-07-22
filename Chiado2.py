@@ -65,7 +65,7 @@ def cmd(comando):
     os.system(f'cmd /c {comando}')
 
 
-cmd('pip install --no-cache-dir -r https://raw.githubusercontent.com/GabrielCoutz/Problema-Chiado/main/requirements.txt')
+# cmd('pip install --no-cache-dir -r https://raw.githubusercontent.com/GabrielCoutz/Problema-Chiado/main/requirements.txt')
 
 layout = [
     [pys.Text('Bem vindo =)', size=(25, 0))],
@@ -132,6 +132,8 @@ if existe:
 
 drives = win32api.GetLogicalDriveStrings()
 drives = drives.split('\000')[:-1]
+drives = drives[::-1]
+
 c = 0
 jan = pys.Window('Resolvendo Chiado', layout=layout, finalize=True)
 if not existe:
@@ -146,7 +148,6 @@ if not existe:
             jan.close()
             winsound.PlaySound(r'lib\\Musica_Maneira.wav', winsound.SND_ASYNC)
             for diretorio in drives:
-                print(c)
                 diretorio = find("dpclat.exe", diretorio)
                 if diretorio:
                     jan_find = pys.Window('Resolvendo Chiado', layout=layout_encontrou, finalize=True)
