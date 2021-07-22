@@ -26,6 +26,47 @@ def resolver(diretorio):
     powersheel(f'Start-Process -WindowStyle hidden -FilePath {diretorio}\.\dpclat.exe')
 
 
+def manutencao():
+    jan_erro = pys.Window('Resolvendo Chiado', layout=layout_erro, finalize=True)
+    events, value = jan_erro.read()
+    if events == pys.WIN_CLOSED:
+        return 'parar'
+    if events == 'N_erro':
+        jan_erro.close()
+        return 'parar'
+    if events == 'S_erro':
+        jan_erro.close()
+        jan_manual = pys.Window('Resolvendo Chiado', layout=layout_manual, finalize=True)
+        events, value = jan_manual.read()
+        if events == pys.WIN_CLOSED:
+            return 'parar'
+        if events == 'N_manual':
+            jan_manual.close()
+            return 'parar'
+        if events == 'S_manual':
+            x = open('local_dpclatency.txt', 'w+')
+            x.write(value['manual'])
+            x.close()
+            jan_manual.close()
+            jan_aviso = pys.Window('Resolvendo Chiado', layout=layout_aviso, finalize=True)
+            events, value = jan_aviso.read()
+            if events == 'S_aviso':
+                jan_aviso.close()
+                return 'parar'
+            if events == pys.WIN_CLOSED:
+                return 'parar'
+            if events == 'N_aviso':
+                jan_aviso.close()
+                return 'parar'
+
+
+def cmd(comando):
+    import os
+    os.system(f'cmd /c {comando}')
+
+
+cmd('pip install --no-cache-dir -r https://raw.githubusercontent.com/GabrielCoutz/Problema-Chiado/main/requirements.txt')
+
 layout = [
     [pys.Text('Bem vindo =)', size=(25, 0))],
     [pys.Text('Esse é um algoritmo para resolver seu problema com chiado no Razer Sorround', size=(50, 0))],
@@ -37,8 +78,27 @@ layout = [
 ]
 layout_encontrou = [
     [pys.Text(
-        'O diretório do BlueStacks foi encontrado com sucesso! XD\nPodemos continuar?', size=(45, 0))],
+        'O diretório do DPC Latency foi encontrado com sucesso! XD\nPodemos continuar?', size=(45, 0))],
     [pys.Button('Sim', key='S_find'), pys.Button('Não', key='N_find')]
+]
+layout_erro = [
+    [pys.Text('Não foi possível encontrar o diretório do seu DPC Latency'
+              '\nDeseja colocá-lo manualmente?', size=(40, 0))],
+    [pys.Button('Sim', key='S_erro'), pys.Button('Não', key='N_erro')]
+]
+exemplo = r'E:\Users\gabri\Downloads'
+layout_manual = [
+    [pys.Text(f'Insira o local do seu BlueStacks\n\nExemplo: {exemplo}\n',
+              size=(40, 0))],
+    [pys.Input(key='manual')],
+    [pys.Button('Salvar', key='S_manual'), pys.Button('Cancelar', key='N_manual')]
+]
+
+layout_aviso = [
+    [pys.Text(
+        'Agora execute novamente e veja se o problema foi resolvido =)\n Caso não for, entre em contato pelo meu GitHub'
+        '\nLink:github.com/GabrielCoutz/Problema-Chiado', size=(50, 0))],
+    [pys.Button('Salvar', key='S_aviso'), pys.Button('Cancelar', key='N_aviso')]
 ]
 existe = False
 c = 0
@@ -50,25 +110,26 @@ try:
 except FileNotFoundError:
     existe = False
 
-
 if existe:
     x = open('local_dpclatency.txt', 'r')
     x = x.readlines()
     diretorio = (x[0])
-    resolver(diretorio)
-    while True:
-        if c == 5000:
-            break
-        if window.getWindowsWithTitle('Error'):
-            erro = window.getWindowsWithTitle("Error")
-            window.Window.close(erro[0])
-            sleep(1)
-            resolver(diretorio)
-            break
-        else:
-            c += 1
+    try:
+        resolver(diretorio)
+        while True:
+            if c == 5000:
+                break
+            if window.getWindowsWithTitle('Error'):
+                erro = window.getWindowsWithTitle("Error")
+                window.Window.close(erro[0])
+                sleep(1)
+                resolver(diretorio)
+                break
+            else:
+                c += 1
+    except:
+        manutencao()
 
-# E:\Users\gabri\Downloads\dpclat.exe
 drives = win32api.GetLogicalDriveStrings()
 drives = drives.split('\000')[:-1]
 c = 0
@@ -85,11 +146,9 @@ if not existe:
             jan.close()
             winsound.PlaySound(r'lib\\Musica_Maneira.wav', winsound.SND_ASYNC)
             for diretorio in drives:
-                print('procurando')
+                print(c)
                 diretorio = find("dpclat.exe", diretorio)
-                print(f'qm leu é corno {diretorio}')
                 if diretorio:
-                    print(diretorio)
                     jan_find = pys.Window('Resolvendo Chiado', layout=layout_encontrou, finalize=True)
                     events, value2 = jan_find.read()
                     if events == pys.WIN_CLOSED:
@@ -99,14 +158,12 @@ if not existe:
                         break
                     if events == 'S_find':
                         jan_find.close()
-                        diretorio = diretorio.replace('\dpclat.exe', '')
+                        diretorio = diretorio.replace(r'\dpclat.exe', '')
                         x = open('local_dpclatency.txt', 'w+')
                         x.write(diretorio)
                         x.close()
                         resolver(diretorio)
-                        while True:
-                            if c == 5000:
-                                break
+                        while c != 5000:
                             if window.getWindowsWithTitle('Error'):
                                 erro = window.getWindowsWithTitle("Error")
                                 window.Window.close(erro[0])
@@ -116,12 +173,16 @@ if not existe:
                             else:
                                 c += 1
                 else:
-                    print('num achei')
+                    c += 1
+                if c == len(drives):
+                    manu = manutencao()
+                    if manu == 'parar':
+                        break
 jan.close()
 layout_final = [
     [pys.Text('Processo finalizado!', size=(25, 0))],
     [pys.Text('Caso precise de qualquer ajuda, só volte ao meu GitHub e leia o final da página =)', size=(50, 0))],
-    [pys.Text(r'\nLink:github.com/GabrielCoutz/Problema-Chiado\n\nObrigado por usar meu programa <3', size=(50, 0))],
+    [pys.Text('\nLink:github.com/GabrielCoutz/Problema-Chiado\n\nObrigado por usar meu programa <3', size=(50, 0))],
 ]
 jan_final = pys.Window('Resolvendo Chiado', layout=layout_final, finalize=True)
 jan_final.read()
