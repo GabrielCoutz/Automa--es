@@ -105,26 +105,22 @@ def pegar_link():
     pega = False
     nome_mapa = ''
     esperar_css(f""".js-beatmapset-download-link > span""")
-    # tempo = achar_css("""body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_show > div >
-    # div > div.osu-layout__row.osu-layout__row--page-compact > div.beatmapset-header > div >
-    # div.beatmapset-header__box.beatmapset-header__box--stats > div.beatmapset-stats >
-    # div.beatmapset-stats__row.beatmapset-stats__row--basic > div > div:nth-child(1) > span""")
-    # for a in tempo:
-    #     print(a.text)
     mapas = achar_css(""".beatmapset-beatmap-picker__beatmap""")
-    for a in mapas:
+    for clicar in mapas:
+
         dif = achar_css('.beatmapset-header__star-difficulty')
         actions = ActionChains(driver)
-        actions.move_to_element(a).perform()
+        actions.move_to_element(clicar).perform()
         for a in dif:
             xax = a.text
             xax2 = xax.replace('Dificuldade ', '')
             xax3 = xax2.replace(',', '.')
             xax3 = float(xax3)
-            print(xax3)
             if 5.90 <= xax3 <= 6.50:
-                print('bateu')
-        a.click()
+                pega = True
+                break
+
+        clicar.click()
         duracao = achar_css("""body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_show > div > 
         div > div.osu-layout__row.osu-layout__row--page-compact > div.beatmapset-header > div > 
         div.beatmapset-header__box.beatmapset-header__box--stats > div.beatmapset-stats > 
@@ -134,8 +130,6 @@ def pegar_link():
             dur_str = dur_str.replace(':', '.')
             dur_float = float(dur_str)
             duracoes.append(dur_float)
-            print(dur_float)
-            sleep(3)
         for tempo in duracoes:
             if tempo >= 1.50:
                 pega = True
@@ -155,9 +149,10 @@ def pegar_link():
     else:
         driver.back()
         esperar_css(f"""body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > 
-                                        div > div:nth-child(2) > div > div > div.beatmapsets-search__input-container > input""")
+                                        div > div:nth-child(2) > div > div > 
+                                        div.beatmapsets-search__input-container > input""")
     if c > 22:
-        sleep(1)
+        sleep(2)
     return nome_mapa
 
 
@@ -188,7 +183,7 @@ esperar_css(
     """body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > div > 
     div:nth-child(2) > div > div > div.beatmapsets-search__input-container > input""")
 
-number_of_maps = 5
+number_of_maps = not1()
 jan_mais = pys.Window('Pergunta', layout=not3(), finalize=True)
 jan_mais.hide()
 
@@ -228,7 +223,7 @@ while True:
     scores = inicio()
 
     # print('-' * 70)
-    print(f'Mapas encontrados: {len(final)}')
+    # print(f'Mapas encontrados: {len(final)}')
     # print(f'Line {line}')
     # print(f'Column {column}\n')
 
@@ -270,7 +265,6 @@ while True:
     for url in links:
         if url not in final:
             final.append(str(url))
-    print(duracoes)
     difficulty.clear()
     lista.clear()
     links.clear()
