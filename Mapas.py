@@ -12,7 +12,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 lista = {}
 nome_mapa, site, games = '', '', ''
 num = date.today().weekday()
-links, difficulty, final, nomes = [], [], [], []
+links, difficulty, final, nomes, duracoes = [], [], [], [], []
 line, column, loop, c, f = 1, 1, 1, 1, 0
 
 if num < 5:
@@ -101,20 +101,63 @@ def inicio():
 
 
 def pegar_link():
-    global c
+    global c, duracoes
+    pega = False
+    nome_mapa = ''
     esperar_css(f""".js-beatmapset-download-link > span""")
+    # tempo = achar_css("""body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_show > div >
+    # div > div.osu-layout__row.osu-layout__row--page-compact > div.beatmapset-header > div >
+    # div.beatmapset-header__box.beatmapset-header__box--stats > div.beatmapset-stats >
+    # div.beatmapset-stats__row.beatmapset-stats__row--basic > div > div:nth-child(1) > span""")
+    # for a in tempo:
+    #     print(a.text)
+    mapas = achar_css(""".beatmapset-beatmap-picker__beatmap""")
+    for a in mapas:
+        dif = achar_css('.beatmapset-header__star-difficulty')
+        actions = ActionChains(driver)
+        actions.move_to_element(a).perform()
+        for a in dif:
+            xax = a.text
+            xax2 = xax.replace('Dificuldade ', '')
+            xax3 = xax2.replace(',', '.')
+            xax3 = float(xax3)
+            print(xax3)
+            if 5.90 <= xax3 <= 6.50:
+                print('bateu')
+        a.click()
+        duracao = achar_css("""body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_show > div > 
+        div > div.osu-layout__row.osu-layout__row--page-compact > div.beatmapset-header > div > 
+        div.beatmapset-header__box.beatmapset-header__box--stats > div.beatmapset-stats > 
+        div.beatmapset-stats__row.beatmapset-stats__row--basic > div > div:nth-child(1) > span""")
+        for a in duracao:
+            dur_str = a.text
+            dur_str = dur_str.replace(':', '.')
+            dur_float = float(dur_str)
+            duracoes.append(dur_float)
+            print(dur_float)
+            sleep(3)
+        for tempo in duracoes:
+            if tempo >= 1.50:
+                pega = True
+                break
+            else:
+                pega = False
     nome_mapa = achar_css(""".beatmapset-header__details-text--title > a""")
-    link_test = ''
-    for nome in nome_mapa:
-        nome_mapa = nome.text
-    link_test = driver.current_url
-    links.append(link_test)
-    driver.back()
-    esperar_css(f"""body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > 
-                            div > div:nth-child(2) > div > div > div.beatmapsets-search__input-container > input""")
+    if pega:
+        link_test = ''
+        for nome in nome_mapa:
+            nome_mapa = nome.text
+        link_test = driver.current_url
+        links.append(link_test)
+        driver.back()
+        esperar_css(f"""body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > 
+                                div > div:nth-child(2) > div > div > div.beatmapsets-search__input-container > input""")
+    else:
+        driver.back()
+        esperar_css(f"""body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > 
+                                        div > div:nth-child(2) > div > div > div.beatmapsets-search__input-container > input""")
     if c > 22:
         sleep(1)
-
     return nome_mapa
 
 
@@ -145,7 +188,7 @@ esperar_css(
     """body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > div > 
     div:nth-child(2) > div > div > div.beatmapsets-search__input-container > input""")
 
-number_of_maps = not1()
+number_of_maps = 5
 jan_mais = pys.Window('Pergunta', layout=not3(), finalize=True)
 jan_mais.hide()
 
@@ -185,7 +228,7 @@ while True:
     scores = inicio()
 
     # print('-' * 70)
-    # print(f'Mapas encontrados: {len(final)}')
+    print(f'Mapas encontrados: {len(final)}')
     # print(f'Line {line}')
     # print(f'Column {column}\n')
 
@@ -208,7 +251,7 @@ while True:
     nome_mapa = scores[2]
 
     for numbers in difficulty:
-        if 5.40 <= numbers <= 6.50:
+        if 5.90 <= numbers <= 6.50:
             f = 1
     if f != 0 and nome_mapa not in nomes:
         scores[0].click()
@@ -227,10 +270,11 @@ while True:
     for url in links:
         if url not in final:
             final.append(str(url))
-
+    print(duracoes)
     difficulty.clear()
     lista.clear()
     links.clear()
+    duracoes.clear()
     nome_mapa = ''
     loop += 1
     c += 1
