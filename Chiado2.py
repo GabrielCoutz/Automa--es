@@ -5,6 +5,11 @@ from time import sleep
 import PySimpleGUI as pys
 
 
+def cmd(comando):
+    import os
+    os.system(f'cmd /c {comando}')
+
+
 def powersheel(comando):
     import os
     os.system(f'powershell /c {comando}')
@@ -14,8 +19,8 @@ def resolver():
     powersheel(r'Start-Process -WindowStyle hidden -FilePath .\lib\dpclat.exe')
 
 
-# cmd(
-# 'pip install --no-cache-dir -r https://raw.githubusercontent.com/GabrielCoutz/Problema-Chiado/main/requirements.txt')
+cmd(
+'pip install --no-cache-dir -r https://raw.githubusercontent.com/GabrielCoutz/Problema-Chiado/main/requirements.txt')
 
 layout = [
     [pys.Text('Bem vindo =)', size=(25, 0))],
