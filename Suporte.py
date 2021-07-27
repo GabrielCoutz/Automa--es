@@ -9,7 +9,7 @@ spec = importlib.util.spec_from_file_location(
     "name", "C:\\Users\\Gabri\\PycharmProjects\\pythonProject\\Imagens.py")
 Imagens = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(Imagens)
-f = 0
+f, c = 0, 0
 
 
 def finalizar(a):
@@ -26,6 +26,15 @@ def verificar(a):
     return False
 
 
+def powersheel(comando):
+    import os
+    os.system(f'powershell /c {comando}')
+
+
+def resolver():
+    powersheel(r'Start-Process -WindowStyle hidden -FilePath C:\Users\Gabri\Documents\dpclat.exe')
+
+
 def fechar(name):
     os.system("taskkill /f /im " + name)
 
@@ -36,19 +45,16 @@ def esperar(imagem):
 
 
 py.alert(title='Protocolo De Som', text='Este protocolo será iniciado!\nNão mexa no computador até que termine!!!')
-bluestacks = window.getWindowsWithTitle('Blue')
-os.startfile(r"C:\Program Files\BlueStacks\Bluestacks.exe")
-while True:
-    if ("Bluestacks.exe" in (i.name() for i in psutil.process_iter())) is True and len(bluestacks) >= 1:
+resolver()
+while c != 5000:
+    if window.getWindowsWithTitle('Error'):
+        janela = window.getWindowsWithTitle("Error")
+        window.Window.close(janela[0])
+        sleep(1)
+        resolver()
         break
     else:
-        bluestacks = window.getWindowsWithTitle('Blue')
-
-sleep(1)
-fechar("Bluestacks.exe")
-sleep(1)
-fechar("HD-Agent.exe")
-sleep(1)
+        c += 1
 
 py.leftClick(py.locateOnScreen(Imagens.Imagens.mais))
 if verificar(Imagens.Imagens.razeratt) is False:

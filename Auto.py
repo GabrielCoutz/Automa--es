@@ -14,7 +14,7 @@ import pygetwindow as window
 locale.setlocale(locale.LC_ALL, 'pt_BR.utf8')
 osu = ''
 dia = date.today().weekday()
-f = 0
+f, c = 0, 0
 bluestacks = window.getWindowsWithTitle('Blue')
 barra, play = 1593, 1564
 barras = [389, 454, 579, 702, 765]
@@ -82,20 +82,28 @@ def inicio():
     winsound.PlaySound(f'E:\\Backup\\Musicas\\intro{r}.wav', winsound.SND_ASYNC)
 
 
-def som():
-    global bluestacks, f
+def powersheel(comando):
+    import os
+    os.system(f'powershell /c {comando}')
 
-    os.startfile(r"C:\Program Files\BlueStacks\Bluestacks.exe")
-    while True:
-        if ("Bluestacks.exe" in (i.name() for i in psutil.process_iter())) is True and len(bluestacks) >= 1:
+
+def resolver():
+    powersheel(r'Start-Process -WindowStyle hidden -FilePath C:\Users\Gabri\Documents\dpclat.exe')
+
+
+def som():
+    global bluestacks, f, c
+
+    resolver()
+    while c != 5000:
+        if window.getWindowsWithTitle('Error'):
+            janela = window.getWindowsWithTitle("Error")
+            window.Window.close(janela[0])
+            sleep(1)
+            resolver()
             break
         else:
-            bluestacks = window.getWindowsWithTitle('Blue')
-    sleep(1)
-    fechar("Bluestacks.exe")
-    sleep(1)
-    fechar("HD-Agent.exe")
-    sleep(1)
+            c += 1
     py.leftClick(py.locateOnScreen(Imagens.Imagens.mais))
     if verificar(Imagens.Imagens.razeratt) is False:
         try:
@@ -256,9 +264,11 @@ if num < 5:
     inicio()
     som()
     google()
+    os.startfile(r'E:\Backup\Pastas de Automações\VivoPasta\vivo.exe')
     py.alert(f"Processo finalizado!\nTenha uma boa {sem[num]}-Feira =D\n{texto}")
 else:
     inicio()
     som()
     googlefds()
+    os.startfile(r'E:\Backup\Pastas de Automações\VivoPasta\vivo.exe')
     py.alert(f"Processo finalizado!\nTenha um bom {sem[num]} =D")
