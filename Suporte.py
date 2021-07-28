@@ -2,7 +2,6 @@ import pyautogui as py
 from time import sleep
 import os
 import importlib.util
-import psutil
 import pygetwindow as window
 
 spec = importlib.util.spec_from_file_location(
