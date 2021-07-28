@@ -12,7 +12,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 lista = {}
 nome_mapa, site, games = '', '', ''
 num = date.today().weekday()
-links, difficulty, final, nomes, duracoes = [], [], [], [], []
+links, difficulty, final, nomes = [], [], [], []
 line, column, loop, c, f = 1, 1, 1, 1, 0
 
 if num < 5:
@@ -42,7 +42,7 @@ def not1():
         except:
             jan2.close()
             layout2 = [
-                [pys.Text(f'Por favor, insira um número!', size=(25, 0))],
+                [pys.Text(f'Por favor, insira apenas números!', size=(25, 0))],
                 [pys.Input(size=(20, 0), key='num'), pys.Button('Enviar', key='Enviar')]
             ]
             jan2 = pys.Window('Procura', layout=layout2, finalize=True)
@@ -92,6 +92,7 @@ def inicio():
 
     actions = ActionChains(driver)
     actions.move_to_element(games).perform()
+    # sleep(1)
 
     esperar_css(".beatmaps-popup__group")
     scores = achar_css(".difficulty-badge")
@@ -101,46 +102,47 @@ def inicio():
 
 
 def pegar_link():
-    global c, duracoes
+    global c
     pega = False
     nome_mapa = ''
     esperar_css(f""".js-beatmapset-download-link > span""")
+
+    nome_mapa = achar_css(""".beatmapset-header__details-text--title > a""")
+    for nome in nome_mapa:
+        nome_mapa = nome.text
+        nomes.append(nome_mapa)
+
     mapas = achar_css(""".beatmapset-beatmap-picker__beatmap""")
     for clicar in mapas:
-
+        if pega:
+            break
         dif = achar_css('.beatmapset-header__star-difficulty')
         actions = ActionChains(driver)
         actions.move_to_element(clicar).perform()
+
         for a in dif:
+            if pega:
+                break
             xax = a.text
             xax2 = xax.replace('Dificuldade ', '')
             xax3 = xax2.replace(',', '.')
             xax3 = float(xax3)
             if 5.90 <= xax3 <= 6.50:
-                pega = True
-                break
+                clicar.click()
+                duracao = achar_css(""".beatmapset-stats__row--basic > div > div:nth-child(1) > span""")
+                for a in duracao:
+                    dur_str = a.text
+                    dur_str = dur_str.replace(':', '.')
+                    dur_float = float(dur_str)
+                    # sleep(1)
+                    if 1.50 <= dur_float <= 6.00:
+                        pega = True
+                        break
+                    else:
+                        pass
 
-        clicar.click()
-        duracao = achar_css("""body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_show > div > 
-        div > div.osu-layout__row.osu-layout__row--page-compact > div.beatmapset-header > div > 
-        div.beatmapset-header__box.beatmapset-header__box--stats > div.beatmapset-stats > 
-        div.beatmapset-stats__row.beatmapset-stats__row--basic > div > div:nth-child(1) > span""")
-        for a in duracao:
-            dur_str = a.text
-            dur_str = dur_str.replace(':', '.')
-            dur_float = float(dur_str)
-            duracoes.append(dur_float)
-        for tempo in duracoes:
-            if tempo >= 1.50:
-                pega = True
-                break
-            else:
-                pega = False
-    nome_mapa = achar_css(""".beatmapset-header__details-text--title > a""")
     if pega:
         link_test = ''
-        for nome in nome_mapa:
-            nome_mapa = nome.text
         link_test = driver.current_url
         links.append(link_test)
         driver.back()
@@ -152,7 +154,7 @@ def pegar_link():
                                         div > div:nth-child(2) > div > div > 
                                         div.beatmapsets-search__input-container > input""")
     if c > 22:
-        sleep(2)
+        sleep(3)
     return nome_mapa
 
 
@@ -194,12 +196,16 @@ while True:
 
         if notificacao2[0] == 'Sim':
             notificacao2[1].close()
-            webbrowser.register('chrome',
-                                None,
+            webbrowser.register('chrome', None,
                                 webbrowser.BackgroundBrowser(r"C:\Program Files\Google\Chrome\Application\chrome.exe"))
             for a in final:
                 webbrowser.open(a)
                 sleep(1)
+
+        if notificacao2[0] == 'Nao':
+            notificacao2[1].close()
+            break
+
         jan_mais.un_hide()
         events, value = jan_mais.read()
         if events == 'Sim':
@@ -210,10 +216,6 @@ while True:
             jan_mais.close()
             break
         if events == pys.WIN_CLOSED:
-            break
-
-        if notificacao2[0] == 'Nao':
-            notificacao2[1].close()
             break
 
     if loop == 21:
@@ -268,7 +270,6 @@ while True:
     difficulty.clear()
     lista.clear()
     links.clear()
-    duracoes.clear()
     nome_mapa = ''
     loop += 1
     c += 1
