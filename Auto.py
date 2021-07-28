@@ -8,7 +8,6 @@ from random import randint
 from datetime import date
 import locale
 import os
-import psutil
 import pygetwindow as window
 
 locale.setlocale(locale.LC_ALL, 'pt_BR.utf8')
