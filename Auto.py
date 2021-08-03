@@ -51,11 +51,15 @@ def login(x, y):
     sleep(1)
     py.press('enter')
     sleep(1.5)
-    while verificar(Imagens.Imagens.log33) is False:
-        sleep(0.1)
+    a = 0
+    while verificar(Imagens.Imagens.log33) is False and a != 5:
+        sleep(1)
+        print(a)
+        a += 1
     log3 = py.locateCenterOnScreen(r'E:\Backup\backup PC\Imagens\log33.png')
-    py.click(log3)
-    sleep(4)
+    if log3:
+        py.click(log3)
+        sleep(4)
 
 
 def verificar(imagem, posicao=None):
@@ -130,16 +134,18 @@ def som():
         py.leftClick(Imagens.Imagens.conf)
 
     pos1 = py.position()
-    py.leftClick(pos1[0] - 34, pos1[1] + 82)
-    py.leftClick(pos1[0] - 34, pos1[1] + 82)
-    py.leftClick(pos1[0] - 34, pos1[1] + 82)
+    py.doubleClick(pos1[0] - 34, pos1[1] + 82)
+    py.doubleClick(pos1[0] - 34, pos1[1] + 82)
+    py.doubleClick(pos1[0] - 34, pos1[1] + 82)
 
     sleep(1.5)
 
     pos = py.position()
-    py.leftClick(pos[0] - 70, pos[1])
-    py.leftClick(pos[0] - 70, pos[1])
-    py.leftClick(pos[0] - 70, pos[1])
+    py.doubleClick(pos[0] - 70, pos[1])
+    py.doubleClick(pos[0] - 70, pos[1])
+    py.doubleClick(pos[0] - 70, pos[1])
+
+    sleep(1)
 
     janrazer = window.getWindowsWithTitle("Razer")
     window.Window.close(janrazer[0])
@@ -257,17 +263,17 @@ texto = ''
 sem = ("Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo")
 
 if num2 == 1:
-    texto = 'A propósito, hoje é dia de Limpar os Equipamentos!! XD'
+    texto = '\n\nA propósito, hoje é dia de Limpar os Equipamentos!! XD'
 
 if num < 5:
     inicio()
     som()
     google()
     os.startfile(r'E:\Backup\Pastas de Automações\VivoPasta\vivo.exe')
-    py.alert(f"Processo finalizado!\nTenha uma boa {sem[num]}-Feira =D\n{texto}")
+    py.alert(f"Processo finalizado!\nTenha uma boa {sem[num]}-Feira =D{texto}")
 else:
     inicio()
     som()
     googlefds()
     os.startfile(r'E:\Backup\Pastas de Automações\VivoPasta\vivo.exe')
-    py.alert(f"Processo finalizado!\nTenha um bom {sem[num]} =D")
+    py.alert(f"Processo finalizado!\nTenha um bom {sem[num]} =D{texto}")
