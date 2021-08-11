@@ -54,7 +54,6 @@ def login(x, y):
     a = 0
     while verificar(Imagens.Imagens.log33) is False and a != 5:
         sleep(1)
-        print(a)
         a += 1
     log3 = py.locateCenterOnScreen(r'E:\Backup\backup PC\Imagens\log33.png')
     if log3:
@@ -62,9 +61,9 @@ def login(x, y):
         sleep(4)
 
 
-def verificar(imagem, posicao=None):
-    if posicao:
-        if py.locateOnScreen(imagem, posicao):
+def verificar(imagem, left=None, top=None, width=None, height=None):
+    if left:
+        if py.locateOnScreen(imagem, region=(left, top, width, height)):
             return True
         return False
     else:
@@ -79,8 +78,6 @@ def esperar(imagem):
 
 
 def inicio():
-    py.alert("Escolhi uma música de sua playlist, espero que goste =)\n"
-             "Te aviso quando acabar ;)")
     r = randint(1, 5)
     winsound.PlaySound(f'E:\\Backup\\Musicas\\intro{r}.wav', winsound.SND_ASYNC)
 
@@ -220,7 +217,7 @@ def google():
     py.press('enter')
     py.leftClick(x=164, y=17)
     sleep(0.5)
-    if verificar(Imagens.Imagens.log3) is False:
+    if verificar(Imagens.Imagens.log3, 1836, 106, 46, 47) is False:
         login(1856, 129)
     py.click(x=662, y=128)
     sleep(1.5)
@@ -269,11 +266,9 @@ if num < 5:
     inicio()
     som()
     google()
-    os.startfile(r'E:\Backup\Pastas de Automações\VivoPasta\vivo.exe')
     py.alert(f"Processo finalizado!\nTenha uma boa {sem[num]}-Feira =D{texto}")
 else:
     inicio()
     som()
     googlefds()
-    os.startfile(r'E:\Backup\Pastas de Automações\VivoPasta\vivo.exe')
     py.alert(f"Processo finalizado!\nTenha um bom {sem[num]} =D{texto}")
