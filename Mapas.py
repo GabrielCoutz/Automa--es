@@ -8,8 +8,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
 
 lista = {}
+pesquisa = False
 nome_mapa, site, games = '', '', ''
 num = date.today().weekday()
 links, difficulty, final, nomes = [], [], [], []
@@ -19,23 +21,37 @@ if num < 5:
     site = "https://osu.ppy.sh/beatmapsets?m=0&s=pending"
 else:
     site = "https://osu.ppy.sh/beatmapsets?m=0"
-driver = webdriver.Chrome(executable_path=r"C:\Users\Gabri\anaconda3\chromedriver.exe")
-wait: WebDriverWait = WebDriverWait(driver, 15)
-driver.get(site)
 
 
 def not1():
     layout2 = [
         [pys.Text(f'Quantos mapas deseja?', size=(25, 0))],
-        [pys.Input(size=(20, 0), key='num'), pys.Button('Enviar', key='Enviar')]
+        [pys.Input(size=(10, 0), key='num'), pys.Button('Enviar', key='Enviar'),
+         pys.Button('Pesquisar', key='Pesquisar')],
+
     ]
     jan2 = pys.Window('Procura', layout=layout2, finalize=True)
 
     while True:
         events, value = jan2.read()
         if events == pys.WIN_CLOSED:
-            driver.quit()
-            break
+            # driver.quit()
+            exit()
+        if events == 'Pesquisar':
+            jan2.close()
+            layout_pesquisa = [
+                [pys.Text(f'Insira o nome do mapa', size=(25, 0))],
+                [pys.Input(size=(30, 0), key='pesquisa_nome')],
+                [pys.Text(f'Insira Quantos mapas deseja', size=(25, 0))],
+                [pys.Input(size=(30, 0), key='pesquisa_numero'), pys.Button('Enviar', key='Enviar')]
+            ]
+            jan_pesq = pys.Window('Procura', layout=layout_pesquisa, finalize=True)
+            events, value = jan_pesq.read()
+            if events == pys.WIN_CLOSED:
+                exit()
+            if events == 'Enviar':
+                jan_pesq.close()
+                return [value['pesquisa_nome'], value['pesquisa_numero']]
         try:
             n = int(value['num'])
             break
@@ -46,6 +62,9 @@ def not1():
                 [pys.Input(size=(20, 0), key='num'), pys.Button('Enviar', key='Enviar')]
             ]
             jan2 = pys.Window('Procura', layout=layout2, finalize=True)
+            events, value = jan2.read()
+            if events == pys.WIN_CLOSED:
+                exit()
     jan2.close()
     return int(value['num'])
 
@@ -73,6 +92,7 @@ def not3():
 
 def inicio():
     global line, column, c, loop, nome_mapa
+
     games = driver.find_element_by_css_selector(
         f""".beatmapsets__items-row:nth-of-type({line}) .beatmapsets__item:nth-of-type({column})
                    .beatmapset-panel__info-row--extra""")
@@ -92,11 +112,11 @@ def inicio():
 
     actions = ActionChains(driver)
     actions.move_to_element(games).perform()
-    # sleep(1)
 
-    esperar_css(".beatmaps-popup__group")
+    # esperar_css(".beatmaps-popup__group")
+
+    esperar_css(".beatmaps-popup__content")
     scores = achar_css(".difficulty-badge")
-
     l = [games, scores, nome_mapa]
     return l
 
@@ -127,12 +147,15 @@ def pegar_link():
             xax2 = xax.replace('Dificuldade ', '')
             xax3 = xax2.replace(',', '.')
             xax3 = float(xax3)
+
             if 5.90 <= xax3 <= 6.50:
                 clicar.click()
                 duracao = achar_css(""".beatmapset-stats__row--basic > div > div:nth-child(1) > span""")
                 for a in duracao:
                     dur_str = a.text
                     dur_str = dur_str.replace(':', '.')
+                    if len(dur_str) > 4:
+                        break
                     dur_float = float(dur_str)
                     # sleep(1)
                     if 1.50 <= dur_float <= 6.00:
@@ -148,13 +171,13 @@ def pegar_link():
         driver.back()
         esperar_css(f"""body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > 
                                 div > div:nth-child(2) > div > div > div.beatmapsets-search__input-container > input""")
+
     else:
         driver.back()
         esperar_css(f"""body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > 
                                         div > div:nth-child(2) > div > div > 
                                         div.beatmapsets-search__input-container > input""")
-    if c > 22:
-        sleep(3)
+
     return nome_mapa
 
 
@@ -180,12 +203,31 @@ def login():
     achar_xpath('/html/body/div[5]/div/form/div[5]/div/button/div/span[1]').click()
 
 
+inicial = not1()
+
+try:
+    inicial -= 1
+    number_of_maps = inicial + 1
+except:
+    number_of_maps = int(inicial[1])
+    pesquisa = True
+    site = 'https://osu.ppy.sh/beatmapsets?m=0&s=any'
+
+driver = webdriver.Chrome(executable_path=r"C:\Users\Gabri\anaconda3\chromedriver.exe")
+wait: WebDriverWait = WebDriverWait(driver, 20)
+driver.get(site)
+
 login()
 esperar_css(
     """body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > div > 
     div:nth-child(2) > div > div > div.beatmapsets-search__input-container > input""")
+if pesquisa:
+    driver.find_element_by_css_selector(
+        """body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > div > 
+        div:nth-child(2) > div > div > div.beatmapsets-search__input-container > 
+        input""").send_keys(inicial[0], Keys.ENTER)
+    sleep(2)
 
-number_of_maps = not1()
 jan_mais = pys.Window('Pergunta', layout=not3(), finalize=True)
 jan_mais.hide()
 
@@ -206,17 +248,18 @@ while True:
             notificacao2[1].close()
             break
 
-        jan_mais.un_hide()
-        events, value = jan_mais.read()
-        if events == 'Sim':
-            jan_mais.hide()
-            final.clear()
-            number_of_maps = not1()
-        if events == 'Nao':
-            jan_mais.close()
-            break
-        if events == pys.WIN_CLOSED:
-            break
+        if pesquisa:
+            jan_mais.un_hide()
+            events, value = jan_mais.read()
+            if events == 'Sim':
+                jan_mais.hide()
+                final.clear()
+                number_of_maps = not1()
+            if events == 'Nao':
+                jan_mais.close()
+                break
+            if events == pys.WIN_CLOSED:
+                break
 
     if loop == 21:
         line = line - 1
@@ -240,11 +283,7 @@ while True:
     for score in scores[1]:
         score_string = score.text
         score_float = score_string.replace(',', '.')
-        try:
-            difficulty.append(float(score_float))
-        except:
-            pass
-
+        difficulty.append(float(score_float))
     nome_mapa = scores[2]
 
     for numbers in difficulty:
@@ -261,7 +300,11 @@ while True:
         'link': f"{links}",
         'difficulty': f"{difficulty}"}
 
-    # print(f"Loop: {loop}\nMapa: {lista['map']}\nLink: {links}\nDificuldade: {lista['difficulty']}\n{'-' * 70}")
+    # if links:
+    #     print(f"Loop: {loop}\nMapa: {lista['map']}\nLink: {links}\nDificuldade: {lista['difficulty']}\n{'-' * 70}")
+    # else:
+    #     print(f"Loop: {loop}\nMapa: {lista['map']}\nDificuldade: {lista['difficulty']}\n{'-' * 70}")
+
     # print(f'\n{nomes}\n{len(nomes)}')
 
     for url in links:
