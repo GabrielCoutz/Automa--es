@@ -91,19 +91,19 @@ def not3():
 
 
 def inicio():
-    global line, column, c, loop, nome_mapa
+    global line, column, c, loop, nome_mapa, pesquisa
 
     games = driver.find_element_by_css_selector(
         f""".beatmapsets__items-row:nth-of-type({line}) .beatmapsets__item:nth-of-type({column})
                    .beatmapset-panel__info-row--extra""")
+    if not pesquisa:
+        nome_mapa = achar_css(
+            f""".beatmapsets__content.js-audio--group > 
+            div > div > div:nth-child({line}) > div:nth-child({column}) > div > div > div.beatmapset-panel__info > 
+            div.beatmapset-panel__info-row.beatmapset-panel__info-row--title > a""")
 
-    nome_mapa = achar_css(
-        f""".beatmapsets__content.js-audio--group > 
-        div > div > div:nth-child({line}) > div:nth-child({column}) > div > div > div.beatmapset-panel__info > 
-        div.beatmapset-panel__info-row.beatmapset-panel__info-row--title > a""")
-
-    for nome in nome_mapa:
-        nome_mapa = nome.text
+        for nome in nome_mapa:
+            nome_mapa = nome.text
 
     if c > 22:
         driver.execute_script("window.scrollBy(0,40)")
@@ -117,15 +117,27 @@ def inicio():
 
     esperar_css(".beatmaps-popup__content")
     scores = achar_css(".difficulty-badge")
-    l = [games, scores, nome_mapa]
+    if not pesquisa:
+        l = [games, scores, nome_mapa]
+    else:
+        l = [games, scores]
     return l
 
 
 def pegar_link():
-    global c
+    global c, pesquisa
     pega = False
     nome_mapa = ''
     esperar_css(f""".js-beatmapset-download-link > span""")
+
+    if pesquisa:
+        link_test = ''
+        link_test = driver.current_url
+        if link_test in links:
+            driver.back()
+            esperar_css(f"""body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > 
+                                            div > div:nth-child(2) > 
+                                            div > div > div.beatmapsets-search__input-container > input""")
 
     nome_mapa = achar_css(""".beatmapset-header__details-text--title > a""")
     for nome in nome_mapa:
@@ -158,11 +170,20 @@ def pegar_link():
                         break
                     dur_float = float(dur_str)
                     # sleep(1)
-                    if 1.50 <= dur_float <= 6.00:
-                        pega = True
-                        break
+                    if not pesquisa:
+                        if 1.50 <= dur_float <= 6.00:
+                            pega = True
+                            break
+                        else:
+                            pass
                     else:
-                        pass
+                        if 1.00 <= dur_float <= 6.00:
+                            pega = True
+                            break
+                        else:
+                            pass
+            if xax3 > 6.50:
+                break
 
     if pega:
         link_test = ''
@@ -226,7 +247,7 @@ if pesquisa:
         """body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > div > 
         div:nth-child(2) > div > div > div.beatmapsets-search__input-container > 
         input""").send_keys(inicial[0], Keys.ENTER)
-    sleep(2)
+    sleep(3)
 
 jan_mais = pys.Window('Pergunta', layout=not3(), finalize=True)
 jan_mais.hide()
@@ -243,28 +264,29 @@ while True:
             for a in final:
                 webbrowser.open(a)
                 sleep(1)
+            if pesquisa:
+                jan_mais.un_hide()
+                events, value = jan_mais.read()
+                if events == 'Sim':
+                    jan_mais.hide()
+                    final.clear()
+                    number_of_maps = not1()
+                if events == 'Nao':
+                    jan_mais.close()
+                    break
+                if events == pys.WIN_CLOSED:
+                    break
+            break
 
         if notificacao2[0] == 'Nao':
             notificacao2[1].close()
             break
 
-        if pesquisa:
-            jan_mais.un_hide()
-            events, value = jan_mais.read()
-            if events == 'Sim':
-                jan_mais.hide()
-                final.clear()
-                number_of_maps = not1()
-            if events == 'Nao':
-                jan_mais.close()
-                break
-            if events == pys.WIN_CLOSED:
-                break
-
     if loop == 21:
         line = line - 1
     if loop % 2 == 0 and loop > 21:
         line -= 1
+
     scores = inicio()
 
     # print('-' * 70)
@@ -284,16 +306,22 @@ while True:
         score_string = score.text
         score_float = score_string.replace(',', '.')
         difficulty.append(float(score_float))
-    nome_mapa = scores[2]
+    if not pesquisa:
+        nome_mapa = scores[2]
 
     for numbers in difficulty:
         if 5.90 <= numbers <= 6.50:
-            f = 1
-    if f != 0 and nome_mapa not in nomes:
-        scores[0].click()
-        nome_mapa = pegar_link()
-        if nome_mapa not in nomes:
-            nomes.append(nome_mapa)
+            if nome_mapa not in nomes and not pesquisa:
+                scores[0].click()
+                nome_mapa = pegar_link()
+                if nome_mapa not in nomes:
+                    nomes.append(nome_mapa)
+                    break
+                break
+            if pesquisa:
+                scores[0].click()
+                nome_mapa = pegar_link()
+                break
 
     lista = {
         'map': f"{nome_mapa}",
