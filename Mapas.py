@@ -14,8 +14,8 @@ lista = {}
 pesquisa = False
 nome_mapa, site, games = '', '', ''
 num = date.today().weekday()
-links, difficulty, final, nomes, links_lidos = [], [], [], [], []
-line, column, loop, c, f = 1, 1, 1, 1, 0
+links, final, nomes, links_lidos = [], [], [], []
+line, column, loop, contador, f = 1, 1, 1, 1, 0
 
 if num < 5:
     site = "https://osu.ppy.sh/beatmapsets?m=0&s=pending"
@@ -90,20 +90,20 @@ def not3():
     return layout_mais
 
 
-
-
 def inicio():
-    global line, column, c, loop, nome_mapa, pesquisa
+    global line, column, contador, loop, nome_mapa, pesquisa
 
     games = driver.find_element_by_css_selector(
         f""".beatmapsets__items-row:nth-of-type({line}) .beatmapsets__item:nth-of-type({column})
                    .beatmapset-panel__info-row--extra""")
+
     if not pesquisa:
         nome_mapa = achar_css(
             f""".beatmapsets__content.js-audio--group > 
             div > div > div:nth-child({line}) > div:nth-child({column}) > div > div > div.beatmapset-panel__info > 
             div.beatmapset-panel__info-row.beatmapset-panel__info-row--title > a""")[0].text
-    if c > 22:
+
+    if contador > 22:
         driver.execute_script("window.scrollBy(0,40)")
     else:
         driver.execute_script("window.scrollBy(0,50)")
@@ -111,28 +111,52 @@ def inicio():
     actions = ActionChains(driver)
     actions.move_to_element(games).perform()
 
-    # esperar_css(".beatmaps-popup__group")
-
     esperar_css(".beatmaps-popup__content")
+
     scores = achar_css(".difficulty-badge")
-    if not pesquisa:
-        return [games, scores, nome_mapa]
+
+    if nome_mapa in nomes:
+        pass
     else:
-        return [games, scores]
+        for score in scores:
+            score = score.text
+            score_float = score.replace(',', '.')
+
+            if float(score_float) > 6.50:
+                break
+
+            if 5.90 <= float(score_float) <= 6.50:
+                if nome_mapa not in nomes and not pesquisa:
+                    games.click()
+                    nome_mapa = pegar_link()
+                    if nome_mapa not in nomes:
+                        nomes.append(nome_mapa)
+                        break
+                    break
+                if pesquisa:
+                    games.click()
+                    nome_mapa = pegar_link()
+                    break
+
+    if nome_mapa not in nomes:
+        nomes.append(nome_mapa)
+    if not pesquisa:
+        return [games, nome_mapa]
+    else:
+        return [games]
 
 
 def pegar_link():
     global c, pesquisa
     pega, sair = False, False
     nome_mapa, link_test = '', ''
-    print(links_lidos)
+
     esperar_css(f""".js-beatmapset-download-link > span""")
+
     if pesquisa:
         link_test = driver.current_url
-        print(link_test)
 
         if link_test in links_lidos:
-            print('tem')
             driver.back()
             sleep(3)
         else:
@@ -141,55 +165,49 @@ def pegar_link():
     nome_mapa = achar_css(""".beatmapset-header__details-text--title > a""")[0].text
     nomes.append(nome_mapa)
 
-
     mapas = achar_css(""".beatmapset-beatmap-picker__beatmap""")
     for clicar in mapas:
         if pega or sair:
             break
-        dif = achar_css('.beatmapset-header__star-difficulty')
-        # mudando a partir daq
-        dif2 = achar_css('.beatmapset-header__star-difficulty')[0].text
+
         actions = ActionChains(driver)
         actions.move_to_element(clicar).perform()
 
-        for a in dif:
-            if pega:
+        dif2 = achar_css('.beatmapset-header__star-difficulty')[0].text
+        dif2 = dif2.replace('Dificuldade ', '')
+        dif2 = dif2.replace(',', '.')
+        xax3 = float(dif2)
+
+        if pega:
+            break
+
+        if xax3 > 6.50:
+            sair = True
+            break
+
+        if 5.90 <= xax3 <= 6.50:
+            clicar.click()
+            dur_str = achar_css(""".beatmapset-stats__row--basic > div > div:nth-child(1) > span""")[0].text
+            dur_str = dur_str.replace(':', '.')
+
+            if len(dur_str) > 4:
                 break
-            xax = a.text
-            print(xax)
-            print(dif2)
-            xax2 = xax.replace('Dificuldade ', '')
-            xax3 = xax2.replace(',', '.')
-            xax3 = float(xax3)
-            print(xax3)
-            if xax3 > 6.50:
-                print('xampson')
-                sair = True
-                break
-            if 5.90 <= xax3 <= 6.50:
-                clicar.click()
-                duracao = achar_css(""".beatmapset-stats__row--basic > div > div:nth-child(1) > span""")
-                for a in duracao:
-                    dur_str = a.text
-                    dur_str = dur_str.replace(':', '.')
-                    if len(dur_str) > 4:
-                        break
-                    dur_float = float(dur_str)
-                    # sleep(1)
-                    if not pesquisa:
-                        if 1.50 <= dur_float <= 6.00:
-                            pega = True
-                            break
-                        else:
-                            pass
-                    else:
-                        if 1.00 <= dur_float <= 6.00:
-                            pega = True
-                            break
-                        else:
-                            pass
-            if xax3 > 6.50:
-                break
+
+            dur_float = float(dur_str)
+            if not pesquisa:
+                if 1.50 <= dur_float <= 6.00:
+                    pega = True
+                    break
+                else:
+                    pass
+            else:
+                if 1.00 <= dur_float <= 6.00:
+                    pega = True
+                    break
+                else:
+                    pass
+        if xax3 > 6.50:
+            break
 
     if pega:
         link_test = driver.current_url
@@ -197,18 +215,12 @@ def pegar_link():
         driver.back()
         esperar_css(f"""body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > 
                                 div > div:nth-child(2) > div > div > div.beatmapsets-search__input-container > input""")
-        for a in achar_css(f"""body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > 
-                                        div > div:nth-child(2) > div > div > div.beatmapsets-search__input-container > input"""):
-            print(a.get_attribute('value'))
 
     else:
         driver.back()
         esperar_css(f"""body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > 
                                         div > div:nth-child(2) > div > div > 
                                         div.beatmapsets-search__input-container > input""")
-        for a in achar_css(f"""body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > 
-                                        div > div:nth-child(2) > div > div > div.beatmapsets-search__input-container > input"""):
-            print(a.get_attribute('value'))
 
     return nome_mapa
 
@@ -253,6 +265,7 @@ login()
 esperar_css(
     """body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > div > 
     div:nth-child(2) > div > div > div.beatmapsets-search__input-container > input""")
+
 if pesquisa:
     driver.find_element_by_css_selector(
         """body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > div > 
@@ -264,7 +277,6 @@ jan_mais = pys.Window('Pergunta', layout=not3(), finalize=True)
 jan_mais.hide()
 
 while True:
-    print(len(final))
     if len(final) == number_of_maps:
         winsound.PlaySound(r'E:\Backup\Musicas\fim.wav', winsound.SND_ASYNC)
         notificacao2 = not2()
@@ -301,61 +313,37 @@ while True:
 
     scores = inicio()
 
-    # print('-' * 70)
-    # print(f'Mapas encontrados: {len(final)}')
-    # print(f'Line {line}')
-    # print(f'Column {column}\n')
-
-    if c % 2 != 0:
+    if contador % 2 != 0:
         column = 2
-        if c % 2 == 0:
+        if contador % 2 == 0:
             line += 1
     else:
         line += 1
         column = 1
 
-    for score in scores[1]:
-        score_string = score.text
-        score_float = score_string.replace(',', '.')
-        difficulty.append(float(score_float))
     if not pesquisa:
-        nome_mapa = scores[2]
-
-    for numbers in difficulty:
-        if 5.90 <= numbers <= 6.50:
-            if nome_mapa not in nomes and not pesquisa:
-                scores[0].click()
-                nome_mapa = pegar_link()
-                if nome_mapa not in nomes:
-                    nomes.append(nome_mapa)
-                    break
-                break
-            if pesquisa:
-                scores[0].click()
-                nome_mapa = pegar_link()
-                break
+        nome_mapa = scores[1]
 
     lista = {
         'map': f"{nome_mapa}",
-        'link': f"{links}",
-        'difficulty': f"{difficulty}"}
+        'link': f"{links}"}
 
     # if links:
-    #     print(f"Loop: {loop}\nMapa: {lista['map']}\nLink: {links}\nDificuldade: {lista['difficulty']}\n{'-' * 70}")
+    #     print(f"\nMapa: {lista['map']}\nLink: {links}\n{'-' * 70}")
     # else:
-    #     print(f"Loop: {loop}\nMapa: {lista['map']}\nDificuldade: {lista['difficulty']}\n{'-' * 70}")
+    #     print(f"\nMapa: {lista['map']}\n{'-' * 70}")
 
     # print(f'\n{nomes}\n{len(nomes)}')
 
     for url in links:
         if url not in final:
             final.append(str(url))
-    difficulty.clear()
+
     lista.clear()
     links.clear()
     nome_mapa = ''
     loop += 1
-    c += 1
+    contador += 1
     f = 0
 
 driver.quit()
