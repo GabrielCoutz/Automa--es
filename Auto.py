@@ -14,7 +14,6 @@ locale.setlocale(locale.LC_ALL, 'pt_BR.utf8')
 osu = ''
 dia = date.today().weekday()
 f, c = 0, 0
-bluestacks = window.getWindowsWithTitle('Blue')
 barra, play = 1593, 1564
 barras = [389, 454, 579, 702, 765]
 plays = [387, 456, 577, 705, 766]
@@ -69,7 +68,8 @@ def verificar(imagem, left=None, top=None, width=None, height=None):
     else:
         if py.locateCenterOnScreen(imagem):
             return True
-        return False
+        else:
+            return False
 
 
 def esperar(imagem):
@@ -92,7 +92,7 @@ def resolver():
 
 
 def som():
-    global bluestacks, f, c
+    global f, c
 
     resolver()
     while c != 5000:
@@ -104,7 +104,10 @@ def som():
             break
         else:
             c += 1
-    py.leftClick(py.locateOnScreen(Imagens.Imagens.mais))
+    if verificar(Imagens.Imagens.mais, 1799, 1042, 21, 38):
+        py.leftClick(1799, 1055)
+    else:
+        py.leftClick(1775, 1055)
     if verificar(Imagens.Imagens.razeratt) is False:
         try:
             esperar(Imagens.Imagens.razer2)
@@ -147,22 +150,6 @@ def som():
     janrazer = window.getWindowsWithTitle("Razer")
     window.Window.close(janrazer[0])
 
-    if f != 0:
-        try:
-            py.leftClick(py.locateOnScreen(Imagens.Imagens.mais))
-            esperar(Imagens.Imagens.razer2)
-            py.doubleClick(py.locateOnScreen(Imagens.Imagens.razer2))
-            esperar(Imagens.Imagens.teste)
-            if verificar(Imagens.Imagens.mouse) is True:
-                aaaaa = py.locateOnScreen(Imagens.Imagens.teste)
-                py.moveTo(aaaaa[0] + 200, aaaaa[1] + 150)
-                sleep(1)
-                py.click(aaaaa[0] - 100, aaaaa[1] + 160)
-            else:
-                pass
-        except:
-            pass
-
 
 def google():
     sites = ['https://www.youtube.com', 'https://www.imissmybar.com/',
@@ -177,9 +164,13 @@ def google():
     sleep(0.5)
     if verificar(Imagens.Imagens.max) is False:
         try:
-            py.click(Imagens.Imagens.max2)
+            py.click(Imagens.Imagens.max22)
         except:
-            py.click(Imagens.Imagens.max3)
+            py.click(Imagens.Imagens.max33)
+            try:
+                py.click(Imagens.Imagens.max22)
+            except:
+                py.click(Imagens.Imagens.max33)
     sleep(1)
     py.leftClick(x=164, y=17)
     py.rightClick(x=164, y=17)
@@ -216,8 +207,8 @@ def google():
     sleep(0.5)
     py.press('enter')
     py.leftClick(x=164, y=17)
-    sleep(0.5)
-    if verificar(Imagens.Imagens.log3, 1836, 106, 46, 47) is False:
+    sleep(2)
+    if verificar(Imagens.Imagens.log3) is False:
         login(1856, 129)
     py.click(x=662, y=128)
     sleep(1.5)
@@ -237,8 +228,8 @@ def google():
         sleep(0.5)
 
     py.leftClick(x=25, y=14)
-    sleep(0.5)
-    py.moveTo(x=922, y=564)
+    if f != 0:
+        reserva()
 
 
 def googlefds():
@@ -250,6 +241,26 @@ def googlefds():
     sleep(1)
     webbrowser.open(osu)
     sleep(0.5)
+    if f != 0:
+        reserva()
+
+
+def reserva():
+    py.click(x=1919, y=1076)
+
+    try:
+        py.leftClick(py.locateOnScreen(Imagens.Imagens.mais))
+        sleep(2)
+        py.doubleClick(py.locateOnScreen(Imagens.Imagens.razer2))
+        sleep(2)
+        aaaaa = py.locateOnScreen(Imagens.Imagens.teste)
+        py.moveTo(aaaaa[0] + 200, aaaaa[1] + 150)
+        sleep(2)
+        py.click(aaaaa[0] - 100, aaaaa[1] + 160)
+    except:
+        pass
+
+    py.click(x=1919, y=1076)
     py.moveTo(x=922, y=564)
 
 
@@ -263,12 +274,12 @@ if num2 == 1:
     texto = '\n\nA propósito, hoje é dia de Limpar os Equipamentos!! XD'
 
 if num < 5:
-    inicio()
+    # inicio()
     som()
     google()
     py.alert(f"Processo finalizado!\nTenha uma boa {sem[num]}-Feira =D{texto}")
 else:
-    inicio()
+    # inicio()
     som()
     googlefds()
     py.alert(f"Processo finalizado!\nTenha um bom {sem[num]} =D{texto}")
