@@ -14,7 +14,7 @@ lista = {}
 pesquisa = False
 nome_mapa, site, games = '', '', ''
 num = date.today().weekday()
-links, final, nomes, links_lidos = [], [], [], []
+links, final, nomes, dificuldades, = [], [], [], []
 line, column, loop, contador, f = 1, 1, 1, 1, 0
 
 if num < 5:
@@ -92,16 +92,17 @@ def not3():
 
 def inicio():
     global line, column, contador, loop, nome_mapa, pesquisa
+    if pesquisa:
+        nomes.clear()
 
     games = driver.find_element_by_css_selector(
         f""".beatmapsets__items-row:nth-of-type({line}) .beatmapsets__item:nth-of-type({column})
                    .beatmapset-panel__info-row--extra""")
 
-    if not pesquisa:
-        nome_mapa = achar_css(
-            f""".beatmapsets__content.js-audio--group > 
-            div > div > div:nth-child({line}) > div:nth-child({column}) > div > div > div.beatmapset-panel__info > 
-            div.beatmapset-panel__info-row.beatmapset-panel__info-row--title > a""")[0].text
+    nome_mapa = achar_css(
+        f""".beatmapsets__content.js-audio--group > 
+        div > div > div:nth-child({line}) > div:nth-child({column}) > div > div > div.beatmapset-panel__info > 
+        div.beatmapset-panel__info-row.beatmapset-panel__info-row--title > a""")[0].text
 
     if contador > 22:
         driver.execute_script("window.scrollBy(0,40)")
@@ -110,9 +111,7 @@ def inicio():
 
     actions = ActionChains(driver)
     actions.move_to_element(games).perform()
-
     esperar_css(".beatmaps-popup__content")
-
     scores = achar_css(".difficulty-badge")
 
     if nome_mapa in nomes:
@@ -122,9 +121,10 @@ def inicio():
             score = score.text
             score_float = score.replace(',', '.')
 
+            dificuldades.append(score_float)
+
             if float(score_float) > 6.50:
                 break
-
             if 5.90 <= float(score_float) <= 6.50:
                 if nome_mapa not in nomes and not pesquisa:
                     games.click()
@@ -135,8 +135,10 @@ def inicio():
                     break
                 if pesquisa:
                     games.click()
-                    nome_mapa = pegar_link()
+                    pegar_link()
                     break
+
+    dificuldades.clear()
 
     if nome_mapa not in nomes:
         nomes.append(nome_mapa)
@@ -147,23 +149,16 @@ def inicio():
 
 
 def pegar_link():
-    global c, pesquisa
+    global pesquisa
+
     pega, sair = False, False
     nome_mapa, link_test = '', ''
 
     esperar_css(f""".js-beatmapset-download-link > span""")
 
-    if pesquisa:
-        link_test = driver.current_url
-
-        if link_test in links_lidos:
-            driver.back()
-            sleep(3)
-        else:
-            links_lidos.append(link_test)
-
-    nome_mapa = achar_css(""".beatmapset-header__details-text--title > a""")[0].text
-    nomes.append(nome_mapa)
+    if not pesquisa:
+        nome_mapa = achar_css(""".beatmapset-header__details-text--title > a""")[0].text
+        nomes.append(nome_mapa)
 
     mapas = achar_css(""".beatmapset-beatmap-picker__beatmap""")
     for clicar in mapas:
@@ -178,18 +173,10 @@ def pegar_link():
         dif2 = dif2.replace(',', '.')
         xax3 = float(dif2)
 
-        if pega:
-            break
-
-        if xax3 > 6.50:
-            sair = True
-            break
-
         if 5.90 <= xax3 <= 6.50:
             clicar.click()
             dur_str = achar_css(""".beatmapset-stats__row--basic > div > div:nth-child(1) > span""")[0].text
             dur_str = dur_str.replace(':', '.')
-
             if len(dur_str) > 4:
                 break
 
@@ -201,12 +188,14 @@ def pegar_link():
                 else:
                     pass
             else:
-                if 1.00 <= dur_float <= 6.00:
+                if 1.00 <= dur_float <= 8.00:
                     pega = True
                     break
                 else:
                     pass
+
         if xax3 > 6.50:
+            sair = True
             break
 
     if pega:
@@ -217,6 +206,7 @@ def pegar_link():
                                 div > div:nth-child(2) > div > div > div.beatmapsets-search__input-container > input""")
 
     else:
+        link_test = driver.current_url
         driver.back()
         esperar_css(f"""body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > 
                                         div > div:nth-child(2) > div > div > 
@@ -260,7 +250,7 @@ except:
 driver = webdriver.Chrome(executable_path=r"C:\Users\Gabri\anaconda3\chromedriver.exe")
 wait: WebDriverWait = WebDriverWait(driver, 20)
 driver.get(site)
-
+# a=input('dfkjshdas')
 login()
 esperar_css(
     """body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > div > 
