@@ -43,7 +43,6 @@ def esperar(imagem):
         pass
 
 
-py.alert(title='Protocolo De Som', text='Este protocolo será iniciado!\nNão mexa no computador até que termine!!!')
 resolver()
 while c != 5000:
     if window.getWindowsWithTitle('Error'):
@@ -101,16 +100,13 @@ window.Window.close(janrazer[0])
 if f != 0:
     try:
         py.leftClick(py.locateOnScreen(Imagens.Imagens.mais))
-        esperar(Imagens.Imagens.razer2)
+        sleep(2)
         py.doubleClick(py.locateOnScreen(Imagens.Imagens.razer2))
-        esperar(Imagens.Imagens.teste)
-        if verificar(Imagens.Imagens.mouse) is True:
-            aaaaa = py.locateOnScreen(Imagens.Imagens.teste)
-            py.moveTo(aaaaa[0] + 200, aaaaa[1] + 150)
-            sleep(1)
-            py.click(aaaaa[0] - 100, aaaaa[1] + 200)
-        else:
-            pass
+        sleep(2)
+        aaaaa = py.locateOnScreen(Imagens.Imagens.teste)
+        py.moveTo(aaaaa[0] + 200, aaaaa[1] + 150)
+        sleep(2)
+        py.click(aaaaa[0] - 100, aaaaa[1] + 160)
     except:
         pass
 py.alert(title='Protocolo Finalizado', text='Computador Liberado!')
