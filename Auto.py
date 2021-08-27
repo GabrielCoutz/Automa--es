@@ -11,7 +11,8 @@ import os
 import pygetwindow as window
 import threading
 
-# Variaveis Globais
+
+# Variáveis Globais
 locale.setlocale(locale.LC_ALL, 'pt_BR.utf8')
 texto, osu = '', ''
 f, c = 0, 0
@@ -43,15 +44,6 @@ spec = importlib.util.spec_from_file_location(
     "name", "C:\\Users\\Gabri\\PycharmProjects\\pythonProject\\Imagens.py")
 Imagens = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(Imagens)
-
-
-def finalizar(a):
-    py.rightClick(a)
-    sleep(0.5)
-    py.press('down')
-    sleep(0.5)
-    py.press('enter')
-    sleep(0.5)
 
 
 def login(x, y):
@@ -139,7 +131,6 @@ def som():
     os.startfile(r'C:\Program Files (x86)\Razer\Synapse\RzSynapse.exe')
     while not window.getWindowsWithTitle('Razer'):
         sleep(0.2)
-        pass
     sleep(1)
     try:
         py.leftClick(Imagens.Imagens.conf2)
@@ -160,8 +151,7 @@ def som():
 
     sleep(1)
 
-    janrazer = window.getWindowsWithTitle("Razer")
-    window.Window.close(janrazer[0])
+    window.getWindowsWithTitle("Razer")[0].close()
 
 
 def google():
