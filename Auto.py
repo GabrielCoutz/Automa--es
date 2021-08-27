@@ -9,20 +9,36 @@ from datetime import date
 import locale
 import os
 import pygetwindow as window
+import threading
 
+# Variaveis Globais
 locale.setlocale(locale.LC_ALL, 'pt_BR.utf8')
-osu = ''
-dia = date.today().weekday()
+texto, osu = '', ''
 f, c = 0, 0
+
+
+# Setando data
+sem = ("Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo")
+dia_semana = date.today().weekday()
+dia = date.today().day
+
+
+# Locais para click
 barra, play = 1593, 1564
 barras = [389, 454, 579, 702, 765]
 plays = [387, 456, 577, 705, 766]
 
-if dia < 5:
+
+# Verificando dia
+if dia_semana < 5:
     osu = "https://osu.ppy.sh/beatmapsets?m=0&s=pending"
 else:
     osu = "https://osu.ppy.sh/beatmapsets?m=0"
+if dia == 1:
+    texto = '\n\nA propósito, hoje é dia de Limpar os Equipamentos!! XD'
 
+
+# Biblioteca de Imagens
 spec = importlib.util.spec_from_file_location(
     "name", "C:\\Users\\Gabri\\PycharmProjects\\pythonProject\\Imagens.py")
 Imagens = importlib.util.module_from_spec(spec)
@@ -36,10 +52,6 @@ def finalizar(a):
     sleep(0.5)
     py.press('enter')
     sleep(0.5)
-
-
-def fechar(name):
-    os.system("taskkill /f /im " + name)
 
 
 def login(x, y):
@@ -74,7 +86,7 @@ def verificar(imagem, left=None, top=None, width=None, height=None):
 
 def esperar(imagem):
     while verificar(imagem) is False:
-        pass
+        sleep(0.2)
 
 
 def inicio():
@@ -83,27 +95,27 @@ def inicio():
 
 
 def powersheel(comando):
-    import os
     os.system(f'powershell /c {comando}')
 
 
 def resolver():
+    global c
+    powersheel(r'Start-Process -WindowStyle hidden -FilePath C:\Users\Gabri\Documents\dpclat.exe')
+    while not window.getWindowsWithTitle("Error"):
+        sleep(0.2)
+        c += 1
+        if c == 5:
+            break
+    if window.getWindowsWithTitle("Error"):
+        window.getWindowsWithTitle("Error")[0].close()
     powersheel(r'Start-Process -WindowStyle hidden -FilePath C:\Users\Gabri\Documents\dpclat.exe')
 
 
 def som():
-    global f, c
+    global f
 
-    resolver()
-    while c != 5000:
-        if window.getWindowsWithTitle('Error'):
-            janela = window.getWindowsWithTitle("Error")
-            window.Window.close(janela[0])
-            sleep(1)
-            resolver()
-            break
-        else:
-            c += 1
+    threading.Thread(target=resolver).start()
+
     if verificar(Imagens.Imagens.mais, 1799, 1042, 21, 38):
         py.leftClick(1799, 1055)
     else:
@@ -126,6 +138,7 @@ def som():
         pass
     os.startfile(r'C:\Program Files (x86)\Razer\Synapse\RzSynapse.exe')
     while not window.getWindowsWithTitle('Razer'):
+        sleep(0.2)
         pass
     sleep(1)
     try:
@@ -160,7 +173,6 @@ def google():
     for a in sites:
         webbrowser.open(a)
         sleep(1)
-    webbrowser.open(osu)
     sleep(0.5)
     if verificar(Imagens.Imagens.max) is False:
         try:
@@ -218,7 +230,7 @@ def google():
     sleep(1.5)
     py.leftClick(x=365, y=12)
     while verificar(Imagens.Imagens.lofi) is False:
-        sleep(0.1)
+        sleep(0.2)
     sleep(0.5)
     for a, b in enumerate(barras):
         py.leftClick(barra, barras[a])
@@ -239,7 +251,6 @@ def googlefds():
     sleep(0.5)
     webbrowser.get('chrome').open('https://mail.google.com/mail/u/0/?zx=7quikovz9bly#inbox')
     sleep(1)
-    webbrowser.open(osu)
     sleep(0.5)
     if f != 0:
         reserva()
@@ -264,22 +275,13 @@ def reserva():
     py.moveTo(x=922, y=564)
 
 
-num = date.today().weekday()
-num2 = date.today().day
-texto = ''
-
-sem = ("Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo")
-
-if num2 == 1:
-    texto = '\n\nA propósito, hoje é dia de Limpar os Equipamentos!! XD'
-
-if num < 5:
+if dia_semana < 5:
     # inicio()
     som()
     google()
-    py.alert(f"Processo finalizado!\nTenha uma boa {sem[num]}-Feira =D{texto}")
+    py.alert(f"Processo finalizado!\nTenha uma boa {sem[dia]}-Feira =D{texto}")
 else:
     # inicio()
     som()
     googlefds()
-    py.alert(f"Processo finalizado!\nTenha um bom {sem[num]} =D{texto}")
+    py.alert(f"Processo finalizado!\nTenha um bom {sem[dia]} =D{texto}")
