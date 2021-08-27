@@ -3,20 +3,13 @@ from time import sleep
 import os
 import importlib.util
 import pygetwindow as window
+import threading
 
 spec = importlib.util.spec_from_file_location(
     "name", "C:\\Users\\Gabri\\PycharmProjects\\pythonProject\\Imagens.py")
 Imagens = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(Imagens)
 f, c = 0, 0
-
-
-def finalizar(a):
-    py.rightClick(a)
-    sleep(0.5)
-    py.press('down')
-    sleep(0.5)
-    py.press('enter')
 
 
 def verificar(a):
@@ -26,33 +19,28 @@ def verificar(a):
 
 
 def powersheel(comando):
-    import os
     os.system(f'powershell /c {comando}')
 
 
 def resolver():
+    global c
     powersheel(r'Start-Process -WindowStyle hidden -FilePath C:\Users\Gabri\Documents\dpclat.exe')
-
-
-def fechar(name):
-    os.system("taskkill /f /im " + name)
+    while not window.getWindowsWithTitle("Error"):
+        sleep(0.2)
+        c += 1
+        if c == 5:
+            break
+    if window.getWindowsWithTitle("Error"):
+        window.getWindowsWithTitle("Error")[0].close()
+    powersheel(r'Start-Process -WindowStyle hidden -FilePath C:\Users\Gabri\Documents\dpclat.exe')
 
 
 def esperar(imagem):
     while verificar(imagem) is False:
-        pass
+        sleep(0.2)
 
 
-resolver()
-while c != 5000:
-    if window.getWindowsWithTitle('Error'):
-        janela = window.getWindowsWithTitle("Error")
-        window.Window.close(janela[0])
-        sleep(1)
-        resolver()
-        break
-    else:
-        c += 1
+threading.Thread(target=resolver).start()
 
 py.leftClick(py.locateOnScreen(Imagens.Imagens.mais))
 if verificar(Imagens.Imagens.razeratt) is False:
@@ -74,7 +62,7 @@ else:
 
 os.startfile(r'C:\Program Files (x86)\Razer\Synapse\RzSynapse.exe')
 while not window.getWindowsWithTitle('Razer'):
-    pass
+    sleep(0.2)
 sleep(1)
 try:
     py.leftClick(Imagens.Imagens.conf2)
@@ -94,8 +82,8 @@ py.leftClick(pos[0] - 70, pos[1])
 py.leftClick(pos[0] - 70, pos[1])
 sleep(1)
 
-janrazer = window.getWindowsWithTitle("Razer")
-window.Window.close(janrazer[0])
+window.getWindowsWithTitle("Razer")[0].close()
+
 
 if f != 0:
     try:
@@ -106,7 +94,7 @@ if f != 0:
         aaaaa = py.locateOnScreen(Imagens.Imagens.teste)
         py.moveTo(aaaaa[0] + 200, aaaaa[1] + 150)
         sleep(2)
-        py.click(aaaaa[0] - 100, aaaaa[1] + 160)
+        py.click(aaaaa[0] - 100, aaaaa[1] + 200)
     except:
         pass
 py.alert(title='Protocolo Finalizado', text='Computador Liberado!')
