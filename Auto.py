@@ -11,33 +11,25 @@ import os
 import pygetwindow as window
 import threading
 
-
 # Variáveis Globais
 locale.setlocale(locale.LC_ALL, 'pt_BR.utf8')
 texto, osu = '', ''
 f, c = 0, 0
 
-
 # Setando data
 sem = ("Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo")
 dia_semana = date.today().weekday()
-dia = date.today().day
-
 
 # Locais para click
 barra, play = 1593, 1564
 barras = [389, 454, 579, 702, 765]
 plays = [387, 456, 577, 705, 766]
 
-
 # Verificando dia
 if dia_semana < 5:
     osu = "https://osu.ppy.sh/beatmapsets?m=0&s=pending"
 else:
     osu = "https://osu.ppy.sh/beatmapsets?m=0"
-if dia == 1:
-    texto = '\n\nA propósito, hoje é dia de Limpar os Equipamentos!! XD'
-
 
 # Biblioteca de Imagens
 spec = importlib.util.spec_from_file_location(
@@ -269,9 +261,9 @@ if dia_semana < 5:
     # inicio()
     som()
     google()
-    py.alert(f"Processo finalizado!\nTenha uma boa {sem[dia]}-Feira =D{texto}")
+    py.alert(f"Processo finalizado!\nTenha uma boa {sem[dia_semana]}-Feira =D{texto}")
 else:
     # inicio()
     som()
     googlefds()
-    py.alert(f"Processo finalizado!\nTenha um bom {sem[dia]} =D{texto}")
+    py.alert(f"Processo finalizado!\nTenha um bom {sem[dia_semana]} =D{texto}")
