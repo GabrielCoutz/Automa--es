@@ -5,9 +5,9 @@ from time import sleep
 import PySimpleGUI as pys
 
 
-def cmd(requirements):
+def cmd(comando):
     import os
-    os.system(f'cmd /c pip install --no-cache-dir {requirements}')
+    os.system(f'cmd /c {comando}')
 
 
 def powersheel(comando):
@@ -19,21 +19,18 @@ def resolver():
     c = 0
     powersheel(r'Start-Process -WindowStyle hidden -FilePath C:\Users\Gabri\Documents\dpclat.exe')
     while not window.getWindowsWithTitle("Error"):
-        print(c)
         sleep(0.2)
         c += 1
-        if c == 20:
+        if c == 5:
             break
-    if window.getWindowsWithTitle("Error") and c > 0:
-        xamp = window.getWindowsWithTitle("Error")
-        xamp[0].close()
-    else:
-        pass
+    if window.getWindowsWithTitle("Error"):
+        window.getWindowsWithTitle("Error")[0].close()
     powersheel(r'Start-Process -WindowStyle hidden -FilePath C:\Users\Gabri\Documents\dpclat.exe')
 
 
-cmd('''-r https://raw.githubusercontent.com/GabrielCoutz/Problema-Chiado/main/requirements.txt''')
-
+cmd(
+    '''pip install --noconsole --no-cache-dir -r 
+    https://raw.githubusercontent.com/GabrielCoutz/Problema-Chiado/main/requirements.txt''')
 
 layout = [
     [pys.Text('Bem vindo =)', size=(25, 0))],
@@ -53,11 +50,10 @@ try:
     primeira_vez = False
 except FileNotFoundError:
     x = open('lib/primeira_vez.txt', 'w')
-    x.write("""
-    Esse bloco de notas foi criado apenas para controle do programa, caso ele não existir significa que
-    é a primeira vez que está sendo executado, ou seja, irá aparecer a caixa de mensagem inicial.
-    Caso já exista, significa que já foi executado em algum momento, então apenas vai executar direto.
-    Pode ignorar kkkk""")
+    x.write("""Esse bloco de notas foi criado apenas para controle do programa, caso ele não existir significa que
+            é a primeira vez que está sendo executado, ou seja, irá aparecer a caixa de mensagem inicial.
+            Caso já exista, significa que já foi executado em algum momento, então apenas vai executar direto.
+            Pode ignorar kkkk""")
     x.close()
 
 jan = pys.Window('Resolvendo Chiado', layout=layout, finalize=True)
