@@ -17,7 +17,7 @@ def powersheel(comando):
 
 def resolver():
     c = 0
-    powersheel(r'Start-Process -WindowStyle hidden -FilePath C:\Users\Gabri\Documents\dpclat.exe')
+    powersheel(r'Start-Process -WindowStyle hidden -FilePath lib\dpclat.exe')
     while not window.getWindowsWithTitle("Error"):
         sleep(0.2)
         c += 1
@@ -25,7 +25,7 @@ def resolver():
             break
     if window.getWindowsWithTitle("Error"):
         window.getWindowsWithTitle("Error")[0].close()
-    powersheel(r'Start-Process -WindowStyle hidden -FilePath C:\Users\Gabri\Documents\dpclat.exe')
+    powersheel(r'Start-Process -WindowStyle hidden -FilePath lib\dpclat.exe')
 
 
 cmd(
