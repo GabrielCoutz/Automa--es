@@ -1,8 +1,47 @@
 # -*- encoding: utf-8 -*-
 import winsound
 import pygetwindow as window
-from time import sleep
 import PySimpleGUI as pys
+import ctypes
+import shutil
+from ctypes import windll, wintypes
+from uuid import UUID
+from time import sleep
+
+
+class GUID(ctypes.Structure):
+    _fields_ = [
+        ("Data1", wintypes.DWORD),
+        ("Data2", wintypes.WORD),
+        ("Data3", wintypes.WORD),
+        ("Data4", wintypes.BYTE * 8)
+    ]
+
+    def __init__(self, uuidstr):
+        uuid = UUID(uuidstr)
+        ctypes.Structure.__init__(self)
+        self.Data1, self.Data2, self.Data3, \
+        self.Data4[0], self.Data4[1], rest = uuid.fields
+        for i in range(2, 8):
+            self.Data4[i] = rest >> (8 - i - 1) * 8 & 0xff
+
+
+def _get_known_folder_path(uuidstr):
+    SHGetKnownFolderPath = windll.shell32.SHGetKnownFolderPath
+    SHGetKnownFolderPath.argtypes = [
+        ctypes.POINTER(GUID), wintypes.DWORD,
+        wintypes.HANDLE, ctypes.POINTER(ctypes.c_wchar_p)
+    ]
+    pathptr = ctypes.c_wchar_p()
+    guid = GUID(uuidstr)
+    if SHGetKnownFolderPath(ctypes.byref(guid), 0, 0, ctypes.byref(pathptr)):
+        raise ctypes.WinError()
+    return pathptr.value
+
+
+def get_download_folder():
+    FOLDER_ID = '{B97D20BB-F46A-4C97-BA10-5E3608430854}'
+    return str(_get_known_folder_path(FOLDER_ID))
 
 
 def cmd(comando):
@@ -23,14 +62,32 @@ def resolver():
         c += 1
         if c == 5:
             break
+    # if window.getWindowsWithTitle("Error"):
+    #     sleep(1)
+    #     razer[0].close()
+    # powersheel(r'Start-Process -WindowStyle hidden -FilePath lib\dpclat.exe')
     if window.getWindowsWithTitle("Error"):
-        window.getWindowsWithTitle("Error")[0].close()
+        sleep(0.3)
+        cmd('TASKKILL /IM dpclat.exe')
+    else:
+        pass
+    try:
+        if window.getWindowsWithTitle("Error"):
+            window.getWindowsWithTitle("Error")[0].close()
+    except:
+        pass
     powersheel(r'Start-Process -WindowStyle hidden -FilePath lib\dpclat.exe')
 
 
-cmd(
-    '''pip install --noconsole --no-cache-dir -r 
-    https://raw.githubusercontent.com/GabrielCoutz/Problema-Chiado/main/requirements.txt''')
+def mover():
+    pasta_inicializar = get_download_folder()
+    original = r'lib\Resolver_DPC - Atalho.lnk'
+    shutil.move(original, pasta_inicializar)
+
+
+# cmd(
+#     '''pip install --noconsole --no-cache-dir -r
+#     https://raw.githubusercontent.com/GabrielCoutz/Problema-Chiado/main/requirements.txt''')
 
 layout = [
     [pys.Text('Bem vindo =)', size=(25, 0))],
@@ -48,6 +105,8 @@ try:
     winsound.PlaySound(r'lib\\Musica_Maneira.wav', winsound.SND_ASYNC)
     resolver()
     primeira_vez = False
+
+
 except FileNotFoundError:
     x = open('lib/primeira_vez.txt', 'w')
     x.write("""
@@ -58,6 +117,10 @@ except FileNotFoundError:
 
 jan = pys.Window('Resolvendo Chiado', layout=layout, finalize=True)
 if primeira_vez:
+    try:
+        mover()
+    except:
+        pass
     while True:
         events, value = jan.read()
         if events == pys.WIN_CLOSED:
