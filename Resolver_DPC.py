@@ -50,10 +50,10 @@ try:
     primeira_vez = False
 except FileNotFoundError:
     x = open('lib/primeira_vez.txt', 'w')
-    x.write("""Esse bloco de notas foi criado apenas para controle do programa, caso ele não existir significa que
+    x.write("""
+            Esse bloco de notas foi criado apenas para controle do programa, caso ele não exista, significa que
             é a primeira vez que está sendo executado, ou seja, irá aparecer a caixa de mensagem inicial.
-            Caso já exista, significa que já foi executado em algum momento, então apenas vai executar direto.
-            Pode ignorar kkkk""")
+            Caso já exista, significa que já foi executado em algum momento, então apenas vai abrir direto.""")
     x.close()
 
 jan = pys.Window('Resolvendo Chiado', layout=layout, finalize=True)
