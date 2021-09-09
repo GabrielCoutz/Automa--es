@@ -1,6 +1,7 @@
 import winsound
 import threading
 import webbrowser
+import pygetwindow as window
 from time import sleep
 from datetime import date
 import PySimpleGUI as pys
@@ -115,14 +116,12 @@ def seletor():
 
     esperar_css(".beatmaps-popup__content")
     scores = achar_css(".difficulty-badge")
-
     if nome_mapa in nomes:
         pass
     else:
         for score in scores:
             score = score.text
             score_float = score.replace(',', '.')
-
             if float(score_float) > 6.50:
                 break
             if 5.90 <= float(score_float) <= 6.50:
@@ -137,7 +136,6 @@ def seletor():
                     games.click()
                     pegar_link()
                     break
-
     if nome_mapa not in nomes:
         nomes.append(nome_mapa)
 
@@ -254,7 +252,8 @@ except:
 driver = webdriver.Chrome(executable_path=r"C:\Users\Gabri\anaconda3\chromedriver.exe")
 wait: WebDriverWait = WebDriverWait(driver, 20)
 driver.get(site)
-
+window.getWindowsWithTitle('osu')[0].hide()
+window.getWindowsWithTitle('chromedriver')[0].hide()
 login()
 esperar_css(
     """body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > div > 
@@ -271,7 +270,6 @@ jan_mais = pys.Window('Pergunta', layout=notificacao_mais(), finalize=True)
 jan_mais.hide()
 
 while True:
-
     if len(final) == numero_de_mapas:
         winsound.PlaySound(r'E:\Backup\Musicas\fim.wav', winsound.SND_ASYNC)
         notificacao2 = notiticacao_final()
