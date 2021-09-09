@@ -19,6 +19,7 @@ f, c = 0, 0
 # Setando data
 sem = ("Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo")
 dia_semana = date.today().weekday()
+dia = date.today().day
 
 # Locais para click
 barra, play = 1593, 1564
@@ -30,6 +31,9 @@ if dia_semana < 5:
     osu = "https://osu.ppy.sh/beatmapsets?m=0&s=pending"
 else:
     osu = "https://osu.ppy.sh/beatmapsets?m=0"
+
+if dia == 1:
+    texto = '\n\nÀ propósito, hj é dia de limpar os equipamentos XD'
 
 # Biblioteca de Imagens
 spec = importlib.util.spec_from_file_location(
@@ -98,8 +102,6 @@ def resolver():
 def som():
     global f
 
-    threading.Thread(target=resolver).start()
-
     if verificar(Imagens.Imagens.mais, 1799, 1042, 21, 38):
         py.leftClick(1799, 1055)
     else:
@@ -144,6 +146,7 @@ def som():
     sleep(1)
 
     window.getWindowsWithTitle("Razer")[0].close()
+    threading.Thread(target=resolver).start()
 
 
 def google():
@@ -156,15 +159,9 @@ def google():
         webbrowser.open(a)
         sleep(1)
     sleep(0.5)
-    if verificar(Imagens.Imagens.max) is False:
-        try:
-            py.click(Imagens.Imagens.max22)
-        except:
-            py.click(Imagens.Imagens.max33)
-            try:
-                py.click(Imagens.Imagens.max22)
-            except:
-                py.click(Imagens.Imagens.max33)
+    navegador = window.getWindowsWithTitle('Google')[0]
+    navegador.maximize()
+    navegador.activate()
     sleep(1)
     py.leftClick(x=164, y=17)
     py.rightClick(x=164, y=17)
@@ -210,6 +207,14 @@ def google():
     sleep(1.5)
     py.press('enter')
     sleep(1.5)
+    py.leftClick(x=365, y=12)
+    sleep(1)
+    py.leftClick(x=1831, y=50)
+    sleep(1.2)
+    py.leftClick(x=1624, y=355)
+    sleep(1.2)
+    py.leftClick(x=1526, y=296)
+    sleep(1)
     py.leftClick(x=365, y=12)
     while verificar(Imagens.Imagens.lofi) is False:
         sleep(0.2)
