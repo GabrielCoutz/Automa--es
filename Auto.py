@@ -13,7 +13,7 @@ import threading
 
 # Variáveis Globais
 locale.setlocale(locale.LC_ALL, 'pt_BR.utf8')
-texto, osu = '', ''
+texto = ''
 f, c = 0, 0
 
 # Setando data
@@ -23,14 +23,8 @@ dia = date.today().day
 
 # Locais para click
 barra, play = 1593, 1564
-barras = [389, 454, 579, 702, 765]
+barras = [385, 451, 576, 698, 762]
 plays = [387, 456, 577, 705, 766]
-
-# Verificando dia
-if dia_semana < 5:
-    osu = "https://osu.ppy.sh/beatmapsets?m=0&s=pending"
-else:
-    osu = "https://osu.ppy.sh/beatmapsets?m=0"
 
 if dia == 1:
     texto = '\n\nÀ propósito, hj é dia de limpar os equipamentos XD'
@@ -66,7 +60,7 @@ def verificar(imagem, left=None, top=None, width=None, height=None):
             return True
         return False
     else:
-        if py.locateCenterOnScreen(imagem):
+        if py.locateCenterOnScreen(imagem, confidence=0.9):
             return True
         else:
             return False
@@ -102,26 +96,26 @@ def resolver():
 def som():
     global f
 
-    if verificar(Imagens.Imagens.mais, 1799, 1042, 21, 38):
-        py.leftClick(1799, 1055)
-    else:
-        py.leftClick(1775, 1055)
+    if verificar(Imagens.Imagens.mais, 1755, 1041, 23, 38):
+        py.leftClick(1755, 1041)
     if verificar(Imagens.Imagens.razeratt) is False:
         try:
             esperar(Imagens.Imagens.razer2)
-            py.doubleClick(py.locateOnScreen(Imagens.Imagens.razer2))
+            py.doubleClick(py.locateOnScreen(Imagens.Imagens.razer2, confidence=0.9))
             esperar(Imagens.Imagens.teste)
-            if verificar(Imagens.Imagens.mouse) is True:
-                aaaaa = py.locateOnScreen(Imagens.Imagens.teste)
-                py.moveTo(aaaaa[0] + 200, aaaaa[1] + 150)
-                sleep(1)
-                py.click(aaaaa[0] - 100, aaaaa[1] + 160)
+            if verificar(Imagens.Imagens.mouse2):
+                if verificar(Imagens.Imagens.mouse) is False:
+                    aaaaa = py.locateOnScreen(Imagens.Imagens.teste)
+                    py.moveTo(aaaaa[0] + 200, aaaaa[1] + 150)
+                    sleep(1)
+                    py.click(aaaaa[0] - 100, aaaaa[1] + 160)
             else:
                 f = 1
         except:
             f = 1
     else:
         pass
+
     os.startfile(r'C:\Program Files (x86)\Razer\Synapse\RzSynapse.exe')
     while not window.getWindowsWithTitle('Razer'):
         sleep(0.2)
@@ -182,7 +176,7 @@ def google():
     sleep(1.2)
     py.leftClick(x=1624, y=355)
     sleep(1.2)
-    py.leftClick(x=1526, y=296)
+    py.leftClick(x=1516, y=296)
     sleep(1)
     py.rightClick(x=365, y=12)
     py.press('down', 3)
@@ -213,7 +207,7 @@ def google():
     sleep(1.2)
     py.leftClick(x=1624, y=355)
     sleep(1.2)
-    py.leftClick(x=1526, y=296)
+    py.leftClick(x=1516, y=296)
     sleep(1)
     py.leftClick(x=365, y=12)
     while verificar(Imagens.Imagens.lofi) is False:
