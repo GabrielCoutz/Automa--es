@@ -96,8 +96,7 @@ def resolver():
 def som():
     global f
 
-    if verificar(Imagens.Imagens.mais, 1755, 1041, 23, 38):
-        py.leftClick(1755, 1041)
+    py.click(Imagens.Imagens.mais)
     if verificar(Imagens.Imagens.razeratt) is False:
         try:
             esperar(Imagens.Imagens.razer2)
@@ -243,7 +242,7 @@ def reserva():
     try:
         py.leftClick(py.locateOnScreen(Imagens.Imagens.mais))
         sleep(2)
-        py.doubleClick(py.locateOnScreen(Imagens.Imagens.razer2))
+        py.doubleClick(py.locateOnScreen(Imagens.Imagens.razer2, confidence=0.9))
         sleep(2)
         aaaaa = py.locateOnScreen(Imagens.Imagens.teste)
         py.moveTo(aaaaa[0] + 200, aaaaa[1] + 150)
