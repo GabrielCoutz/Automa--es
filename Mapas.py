@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 import winsound
 import threading
 import webbrowser
@@ -12,201 +13,252 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 
-lista = {}
-pesquisa = False
-nome_mapa, site, games, link = '', '', '', ''
-num = date.today().weekday()
-links, final, nomes, = [], [], []
-linha, coluna, loop, contador = 1, 1, 1, 1
 
-if num < 5:
-    site = "https://osu.ppy.sh/beatmapsets?m=0&s=pending"
-else:
-    site = "https://osu.ppy.sh/beatmapsets?m=0"
+class Contador:
+    def __init__(self, contador, linha, coluna):
+        self.contador = contador
+        self.linha = linha
+        self.coluna = coluna
+
+    def start(self):
+        if self.contador == 21:
+            self.linha = self.linha - 1
+        if self.contador % 2 == 0 and self.contador > 21:
+            self.linha -= 1
+
+        if self.contador % 2 != 0:
+            self.coluna = 2
+            if self.contador % 2 == 0:
+                self.linha += 1
+        else:
+            self.linha += 1
+            self.coluna = 1
+
+        self.contador += 1
+        return [self.contador, self.linha, self.coluna]
 
 
-def notificacao_inicial():
-    layout2 = [
-        [pys.Text(f'Quantos mapas deseja?', size=(25, 0))],
-        [pys.Input(size=(10, 0), key='num'), pys.Button('Enviar', key='Enviar'),
-         pys.Button('Pesquisar', key='Pesquisar')],
+class Seletor:
+    final = []
+    nomes = []
+    pesquisa = False
 
-    ]
-    jan2 = pys.Window('Procura', layout=layout2, finalize=True)
+    def __init__(self, contador, linha, coluna):
+        self.contador = contador
+        self.linha = linha
+        self.coluna = coluna
+        self.actions = ActionChains(driver)
 
-    while True:
-        events, value = jan2.read()
-        if events == pys.WIN_CLOSED:
-            # driver.quit()
-            exit()
-        if events == 'Pesquisar':
-            jan2.close()
-            layout_pesquisa = [
-                [pys.Text(f'Insira o nome do mapa', size=(25, 0))],
-                [pys.Input(size=(30, 0), key='pesquisa_nome')],
-                [pys.Text(f'Insira Quantos mapas deseja', size=(25, 0))],
-                [pys.Input(size=(30, 0), key='pesquisa_numero'), pys.Button('Enviar', key='Enviar')]
-            ]
-            jan_pesq = pys.Window('Procura', layout=layout_pesquisa, finalize=True)
-            events, value = jan_pesq.read()
-            if events == pys.WIN_CLOSED:
-                exit()
-            if events == 'Enviar':
-                jan_pesq.close()
-                return [value['pesquisa_nome'], value['pesquisa_numero']]
-        try:
-            n = int(value['num'])
-            break
-        except:
-            jan2.close()
-            layout2 = [
-                [pys.Text(f'Por favor, insira apenas números!', size=(25, 0))],
-                [pys.Input(size=(20, 0), key='num'), pys.Button('Enviar', key='Enviar')]
-            ]
-            jan2 = pys.Window('Procura', layout=layout2, finalize=True)
+    def pegar_link(self):
+
+        pega, sair = False, False
+
+        esperar_css(f""".js-beatmapset-download-link > span""")
+
+        mapas = achar_css(""".beatmapset-beatmap-picker__beatmap""")
+        for clicar in mapas:
+            if pega or sair:
+                break
+            actions = ActionChains(driver)
+            actions.move_to_element(clicar).perform()
+
+            dif2 = achar_css('.beatmapset-header__star-difficulty')[0].text
+            dif2 = dif2.replace('Dificuldade ', '')
+            dif2 = dif2.replace(',', '.')
+            xax3 = float(dif2)
+
+            if 5.90 <= xax3 <= 6.50:
+                clicar.click()
+                dur_str = achar_css(""".beatmapset-stats__row--basic > div > div:nth-child(1) > span""")[0].text
+                dur_str = dur_str.replace(':', '.')
+                if len(dur_str) > 4:
+                    break
+
+                dur_float = float(dur_str)
+                if not self.pesquisa:
+                    if 1.50 <= dur_float <= 6.00:
+                        pega = True
+                        break
+                    else:
+                        pass
+                else:
+                    if 1.00 <= dur_float <= 8.00:
+                        pega = True
+                        break
+                    else:
+                        pass
+
+            if xax3 > 6.50:
+                sair = True
+                break
+
+        if pega:
+            link = driver.current_url
+            driver.back()
+            esperar_css(f"""body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > 
+                                            div > div:nth-child(2) > div > div > div.beatmapsets-search__input-container > input""")
+
+            if link not in self.final and link != '':
+                self.final.append(str(link))
+
+        else:
+            driver.back()
+            esperar_css(f"""body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > 
+                                                    div > div:nth-child(2) > div > div > 
+                                                    div.beatmapsets-search__input-container > input""")
+
+    def seletor(self, **kwargs):
+
+        if kwargs['nome_do_mapa']:
+            self.pesquisa = True
+
+        if len(self.final) == kwargs['limite']:
+            notificacoes.final(self.final)
+            return 1
+        games = driver.find_element_by_css_selector(
+            f""".beatmapsets__items-row:nth-of-type({self.linha}) .beatmapsets__item:nth-of-type({self.coluna})
+                           .beatmapset-panel__info-row--extra""")
+        self.nome_mapa = achar_css(
+            f""".beatmapsets__content.js-audio--group > 
+                div > div > div:nth-child({self.linha}) > div:nth-child({self.coluna}) > div > div > div.beatmapset-panel__info > 
+                div.beatmapset-panel__info-row.beatmapset-panel__info-row--title > a""")[0].text
+
+        if self.contador > 22:
+            driver.execute_script("window.scrollBy(0,40)")
+        else:
+            driver.execute_script("window.scrollBy(0,50)")
+
+        self.actions.move_to_element(games).perform()
+
+        esperar_css(".beatmaps-popup__content")
+        scores = achar_css(".difficulty-badge")
+
+        if self.nome_mapa in self.nomes:
+            pass
+        else:
+            for score in scores:
+                score = score.text
+                score_float = score.replace(',', '.')
+                if float(score_float) > 6.50:
+                    break
+                if 5.90 <= float(score_float) <= 6.50:
+                    if self.nome_mapa not in self.nomes and not self.pesquisa:
+                        games.click()
+                        self.pegar_link()
+                        if self.nome_mapa not in self.nomes:
+                            self.nomes.append(self.nome_mapa)
+                            break
+                        break
+                    if self.pesquisa:
+                        games.click()
+                        self.pegar_link()
+                        break
+        if self.nome_mapa not in self.nomes and not self.pesquisa:
+            self.nomes.append(self.nome_mapa)
+
+
+class notificacoes:
+
+    @staticmethod
+    def inicial():
+        layout2 = [
+            [pys.Text(f'Quantos mapas deseja?', size=(25, 0))],
+            [pys.Input(size=(10, 0), key='num'), pys.Button('Enviar', key='Enviar'),
+             pys.Button('Pesquisar', key='Pesquisar')],
+
+        ]
+        jan2 = pys.Window('Procura', layout=layout2, finalize=True)
+
+        while True:
             events, value = jan2.read()
             if events == pys.WIN_CLOSED:
                 exit()
-    jan2.close()
-    return int(value['num'])
-
-
-def notiticacao_final():
-    layout2 = [
-        [pys.Text(f'Todos os {len(final)} mapas foram encontados!')],
-        [pys.Text('Deseja baixá-los?', size=(20, 0))],
-        [pys.Button('Sim', key='Sim'), pys.Button('Não', key='Nao')]
-    ]
-
-    jan2 = pys.Window('Pergunta', layout=layout2, finalize=True)
-    events, value = jan2.read()
-    l = [events, jan2]
-    return l
-
-
-def notificacao_mais():
-    layout_mais = [
-        [pys.Text(f'Deseja mais mapas?', size=(30, 0))],
-        [pys.Button('Sim', key='Sim'), pys.Button('Não', key='Nao')]
-    ]
-    return layout_mais
-
-
-def seletor():
-    global linha, coluna, contador, loop, nome_mapa, pesquisa
-    if pesquisa:
-        nomes.clear()
-
-    games = driver.find_element_by_css_selector(
-        f""".beatmapsets__items-row:nth-of-type({linha}) .beatmapsets__item:nth-of-type({coluna})
-                   .beatmapset-panel__info-row--extra""")
-
-    nome_mapa = achar_css(
-        f""".beatmapsets__content.js-audio--group > 
-        div > div > div:nth-child({linha}) > div:nth-child({coluna}) > div > div > div.beatmapset-panel__info > 
-        div.beatmapset-panel__info-row.beatmapset-panel__info-row--title > a""")[0].text
-
-    if contador > 22:
-        driver.execute_script("window.scrollBy(0,40)")
-    else:
-        driver.execute_script("window.scrollBy(0,50)")
-
-    actions = ActionChains(driver)
-    actions.move_to_element(games).perform()
-
-    esperar_css(".beatmaps-popup__content")
-    scores = achar_css(".difficulty-badge")
-    if nome_mapa in nomes:
-        pass
-    else:
-        for score in scores:
-            score = score.text
-            score_float = score.replace(',', '.')
-            if float(score_float) > 6.50:
+            elif events == 'Pesquisar':
+                jan2.close()
+                layout_pesquisa = [
+                    [pys.Text(f'Insira o nome do mapa', size=(25, 0))],
+                    [pys.Input(size=(30, 0), key='pesquisa_nome')],
+                    [pys.Text(f'Insira Quantos mapas deseja', size=(25, 0))],
+                    [pys.Input(size=(30, 0), key='pesquisa_numero'), pys.Button('Enviar', key='Enviar')]
+                ]
+                jan_pesq = pys.Window('Procura', layout=layout_pesquisa, finalize=True)
+                events, value = jan_pesq.read()
+                if events == pys.WIN_CLOSED:
+                    exit()
+                elif events == 'Enviar':
+                    jan_pesq.close()
+                    return [int(value['pesquisa_numero']), value['pesquisa_nome']]
+            try:
+                n = int(value['num'])
                 break
-            if 5.90 <= float(score_float) <= 6.50:
-                if nome_mapa not in nomes and not pesquisa:
-                    games.click()
-                    nome_mapa = pegar_link()
-                    if nome_mapa not in nomes:
-                        nomes.append(nome_mapa)
-                        break
-                    break
-                if pesquisa:
-                    games.click()
-                    pegar_link()
-                    break
-    if nome_mapa not in nomes:
-        nomes.append(nome_mapa)
+            except:
+                jan2.close()
+                layout2 = [
+                    [pys.Text(f'Por favor, insira apenas números!', size=(25, 0))],
+                    [pys.Input(size=(20, 0), key='num'), pys.Button('Enviar', key='Enviar')]
+                ]
+                jan2 = pys.Window('Procura', layout=layout2, finalize=True)
+                events, value = jan2.read()
+                if events == pys.WIN_CLOSED:
+                    exit()
+        jan2.close()
+        return [int(value['num']), None]
 
-    if not pesquisa:
-        return [games, nome_mapa]
+    @staticmethod
+    def final(limite):
+        winsound.PlaySound(r'E:\Backup\Musicas\fim.wav', winsound.SND_ASYNC)
+        layout2 = [
+            [pys.Text(f'Todos os {len(limite)} mapas foram encontados!')],
+            [pys.Text('Deseja baixá-los?', size=(20, 0))],
+            [pys.Button('Sim', key='Sim'), pys.Button('Não', key='Nao')]
+        ]
+
+        jan2 = pys.Window('Pergunta', layout=layout2, finalize=True)
+        events, value = jan2.read()
+        if events == 'Sim':
+            jan2.close()
+            abrir_mapas(limite)
+        elif events == 'Nao':
+            exit()
+        elif events == pys.WIN_CLOSED:
+            exit()
+
+
+########################################
+
+
+def login():
+    threading.Thread(target=esconder).start()
+
+    if date.today().weekday() < 5:
+        site = "https://osu.ppy.sh/beatmapsets?m=0&s=pending"
     else:
-        return [games]
+        site = "https://osu.ppy.sh/beatmapsets?m=0"
 
-
-def pegar_link():
-    global pesquisa, link, nome_mapa
-
-    pega, sair = False, False
-
-    esperar_css(f""".js-beatmapset-download-link > span""")
-
-    if not pesquisa:
-        nome_mapa = achar_css(""".beatmapset-header__details-text--title > a""")[0].text
-        nomes.append(nome_mapa)
-
-    mapas = achar_css(""".beatmapset-beatmap-picker__beatmap""")
-    for clicar in mapas:
-        if pega or sair:
-            break
-
-        actions = ActionChains(driver)
-        actions.move_to_element(clicar).perform()
-
-        dif2 = achar_css('.beatmapset-header__star-difficulty')[0].text
-        dif2 = dif2.replace('Dificuldade ', '')
-        dif2 = dif2.replace(',', '.')
-        xax3 = float(dif2)
-
-        if 5.90 <= xax3 <= 6.50:
-            clicar.click()
-            dur_str = achar_css(""".beatmapset-stats__row--basic > div > div:nth-child(1) > span""")[0].text
-            dur_str = dur_str.replace(':', '.')
-            if len(dur_str) > 4:
-                break
-
-            dur_float = float(dur_str)
-            if not pesquisa:
-                if 1.50 <= dur_float <= 6.00:
-                    pega = True
-                    break
-                else:
-                    pass
-            else:
-                if 1.00 <= dur_float <= 8.00:
-                    pega = True
-                    break
-                else:
-                    pass
-
-        if xax3 > 6.50:
-            sair = True
-            break
-
-    if pega:
-        link = driver.current_url
-        driver.back()
-        esperar_css(f"""body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > 
-                                div > div:nth-child(2) > div > div > div.beatmapsets-search__input-container > input""")
-
+    if saida_da_not[1] is not None:  # pesquisa
+        driver.get('https://osu.ppy.sh/beatmapsets?m=0&s=any')
     else:
-        driver.back()
-        esperar_css(f"""body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > 
-                                        div > div:nth-child(2) > div > div > 
-                                        div.beatmapsets-search__input-container > input""")
+        driver.get(site)
+    achar_xpath('/html/body/div[4]/div[1]/div[4]/div/div[2]/div[4]/button').click()
+    achar_xpath('/html/body/div[5]/div/form/div[1]/input[1]').send_keys('Nerean')
+    achar_xpath('/html/body/div[5]/div/form/div[1]/input[2]').send_keys('tocinho1')
+    achar_xpath('/html/body/div[5]/div/form/div[5]/div/button/div/span[1]').click()
+    esperar_css(
+        """body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > div > 
+        div:nth-child(2) > div > div > div.beatmapsets-search__input-container > input""")
+    if saida_da_not[1]:
+        driver.find_element_by_css_selector(
+            """body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > div > 
+            div:nth-child(2) > div > div > div.beatmapsets-search__input-container > 
+            input""").send_keys(saida_da_not[1], Keys.ENTER)
+        sleep(3)
 
-    return nome_mapa
+
+def abrir_mapas(limite):
+    driver.quit()
+    for a in limite:
+        webbrowser.open(a)
+        sleep(1)
 
 
 def achar_css(elemento):
@@ -224,116 +276,26 @@ def esperar_css(elemento):
     return ponto
 
 
-def login():
-    achar_xpath('/html/body/div[4]/div[1]/div[4]/div/div[2]/div[4]/button').click()
-    achar_xpath('/html/body/div[5]/div/form/div[1]/input[1]').send_keys('Nerean')
-    achar_xpath('/html/body/div[5]/div/form/div[1]/input[2]').send_keys('tocinho1')
-    achar_xpath('/html/body/div[5]/div/form/div[5]/div/button/div/span[1]').click()
+def esconder():
+    while not window.getWindowsWithTitle('osu') or not window.getWindowsWithTitle('chromedriver'):
+        sleep(0.1)
+    window.getWindowsWithTitle('chromedriver')[0].hide()
+    window.getWindowsWithTitle('osu')[0].hide()
 
 
-def abrir_mapas():
-    global final
+########################################
 
-    for a in final:
-        webbrowser.open(a)
-        sleep(1)
+Inicio = Contador(0, 0, 0)
 
-
-inicial = notificacao_inicial()
-
-try:
-    inicial -= 1
-    numero_de_mapas = inicial + 1
-except:
-    numero_de_mapas = int(inicial[1])
-    pesquisa = True
-    site = 'https://osu.ppy.sh/beatmapsets?m=0&s=any'
+saida_da_not = notificacoes.inicial()
 
 driver = webdriver.Chrome(executable_path=r"C:\Users\Gabri\anaconda3\chromedriver.exe")
 wait: WebDriverWait = WebDriverWait(driver, 20)
-driver.get(site)
-window.getWindowsWithTitle('osu')[0].hide()
-window.getWindowsWithTitle('chromedriver')[0].hide()
+
 login()
-esperar_css(
-    """body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > div > 
-    div:nth-child(2) > div > div > div.beatmapsets-search__input-container > input""")
-
-if pesquisa:
-    driver.find_element_by_css_selector(
-        """body > div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > div > 
-        div:nth-child(2) > div > div > div.beatmapsets-search__input-container > 
-        input""").send_keys(inicial[0], Keys.ENTER)
-    sleep(3)
-
-jan_mais = pys.Window('Pergunta', layout=notificacao_mais(), finalize=True)
-jan_mais.hide()
 
 while True:
-    if len(final) == numero_de_mapas:
-        winsound.PlaySound(r'E:\Backup\Musicas\fim.wav', winsound.SND_ASYNC)
-        notificacao2 = notiticacao_final()
-
-        if notificacao2[0] == 'Sim':
-            notificacao2[1].close()
-            webbrowser.register('chrome', None,
-                                webbrowser.BackgroundBrowser(r"C:\Program Files\Google\Chrome\Application\chrome.exe"))
-
-            threading.Thread(target=abrir_mapas).start()
-
-            if pesquisa:
-                jan_mais.un_hide()
-                events, value = jan_mais.read()
-                if events == 'Sim':
-                    jan_mais.hide()
-                    final.clear()
-                    numero_de_mapas = notificacao_inicial()
-                if events == 'Nao':
-                    jan_mais.close()
-                    break
-                if events == pys.WIN_CLOSED:
-                    break
-            break
-
-        if notificacao2[0] == 'Nao':
-            notificacao2[1].close()
-            break
-
-    if loop == 21:
-        linha = linha - 1
-    if loop % 2 == 0 and loop > 21:
-        linha -= 1
-
-    scores = seletor()
-
-    if contador % 2 != 0:
-        coluna = 2
-        if contador % 2 == 0:
-            linha += 1
-    else:
-        linha += 1
-        coluna = 1
-
-    if not pesquisa:
-        nome_mapa = scores[1]
-
-    # lista = {
-    #     'map': f"{nome_mapa}",
-    #     'link': f"{links}"}
-    #
-    # if links:
-    #     print(f"\nMapa: {lista['map']}\nLink: {links}\n{'-' * 70}")
-    # else:
-    #     print(f"\nMapa: {lista['map']}\n{'-' * 70}")
-
-    # print(f'\n{nomes}\n{len(nomes)}')
-
-    if link not in final and link != '':
-        final.append(str(link))
-
-    set(final)
-    lista.clear()
-    loop += 1
-    contador += 1
-
-driver.quit()
+    resultados = Inicio.start()
+    if Seletor(resultados[0], resultados[1], resultados[2]).seletor(limite=saida_da_not[0],
+                                                                    nome_do_mapa=saida_da_not[1]):
+        break
