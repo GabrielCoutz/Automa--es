@@ -42,6 +42,7 @@ class Seletor:
     final = []
     nomes = []
     pesquisa = False
+    links_lidos = []
 
     def __init__(self, contador, linha, coluna):
         self.contador = contador
@@ -52,37 +53,36 @@ class Seletor:
     def pegar_link(self):
 
         pega, sair = False, False
-
         esperar_css(f""".js-beatmapset-download-link > span""")
 
-        mapas = achar_css(""".beatmapset-beatmap-picker__beatmap""")
+        mapas = driver.find_elements_by_css_selector(""".beatmapset-beatmap-picker__beatmap""")
         for clicar in mapas:
             if pega or sair:
                 break
             actions = ActionChains(driver)
             actions.move_to_element(clicar).perform()
 
-            dif2 = achar_css('.beatmapset-header__star-difficulty')[0].text
-            dif2 = dif2.replace('Dificuldade ', '')
-            dif2 = dif2.replace(',', '.')
-            xax3 = float(dif2)
+            xax3 = float(driver.find_element_by_xpath(
+                f"(//div[contains(@class,'beatmap-icon')])[{mapas.index(clicar) + 1}]").get_attribute('data-stars'))
 
             if 5.90 <= xax3 <= 6.50:
                 clicar.click()
-                dur_str = achar_css(""".beatmapset-stats__row--basic > div > div:nth-child(1) > span""")[0].text
-                dur_str = dur_str.replace(':', '.')
-                if len(dur_str) > 4:
-                    break
 
-                dur_float = float(dur_str)
+                duracao = float(driver.find_element_by_css_selector(
+                    """.beatmapset-stats__row--basic > div > div:nth-child(1) > span""").text.replace(':', '.'))
+
+                if duracao > 10.00:
+                    break
+                print(f'{duracao=}\n')
+
                 if not self.pesquisa:
-                    if 1.50 <= dur_float <= 6.00:
+                    if 1.50 <= duracao <= 6.00:
                         pega = True
                         break
                     else:
                         pass
                 else:
-                    if 1.00 <= dur_float <= 8.00:
+                    if 1.00 <= duracao <= 8.00:
                         pega = True
                         break
                     else:
@@ -108,9 +108,13 @@ class Seletor:
                                                     div.beatmapsets-search__input-container > input""")
 
     def seletor(self, **kwargs):
-
         if kwargs['nome_do_mapa']:
             self.pesquisa = True
+            self.teste = driver.find_element_by_css_selector(f"""body > 
+                    div.osu-layout__section.osu-layout__section--full.js-content.beatmaps_index > div > 
+                    div.osu-layout__row.osu-layout__row--page-compact > div > div.beatmapsets__content.js-audio--group > 
+                    div > div > div:nth-child({self.linha}) > div:nth-child({self.coluna}) > div > a""").get_property(
+                'href')
 
         if len(self.final) == kwargs['limite']:
             notificacoes.final(self.final)
@@ -121,7 +125,7 @@ class Seletor:
         self.nome_mapa = achar_css(
             f""".beatmapsets__content.js-audio--group > 
                 div > div > div:nth-child({self.linha}) > div:nth-child({self.coluna}) > div > div > div.beatmapset-panel__info > 
-                div.beatmapset-panel__info-row.beatmapset-panel__info-row--title > a""")[0].text
+                div.beatmapset-panel__info-row.beatmapset-panel__info-row--title > a""").text
 
         if self.contador > 22:
             driver.execute_script("window.scrollBy(0,40)")
@@ -131,7 +135,7 @@ class Seletor:
         self.actions.move_to_element(games).perform()
 
         esperar_css(".beatmaps-popup__content")
-        scores = achar_css(".difficulty-badge")
+        scores = driver.find_elements_by_css_selector(".difficulty-badge")
 
         if self.nome_mapa in self.nomes:
             pass
@@ -149,10 +153,12 @@ class Seletor:
                             self.nomes.append(self.nome_mapa)
                             break
                         break
-                    if self.pesquisa:
+                    if self.pesquisa and self.teste not in self.links_lidos:
                         games.click()
                         self.pegar_link()
+                        self.links_lidos.append(self.teste)
                         break
+
         if self.nome_mapa not in self.nomes and not self.pesquisa:
             self.nomes.append(self.nome_mapa)
 
@@ -262,7 +268,7 @@ def abrir_mapas(limite):
 
 
 def achar_css(elemento):
-    ponto = driver.find_elements_by_css_selector(str(elemento))
+    ponto = driver.find_element_by_css_selector(str(elemento))
     return ponto
 
 
