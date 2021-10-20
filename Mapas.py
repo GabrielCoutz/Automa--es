@@ -39,16 +39,15 @@ class Contador:
 
 
 class Seletor:
-    final = []
-    nomes = []
+    final, nomes, links_lidos = [], [], []
     pesquisa = False
-    links_lidos = []
 
     def __init__(self, contador, linha, coluna):
         self.contador = contador
-        self.linha = linha
-        self.coluna = coluna
+        self.linha, self.coluna = linha, coluna
         self.actions = ActionChains(driver)
+        self.Dmin, self.Dmax = 6.00, 6.50
+        self.Durmin, self.Durmax = 1.50, 6.00
 
     def pegar_link(self):
 
@@ -65,7 +64,7 @@ class Seletor:
             xax3 = float(driver.find_element_by_xpath(
                 f"(//div[contains(@class,'beatmap-icon')])[{mapas.index(clicar) + 1}]").get_attribute('data-stars'))
 
-            if 5.90 <= xax3 <= 6.50:
+            if self.Dmin <= xax3 <= self.Dmax:
                 clicar.click()
 
                 duracao = float(driver.find_element_by_css_selector(
@@ -73,22 +72,21 @@ class Seletor:
 
                 if duracao > 10.00:
                     break
-                print(f'{duracao=}\n')
 
                 if not self.pesquisa:
-                    if 1.50 <= duracao <= 6.00:
+                    if self.Durmin <= duracao <= self.Durmax:
                         pega = True
                         break
                     else:
                         pass
                 else:
-                    if 1.00 <= duracao <= 8.00:
+                    if 2.00 <= duracao <= 8.00:
                         pega = True
                         break
                     else:
                         pass
 
-            if xax3 > 6.50:
+            if xax3 > self.Dmax:
                 sair = True
                 break
 
@@ -108,6 +106,7 @@ class Seletor:
                                                     div.beatmapsets-search__input-container > input""")
 
     def seletor(self, **kwargs):
+        print(len(self.final))
         if kwargs['nome_do_mapa']:
             self.pesquisa = True
             self.teste = driver.find_element_by_css_selector(f"""body > 
@@ -116,9 +115,20 @@ class Seletor:
                     div > div > div:nth-child({self.linha}) > div:nth-child({self.coluna}) > div > a""").get_property(
                 'href')
 
+        if kwargs['Dmin'] and kwargs['Dmax']:
+            self.Dmin = kwargs['Dmin']
+            self.Dmax = kwargs['Dmax']
+
+        if kwargs['Durmin'] and kwargs['Durmax']:
+            self.Durmin = kwargs['Durmin']
+            self.Durmax = kwargs['Durmax']
+
+        print(self.Dmin, self.Dmax, self.Durmin, self.Durmax)
+
         if len(self.final) == kwargs['limite']:
             notificacoes.final(self.final)
             return 1
+
         games = driver.find_element_by_css_selector(
             f""".beatmapsets__items-row:nth-of-type({self.linha}) .beatmapsets__item:nth-of-type({self.coluna})
                            .beatmapset-panel__info-row--extra""")
@@ -143,9 +153,9 @@ class Seletor:
             for score in scores:
                 score = score.text
                 score_float = score.replace(',', '.')
-                if float(score_float) > 6.50:
+                if float(score_float) > self.Dmax:
                     break
-                if 5.90 <= float(score_float) <= 6.50:
+                if self.Dmin <= float(score_float) <= self.Dmax:
                     if self.nome_mapa not in self.nomes and not self.pesquisa:
                         games.click()
                         self.pegar_link()
@@ -166,16 +176,45 @@ class Seletor:
 class notificacoes:
 
     @staticmethod
-    def inicial():
-        layout2 = [
-            [pys.Text(f'Quantos mapas deseja?', size=(25, 0))],
-            [pys.Input(size=(10, 0), key='num'), pys.Button('Enviar', key='Enviar'),
-             pys.Button('Pesquisar', key='Pesquisar')],
+    def config():
+        layout3 = [
+            [pys.Text(f'Dificuldade Mínima', justification='left', size=(15, 0)), pys.Input(size=(10, 0), key='Dmin'),
+             pys.Text(f'Dificuldade Máxima', justification='left', size=(15, 0)), pys.Input(size=(10, 0), key='Dmax')],
+            [pys.Text(f'Duração Mínima', justification='left', size=(15, 0)), pys.Input(size=(10, 0), key='Durmin'),
+             pys.Text(f'Duração Máxima', justification='left', size=(15, 0)), pys.Input(size=(10, 0), key='Durmax')],
+            [pys.Button('Enviar', key='Fechar', size=(30, 0))]
 
         ]
-        jan2 = pys.Window('Procura', layout=layout2, finalize=True)
+        jan3 = pys.Window('Configurações', element_justification='center', layout=layout3, finalize=True)
 
         while True:
+            events, value = jan3.read()
+            if events == pys.WIN_CLOSED:
+                exit()
+            else:
+                jan3.close()
+                if value['Dmin'] != '' and value['Dmax'] != '' and value['Durmin'] == '' and value['Durmax'] == '':
+                    return [float(value['Dmin']), float(value['Dmax']), None, None]
+
+                elif value['Durmin'] != '' and value['Durmax'] != '' and value['Dmin'] == '' and value['Dmax'] == '':
+                    return [None, None, float(value['Durmin']), float(value['Durmax'])]
+
+                elif value['Durmin'] != '' and value['Durmax'] != '' and value['Dmin'] != '' and value['Dmax'] != '':
+                    return [float(value['Durmin']), float(value['Durmax']), float(value['Dmin']), float(value['Dmax'])]
+
+    @staticmethod
+    def inicial():
+        layout2 = [
+            [pys.Text(f'Quantos mapas deseja?', justification='center', size=(25, 0))],
+            [pys.Input(size=(10, 0), key='num')],
+            [pys.Button('Enviar', key='Enviar'), pys.Button('Pesquisar', key='Pesquisar'),
+             pys.Button('Configurações', key='Config', size=(14, 1))]
+
+        ]
+        jan2 = pys.Window('Procura', layout=layout2, element_justification='center', finalize=True)
+
+        while True:
+            conf = [None, None, None, None]
             events, value = jan2.read()
             if events == pys.WIN_CLOSED:
                 exit()
@@ -194,21 +233,31 @@ class notificacoes:
                 elif events == 'Enviar':
                     jan_pesq.close()
                     return [int(value['pesquisa_numero']), value['pesquisa_nome']]
-            try:
-                n = int(value['num'])
-                break
-            except:
+            elif events == 'Config':
+                print('config')
+                jan2.hide()
+                retorno = notificacoes.config()
+                print(retorno)
+                conf[0], conf[1], conf[2], conf[3] = retorno[0], retorno[1], retorno[2], retorno[3]
+                print('voltou')
+            elif events == 'Enviar':
                 jan2.close()
-                layout2 = [
-                    [pys.Text(f'Por favor, insira apenas números!', size=(25, 0))],
-                    [pys.Input(size=(20, 0), key='num'), pys.Button('Enviar', key='Enviar')]
-                ]
-                jan2 = pys.Window('Procura', layout=layout2, finalize=True)
-                events, value = jan2.read()
-                if events == pys.WIN_CLOSED:
-                    exit()
-        jan2.close()
-        return [int(value['num']), None]
+
+            # try:
+            #     n = int(value['num'])
+            #     break
+            # except:
+            #     jan2.close()
+            #     layout2 = [
+            #         [pys.Text(f'Por favor, insira apenas números!', size=(25, 0))],
+            #         [pys.Input(size=(20, 0), key='num'), pys.Button('Enviar', key='Enviar')]
+            #     ]
+            #     jan2 = pys.Window('Procura', layout=layout2, finalize=True)
+            #     events, value = jan2.read()
+            #     if events == pys.WIN_CLOSED:
+            #         exit()
+            print(int(value['num']), None, conf[0], conf[1], conf[2], conf[3])
+            return [int(value['num']), None, conf[0], conf[1], conf[2], conf[3]]
 
     @staticmethod
     def final(limite):
@@ -224,9 +273,8 @@ class notificacoes:
         if events == 'Sim':
             jan2.close()
             abrir_mapas(limite)
-        elif events == 'Nao':
-            exit()
-        elif events == pys.WIN_CLOSED:
+        else:
+            driver.quit()
             exit()
 
 
@@ -234,7 +282,7 @@ class notificacoes:
 
 
 def login():
-    threading.Thread(target=esconder).start()
+    # threading.Thread(target=esconder).start()
 
     if date.today().weekday() < 5:
         site = "https://osu.ppy.sh/beatmapsets?m=0&s=pending"
@@ -283,7 +331,7 @@ def esperar_css(elemento):
 
 
 def esconder():
-    while not window.getWindowsWithTitle('osu') or not window.getWindowsWithTitle('chromedriver'):
+    while not window.getWindowsWithTitle('osu') and not window.getWindowsWithTitle('chromedriver'):
         sleep(0.1)
     window.getWindowsWithTitle('chromedriver')[0].hide()
     window.getWindowsWithTitle('osu')[0].hide()
@@ -303,5 +351,9 @@ login()
 while True:
     resultados = Inicio.start()
     if Seletor(resultados[0], resultados[1], resultados[2]).seletor(limite=saida_da_not[0],
-                                                                    nome_do_mapa=saida_da_not[1]):
+                                                                    nome_do_mapa=saida_da_not[1],
+                                                                    Dmin=saida_da_not[2],
+                                                                    Dmax=saida_da_not[3],
+                                                                    Durmin=saida_da_not[4],
+                                                                    Durmax=saida_da_not[5]):
         break
