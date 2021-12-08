@@ -5,7 +5,7 @@ import webbrowser
 import pygetwindow as window
 from time import sleep
 from datetime import date
-import PySimpleGUI as pys
+import PySimpleGUI as sg
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
@@ -21,15 +21,12 @@ class Contador:
         self.coluna = coluna
 
     def start(self):
-        if self.contador == 21:
-            self.linha = self.linha - 1
+
         if self.contador % 2 == 0 and self.contador > 21:
             self.linha -= 1
 
         if self.contador % 2 != 0:
             self.coluna = 2
-            if self.contador % 2 == 0:
-                self.linha += 1
         else:
             self.linha += 1
             self.coluna = 1
@@ -43,11 +40,16 @@ class Seletor:
     pesquisa = False
 
     def __init__(self, contador, linha, coluna):
+
         self.contador = contador
         self.linha, self.coluna = linha, coluna
         self.actions = ActionChains(driver)
-        self.Dmin, self.Dmax = 6.00, 6.50
+        self.Difmin, self.Difmax = 6.00, 6.50
         self.Durmin, self.Durmax = 1.50, 6.00
+        self.nome_mapa = achar_css(
+            f""".beatmapsets__content.js-audio--group > 
+                        div > div > div:nth-child({self.linha}) > div:nth-child({self.coluna}) > div > div > div.beatmapset-panel__info > 
+                        div.beatmapset-panel__info-row.beatmapset-panel__info-row--title > a""").text
 
     def pegar_link(self):
 
@@ -64,7 +66,7 @@ class Seletor:
             xax3 = float(driver.find_element_by_xpath(
                 f"(//div[contains(@class,'beatmap-icon')])[{mapas.index(clicar) + 1}]").get_attribute('data-stars'))
 
-            if self.Dmin <= xax3 <= self.Dmax:
+            if self.Difmin <= xax3 <= self.Difmax:
                 clicar.click()
 
                 duracao = float(driver.find_element_by_css_selector(
@@ -86,7 +88,7 @@ class Seletor:
                     else:
                         pass
 
-            if xax3 > self.Dmax:
+            if xax3 > self.Difmax:
                 sair = True
                 break
 
@@ -106,7 +108,10 @@ class Seletor:
                                                     div.beatmapsets-search__input-container > input""")
 
     def seletor(self, **kwargs):
-        print(len(self.final))
+        if len(self.final) == kwargs['limite']:
+            notificacoes.final(self.final)
+            return 1
+
         if kwargs['nome_do_mapa']:
             self.pesquisa = True
             self.teste = driver.find_element_by_css_selector(f"""body > 
@@ -115,27 +120,17 @@ class Seletor:
                     div > div > div:nth-child({self.linha}) > div:nth-child({self.coluna}) > div > a""").get_property(
                 'href')
 
-        if kwargs['Dmin'] and kwargs['Dmax']:
-            self.Dmin = kwargs['Dmin']
-            self.Dmax = kwargs['Dmax']
+        if kwargs['Difmin'] and kwargs['Difmax']:
+            self.Difmin = kwargs['Difmin']
+            self.Difmax = kwargs['Difmax']
 
         if kwargs['Durmin'] and kwargs['Durmax']:
             self.Durmin = kwargs['Durmin']
             self.Durmax = kwargs['Durmax']
 
-        print(self.Dmin, self.Dmax, self.Durmin, self.Durmax)
-
-        if len(self.final) == kwargs['limite']:
-            notificacoes.final(self.final)
-            return 1
-
         games = driver.find_element_by_css_selector(
             f""".beatmapsets__items-row:nth-of-type({self.linha}) .beatmapsets__item:nth-of-type({self.coluna})
                            .beatmapset-panel__info-row--extra""")
-        self.nome_mapa = achar_css(
-            f""".beatmapsets__content.js-audio--group > 
-                div > div > div:nth-child({self.linha}) > div:nth-child({self.coluna}) > div > div > div.beatmapset-panel__info > 
-                div.beatmapset-panel__info-row.beatmapset-panel__info-row--title > a""").text
 
         if self.contador > 22:
             driver.execute_script("window.scrollBy(0,40)")
@@ -153,9 +148,9 @@ class Seletor:
             for score in scores:
                 score = score.text
                 score_float = score.replace(',', '.')
-                if float(score_float) > self.Dmax:
+                if float(score_float) > self.Difmax:
                     break
-                if self.Dmin <= float(score_float) <= self.Dmax:
+                if self.Difmin <= float(score_float) <= self.Difmax:
                     if self.nome_mapa not in self.nomes and not self.pesquisa:
                         games.click()
                         self.pegar_link()
@@ -178,97 +173,83 @@ class notificacoes:
     @staticmethod
     def config():
         layout3 = [
-            [pys.Text(f'Dificuldade Mínima', justification='left', size=(15, 0)), pys.Input(size=(10, 0), key='Dmin'),
-             pys.Text(f'Dificuldade Máxima', justification='left', size=(15, 0)), pys.Input(size=(10, 0), key='Dmax')],
-            [pys.Text(f'Duração Mínima', justification='left', size=(15, 0)), pys.Input(size=(10, 0), key='Durmin'),
-             pys.Text(f'Duração Máxima', justification='left', size=(15, 0)), pys.Input(size=(10, 0), key='Durmax')],
-            [pys.Button('Enviar', key='Fechar', size=(30, 0))]
+            [sg.Text(f'Dificuldade Mínima', justification='left', size=(15, 0)), sg.Input(size=(10, 0), key='Difmin'),
+             sg.Text(f'Dificuldade Máxima', justification='left', size=(15, 0)), sg.Input(size=(10, 0), key='Difmax')],
+            [sg.Text(f'Duração Mínima', justification='left', size=(15, 0)), sg.Input(size=(10, 0), key='Durmin'),
+             sg.Text(f'Duração Máxima', justification='left', size=(15, 0)), sg.Input(size=(10, 0), key='Durmax')],
+            [sg.Button('Enviar', key='Fechar', size=(30, 0))]
 
         ]
-        jan3 = pys.Window('Configurações', element_justification='center', layout=layout3, finalize=True)
+        jan3 = sg.Window('Configurações', element_justification='center', layout=layout3, finalize=True)
 
         while True:
             events, value = jan3.read()
-            if events == pys.WIN_CLOSED:
+            if events == sg.WIN_CLOSED:
                 exit()
             else:
                 jan3.close()
-                if value['Dmin'] != '' and value['Dmax'] != '' and value['Durmin'] == '' and value['Durmax'] == '':
-                    return [float(value['Dmin']), float(value['Dmax']), None, None]
+                if value['Difmin'] != '' and value['Difmax'] != '' and value['Durmin'] == '' and value['Durmax'] == '':
+                    return [float(value['Difmin']), float(value['Difmax']), None, None]
 
-                elif value['Durmin'] != '' and value['Durmax'] != '' and value['Dmin'] == '' and value['Dmax'] == '':
+                elif value['Durmin'] != '' and value['Durmax'] != '' and value['Difmin'] == '' and value[
+                    'Difmax'] == '':
                     return [None, None, float(value['Durmin']), float(value['Durmax'])]
 
-                elif value['Durmin'] != '' and value['Durmax'] != '' and value['Dmin'] != '' and value['Dmax'] != '':
-                    return [float(value['Durmin']), float(value['Durmax']), float(value['Dmin']), float(value['Dmax'])]
+                elif value['Durmin'] != '' and value['Durmax'] != '' and value['Difmin'] != '' and value[
+                    'Difmax'] != '':
+                    return [float(value['Durmin']), float(value['Durmax']), float(value['Difmin']),
+                            float(value['Difmax'])]
 
     @staticmethod
     def inicial():
         layout2 = [
-            [pys.Text(f'Quantos mapas deseja?', justification='center', size=(25, 0))],
-            [pys.Input(size=(10, 0), key='num')],
-            [pys.Button('Enviar', key='Enviar'), pys.Button('Pesquisar', key='Pesquisar'),
-             pys.Button('Configurações', key='Config', size=(14, 1))]
+            [sg.Text(f'Quantos mapas deseja?', justification='center', size=(25, 0))],
+            [sg.Input(size=(10, 0), key='num')],
+            [sg.Button('Enviar', key='Enviar'), sg.Button('Pesquisar', key='Pesquisar'),
+             sg.Button('Configurações', key='Config', size=(14, 1))]
 
         ]
-        jan2 = pys.Window('Procura', layout=layout2, element_justification='center', finalize=True)
+        jan2 = sg.Window('Procura', layout=layout2, element_justification='center', finalize=True)
 
         while True:
             conf = [None, None, None, None]
             events, value = jan2.read()
-            if events == pys.WIN_CLOSED:
+            if events == sg.WIN_CLOSED:
                 exit()
             elif events == 'Pesquisar':
                 jan2.close()
                 layout_pesquisa = [
-                    [pys.Text(f'Insira o nome do mapa', size=(25, 0))],
-                    [pys.Input(size=(30, 0), key='pesquisa_nome')],
-                    [pys.Text(f'Insira Quantos mapas deseja', size=(25, 0))],
-                    [pys.Input(size=(30, 0), key='pesquisa_numero'), pys.Button('Enviar', key='Enviar')]
+                    [sg.Text(f'Insira o nome do mapa', size=(25, 0))],
+                    [sg.Input(size=(30, 0), key='pesquisa_nome')],
+                    [sg.Text(f'Insira Quantos mapas deseja', size=(25, 0))],
+                    [sg.Input(size=(30, 0), key='pesquisa_numero'), sg.Button('Enviar', key='Enviar')]
                 ]
-                jan_pesq = pys.Window('Procura', layout=layout_pesquisa, finalize=True)
+                jan_pesq = sg.Window('Procura', layout=layout_pesquisa, finalize=True)
                 events, value = jan_pesq.read()
-                if events == pys.WIN_CLOSED:
+                if events == sg.WIN_CLOSED:
                     exit()
                 elif events == 'Enviar':
                     jan_pesq.close()
-                    return [int(value['pesquisa_numero']), value['pesquisa_nome']]
+                    return [int(value['pesquisa_numero']), value['pesquisa_nome'], conf[0], conf[1], conf[2], conf[3]]
             elif events == 'Config':
-                print('config')
                 jan2.hide()
                 retorno = notificacoes.config()
-                print(retorno)
                 conf[0], conf[1], conf[2], conf[3] = retorno[0], retorno[1], retorno[2], retorno[3]
-                print('voltou')
             elif events == 'Enviar':
                 jan2.close()
 
-            # try:
-            #     n = int(value['num'])
-            #     break
-            # except:
-            #     jan2.close()
-            #     layout2 = [
-            #         [pys.Text(f'Por favor, insira apenas números!', size=(25, 0))],
-            #         [pys.Input(size=(20, 0), key='num'), pys.Button('Enviar', key='Enviar')]
-            #     ]
-            #     jan2 = pys.Window('Procura', layout=layout2, finalize=True)
-            #     events, value = jan2.read()
-            #     if events == pys.WIN_CLOSED:
-            #         exit()
-            print(int(value['num']), None, conf[0], conf[1], conf[2], conf[3])
             return [int(value['num']), None, conf[0], conf[1], conf[2], conf[3]]
 
     @staticmethod
     def final(limite):
         winsound.PlaySound(r'E:\Backup\Musicas\fim.wav', winsound.SND_ASYNC)
         layout2 = [
-            [pys.Text(f'Todos os {len(limite)} mapas foram encontados!')],
-            [pys.Text('Deseja baixá-los?', size=(20, 0))],
-            [pys.Button('Sim', key='Sim'), pys.Button('Não', key='Nao')]
+            [sg.Text(f'Todos os {len(limite)} mapas foram encontados!')],
+            [sg.Text('Deseja baixá-los?', size=(20, 0))],
+            [sg.Button('Sim', key='Sim'), sg.Button('Não', key='Nao')]
         ]
 
-        jan2 = pys.Window('Pergunta', layout=layout2, finalize=True)
+        jan2 = sg.Window('Pergunta', layout=layout2, finalize=True)
         events, value = jan2.read()
         if events == 'Sim':
             jan2.close()
@@ -282,7 +263,7 @@ class notificacoes:
 
 
 def login():
-    # threading.Thread(target=esconder).start()
+    threading.Thread(target=esconder).start()
 
     if date.today().weekday() < 5:
         site = "https://osu.ppy.sh/beatmapsets?m=0&s=pending"
@@ -316,25 +297,22 @@ def abrir_mapas(limite):
 
 
 def achar_css(elemento):
-    ponto = driver.find_element_by_css_selector(str(elemento))
-    return ponto
+    return driver.find_element_by_css_selector(str(elemento))
 
 
 def achar_xpath(elemento):
-    ponto = driver.find_element_by_xpath(elemento)
-    return ponto
+    return driver.find_element_by_xpath(elemento)
 
 
 def esperar_css(elemento):
-    ponto = wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, elemento)))
-    return ponto
+    return wait.until(EC.element_to_be_clickable((By.CSS_SELECTOR, elemento)))
 
 
 def esconder():
-    while not window.getWindowsWithTitle('osu') and not window.getWindowsWithTitle('chromedriver'):
-        sleep(0.1)
-    window.getWindowsWithTitle('chromedriver')[0].hide()
+    while not window.getWindowsWithTitle('osu'):
+        sleep(0.5)
     window.getWindowsWithTitle('osu')[0].hide()
+    window.getWindowsWithTitle('chromedriver')[0].hide()
 
 
 ########################################
@@ -342,7 +320,6 @@ def esconder():
 Inicio = Contador(0, 0, 0)
 
 saida_da_not = notificacoes.inicial()
-
 driver = webdriver.Chrome(executable_path=r"C:\Users\Gabri\anaconda3\chromedriver.exe")
 wait: WebDriverWait = WebDriverWait(driver, 20)
 
@@ -352,8 +329,8 @@ while True:
     resultados = Inicio.start()
     if Seletor(resultados[0], resultados[1], resultados[2]).seletor(limite=saida_da_not[0],
                                                                     nome_do_mapa=saida_da_not[1],
-                                                                    Dmin=saida_da_not[2],
-                                                                    Dmax=saida_da_not[3],
+                                                                    Difmin=saida_da_not[2],
+                                                                    Difmax=saida_da_not[3],
                                                                     Durmin=saida_da_not[4],
                                                                     Durmax=saida_da_not[5]):
         break
