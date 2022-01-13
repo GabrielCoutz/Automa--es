@@ -115,7 +115,7 @@
 						</select>
 					  </div>
 					</div>
-					<button class="btn btn-warning" type="submit" onclick="validar()" id='butao'>
+					<button class="btn btn-warning" type="submit" onclick="validarCNPJ()" id='butao'>
 						<span >Registrar</span>
 					</button>
 				</form>
