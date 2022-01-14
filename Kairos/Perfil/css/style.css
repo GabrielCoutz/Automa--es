@@ -1,3 +1,12 @@
+#plano{
+    padding-left: 10px !important;
+}
+#teste{
+    justify-content: center !important;
+}
+#diamante{
+    padding-right: 10px !important;
+}
 @media (min-width: 768px){
     .col-md-8 {
     flex: none !important;

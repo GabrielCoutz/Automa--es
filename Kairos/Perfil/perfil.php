@@ -16,7 +16,7 @@ $dbUname = 'root';
 $dbPass = '';
 $dbName     = 'kairos';
 
-$email='joao@gmail.com';
+$email='gabriel.coutinho.cassiano@gmail.com';
 
 $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 
@@ -57,9 +57,9 @@ $result_cartao=$select_cartao->fetch_assoc();
                       <h4><a><?= ucwords($result['nome']) ?></a></h4>
                         <p class="text-muted font-size-sm"><a><?= ucwords($result_endereco['bairro']) ?>, <?= ucwords($result_endereco['cidade']) ?>, <?= $result_endereco['estado'] ?></a></p>
                         <ul class="list-group list-group-flush">
-                          <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                            <span class="lnr lnr-diamond"></span>Plano
-                            <span class="text-secondary"><a></a><?= ucwords($result_cartao['assinatura']) ?></a></span>
+                          <li class="list-group-item d-flex  align-items-center flex-wrap" id='teste'>
+                            <span class="lnr lnr-diamond" id ='diamante'></span>Plano
+                            <span class="text-secondary" id='plano'><a></a><?= ucwords($result_cartao['assinatura']) ?></a></span>
                           </li>
                         </ul>
                         
@@ -73,7 +73,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                       <h6 class="mb-0">CPF</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                      <a><?= ucwords($result['cpf']) ?></a>
+                      <a><?= $result['cpf'] ?></a>
                     </div>
                   </div>
                   <hr>
@@ -82,7 +82,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                       <h6 class="mb-0">Email</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                    <a><?= ucwords($result['email']) ?></a>
+                    <a><?= $result['email'] ?></a>
                     </div>
                   </div>
                   
@@ -92,7 +92,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                       <h6 class="mb-0">Telefone</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                    <a><?= ucwords($result['telefone']) ?></a>
+                    <a><?= $result['telefone'] ?></a>
                     </div>
                   </div>
                   
@@ -113,7 +113,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                       <h6 class="mb-0">Nome da Empresa</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                    <a><?= ucwords($result_empresa['nome']) ?></a>
+                    <a><?= $result_empresa['nome'] ?></a>
                     </div>
                   </div>
                   <hr>
@@ -122,7 +122,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                       <h6 class="mb-0">Nome Fantasia</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                    <a><?= ucwords($result_empresa['nome_fantasia']) ?></a>
+                    <a><?= $result_empresa['nome_fantasia'] ?></a>
                     </div>
                   </div>
                   
@@ -150,7 +150,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                       <h6 class="mb-0">CEP</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                    <a><?= ucwords($result_empresa_endereco['cep']) ?></a>
+                    <a><?= $result_empresa_endereco['cep'] ?></a>
                     </div>
                   </div>
                   <hr>
@@ -159,7 +159,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                       <h6 class="mb-0">Rua</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                    <a><?= ucwords($result_empresa_endereco['rua']) ?></a>
+                    <a><?= $result_empresa_endereco['rua'] ?></a>
                     </div>
                   </div>
                   <hr>
@@ -168,7 +168,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                       <h6 class="mb-0">Número</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                    <a><?= ucwords($result_empresa_endereco['numero']) ?></a>
+                    <a><?= $result_empresa_endereco['numero'] ?></a>
                     </div>
                   </div>
                   <hr>
@@ -177,7 +177,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                       <h6 class="mb-0">Bairro</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                    <a><?= ucwords($result_empresa_endereco['bairro']) ?></a>
+                    <a><?= $result_empresa_endereco['bairro'] ?></a>
                     </div>
                   </div>
                   <hr>
@@ -186,7 +186,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                       <h6 class="mb-0">Cidade</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                    <a><?= ucwords($result_empresa_endereco['cidade']) ?></a>
+                    <a><?= $result_empresa_endereco['cidade'] ?></a>
                     </div>
                   </div>
                   <hr>
@@ -195,7 +195,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                       <h6 class="mb-0">Estado</h6>
                     </div>
                     <div class="col-sm-9 text-secondary">
-                    <a><?= ucwords($result_empresa_endereco['estado']) ?></a>
+                    <a><?= $result_empresa_endereco['estado'] ?></a>
                     </div>
                   </div>
                   <hr>
