@@ -16,6 +16,14 @@ foreach ($result as $item) {
 }
 echo '------------------------<br>';
 $id=$result['id'];
+$cpf=$result['cpf'];
+
+$select_endereco=mysqli_query($conec, "SELECT * FROM endereco WHERE id_usuario = '$id'");
+$result_endereco=$select_endereco->fetch_assoc();
+foreach ($result_endereco as $item) {
+    echo $item.'<br>';
+}
+echo '------------------------<br>';
 
 $select_empresa=mysqli_query($conec, "SELECT * FROM empresa WHERE id_usuario = '$id'");
 $result_empresa=$select_empresa->fetch_assoc();
@@ -32,4 +40,13 @@ foreach ($result_empresa_endereco as $item) {
     echo $item.'<br>';
 }
 echo '------------------------<br>';
+
+$select_cartao=mysqli_query($conec, "SELECT * FROM cartao WHERE cpf_usuario = '$cpf'");
+$result_cartao=$select_cartao->fetch_assoc();
+foreach ($result_cartao as $item) {
+    echo $item.'<br>';
+}
+echo '------------------------<br>';
+
+
 ?>
