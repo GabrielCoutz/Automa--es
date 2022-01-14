@@ -76,7 +76,6 @@ janelaPopUp.fecha = function(id){
             
        
     }
-    location.replace("../../../../Perfil/perfil.html");
 }
 // -------------------- fim código popup --------------------
 
@@ -123,7 +122,7 @@ function validar(){
   } else {
     abrirjanela('green','Cartão cadastrado com sucesso!')
     document.getElementById('asdf_cancelar').addEventListener('click',function(){
-      document.getElementById('cadastro').submit()
+      location.replace("../../../../Perfil/perfil.html");
   })
     
   }
