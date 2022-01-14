@@ -167,7 +167,7 @@
           </div>
         </div>
 
-        <button class="card-form__button" onclick="mostrarpopup()">
+        <button class="card-form__button" onclick="validar()" id='butao'>
           Validar
         </button>
         </form>

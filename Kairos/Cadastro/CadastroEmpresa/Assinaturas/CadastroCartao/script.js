@@ -76,18 +76,57 @@ janelaPopUp.fecha = function(id){
             
        
     }
-    document.getElementById('cadastro').submit();
-    //header('Location: ../../../../Perfil/perfil.html');
     location.replace("../../../../Perfil/perfil.html");
 }
 // -------------------- fim código popup --------------------
-function mostrarpopup(){
+
+function abrirjanela(cor, texto){
   var tamanho = 'p';
-  var cor = 'green';
   var modo = 'alert';
   var titulo = '| Andamento Cadastro | 3/3';
-  var texto = 'Cartão Cadastrado com sucesso!';
   janelaPopUp.abre( "asdf", tamanho + " "  + cor + ' ' + modo,  titulo ,  texto)
+}
+function validar(){
+  var num = document.getElementById('cardNumber')
+  var nome = document.getElementById('cardName')
+  var mes = document.getElementById('cardMonth')
+  var ano = document.getElementById('cardYear')
+  var cvv = document.getElementById('cardCvv')
+
+
+  nome.classList.remove("vermei")
+  num.classList.remove("vermei")
+  mes.classList.remove("vermei")
+  ano.classList.remove("vermei")
+  cvv.classList.remove("vermei")
+
+  if (num.value == "" || num.value.length != 19){
+    alert('Por favor, preencha o número do cartão!')
+    num.focus()
+    num.classList.add('vermei')
+  } else if (nome.value == ""){
+    alert('Por favor, preencha o nome do titular!')
+    nome.focus()
+    nome.classList.add('vermei')
+  } else if (mes.value == ""){
+    alert('Por favor, selecione o mês!')
+    mes.focus()
+    mes.classList.add('vermei')
+  } else if (ano.value == ""){
+    alert('Por favor, selecione o ano!')
+    ano.focus()
+    ano.classList.add('vermei')
+  } else if (cvv.value == "" || cvv.value.length != 3){
+    alert('Por favor, preencha o CVV do cartão!')
+    cvv.focus()
+    cvv.classList.add('vermei')
+  } else {
+    abrirjanela('green','Cartão cadastrado com sucesso!')
+    document.getElementById('asdf_cancelar').addEventListener('click',function(){
+      document.getElementById('cadastro').submit()
+  })
+    
+  }
 }
 
 new Vue({

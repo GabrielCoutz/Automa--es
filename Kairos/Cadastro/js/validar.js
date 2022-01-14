@@ -111,7 +111,9 @@ if (alerta != ''){
     document.getElementById('cep').value=localStorage.getItem('cep')
     document.getElementById('numero').value=localStorage.getItem('numero')
     document.getElementById('asdf_cancelar').addEventListener('click',function(){
-        document.getElementById('cep').focus()
+        if (localStorage.getItem('numero')){
+            document.getElementById('cep').focus()
+        }
     })
 }
 

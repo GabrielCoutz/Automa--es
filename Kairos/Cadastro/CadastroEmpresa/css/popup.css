@@ -20,7 +20,7 @@
   100%{opacity: 0;margin-top: 40%;}
 }
 body, html, root, document{
-  display: block
+  display: block;
   height: 500px;
 }
  .popUpFundo{
@@ -117,10 +117,12 @@ body, html, root, document{
     cursor: pointer;
 }
 .alert{
-    width: 100% !important;
+    width: 61% !important;
 }
 .popUp .puCancelar{
     float: left;
+    margin-left: 20%;
+    text-align: center;
 }
 
 .popUp .puEnviar{
@@ -160,7 +162,7 @@ body, html, root, document{
 }
 
 .p>button{
-    height: 50px;
+    height: 34px;
     
 }
 .puEnviar{
@@ -260,10 +262,19 @@ body, html, root, document{
     background-color:#51b2d6;
 }
 .blue>button{
-    background-color:#38a7d0;
+    background-color:transparent;
+	border-radius:8px;
+	border:1px solid #ffffff;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	text-decoration:none;
+    transition: ease-in 0.5s;
 }
 .blue>button:hover{
-    background-color:#72c1de;
+    background-color:#b9d3ba;
+    transition: ease-out 0.5s;
 }
 .popUpFundo.blue{
     background-color:#134152;
@@ -271,11 +282,24 @@ body, html, root, document{
 .green{
     background-color: #43b649;
 }
+#asdf{
+    border-radius: 23px !important;
+    box-shadow: 6px 6px 10px #00000044 !important;
+}
 .green>button{
-    background-color:#3da743;
+    background-color:transparent;
+	border-radius:8px;
+	border:1px solid #ffffff;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	text-decoration:none;
+    transition: ease-in 0.5s;
 }
 .green>button:hover{
-    background-color:#4fbe55;
+    transition: ease-out 0.5s;
+    background-color:#b9d3ba;
 }
 .popUpFundo.green{
     background-color:#173f19;
@@ -284,10 +308,19 @@ body, html, root, document{
     background-color: #d55c4b;
 }
 .red>button{
-    background-color: #d04b38;
+    transition: ease-in 0.5s;
+    background-color:transparent;
+	border-radius:8px;
+	border:1px solid #ffffff;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	text-decoration:none;
 }
 .red>button:hover{
-    background-color: #d86959;
+    background-color: #ffffff85;
+    transition: ease-out 0.5s;
 }
 .popUpFundo.red{
     background-color:#4a1811;

@@ -136,8 +136,7 @@ function validarCNPJ() {
         cnpj == "66666666666666" || 
         cnpj == "77777777777777" || 
         cnpj == "88888888888888" || 
-        cnpj == "99999999999999")
-        alert(1);
+        cnpj == "99999999999999") return 1;
          
     // Valida DVs
     tamanho = cnpj.length - 2
@@ -151,8 +150,7 @@ function validarCNPJ() {
             pos = 9;
     }
     resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-    if (resultado != digitos.charAt(0))
-    alert(1);
+    if (resultado != digitos.charAt(0)) return 1;
          
     tamanho = tamanho + 1;
     numeros = cnpj.substring(0,tamanho);
@@ -164,10 +162,8 @@ function validarCNPJ() {
             pos = 9;
     }
     resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
-    if (resultado != digitos.charAt(1))
-    alert(1);
-           
-    alert(0);
+    if (resultado != digitos.charAt(1)) return 1;
+    return 0;
     
 }
 

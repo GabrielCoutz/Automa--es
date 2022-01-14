@@ -18,6 +18,10 @@ body {
   padding: 50px 15px;
   background-color: #accffe;
 }
+.vermei{
+  border-color: red !important;
+}
+
 @media screen and (max-width: 700px), (max-height: 500px) {
   .wrapper {
     flex-wrap: wrap;

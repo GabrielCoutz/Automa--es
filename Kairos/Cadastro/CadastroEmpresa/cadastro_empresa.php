@@ -24,11 +24,11 @@
 				<form action="inser.php" method="POST" name="cadastro" onsubmit="return false" id="cadastro">
 					<h3>Cadastro Empresa</h3>
 					<div class="form-holder">
-						<span class="lnr lnr-user"></span>
+						<span class="lnr lnr-apartment"></span>
 						<input type="text" class="form-control" placeholder="Nome da Empresa"  id='nome_empresa' name='nome_empresa'>
 					</div>
 					<div class="form-holder">
-						<span class="lnr lnr-phone-handset"></span>
+						<span class="lnr lnr-apartment"></span>
 						<input type="text" class="form-control" placeholder="Nome Fantasia"  id="nome_fantasia" name="nome_fantasia">
 					</div>
 					<div class="form-holder">
@@ -115,7 +115,7 @@
 						</select>
 					  </div>
 					</div>
-					<button class="btn btn-warning" type="submit" onclick="validarCNPJ()" id='butao'>
+					<button class="btn btn-warning" type="submit" onclick="validar()" id='butao'>
 						<span >Registrar</span>
 					</button>
 				</form>
