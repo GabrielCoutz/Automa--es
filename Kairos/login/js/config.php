@@ -5,7 +5,7 @@ $dbUname = 'root';
 $dbPass = '';
 $dbName     = 'kairos';
 $_SESSION['login']=false;
-echo'teste';
+$_SESSION['usuario']=$_POST['email'];
 
 $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 

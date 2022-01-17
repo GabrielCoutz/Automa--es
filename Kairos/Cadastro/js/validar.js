@@ -68,9 +68,7 @@ janelaPopUp.fecha = function(id){
                     $("window, body").css('overflow', 'auto');
                 }
             });
-            
-            
-      
+
     }
     else{
         $(".popUp").removeClass("popUpEntrada").addClass("popUpSaida"); 

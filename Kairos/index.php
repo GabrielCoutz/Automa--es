@@ -16,6 +16,12 @@
     <link rel="stylesheet" href="assets/css/tiny-slider.css" />
     <link rel="stylesheet" href="assets/css/animate2.css" />
     <link rel="stylesheet" href="assets/css/main.css" />
+    <?php
+      if(isset($_SESSION)){
+        session_destroy();
+      }
+      
+    ?>
   </head>
   <body>
     <div class="preloader">

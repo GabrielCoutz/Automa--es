@@ -81,43 +81,18 @@ janelaPopUp.fecha = function(id){
 function abrirjanela(cor, texto){
     var tamanho = 'p';
     var modo = 'alert';
-    var titulo = '| Falha no Login |';
+    var titulo = '| Logado com sucesso |';
     janelaPopUp.abre( "asdf", tamanho + " "  + cor + ' ' + modo,  titulo ,  texto)
 }
 
-if (window.location.href.includes(md5('login=false'))) {
-    abrirjanela('red','Credenciais incorretas!<br>Por favor, verifique os dados inseridos!')
-    document.getElementById("email").classList.add('vermei')
-    document.getElementById("senha").classList.add('vermei')
-}
-function validar(){
-    document.getElementById('butao').setAttribute('name', 'butao');
-    var email = document.getElementById("email")
-    var senha = document.getElementById("senha")
-    $("#cadastro").submit(function(e) {
-        e.preventDefault();
-    });
 
-    email.classList.remove("vermei")
-    senha.classList.remove("vermei")
-
-    if (email.value == "" ||  !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email.value)){
-        alert("Por favor, insira um email válido!");
-        $(document).ready(function () {
-            $("#email").focus();
-            document.getElementById("email").focus();
-          });
-        email.classList.add("vermei")
-
-    } else if (senha.value == ""){
-        alert("Por favor, preencha a senha!");
-        $(document).ready(function () {
-            $("#senha").focus();
-            document.getElementById("senha").focus();
-          });
-        senha.classList.add("vermei")
-
-    } else{
-        document.getElementById('cadastro').submit();
+function teste(){
+    if(localStorage.getItem('id')){
+        localStorage.setItem('id',2)
+    } else {
+        localStorage.setItem('id',1)
+    }
+    if (localStorage.getItem('id') == 1){
+        abrirjanela('green','Bem vindo!')
     }
 }

@@ -147,10 +147,10 @@ h3 {
   transition: all 0.5s;
   position: relative;
   overflow: hidden; }
-  button span {
+  #butao span {
     position: relative;
     z-index: 2; }
-  button:before, button:after {
+    #butao:before, #butao:after {
     content: '';
     position: absolute;
     top: 0;
@@ -167,10 +167,10 @@ h3 {
     transform: translate(-100%, 0);
     -webkit-transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1);
     transition-timing-function: cubic-bezier(0.75, 0, 0.125, 1); }
-  button:after {
+    #butao:after {
     -webkit-transition-delay: 0.2s;
     transition-delay: 0.2s; }
-  button:hover:before, button:hover:after {
+    #butao:hover:before, #butao:hover:after {
     -webkit-transform: translate(0, 0);
     transform: translate(0, 0); }
 

@@ -122,7 +122,8 @@ function validar(){
   } else {
     abrirjanela('green','Cartão cadastrado com sucesso!')
     document.getElementById('asdf_cancelar').addEventListener('click',function(){
-      location.replace("../../../../Perfil/perfil.html");
+      document.getElementById('cadastro').submit()
+      
   })
     
   }

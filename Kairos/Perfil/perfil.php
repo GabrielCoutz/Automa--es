@@ -9,14 +9,19 @@
     <link rel="stylesheet" href="../Cadastro/fonts/linearicons/style.css">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/popup.css">
   <?php
-
+session_start();
 $dbHost     = 'localhost';
 $dbUname = 'root';
 $dbPass = '';
 $dbName     = 'kairos';
 
-$email='gabriel.coutinho.cassiano@gmail.com';
+if(isset($_SESSION['usuario'])){
+  $email=$_SESSION['usuario'];
+} else {
+  $email=$_SESSION['email'];
+}
 
 $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 
@@ -44,7 +49,7 @@ $result_cartao=$select_cartao->fetch_assoc();
 
 ?>
 </head>
-<body>
+<body onload='teste()'>
 <div class="container">
     <div class="main-body">
           <div class="row center2">
@@ -203,7 +208,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                   <div class="row">
                     <div class="col-sm-12">
                       <a class="btn btn-info "href="#">Edit</a>
-                      <a class="butao "href="#">Sair</a>
+                      <a class="butao "href="../index.php">Sair</a>
                     </div>
                   </div>
                 </div>
@@ -225,5 +230,6 @@ $result_cartao=$select_cartao->fetch_assoc();
 
         </div>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>

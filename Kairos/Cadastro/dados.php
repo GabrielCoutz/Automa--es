@@ -10,6 +10,7 @@ $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 
 $nome=$_POST['nome'];
 $_SESSION['cpf'] = $_POST['cpf'];
+$_SESSION['email'] = $_POST['email'];
 $tel=$_POST['tel'];
 $email=$_POST['email'];
 $cpf=$_POST['cpf'];
