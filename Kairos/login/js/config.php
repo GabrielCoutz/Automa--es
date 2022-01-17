@@ -5,7 +5,7 @@ $dbUname = 'root';
 $dbPass = '';
 $dbName     = 'kairos';
 $_SESSION['login']=false;
-$_SESSION['usuario']=$_POST['email'];
+$_SESSION['email']=$_POST['email'];
 
 $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 
@@ -33,9 +33,6 @@ if (isset($_GET['validar'])){
         exit;
         
     }
-} else{
-    echo 'saiu';
-    echo $_GET['validar'];
 }
 ?>
 

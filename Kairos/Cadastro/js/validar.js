@@ -1,3 +1,11 @@
+window.onload = function () {
+    window.setTimeout(fadeout, 500);
+}
+
+function fadeout() {
+    document.querySelector('.preloader').style.opacity = '0';
+    document.querySelector('.preloader').style.display = 'none';
+}
 $('select').on('change', function() {
     if (this.value == "1") {
       $(this).css('opacity', '0.7');

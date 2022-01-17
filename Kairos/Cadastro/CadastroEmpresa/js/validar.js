@@ -1,11 +1,19 @@
-$('select[name="estado"]').on('change', function() {
+window.onload = function () {
+    window.setTimeout(fadeout, 500);
+}
+
+function fadeout() {
+    document.querySelector('.preloader').style.opacity = '0';
+    document.querySelector('.preloader').style.display = 'none';
+}
+var estado_empresa=""
+$('select[name="estado_empresa"]').on('change', function() {
 if (this.value == "estado") {
     $(this).css('opacity', '0.7');
 } else {
     $(this).css('opacity', '1');
-}
-
-}).change();
+    }
+  }).change();
 
 $('select[name="ramo"]').on('change', function() {
     if (this.value == "ramo") {
@@ -93,7 +101,6 @@ janelaPopUp.fecha = function(id){
             
        
     }
-    document.getElementById('cadastro').submit();
 }
 // -------------------- fim código popup --------------------
 
@@ -119,6 +126,7 @@ $("#cep_empresa").focusout(function(){
             $("#estado_empresa").val(resposta.uf);
             $("#estado_empresa").css('opacity', '1').change();
             document.getElementById("numero_empresa").focus()
+            estado_empresa = resposta.uf;
         }
     });
 });
@@ -176,7 +184,6 @@ function validar(){
     var numero_empresa = document.getElementById("numero_empresa")
     var bairro_empresa = document.getElementById("bairro_empresa")
     var cidade_empresa = document.getElementById("cidade_empresa")
-    var estado_empresa = document.getElementById("estado_empresa").value
 
     cep_empresa.classList.remove("vermei")
     rua_empresa.classList.remove("vermei")
@@ -246,5 +253,8 @@ function validar(){
         var titulo = '| Andamento Cadastro | 2/3';
         var texto = 'Empresa Cadastrada com sucesso!';
         janelaPopUp.abre( "asdf", tamanho + " "  + cor + ' ' + modo,  titulo ,  texto)
+        document.getElementById('asdf_cancelar').addEventListener('click',function(){
+            document.getElementById('cadastro').submit();
+        })
         }
     }

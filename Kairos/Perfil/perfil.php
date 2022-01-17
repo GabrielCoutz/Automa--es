@@ -17,11 +17,8 @@ $dbUname = 'root';
 $dbPass = '';
 $dbName     = 'kairos';
 
-if(isset($_SESSION['usuario'])){
-  $email=$_SESSION['usuario'];
-} else {
-  $email=$_SESSION['email'];
-}
+$email=$_SESSION['email'];
+
 
 $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 
@@ -49,8 +46,24 @@ $result_cartao=$select_cartao->fetch_assoc();
 
 ?>
 </head>
-<body onload='teste()'>
-<div class="container">
+<body>
+  <div class="preloader">
+        <div class="loader">
+          <div class="spinner">
+            <div class="spinner-container">
+              <div class="spinner-rotator">
+                <div class="spinner-left">
+                  <div class="spinner-circle"></div>
+                </div>
+                <div class="spinner-right">
+                  <div class="spinner-circle"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  <div class="container">
     <div class="main-body">
           <div class="row center2">
             <div class="col-md-8">
