@@ -277,14 +277,15 @@ body, html, root, document{
     transition: ease-out 0.5s;
 }
 .popUpFundo.blue{
-    background-color:#134152;
+    backdrop-filter: blur(8px);
+    background: rgba(109, 127, 187, 0.62);
 }
 .green{
     background-color: #43b649;
 }
 #asdf{
     border-radius: 23px !important;
-    box-shadow: 6px 6px 10px #00000044 !important;
+    box-shadow: 0px 20px 20px rgba(0, 0, 0, 11%) !important;
 }
 .green>button{
     background-color:transparent;
@@ -302,7 +303,8 @@ body, html, root, document{
     background-color:#b9d3ba;
 }
 .popUpFundo.green{
-    background-color:#173f19;
+    backdrop-filter: blur(8px);
+    background: rgba(29, 151, 49, 0.62);
 }
 .red{
     background-color: #d55c4b;
@@ -323,79 +325,6 @@ body, html, root, document{
     transition: ease-out 0.5s;
 }
 .popUpFundo.red{
-    background-color:#4a1811;
-}
-.orange{
-    background-color: #f9a025;
-}
-.orange>button{
-    background-color: #f89710;
-}
-.orange>button:hover{
-    background-color: #f9ac42;
-}
-.popUpFundo.orange{
-    background-color: #8c5b02;
-}
-.purple{
-    background-color: #ab4bd5;
-}
-.purple>button{
-    background-color: #a238d0;
-}
-.purple>button:hover{
-    background-color: #b159d8;
-}
-.popUpFundo.purple{
-    background-color: #3f114a;
-}
-.white{
-    background-color: #fff;
-    color: #555;
-}
-.white>h1{
-  color: #000;
-}
-.white>button{
-    background-color: #f3f3f3;
-    color: #555;
-}
-.white>button:hover{
-    background-color: #e3e3e3;
-}
-
-.popUpFundo.white{
-    background-color:#555;
-}
-
-
-/*
-That part is just for the form
-*/
-.colorfulForm{
-  width: 350px;
-  margin: 60px auto;
-}
-.colorfulForm input, .colorfulForm textarea, .colorfulForm select{
-  box-sizing: border-box;
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  width: 350px;
-  padding: 5px;
-  background-color: #f3f3f3;
-  border: 1px solid #ccc;
-  border-radius: 2px; 
-}
-
-.colorfulForm label{
-  display: block;
-  font-family: Verdana, Arial;
-  margin: 10px 0 5px 0;
-}
-.colorfulForm button{
-  width: 100px;
-  margin: 3px 7px;
-  padding: 5px;
-  color: #fff;
-  border-style: none;
+    backdrop-filter: blur(8px);
+    background: rgba(151, 29, 29, 0.62);
 }
