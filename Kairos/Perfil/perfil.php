@@ -17,7 +17,8 @@ $dbUname = 'root';
 $dbPass = '';
 $dbName     = 'kairos';
 
-$email=$_SESSION['email'];
+//$email=$_SESSION['email'];
+$email='gabriel.coutinho.cassiano@gmail.com';
 
 
 $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
@@ -90,7 +91,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                     <div class="col-sm-3">
                       <h6 class="mb-0">CPF</h6>
                     </div>
-                    <div class="col-sm-9 text-secondary">
+                    <div class="col-sm-9 text-secondary" contenteditable="false" id='cpf' onkeypress="$(this).mask('000.000.000-00')" maxlength="3">
                       <a><?= $result['cpf'] ?></a>
                     </div>
                   </div>
@@ -117,7 +118,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                   <hr>
                   <div class="row">
                     <div class="col-sm-12">
-                      <a class="btn btn-info " target="__blank" href="https://www.bootdey.com/snippets/view/profile-edit-data-and-skills">Edit</a>
+                      <a class="btn btn-info " onclick="editar()">Edit</a>
                     </div>
                   </div>
                 </div>
@@ -244,5 +245,6 @@ $result_cartao=$select_cartao->fetch_assoc();
         </div>
     </div>
     <script src="script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 </body>
 </html>

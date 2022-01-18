@@ -20,7 +20,8 @@ $bairro_empresa=$_POST['bairro_empresa'];
 $cidade_empresa=$_POST['cidade_empresa'];
 $estado_empresa=$_POST['estado_empresa'];
 
-$result=mysqli_multi_query($conec, "INSERT INTO empresa(id_usuario,nome,nome_fantasia,cnpj,ramo) VALUES((SELECT id FROM usuario WHERE cpf = '$cpf'),'$nome_empresa','$nome_fantasia','$cnpj','$ramo'); INSERT INTO endereco_empresa(id_empresa,cep,rua,numero,bairro,cidade,estado) VALUES((SELECT id FROM empresa WHERE cnpj = '$cnpj'),'$cep_empresa','$rua_empresa','$numero_empresa','$bairro_empresa','$cidade_empresa','$estado_empresa')");
+$result=mysqli_multi_query($conec, "INSERT INTO empresa(id_usuario,nome,nome_fantasia,cnpj,ramo) VALUES((SELECT id FROM usuario WHERE cpf = '$cpf'),'$nome_empresa','$nome_fantasia','$cnpj','$ramo');
+INSERT INTO endereco_empresa(id_empresa,cep,rua,numero,bairro,cidade,estado) VALUES((SELECT id FROM empresa WHERE cnpj = '$cnpj'),'$cep_empresa','$rua_empresa','$numero_empresa','$bairro_empresa','$cidade_empresa','$estado_empresa')");
 
 header('Location: Assinaturas/assinatura.php');
 ?>

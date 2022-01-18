@@ -86,6 +86,11 @@ janelaPopUp.fecha = function(id){
 }
 // -------------------- fim código popup --------------------
 
+function editar(){
+    document.getElementById('cpf').contentEditable = 'true'
+}
+
+
 function abrirjanela(cor, texto){
     var tamanho = 'p';
     var modo = 'alert';

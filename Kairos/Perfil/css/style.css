@@ -5,6 +5,22 @@
 #teste{
     justify-content: center !important;
 }
+[contenteditable="true"] {
+  outline: 0px solid transparent;
+  color: #1a202c !important;
+  border-radius:6px;
+}
+#cpf[contenteditable="true"] {
+  max-width: 142px;
+}
+[contenteditable="true"]:hover, [contenteditable="true"]:focus{
+  border: 1px double #ced6e0;
+  text-align: left !important;
+  border-radius:6px;
+  border-color: #3d9cff !important;
+  display: inline !important;
+  transition: all 0.5s ease-in-out;
+}
 .preloader {
     /* Body Overlay */
     position: fixed;

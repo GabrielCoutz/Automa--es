@@ -15,5 +15,9 @@ $estado_empresa=$_POST['estado_empresa'];
 
 echo $estado_empresa;
 
+if (isset($cpf) and isset($nome_empresa) and isset($nome_fantasia) and isset($cnpj) and isset($ramo) and isset($cep_empresa) and isset($rua_empresa) and isset($numero_empresa) and isset($bairro_empresa) and isset($cidade_empresa) and isset($estado_empresa)){
+    echo 'tudo certo';
+}
+
 
 ?>
