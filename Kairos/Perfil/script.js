@@ -84,28 +84,19 @@ janelaPopUp.fecha = function(id){
     }
     
 }
-// -------------------- fim código popup --------------------
-
-function editar(){
-    document.getElementById('cpf').contentEditable = 'true'
-}
-
-
 function abrirjanela(cor, texto){
     var tamanho = 'p';
     var modo = 'alert';
     var titulo = '| Logado com sucesso |';
     janelaPopUp.abre( "asdf", tamanho + " "  + cor + ' ' + modo,  titulo ,  texto)
 }
+// -------------------- fim código popup --------------------
 
+function editar(){
+    var conteudo = document.getElementById('cpf').innerText
+    $("#cpf_input").toggle();
 
-function teste(){
-    if(localStorage.getItem('id')){
-        localStorage.setItem('id',2)
-    } else {
-        localStorage.setItem('id',1)
-    }
-    if (localStorage.getItem('id') == 1){
-        abrirjanela('green','Bem vindo!')
-    }
+    $("#cpf").toggle();
+    document.getElementById('cpf_input').placeholder = conteudo
+
 }

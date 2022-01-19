@@ -18,7 +18,7 @@ $dbPass = '';
 $dbName     = 'kairos';
 
 //$email=$_SESSION['email'];
-$email='gabriel.coutinho.cassiano@gmail.com';
+$email='joao@gmail.com';
 
 
 $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
@@ -91,7 +91,8 @@ $result_cartao=$select_cartao->fetch_assoc();
                     <div class="col-sm-3">
                       <h6 class="mb-0">CPF</h6>
                     </div>
-                    <div class="col-sm-9 text-secondary" contenteditable="false" id='cpf' onkeypress="$(this).mask('000.000.000-00')" maxlength="3">
+                    <input type="text" id='cpf_input'>
+                    <div class="col-sm-9 text-secondary" maxlength="14" type="text" id='cpf'>
                       <a><?= $result['cpf'] ?></a>
                     </div>
                   </div>
@@ -110,7 +111,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                     <div class="col-sm-3">
                       <h6 class="mb-0">Telefone</h6>
                     </div>
-                    <div class="col-sm-9 text-secondary">
+                    <div class="col-sm-9 text-secondary" id='tel'>
                     <a><?= $result['telefone'] ?></a>
                     </div>
                   </div>
@@ -245,6 +246,7 @@ $result_cartao=$select_cartao->fetch_assoc();
         </div>
     </div>
     <script src="script.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js"></script>
+    
 </body>
 </html>
