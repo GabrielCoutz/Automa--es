@@ -91,7 +91,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                     <div class="col-sm-3">
                       <h6 class="mb-0">CPF</h6>
                     </div>
-                    <input type="text" id='cpf_input'>
+                    <input class='none'type="text" id='cpf_input' onkeypress="$(this).mask('000.000.000-00')">
                     <div class="col-sm-9 text-secondary" maxlength="14" type="text" id='cpf'>
                       <a><?= $result['cpf'] ?></a>
                     </div>
@@ -101,7 +101,8 @@ $result_cartao=$select_cartao->fetch_assoc();
                     <div class="col-sm-3">
                       <h6 class="mb-0">Email</h6>
                     </div>
-                    <div class="col-sm-9 text-secondary">
+                    <input class='none'type="email" id='email_input'>
+                    <div class="col-sm-9 text-secondary" id='email'>
                     <a><?= $result['email'] ?></a>
                     </div>
                   </div>
@@ -111,6 +112,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                     <div class="col-sm-3">
                       <h6 class="mb-0">Telefone</h6>
                     </div>
+                    <input class='none'type="tel" id='tel_input' onkeypress="$(this).mask('(00) 0000-00009')">
                     <div class="col-sm-9 text-secondary" id='tel'>
                     <a><?= $result['telefone'] ?></a>
                     </div>
@@ -119,7 +121,9 @@ $result_cartao=$select_cartao->fetch_assoc();
                   <hr>
                   <div class="row">
                     <div class="col-sm-12">
-                      <a class="btn btn-info " onclick="editar()">Edit</a>
+                      <a class="btn btn-info " onclick="editar()" id='editar'>Editar</a>
+                      <a class="btn btn-info salvar none" onclick="" id='salvar'>Salvar</a>
+                      <a class="btn btn-info cancelar none" onclick="editar()" id='cancelar'>Cancelar</a>
                     </div>
                   </div>
                 </div>
@@ -132,7 +136,8 @@ $result_cartao=$select_cartao->fetch_assoc();
                     <div class="col-sm-3">
                       <h6 class="mb-0">Nome da Empresa</h6>
                     </div>
-                    <div class="col-sm-9 text-secondary">
+                    <input class='none'type="tel" id='nome_empresa_input'>
+                    <div class="col-sm-9 text-secondary" id='nome_empresa'>
                     <a><?= $result_empresa['nome'] ?></a>
                     </div>
                   </div>
@@ -141,7 +146,8 @@ $result_cartao=$select_cartao->fetch_assoc();
                     <div class="col-sm-3">
                       <h6 class="mb-0">Nome Fantasia</h6>
                     </div>
-                    <div class="col-sm-9 text-secondary">
+                    <input class='none'type="tel" id='nome_fantasia_input'>
+                    <div class="col-sm-9 text-secondary" id='nome_fantasia'>
                     <a><?= $result_empresa['nome_fantasia'] ?></a>
                     </div>
                   </div>
@@ -151,7 +157,8 @@ $result_cartao=$select_cartao->fetch_assoc();
                     <div class="col-sm-3">
                       <h6 class="mb-0">CNPJ</h6>
                     </div>
-                    <div class="col-sm-9 text-secondary">
+                    <input class='none'type="tel" id='cnpj_input'>
+                    <div class="col-sm-9 text-secondary" id='cnpj'>
                     <a><?= ucwords($result_empresa['cnpj']) ?></a>
                     </div>
                   </div>
@@ -160,7 +167,8 @@ $result_cartao=$select_cartao->fetch_assoc();
                     <div class="col-sm-3">
                       <h6 class="mb-0">Ramo</h6>
                     </div>
-                    <div class="col-sm-9 text-secondary">
+                    <input class='none'type="tel" id='ramo_input'>
+                    <div class="col-sm-9 text-secondary" id='ramo'>
                     <a><?= ucwords($result_empresa['ramo']) ?></a>
                     </div>
                   </div>
@@ -169,7 +177,8 @@ $result_cartao=$select_cartao->fetch_assoc();
                     <div class="col-sm-3">
                       <h6 class="mb-0">CEP</h6>
                     </div>
-                    <div class="col-sm-9 text-secondary">
+                    <input class='none'type="tel" id='cep_input'>
+                    <div class="col-sm-9 text-secondary" id='cep'>
                     <a><?= $result_empresa_endereco['cep'] ?></a>
                     </div>
                   </div>
@@ -178,7 +187,8 @@ $result_cartao=$select_cartao->fetch_assoc();
                     <div class="col-sm-3">
                       <h6 class="mb-0">Rua</h6>
                     </div>
-                    <div class="col-sm-9 text-secondary">
+                    <input class='none'type="tel" id='rua_input'>
+                    <div class="col-sm-9 text-secondary" id='rua'>
                     <a><?= $result_empresa_endereco['rua'] ?></a>
                     </div>
                   </div>
@@ -187,7 +197,8 @@ $result_cartao=$select_cartao->fetch_assoc();
                     <div class="col-sm-3">
                       <h6 class="mb-0">Número</h6>
                     </div>
-                    <div class="col-sm-9 text-secondary">
+                    <input class='none'type="tel" id='numero_input'>
+                    <div class="col-sm-9 text-secondary" id='numero'>
                     <a><?= $result_empresa_endereco['numero'] ?></a>
                     </div>
                   </div>
@@ -196,7 +207,8 @@ $result_cartao=$select_cartao->fetch_assoc();
                     <div class="col-sm-3">
                       <h6 class="mb-0">Bairro</h6>
                     </div>
-                    <div class="col-sm-9 text-secondary">
+                    <input class='none'type="tel" id='bairro_input'>
+                    <div class="col-sm-9 text-secondary" id='bairro'>
                     <a><?= $result_empresa_endereco['bairro'] ?></a>
                     </div>
                   </div>
@@ -205,7 +217,8 @@ $result_cartao=$select_cartao->fetch_assoc();
                     <div class="col-sm-3">
                       <h6 class="mb-0">Cidade</h6>
                     </div>
-                    <div class="col-sm-9 text-secondary">
+                    <input class='none'type="tel" id='cidade_input'>
+                    <div class="col-sm-9 text-secondary" id='cidade'>
                     <a><?= $result_empresa_endereco['cidade'] ?></a>
                     </div>
                   </div>
@@ -214,7 +227,8 @@ $result_cartao=$select_cartao->fetch_assoc();
                     <div class="col-sm-3">
                       <h6 class="mb-0">Estado</h6>
                     </div>
-                    <div class="col-sm-9 text-secondary">
+                    <input class='none'type="tel" id='estado_input'>
+                    <div class="col-sm-9 text-secondary" id='estado'>
                     <a><?= $result_empresa_endereco['estado'] ?></a>
                     </div>
                   </div>
@@ -222,7 +236,9 @@ $result_cartao=$select_cartao->fetch_assoc();
                   
                   <div class="row">
                     <div class="col-sm-12">
-                      <a class="btn btn-info "href="#">Edit</a>
+                    <a class="btn btn-info " onclick="editar_empresa()" id='editar_empresa'>Editar</a>
+                      <a class="btn btn-info salvar none" onclick="" id='salvar_empresa'>Salvar</a>
+                      <a class="btn btn-info cancelar none" onclick="editar_empresa()" id='cancelar_empresa'>Cancelar</a>
                       <a class="butao "href="../index.php">Sair</a>
                     </div>
                   </div>
@@ -246,7 +262,7 @@ $result_cartao=$select_cartao->fetch_assoc();
         </div>
     </div>
     <script src="script.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
     
 </body>
 </html>

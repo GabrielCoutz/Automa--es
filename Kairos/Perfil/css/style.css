@@ -6,20 +6,34 @@
     justify-content: center !important;
 }
 
-
-[contenteditable="true"] {
-  outline: 0px solid transparent;
-  color: #1a202c !important;
-  border-radius:6px;
+.none{
+  display: none;
+}
+.salvar{
+  background-color: #20a837;
+  border-color: #118b2b;
 }
 
-#cpf_input{
-  display: none;
+
+.salvar:hover{
+  background-color: #139629fd;
+  transition: all 0.3s ease-in-out;
+}
+
+.cancelar{
+  background-color: #a82020;
+  border-color: #8b1111;
+}
+.cancelar:hover{
+  background-color: #961313fd;
+  transition: all 0.3s ease-in-out;
+}
+#cpf_input, #tel_input, #email_input, #nome_empresa_input, #nome_fantasia_input, #cnpj_input, #ramo_input, #cep_input, #rua_input, #numero_input, #bairro_input, #cidade_input, #estado_input{
   border-radius:6px;
   border: 1px solid #ced6e0;
 }
 
-#cpf_input:hover, #cpf_input:focus{
+#cpf_input:hover, #cpf_input:focus, #tel_input:hover,#tel_input:focus, #email_input:hover, #email_input:focus, #nome_empresa_input:hover, #nome_empresa_input:focus, #nome_fantasia_input:hover, #nome_fantasia_input:focus, #cnpj_input:hover, #cnpj_input:focus, #ramo_input:hover, #ramo_input:focus, #cep_input:hover, #cep_input:focus,#rua_input:hover, #rua_input:focus, #numero_input:hover, #numero_input:focus, #bairro_input:hover, #bairro_input:focus, #cidade_input:hover, #cidade_input:focus, #estado_input:hover, #estado_input:focus{
   box-shadow: 0px 10px 20px -13px rgba(32, 56, 117, 0.35);
   text-align: left !important;
   border-radius:6px;
@@ -29,8 +43,9 @@
   outline: none;
 }
 
-#cpf[contenteditable="true"] {
-  max-width: 142px;
+input::-webkit-input-placeholder {
+  color: black;
+  opacity: 0.4;
 }
 
 .preloader {
