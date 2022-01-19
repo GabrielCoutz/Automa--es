@@ -123,7 +123,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                     <div class="col-sm-12">
                       <a class="btn btn-info " onclick="editar()" id='editar'>Editar</a>
                       <a class="btn btn-info salvar none" onclick="" id='salvar'>Salvar</a>
-                      <a class="btn btn-info cancelar none" onclick="editar()" id='cancelar'>Cancelar</a>
+                      <a class="btn btn-info cancelar none" onclick="cancelar()" id='cancelar'>Cancelar</a>
                     </div>
                   </div>
                 </div>
@@ -157,7 +157,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                     <div class="col-sm-3">
                       <h6 class="mb-0">CNPJ</h6>
                     </div>
-                    <input class='none'type="tel" id='cnpj_input'>
+                    <input class='none'type="tel" id='cnpj_input' onkeypress="$(this).mask('00.000.000/0000-00')">
                     <div class="col-sm-9 text-secondary" id='cnpj'>
                     <a><?= ucwords($result_empresa['cnpj']) ?></a>
                     </div>
@@ -177,7 +177,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                     <div class="col-sm-3">
                       <h6 class="mb-0">CEP</h6>
                     </div>
-                    <input class='none'type="tel" id='cep_input'>
+                    <input class='none'type="tel" id='cep_input' onkeypress="$(this).mask('00.000-000')">
                     <div class="col-sm-9 text-secondary" id='cep'>
                     <a><?= $result_empresa_endereco['cep'] ?></a>
                     </div>
@@ -238,7 +238,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                     <div class="col-sm-12">
                     <a class="btn btn-info " onclick="editar_empresa()" id='editar_empresa'>Editar</a>
                       <a class="btn btn-info salvar none" onclick="" id='salvar_empresa'>Salvar</a>
-                      <a class="btn btn-info cancelar none" onclick="editar_empresa()" id='cancelar_empresa'>Cancelar</a>
+                      <a class="btn btn-info cancelar none" onclick="cancelar_empresa()" id='cancelar_empresa' >Cancelar</a>
                       <a class="butao "href="../index.php">Sair</a>
                     </div>
                   </div>

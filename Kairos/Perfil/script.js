@@ -92,11 +92,7 @@ function abrirjanela(cor, texto){
 }
 // -------------------- fim código popup --------------------
 
-function editar(){
-    var conteudo_cpf = document.getElementById('cpf').innerText
-    var conteudo_tel = document.getElementById('tel').innerText
-    var conteudo_email = document.getElementById('email').innerText
-
+function alternar_edicao(){
     $("#cpf_input").toggle();
     $("#tel_input").toggle();
     $("#email_input").toggle();
@@ -108,25 +104,9 @@ function editar(){
     $("#cpf").toggle();
     $("#tel").toggle();
     $("#email").toggle();
-
-    document.getElementById('cpf_input').placeholder = conteudo_cpf
-    document.getElementById('tel_input').placeholder = conteudo_tel
-    document.getElementById('email_input').placeholder = conteudo_email
-
 }
 
-function editar_empresa(){
-    var conteudo_nome_empresa = document.getElementById('nome_empresa').innerText
-    var conteudo_nome_fantasia = document.getElementById('nome_fantasia').innerText
-    var conteudo_cnpj = document.getElementById('cnpj').innerText
-    var conteudo_ramo = document.getElementById('ramo').innerText
-    var conteudo_cep = document.getElementById('cep').innerText
-    var conteudo_rua = document.getElementById('rua').innerText
-    var conteudo_numero = document.getElementById('numero').innerText
-    var conteudo_bairro = document.getElementById('bairro').innerText
-    var conteudo_cidade = document.getElementById('cidade').innerText
-    var conteudo_estado = document.getElementById('estado').innerText
-
+function alternar_edicao_empresa(){
     $("#nome_empresa_input").toggle();
     $("#nome_fantasia_input").toggle();
     $("#cnpj_input").toggle();
@@ -152,7 +132,57 @@ function editar_empresa(){
     $("#bairro").toggle();
     $("#cidade").toggle();
     $("#estado").toggle();
+}
 
+function editar(){
+    let conteudo_cpf = document.getElementById('cpf').innerText
+    let conteudo_tel = document.getElementById('tel').innerText
+    let conteudo_email = document.getElementById('email').innerText
+
+    alternar_edicao()
+
+    document.getElementById('cpf_input').placeholder = conteudo_cpf
+    document.getElementById('tel_input').placeholder = conteudo_tel
+    document.getElementById('email_input').placeholder = conteudo_email
+}
+
+
+function cancelar(){
+    document.getElementById('cpf_input').value = ''
+    document.getElementById('tel_input').value = ''
+    document.getElementById('email_input').value = ''
+    
+    alternar_edicao()
+}
+
+function cancelar_empresa(){
+    document.getElementById('nome_fantasia_input').value = ''
+    document.getElementById('nome_empresa_input').value = ''
+    document.getElementById('cnpj_input').value = ''
+    document.getElementById('ramo_input').value = ''
+    document.getElementById('cep_input').value = ''
+    document.getElementById('rua_input').value = ''
+    document.getElementById('numero_input').value = ''
+    document.getElementById('bairro_input').value = ''
+    document.getElementById('cidade_input').value = ''
+    document.getElementById('estado_input').value = ''
+
+    alternar_edicao_empresa()
+}
+
+function editar_empresa(){
+    let conteudo_nome_empresa = document.getElementById('nome_empresa').innerText
+    let conteudo_nome_fantasia = document.getElementById('nome_fantasia').innerText
+    let conteudo_cnpj = document.getElementById('cnpj').innerText
+    let conteudo_ramo = document.getElementById('ramo').innerText
+    let conteudo_cep = document.getElementById('cep').innerText
+    let conteudo_rua = document.getElementById('rua').innerText
+    let conteudo_numero = document.getElementById('numero').innerText
+    let conteudo_bairro = document.getElementById('bairro').innerText
+    let conteudo_cidade = document.getElementById('cidade').innerText
+    let conteudo_estado = document.getElementById('estado').innerText
+
+    alternar_edicao_empresa()
 
     document.getElementById('nome_empresa_input').placeholder = conteudo_nome_empresa
     document.getElementById('nome_fantasia_input').placeholder = conteudo_nome_fantasia
