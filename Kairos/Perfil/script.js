@@ -139,11 +139,15 @@ function editar(){
     let conteudo_tel = document.getElementById('tel').innerText
     let conteudo_email = document.getElementById('email').innerText
 
+    let len_email = document.getElementById('aemail').offsetWidth+13;
+
     alternar_edicao()
 
     document.getElementById('cpf_input').placeholder = conteudo_cpf
     document.getElementById('tel_input').placeholder = conteudo_tel
     document.getElementById('email_input').placeholder = conteudo_email
+
+    document.getElementById('email_input').style.width = len_email+'px'
 }
 
 
@@ -181,6 +185,9 @@ function editar_empresa(){
     let conteudo_bairro = document.getElementById('bairro').innerText
     let conteudo_cidade = document.getElementById('cidade').innerText
     let conteudo_estado = document.getElementById('estado').innerText
+
+    let len_rua = document.getElementById('arua').offsetWidth+13;
+    document.getElementById('rua_input').style.width = len_rua+'px'
 
     alternar_edicao_empresa()
 

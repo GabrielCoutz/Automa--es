@@ -18,7 +18,7 @@ $dbPass = '';
 $dbName     = 'kairos';
 
 //$email=$_SESSION['email'];
-$email='joao@gmail.com';
+$email='gabriel.coutinho.cassiano@gmail.com';
 
 
 $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
@@ -103,7 +103,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                     </div>
                     <input class='none'type="email" id='email_input'>
                     <div class="col-sm-9 text-secondary" id='email'>
-                    <a><?= $result['email'] ?></a>
+                    <a id='aemail'><?= $result['email'] ?></a>
                     </div>
                   </div>
                   
@@ -114,7 +114,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                     </div>
                     <input class='none'type="tel" id='tel_input' onkeypress="$(this).mask('(00) 0000-00009')">
                     <div class="col-sm-9 text-secondary" id='tel'>
-                    <a><?= $result['telefone'] ?></a>
+                    <a id='atelefone'><?= $result['telefone'] ?></a>
                     </div>
                   </div>
                   
@@ -189,7 +189,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                     </div>
                     <input class='none'type="tel" id='rua_input'>
                     <div class="col-sm-9 text-secondary" id='rua'>
-                    <a><?= $result_empresa_endereco['rua'] ?></a>
+                    <a id='arua'><?= $result_empresa_endereco['rua'] ?></a>
                     </div>
                   </div>
                   <hr>

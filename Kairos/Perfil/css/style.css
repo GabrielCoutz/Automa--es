@@ -14,6 +14,16 @@
   border-color: #118b2b;
 }
 
+input{
+  margin-left: 12px;
+  margin-bottom: -4px;
+}
+input:last-child{
+  margin-bottom: 0px;
+}
+#tel_input{
+  margin-bottom: 1px !important;
+}
 
 .salvar:hover{
   background-color: #139629fd;
