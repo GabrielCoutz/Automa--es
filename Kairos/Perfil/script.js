@@ -84,13 +84,33 @@ janelaPopUp.fecha = function(id){
     }
     
 }
-function abrirjanela(cor, texto){
+function abrirjanela(cor, texto, titulo){
     var tamanho = 'p';
     var modo = 'alert';
-    var titulo = '| Logado com sucesso |';
     janelaPopUp.abre( "asdf", tamanho + " "  + cor + ' ' + modo,  titulo ,  texto)
 }
 // -------------------- fim código popup --------------------
+var alerta = ""
+
+document.getElementById("email_input").classList.remove('vermei')
+document.getElementById("cpf_input").classList.remove('vermei')
+
+if (window.location.href.includes(md5('email_duplicado=true'))) {
+    alerta+='Email já cadastrado!<br>'
+    document.getElementById("email_input").classList.add('vermei')
+}
+if (window.location.href.includes(md5('cpf_duplicado=true'))) {
+    alerta+='CPF já cadastrado!'
+    document.getElementById("cpf_input").classList.add('vermei')
+}
+
+if(alerta != ""){
+    abrirjanela('red',alerta, '| Alteração Inválida |')
+    document.getElementById('editar').click()
+} else if(window.location.href.includes(md5('livre=true'))){
+    abrirjanela('green','tudo certo', '| Alteração realizada com sucesso |')
+}
+
 
 function alternar_edicao(){
     $("#cpf_input").toggle();
@@ -148,9 +168,6 @@ function editar_usuario(){
     document.getElementById('email_input').placeholder = conteudo_email
 
     document.getElementById('email_input').style.width = len_email+'px'
-    $("#dados_usuario").submit(function(e) {
-        e.preventDefault();
-    });
 }
 
 

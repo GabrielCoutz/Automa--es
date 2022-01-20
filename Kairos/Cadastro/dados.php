@@ -33,7 +33,6 @@ $result_email=$select_email->fetch_assoc();
 if(isset($result_email['email'])){
     $local=$local.'?'.md5('email=false');
     $duplicado=true;
-} else {
 }
 if (isset($result['cpf'])){
     $local=$local.'?'.md5('cpf=false');

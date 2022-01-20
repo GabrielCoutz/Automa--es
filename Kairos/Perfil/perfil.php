@@ -93,7 +93,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                     <div class="col-sm-3">
                       <h6 class="mb-0">CPF</h6>
                     </div>
-                    <form action="teste.php" method="POST" id='dados_usuario'>
+                    <form action="verificar_dados.php" method="POST" id='dados_usuario' onsubmit="return false">
                         <input class='none'type="text" id='cpf_input' name='cpf_input' onkeypress="$(this).mask('000.000.000-00')">
                         <div class="col-sm-9 text-secondary" maxlength="14" type="text" id='cpf'>
                           <a><?= $result['cpf'] ?></a>
@@ -257,8 +257,8 @@ $result_cartao=$select_cartao->fetch_assoc();
           </div>
         </div>
     </div>
+    <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js'></script>
     <script src="script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
-    
 </body>
 </html>
