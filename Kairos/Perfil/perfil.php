@@ -18,8 +18,7 @@ $dbUname = 'root';
 $dbPass = '';
 $dbName     = 'kairos';
 
-//$email=$_SESSION['email'];
-$email='gabriel.coutinho.cassiano@gmail.com';
+$email=$_SESSION['email'];
 
 
 $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
@@ -29,6 +28,11 @@ $result=$select->fetch_assoc();
 
 $id=$result['id'];
 $cpf=$result['cpf'];
+
+$_SESSION['cpf_padrao']=$result['cpf'];
+$_SESSION['email_padrao']=$result['email'];
+$_SESSION['tel_padrao']=$result['telefone'];
+
 
 $select_endereco=mysqli_query($conec, "SELECT * FROM endereco WHERE id_usuario = '$id'");
 $result_endereco=$select_endereco->fetch_assoc();
@@ -95,7 +99,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                     </div>
                     <form action="verificar_dados.php" method="POST" id='dados_usuario' onsubmit="return false">
                         <input class='none'type="text" id='cpf_input' name='cpf_input' onkeypress="$(this).mask('000.000.000-00')">
-                        <div class="col-sm-9 text-secondary" maxlength="14" type="text" id='cpf'>
+                        <div class="col-sm-9 text-secondary" maxlength="14" type="text" id='cpf' name='xampson'>
                           <a><?= $result['cpf'] ?></a>
                         </div>
                       </div>
@@ -115,7 +119,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                         <div class="col-sm-3">
                           <h6 class="mb-0">Telefone</h6>
                         </div>
-                        <input class='none'type="tel" id='tel_input' name='tal_input' onkeypress="$(this).mask('(00) 0000-00009')">
+                        <input class='none'type="tel" id='tel_input' name='tel_input' onkeypress="$(this).mask('(00) 0000-00009')">
                         <div class="col-sm-9 text-secondary" id='tel'>
                         <a><?= $result['telefone'] ?></a>
                         </div>

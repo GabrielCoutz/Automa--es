@@ -225,7 +225,16 @@ function editar_empresa(){
 }
 
 function salvar_usuario(){
-    document.getElementById("dados_usuario").submit();
+    let cpf = document.getElementById('cpf_input').value
+    let tel = document.getElementById('tel_input').value
+    let email = document.getElementById('email_input').value
+
+    if(cpf == '' &&  tel == '' && email == ''){
+        abrirjanela('blue','Dados não preenchidos<br> Cancelando alteração...','Dados Inexistentes')
+        document.getElementById('cancelar').click()
+    } else {
+        document.getElementById("dados_usuario").submit();
+    }
 
 
 }
