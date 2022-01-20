@@ -134,7 +134,7 @@ function alternar_edicao_empresa(){
     $("#estado").toggle();
 }
 
-function editar(){
+function editar_usuario(){
     let conteudo_cpf = document.getElementById('cpf').innerText
     let conteudo_tel = document.getElementById('tel').innerText
     let conteudo_email = document.getElementById('email').innerText
@@ -148,10 +148,13 @@ function editar(){
     document.getElementById('email_input').placeholder = conteudo_email
 
     document.getElementById('email_input').style.width = len_email+'px'
+    $("#dados_usuario").submit(function(e) {
+        e.preventDefault();
+    });
 }
 
 
-function cancelar(){
+function cancelar_usuario(){
     document.getElementById('cpf_input').value = ''
     document.getElementById('tel_input').value = ''
     document.getElementById('email_input').value = ''
@@ -201,5 +204,11 @@ function editar_empresa(){
     document.getElementById('bairro_input').placeholder = conteudo_bairro
     document.getElementById('cidade_input').placeholder = conteudo_cidade
     document.getElementById('estado_input').placeholder = conteudo_estado
+
+}
+
+function salvar_usuario(){
+    document.getElementById("dados_usuario").submit();
+
 
 }

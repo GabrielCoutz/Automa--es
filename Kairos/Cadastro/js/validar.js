@@ -254,7 +254,6 @@ function validar(){
         alert("Por favor, insira um CPF válido!")
         document.getElementById("cpf").focus()
         document.getElementById("cpf").classList.add("vermei")
-        
 
     } else if (cep.value.replace('.','').replace('-','') == ""){
         alert("Por favor, preencha o CEP!")
@@ -285,7 +284,7 @@ function validar(){
         alert("Por favor, preencha o Estado!")
         document.getElementById("estado").focus()
         document.getElementById("estado").classList.add("vermei")
-        
+
     } else if (senha.value == "" || confirm_senha.value == ""){
         alert("Por favor, preencha a senha!");
         document.getElementById("senha").focus()
@@ -314,5 +313,4 @@ function validar(){
             document.getElementById('cadastro').submit();
         })
     }
-    
 }

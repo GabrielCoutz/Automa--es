@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="css/popup.css">
   <?php
 session_start();
+
 $dbHost     = 'localhost';
 $dbUname = 'root';
 $dbPass = '';
@@ -47,7 +48,8 @@ $result_cartao=$select_cartao->fetch_assoc();
 
 ?>
 </head>
-<body>
+<body style="background-image: url('css/wave.svg'); background-repeat: no-repeat;background-attachment: fixed;
+  background-size: cover;">
   <div class="preloader">
         <div class="loader">
           <div class="spinner">
@@ -91,43 +93,45 @@ $result_cartao=$select_cartao->fetch_assoc();
                     <div class="col-sm-3">
                       <h6 class="mb-0">CPF</h6>
                     </div>
-                    <input class='none'type="text" id='cpf_input' onkeypress="$(this).mask('000.000.000-00')">
-                    <div class="col-sm-9 text-secondary" maxlength="14" type="text" id='cpf'>
-                      <a><?= $result['cpf'] ?></a>
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Email</h6>
-                    </div>
-                    <input class='none'type="email" id='email_input'>
-                    <div class="col-sm-9 text-secondary" id='email'>
-                    <a id='aemail'><?= $result['email'] ?></a>
-                    </div>
-                  </div>
-                  
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Telefone</h6>
-                    </div>
-                    <input class='none'type="tel" id='tel_input' onkeypress="$(this).mask('(00) 0000-00009')">
-                    <div class="col-sm-9 text-secondary" id='tel'>
-                    <a id='atelefone'><?= $result['telefone'] ?></a>
-                    </div>
-                  </div>
-                  
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-12">
-                      <a class="btn btn-info " onclick="editar()" id='editar'>Editar</a>
-                      <a class="btn btn-info salvar none" onclick="" id='salvar'>Salvar</a>
-                      <a class="btn btn-info cancelar none" onclick="cancelar()" id='cancelar'>Cancelar</a>
-                    </div>
+                    <form action="teste.php" method="POST" id='dados_usuario'>
+                        <input class='none'type="text" id='cpf_input' name='cpf_input' onkeypress="$(this).mask('000.000.000-00')">
+                        <div class="col-sm-9 text-secondary" maxlength="14" type="text" id='cpf'>
+                          <a><?= $result['cpf'] ?></a>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Email</h6>
+                        </div>
+                        <input class='none'type="email" id='email_input' name='email_input'>
+                        <div class="col-sm-9 text-secondary" id='email'>
+                        <a id='aemail'><?= $result['email'] ?></a>
+                        </div>
+                      </div>
+                      
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Telefone</h6>
+                        </div>
+                        <input class='none'type="tel" id='tel_input' name='tal_input' onkeypress="$(this).mask('(00) 0000-00009')">
+                        <div class="col-sm-9 text-secondary" id='tel'>
+                        <a><?= $result['telefone'] ?></a>
+                        </div>
+                      </div>
+                      
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <button class="btn btn-info " id='editar' onclick="editar_usuario()" type="submit">Editar</button>
+                          <button class="btn btn-info salvar none" id='salvar' type="submit" onclick="salvar_usuario()">Salvar</button>
+                          <button class="btn btn-info cancelar none" onclick="cancelar_usuario()" id='cancelar'>Cancelar</button>
+                        </div>
                   </div>
                 </div>
               </div>
+              </form>
               <div class="card mb-3">
                 <h4 id="cad_empresa">Dados da Empresa</h4>
                 <hr>
@@ -233,32 +237,24 @@ $result_cartao=$select_cartao->fetch_assoc();
                     </div>
                   </div>
                   <hr>
-                  
                   <div class="row">
                     <div class="col-sm-12">
                     <a class="btn btn-info " onclick="editar_empresa()" id='editar_empresa'>Editar</a>
-                      <a class="btn btn-info salvar none" onclick="" id='salvar_empresa'>Salvar</a>
+                      <a class="btn btn-info salvar none" onclick="salvar_empresa()" id='salvar_empresa'>Salvar</a>
                       <a class="btn btn-info cancelar none" onclick="cancelar_empresa()" id='cancelar_empresa' >Cancelar</a>
                       <a class="butao "href="../index.php">Sair</a>
                     </div>
                   </div>
                 </div>
               </div>
-            
-
               <div class="row gutters-sm">
                 <div class="col-sm-6 mb-3">
                 </div>
                 <div class="col-sm-6 mb-3">
-                  
                 </div>
               </div>
-
-
-
             </div>
           </div>
-
         </div>
     </div>
     <script src="script.js"></script>
