@@ -11,6 +11,37 @@ const conteudo_rua = document.getElementById('rua_empresa').innerText
 const conteudo_bairro = document.getElementById('bairro_empresa').innerText
 const conteudo_estado = document.getElementById('estado_empresa').innerText
 const conteudo_cidade = document.getElementById('cidade_empresa').innerText
+
+$(function(){
+		
+    $(document.body).on('click', '.changeType' ,function(){
+        $(this).closest('.phone-input').find('.type-text').text($(this).text());
+        $(this).closest('.phone-input').find('.type-input').val($(this).data('type-value'));
+    });
+    
+    $(document.body).on('click', '.btn-remove-phone' ,function(){
+        $(this).closest('.phone-input').remove();
+    });
+    
+    
+    $('.btn-add-phone').click(function(){
+
+        var index = $('.phone-input').length + 1;
+        
+        $('.phone-list').append(''+
+                '<div class="input-group phone-input">'+
+                    '<input type="tel" name="phone['+index+'][number]"  placeholder="(00) 0000-00000" />'+
+                    '<input type="hidden" name="phone['+index+'][type]" class="type-input" value="" />'+
+                    '<span class="input-group-btn">'+
+                        '<button class="btn btn-danger btn-remove-phone btn-info" type="button"><span class="lnr lnr-cross"></span></button>'+
+                    '</span>'+
+                '</div>'
+        );
+
+    });
+    
+});
+
 // -------------------- início código popup --------------------
 var janelaPopUp = new Object();
 
@@ -136,6 +167,7 @@ $.ajax({
 
 function alternar_edicao(){
     $("#tel_input").toggle();
+    $("#add_tel").toggle();
     $("#email_input").toggle();
 
     $("#editar").toggle();
@@ -207,8 +239,6 @@ function cancelar_empresa(){
     document.getElementById('bairro_empresa').innerHTML = conteudo_bairro
     document.getElementById('cidade_empresa').innerHTML = conteudo_cidade
     document.getElementById('estado_empresa').innerHTML = conteudo_estado
-    
-
     alternar_edicao_empresa()
 }
 

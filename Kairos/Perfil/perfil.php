@@ -117,7 +117,12 @@ $result_cartao=$select_cartao->fetch_assoc();
                         <div class="col-sm-3">
                           <h6 class="mb-0">Telefone</h6>
                         </div>
-                        <input class='none'type="tel" id='tel_input' name='tel_input' onkeypress="$(this).mask('(00) 0000-00009')">
+                        <div class="phone-list">
+                          <div class="input-group phone-input">
+                            <input class='none'type="tel" id='tel_input' name='tel_input' onkeypress="$(this).mask('(00) 0000-00009')">
+                            <button type="button" class="btn btn-success btn-sm btn-add-phone none" id='add_tel'><span class="glyphicon glyphicon-plus" ></span> Add Phone</button>
+                          </div>
+                        </div>
                         <div class="col-sm-9 text-secondary" id='tel'>
                         <a><?= $result['telefone'] ?></a>
                         </div>
