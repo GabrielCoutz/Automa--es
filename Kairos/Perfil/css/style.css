@@ -47,6 +47,14 @@ input:last-child{
   border-bottom: 1px solid #ff0000 !important;
 }
 
+.select{
+  margin-left: 12px !important;
+  width: auto !important;
+  border-radius: 6px !important;
+  height: 35px !important;
+  padding-left: 10px !important;
+}
+
 form{
   display: contents;
 }

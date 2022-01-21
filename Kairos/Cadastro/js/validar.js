@@ -13,6 +13,7 @@ $('select').on('change', function() {
       $(this).css('opacity', '1');
     }
   }).change();
+
 // -------------------- início código popup --------------------
 var janelaPopUp = new Object();
 

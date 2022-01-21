@@ -6,6 +6,11 @@ function fadeout() {
     document.querySelector('.preloader').style.opacity = '0';
     document.querySelector('.preloader').style.display = 'none';
 }
+
+const conteudo_rua = document.getElementById('rua_empresa').innerText
+const conteudo_bairro = document.getElementById('bairro_empresa').innerText
+const conteudo_estado = document.getElementById('estado_empresa').innerText
+const conteudo_cidade = document.getElementById('cidade_empresa').innerText
 // -------------------- início código popup --------------------
 var janelaPopUp = new Object();
 
@@ -93,15 +98,10 @@ function abrirjanela(cor, texto, titulo){
 var alerta = ""
 
 document.getElementById("email_input").classList.remove('vermei')
-document.getElementById("cpf_input").classList.remove('vermei')
 
 if (window.location.href.includes(md5('email_duplicado=true'))) {
     alerta+='Email já cadastrado!<br>'
     document.getElementById("email_input").classList.add('vermei')
-}
-if (window.location.href.includes(md5('cpf_duplicado=true'))) {
-    alerta+='CPF já cadastrado!'
-    document.getElementById("cpf_input").classList.add('vermei')
 }
 
 if(alerta != ""){
@@ -112,8 +112,29 @@ if(alerta != ""){
 }
 
 
+$('select').on('change', function() {
+    if (this.value == "1") {
+      $(this).css('opacity', '0.7');
+    } else {
+      $(this).css('opacity', '1');
+    }
+  }).change();
+
+$("#cep_input").focusout(function(){
+$.ajax({
+    url: 'https://viacep.com.br/ws/'+$(this).val().toString().replace(/-/, '').replace('.', '')+'/json/unicode/',
+    dataType: 'json',
+    success: function(resposta){
+        document.getElementById('rua_empresa').innerHTML = resposta.logradouro
+        document.getElementById('bairro_empresa').innerHTML = resposta.bairro
+        document.getElementById('cidade_empresa').innerHTML = resposta.localidade
+        document.getElementById('estado_empresa').innerHTML = resposta.uf
+        document.getElementById('numero_input').focus()
+    }
+});
+});
+
 function alternar_edicao(){
-    $("#cpf_input").toggle();
     $("#tel_input").toggle();
     $("#email_input").toggle();
 
@@ -121,7 +142,6 @@ function alternar_edicao(){
     $("#cancelar").toggle();
     $("#salvar").toggle();
 
-    $("#cpf").toggle();
     $("#tel").toggle();
     $("#email").toggle();
 }
@@ -132,11 +152,11 @@ function alternar_edicao_empresa(){
     $("#cnpj_input").toggle();
     $("#ramo_input").toggle();
     $("#cep_input").toggle();
-    $("#rua_input").toggle();
+    // $("#rua_input").toggle();
     $("#numero_input").toggle();
-    $("#bairro_input").toggle();
-    $("#cidade_input").toggle();
-    $("#estado_input").toggle();
+    // $("#bairro_input").toggle();
+    // $("#cidade_input").toggle();
+    // $("#estado_empresa_input").toggle();
 
     $("#editar_empresa").toggle();
     $("#cancelar_empresa").toggle();
@@ -146,16 +166,15 @@ function alternar_edicao_empresa(){
     $("#nome_fantasia").toggle();
     $("#cnpj").toggle();
     $("#ramo").toggle();
-    $("#cep").toggle();
-    $("#rua").toggle();
-    $("#numero").toggle();
-    $("#bairro").toggle();
-    $("#cidade").toggle();
-    $("#estado").toggle();
+    $("#cep_empresa").toggle();
+    // $("#rua").toggle();
+    $("#numero_empresa").toggle();
+    // $("#bairro").toggle();
+    // $("#cidade").toggle();
+    // $("#estado_empresa").toggle();
 }
 
 function editar_usuario(){
-    let conteudo_cpf = document.getElementById('cpf').innerText
     let conteudo_tel = document.getElementById('tel').innerText
     let conteudo_email = document.getElementById('email').innerText
 
@@ -163,7 +182,6 @@ function editar_usuario(){
 
     alternar_edicao()
 
-    document.getElementById('cpf_input').placeholder = conteudo_cpf
     document.getElementById('tel_input').placeholder = conteudo_tel
     document.getElementById('email_input').placeholder = conteudo_email
 
@@ -172,7 +190,6 @@ function editar_usuario(){
 
 
 function cancelar_usuario(){
-    document.getElementById('cpf_input').value = ''
     document.getElementById('tel_input').value = ''
     document.getElementById('email_input').value = ''
     
@@ -185,11 +202,12 @@ function cancelar_empresa(){
     document.getElementById('cnpj_input').value = ''
     document.getElementById('ramo_input').value = ''
     document.getElementById('cep_input').value = ''
-    document.getElementById('rua_input').value = ''
     document.getElementById('numero_input').value = ''
-    document.getElementById('bairro_input').value = ''
-    document.getElementById('cidade_input').value = ''
-    document.getElementById('estado_input').value = ''
+    document.getElementById('rua_empresa').innerHTML = conteudo_rua
+    document.getElementById('bairro_empresa').innerHTML = conteudo_bairro
+    document.getElementById('cidade_empresa').innerHTML = conteudo_cidade
+    document.getElementById('estado_empresa').innerHTML = conteudo_estado
+    
 
     alternar_edicao_empresa()
 }
@@ -199,15 +217,8 @@ function editar_empresa(){
     let conteudo_nome_fantasia = document.getElementById('nome_fantasia').innerText
     let conteudo_cnpj = document.getElementById('cnpj').innerText
     let conteudo_ramo = document.getElementById('ramo').innerText
-    let conteudo_cep = document.getElementById('cep').innerText
-    let conteudo_rua = document.getElementById('rua').innerText
-    let conteudo_numero = document.getElementById('numero').innerText
-    let conteudo_bairro = document.getElementById('bairro').innerText
-    let conteudo_cidade = document.getElementById('cidade').innerText
-    let conteudo_estado = document.getElementById('estado').innerText
-
-    let len_rua = document.getElementById('arua').offsetWidth+13;
-    document.getElementById('rua_input').style.width = len_rua+'px'
+    let conteudo_cep = document.getElementById('cep_empresa').innerText
+    let conteudo_numero = document.getElementById('numero_empresa').innerText
 
     alternar_edicao_empresa()
 
@@ -216,20 +227,15 @@ function editar_empresa(){
     document.getElementById('cnpj_input').placeholder = conteudo_cnpj
     document.getElementById('ramo_input').placeholder = conteudo_ramo
     document.getElementById('cep_input').placeholder = conteudo_cep
-    document.getElementById('rua_input').placeholder = conteudo_rua
     document.getElementById('numero_input').placeholder = conteudo_numero
-    document.getElementById('bairro_input').placeholder = conteudo_bairro
-    document.getElementById('cidade_input').placeholder = conteudo_cidade
-    document.getElementById('estado_input').placeholder = conteudo_estado
 
 }
 
 function salvar_usuario(){
-    let cpf = document.getElementById('cpf_input').value
     let tel = document.getElementById('tel_input').value
     let email = document.getElementById('email_input').value
 
-    if(cpf == '' &&  tel == '' && email == ''){
+    if(tel == '' && email == ''){
         abrirjanela('blue','Dados não preenchidos<br> Cancelando alteração...','Dados Inexistentes')
         document.getElementById('cancelar').click()
     } else {
