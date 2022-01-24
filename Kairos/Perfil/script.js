@@ -27,11 +27,11 @@ $(function(){
     $('.btn-add-phone').click(function(){
 
         var index = $('.phone-input').length + 1;
-        
+        var num = "'(00) 0000-00009'"
         $('.phone-list').append(''+
                 '<div class="input-group phone-input">'+
-                    '<input type="tel" name="phone['+index+'][number]"  placeholder="(00) 0000-00000" />'+
-                    '<input type="hidden" name="phone['+index+'][type]" class="type-input" value="" />'+
+                    '<input type="tel" name="phone['+index+'][number]"  placeholder="(00) 0000-00000" id="tel_input" class="adicional" onkeypress="$(this).mask('+num+')"/>'+
+                    '<input type="hidden" name="phone['+index+'][type]" class="type-input"/>'+
                     '<span class="input-group-btn">'+
                         '<button class="btn btn-danger btn-remove-phone btn-info" type="button"><span class="lnr lnr-cross"></span></button>'+
                     '</span>'+
@@ -210,14 +210,11 @@ function editar_usuario(){
     let conteudo_tel = document.getElementById('tel').innerText
     let conteudo_email = document.getElementById('email').innerText
 
-    let len_email = document.getElementById('aemail').offsetWidth+13;
-
     alternar_edicao()
 
     document.getElementById('tel_input').placeholder = conteudo_tel
     document.getElementById('email_input').placeholder = conteudo_email
 
-    document.getElementById('email_input').style.width = len_email+'px'
 }
 
 

@@ -21,8 +21,17 @@ input{
 input:last-child{
   margin-bottom: 0px;
 }
+.adicional{
+  margin-top: 4px !important;
+  height: 30px !important;
+}
 #tel_input{
   margin-bottom: 1px !important;
+}
+.btn-remove-phone{
+  margin-top: 4px;
+  padding: 5px !important;
+  height: 29px;
 }
 
 .salvar:hover{
@@ -62,7 +71,7 @@ form{
 #cpf_input:hover, #cpf_input:focus, #tel_input:hover,#tel_input:focus, #email_input:hover, #email_input:focus, #nome_empresa_input:hover, #nome_empresa_input:focus, #nome_fantasia_input:hover, #nome_fantasia_input:focus, #cnpj_input:hover, #cnpj_input:focus, #ramo_input:hover, #ramo_input:focus, #cep_input:hover, #cep_input:focus,#rua_input:hover, #rua_input:focus, #numero_input:hover, #numero_input:focus, #bairro_input:hover, #bairro_input:focus, #cidade_input:hover, #cidade_input:focus, #estado_input:hover, #estado_input:focus{
   box-shadow: 0px 10px 20px -13px rgba(32, 56, 117, 0.35);
   text-align: left !important;
-  border-radius:6px;
+  border-radius:6px !important;
   border-color: #3d9cff !important;
   display: inline !important;
   transition: all 0.5s ease-in-out;
@@ -251,15 +260,60 @@ input::-webkit-input-placeholder {
     color: white;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
+
 #diamante{
     padding-right: 10px !important;
 }
+
+.btn-add-phone, .btn-remove-phone{
+  margin-left: 0.5em !important;
+}
+
 @media (min-width: 768px){
     .col-md-8 {
     flex: none !important;
     max-width: none !important;
     }
   }
+
+@media (max-width: 767px){
+  .btn-add-phone{
+    margin-top: 5px !important;
+  }
+  .adicional{
+    height: 35px;
+  }
+  input{
+    width: 75%;
+  }
+}
+@media (max-width:281px) {
+  .adicional{
+    width: 72%;
+  }
+}
+@media (max-width: 500px){
+  .btn-remove-phone{
+    margin-left: 0.2em !important;
+  }
+  .btn-add-phone{
+    margin-right: 0.5em !important;
+    width: 100%;
+    margin-bottom: 2px !important;
+  }
+  button{
+    padding: 5px !important;
+  }
+  #sair{
+    margin-top: 15px !important;
+  }
+  #editar, #editar_empresa, #sair{
+    width: 100% !important;
+  }
+  #cancelar_empresa, #cancelar{
+    float: right;
+  }
+}
   
   #cad_empresa{
     padding-top: 15px;
@@ -316,6 +370,7 @@ input::-webkit-input-placeholder {
       flex: 1 1 auto;
       min-height: 1px;
       padding: 1rem;
+      overflow: hidden;
   }
   
   .gutters-sm {

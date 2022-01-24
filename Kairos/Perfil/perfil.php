@@ -120,7 +120,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                         <div class="phone-list">
                           <div class="input-group phone-input">
                             <input class='none'type="tel" id='tel_input' name='tel_input' onkeypress="$(this).mask('(00) 0000-00009')">
-                            <button type="button" class="btn btn-success btn-sm btn-add-phone none" id='add_tel'><span class="glyphicon glyphicon-plus" ></span> Add Phone</button>
+                            <button type="button" class="btn btn-success btn-sm btn-add-phone none" id='add_tel'><span class="glyphicon glyphicon-plus" ></span> Adicionar telefone</button>
                           </div>
                         </div>
                         <div class="col-sm-9 text-secondary" id='tel'>
@@ -275,10 +275,10 @@ $result_cartao=$select_cartao->fetch_assoc();
                   <hr>
                   <div class="row">
                     <div class="col-sm-12">
-                    <a class="btn btn-info " onclick="editar_empresa()" id='editar_empresa'>Editar</a>
-                      <a class="btn btn-info salvar none" onclick="salvar_empresa()" id='salvar_empresa'>Salvar</a>
-                      <a class="btn btn-info cancelar none" onclick="cancelar_empresa()" id='cancelar_empresa' >Cancelar</a>
-                      <a class="butao "href="../index.php">Sair</a>
+                    <button class="btn btn-info " onclick="editar_empresa()" id='editar_empresa'>Editar</button>
+                      <button class="btn btn-info salvar none" onclick="salvar_empresa()" id='salvar_empresa'>Salvar</button>
+                      <button class="btn btn-info cancelar none" onclick="cancelar_empresa()" id='cancelar_empresa' >Cancelar</button>
+                      <button class="butao "href="../index.php" id='sair'>Sair</button>
                     </div>
                   </div>
                 </div>
