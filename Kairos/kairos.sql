@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 17-Jan-2022 às 16:35
+-- Tempo de geração: 24-Jan-2022 às 15:35
 -- Versão do servidor: 10.4.22-MariaDB
 -- versão do PHP: 8.0.13
 
@@ -42,7 +42,7 @@ CREATE TABLE `cartao` (
 --
 
 INSERT INTO `cartao` (`id`, `cpf_usuario`, `titular`, `numero`, `validade`, `cvv`, `assinatura`) VALUES
-(25, '501.513.798-23', 'gabriel coutinho cassiano', '4444 4444 4444 4444', '04/2028', 444, 'premium');
+(1, '501.513.798-23', 'xampson', '4444 4444 4444 4444', '07/2030', 413, 'premium');
 
 -- --------------------------------------------------------
 
@@ -52,7 +52,7 @@ INSERT INTO `cartao` (`id`, `cpf_usuario`, `titular`, `numero`, `validade`, `cvv
 
 CREATE TABLE `empresa` (
   `id` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
+  `cpf_usuario` varchar(20) NOT NULL,
   `nome` varchar(30) NOT NULL,
   `nome_fantasia` varchar(30) NOT NULL,
   `cnpj` varchar(20) NOT NULL,
@@ -63,8 +63,8 @@ CREATE TABLE `empresa` (
 -- Extraindo dados da tabela `empresa`
 --
 
-INSERT INTO `empresa` (`id`, `id_usuario`, `nome`, `nome_fantasia`, `cnpj`, `ramo`) VALUES
-(22, 107, 'kairos MK', 'Kairos', '97.201.044/0001-11', 'Tecnologia');
+INSERT INTO `empresa` (`id`, `cpf_usuario`, `nome`, `nome_fantasia`, `cnpj`, `ramo`) VALUES
+(33, '501.513.798-23', 'kairos', 'Kaiross', '97.201.044/0001-11', 'Educação');
 
 -- --------------------------------------------------------
 
@@ -74,7 +74,7 @@ INSERT INTO `empresa` (`id`, `id_usuario`, `nome`, `nome_fantasia`, `cnpj`, `ram
 
 CREATE TABLE `endereco` (
   `id` int(11) NOT NULL,
-  `id_usuario` int(11) NOT NULL,
+  `cpf_usuario` varchar(20) NOT NULL,
   `cep` varchar(10) NOT NULL,
   `rua` varchar(50) NOT NULL,
   `numero` varchar(5) NOT NULL,
@@ -87,8 +87,8 @@ CREATE TABLE `endereco` (
 -- Extraindo dados da tabela `endereco`
 --
 
-INSERT INTO `endereco` (`id`, `id_usuario`, `cep`, `rua`, `numero`, `bairro`, `cidade`, `estado`) VALUES
-(45, 107, '08.588-310', 'Estrada da Promissão', '43', 'Jardim Carolina', 'Itaquaquecetuba', 'SP');
+INSERT INTO `endereco` (`id`, `cpf_usuario`, `cep`, `rua`, `numero`, `bairro`, `cidade`, `estado`) VALUES
+(1, '501.513.798-23', '08.588-310', 'Estrada da Promissão', '280', 'Jardim Carolina', 'Itaquaquecetuba', 'SP');
 
 -- --------------------------------------------------------
 
@@ -98,7 +98,7 @@ INSERT INTO `endereco` (`id`, `id_usuario`, `cep`, `rua`, `numero`, `bairro`, `c
 
 CREATE TABLE `endereco_empresa` (
   `id` int(11) NOT NULL,
-  `id_empresa` int(11) NOT NULL,
+  `cnpj_empresa` varchar(20) NOT NULL,
   `cep` varchar(20) NOT NULL,
   `rua` varchar(50) NOT NULL,
   `numero` varchar(10) NOT NULL,
@@ -111,8 +111,27 @@ CREATE TABLE `endereco_empresa` (
 -- Extraindo dados da tabela `endereco_empresa`
 --
 
-INSERT INTO `endereco_empresa` (`id`, `id_empresa`, `cep`, `rua`, `numero`, `bairro`, `cidade`, `estado`) VALUES
-(1, 22, '08.588-350', 'Rua Padre Benedito de Camargo', '43', 'Jardim Carolina', 'Itaquaquecetuba', '');
+INSERT INTO `endereco_empresa` (`id`, `cnpj_empresa`, `cep`, `rua`, `numero`, `bairro`, `cidade`, `estado`) VALUES
+(1, '97.201.044/0001-11', '08.588-310', 'Estrada da Promissão', '63', 'Jardim Carolina', 'Itaquaquecetuba', 'SP');
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `telefone`
+--
+
+CREATE TABLE `telefone` (
+  `id` int(11) NOT NULL,
+  `cpf_usuario` varchar(20) NOT NULL,
+  `tel` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Extraindo dados da tabela `telefone`
+--
+
+INSERT INTO `telefone` (`id`, `cpf_usuario`, `tel`) VALUES
+(3, '501.513.798-23', '(55) 1195-31782');
 
 -- --------------------------------------------------------
 
@@ -123,7 +142,6 @@ INSERT INTO `endereco_empresa` (`id`, `id_empresa`, `cep`, `rua`, `numero`, `bai
 CREATE TABLE `usuario` (
   `id` int(10) NOT NULL,
   `nome` varchar(40) NOT NULL,
-  `telefone` varchar(20) NOT NULL,
   `email` varchar(100) NOT NULL,
   `cpf` varchar(20) NOT NULL,
   `cep` varchar(10) NOT NULL,
@@ -134,8 +152,8 @@ CREATE TABLE `usuario` (
 -- Extraindo dados da tabela `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `nome`, `telefone`, `email`, `cpf`, `cep`, `senha`) VALUES
-(107, 'gabriel coutinho cassiano', '(11) 9531-78289', 'gabriel.coutinho.cassiano@gmail.com', '501.513.798-23', '08.588-310', '43430045bd4c5ffd1ece5cb3333da1ef');
+INSERT INTO `usuario` (`id`, `nome`, `email`, `cpf`, `cep`, `senha`) VALUES
+(1, 'xampson', 'gabriel.coutinho.cassiano@gmail.com', '501.513.798-23', '08.588-310', '43430045bd4c5ffd1ece5cb3333da1ef');
 
 --
 -- Índices para tabelas despejadas
@@ -153,21 +171,30 @@ ALTER TABLE `cartao`
 --
 ALTER TABLE `empresa`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_usuario` (`id_usuario`);
+  ADD UNIQUE KEY `cpf_usuario` (`cpf_usuario`),
+  ADD UNIQUE KEY `cnpj` (`cnpj`);
 
 --
 -- Índices para tabela `endereco`
 --
 ALTER TABLE `endereco`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_usuario` (`id_usuario`);
+  ADD UNIQUE KEY `id_usuario` (`cpf_usuario`);
 
 --
 -- Índices para tabela `endereco_empresa`
 --
 ALTER TABLE `endereco_empresa`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `id_empresa` (`id_empresa`);
+  ADD UNIQUE KEY `cnpj_empresa` (`cnpj_empresa`);
+
+--
+-- Índices para tabela `telefone`
+--
+ALTER TABLE `telefone`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `cpf_usuario` (`cpf_usuario`),
+  ADD KEY `tel` (`tel`);
 
 --
 -- Índices para tabela `usuario`
@@ -184,19 +211,19 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT de tabela `cartao`
 --
 ALTER TABLE `cartao`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT de tabela `empresa`
 --
 ALTER TABLE `empresa`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT de tabela `endereco`
 --
 ALTER TABLE `endereco`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de tabela `endereco_empresa`
@@ -205,10 +232,16 @@ ALTER TABLE `endereco_empresa`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT de tabela `telefone`
+--
+ALTER TABLE `telefone`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT de tabela `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Restrições para despejos de tabelas
@@ -224,19 +257,25 @@ ALTER TABLE `cartao`
 -- Limitadores para a tabela `empresa`
 --
 ALTER TABLE `empresa`
-  ADD CONSTRAINT `empresa_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
+  ADD CONSTRAINT `empresa_ibfk_1` FOREIGN KEY (`cpf_usuario`) REFERENCES `usuario` (`cpf`);
 
 --
 -- Limitadores para a tabela `endereco`
 --
 ALTER TABLE `endereco`
-  ADD CONSTRAINT `endereco_ibfk_1` FOREIGN KEY (`id_usuario`) REFERENCES `usuario` (`id`);
+  ADD CONSTRAINT `endereco_ibfk_1` FOREIGN KEY (`cpf_usuario`) REFERENCES `usuario` (`cpf`);
 
 --
 -- Limitadores para a tabela `endereco_empresa`
 --
 ALTER TABLE `endereco_empresa`
-  ADD CONSTRAINT `endereco_empresa_ibfk_1` FOREIGN KEY (`id_empresa`) REFERENCES `empresa` (`id`);
+  ADD CONSTRAINT `endereco_empresa_ibfk_1` FOREIGN KEY (`cnpj_empresa`) REFERENCES `empresa` (`cnpj`);
+
+--
+-- Limitadores para a tabela `telefone`
+--
+ALTER TABLE `telefone`
+  ADD CONSTRAINT `telefone_ibfk_1` FOREIGN KEY (`cpf_usuario`) REFERENCES `usuario` (`cpf`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

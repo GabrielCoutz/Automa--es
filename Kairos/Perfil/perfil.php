@@ -28,20 +28,24 @@ $result=$select->fetch_assoc();
 
 $id=$result['id'];
 $cpf=$result['cpf'];
-
 $_SESSION['email_padrao']=$result['email'];
-$_SESSION['tel_padrao']=$result['telefone'];
+
+$select_telefone=mysqli_query($conec, "SELECT * FROM telefone WHERE cpf_usuario = '$cpf'");
+$result_telefone=$select_telefone->fetch_assoc();
+
+$_SESSION['tel_padrao']=$result_telefone['tel'];
 
 
-$select_endereco=mysqli_query($conec, "SELECT * FROM endereco WHERE id_usuario = '$id'");
+$select_endereco=mysqli_query($conec, "SELECT * FROM endereco WHERE cpf_usuario = '$cpf'");
 $result_endereco=$select_endereco->fetch_assoc();
 
-$select_empresa=mysqli_query($conec, "SELECT * FROM empresa WHERE id_usuario = '$id'");
+$select_empresa=mysqli_query($conec, "SELECT * FROM empresa WHERE cpf_usuario = '$cpf'");
 $result_empresa=$select_empresa->fetch_assoc();
 
 $id_empresa=$result_empresa['id'];
+$cnpj_empresa=$result_empresa['cnpj'];
 
-$select_empresa_endereco=mysqli_query($conec, "SELECT * FROM endereco_empresa WHERE id_empresa = '$id_empresa'");
+$select_empresa_endereco=mysqli_query($conec, "SELECT * FROM endereco_empresa WHERE cnpj_empresa = '$cnpj_empresa'");
 $result_empresa_endereco=$select_empresa_endereco->fetch_assoc();
 
 $select_cartao=mysqli_query($conec, "SELECT * FROM cartao WHERE cpf_usuario = '$cpf'");
@@ -124,7 +128,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                           </div>
                         </div>
                         <div class="col-sm-9 text-secondary" id='tel'>
-                        <a><?= $result['telefone'] ?></a>
+                        <a><?= $result_telefone['tel'] ?></a>
                         </div>
                       </div>
                       

@@ -221,7 +221,9 @@ function editar_usuario(){
 function cancelar_usuario(){
     document.getElementById('tel_input').value = ''
     document.getElementById('email_input').value = ''
+    $('.adicional').closest('.phone-input').remove();
     
+
     alternar_edicao()
 }
 

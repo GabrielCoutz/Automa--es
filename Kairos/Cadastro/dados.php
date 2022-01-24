@@ -46,7 +46,10 @@ if($duplicado){
     $_SESSION['email'] = $_POST['email'];
     $email=$_POST['email'];
     
-    $result=mysqli_multi_query($conec,"INSERT INTO usuario(nome,telefone,email,cpf,cep,senha) VALUES('$nome','$tel','$email','$cpf','$cep','$senha'); INSERT INTO endereco(id_usuario,cep,rua,numero,bairro,cidade,estado) VALUES((SELECT id FROM usuario WHERE cpf = '$cpf'),'$cep', '$rua', '$numero', '$bairro', '$cidade', '$estado')");
+    $result=mysqli_multi_query($conec,
+    "INSERT INTO usuario(nome,email,cpf,cep,senha) VALUES('$nome','$email','$cpf','$cep','$senha');
+     INSERT INTO endereco(cpf_usuario,cep,rua,numero,bairro,cidade,estado) VALUES((SELECT cpf FROM usuario WHERE cpf = '$cpf'),'$cep', '$rua', '$numero', '$bairro', '$cidade', '$estado');
+     INSERT INTO telefone(cpf_usuario, tel) VALUES((SELECT cpf FROM usuario WHERE cpf = '$cpf'), '$tel')");
     header('Location: CadastroEmpresa/cadastro_empresa.php');
     exit;
 }
