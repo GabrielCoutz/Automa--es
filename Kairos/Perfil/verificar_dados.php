@@ -35,7 +35,7 @@ if($duplicado){
         $_SESSION['email']=$email;
     }
     if($tel != ''){
-        $result=mysqli_query($conec,"UPDATE usuario SET telefone='$tel' WHERE telefone='$tel_padrao'");
+        $result=mysqli_query($conec,"UPDATE telefone SET tel='$tel' WHERE tel='$tel_padrao'");
     }
     header('Location:'.$local.'?'.md5('livre=true'));
     exit;

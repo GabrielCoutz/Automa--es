@@ -30,7 +30,7 @@ $(function(){
         var num = "'(00) 0000-00009'"
         $('.phone-list').append(''+
                 '<div class="input-group phone-input">'+
-                    '<input type="tel" name="phone['+index+'][number]"  placeholder="(00) 0000-00000" id="tel_input" class="adicional" onkeypress="$(this).mask('+num+')"/>'+
+                    '<input type="tel" name="phone['+index+'][number]" placeholder="(00) 0000-00000" id="tel_input" class="adicional" onkeypress="$(this).mask('+num+')"/>'+
                     '<input type="hidden" name="phone['+index+'][type]" class="type-input"/>'+
                     '<span class="input-group-btn">'+
                         '<button class="btn btn-danger btn-remove-phone btn-info" type="button"><span class="lnr lnr-cross"></span></button>'+
@@ -261,14 +261,53 @@ function editar_empresa(){
 }
 
 function salvar_usuario(){
+    document.getElementById("tel_input").classList.remove('vermei')
     let tel = document.getElementById('tel_input').value
     let email = document.getElementById('email_input').value
+    let adicional = false
+    let valido = false
 
-    if(tel == '' && email == ''){
+    if(document.querySelectorAll('.adicional').forEach((item)=>{
+        if (item){
+            adicional = true
+        } else {
+            adicional = false
+        }
+    }));
+
+    if(tel == '' && email == '' && adicional == false){
         abrirjanela('blue','Dados não preenchidos<br> Cancelando alteração...','Dados Inexistentes')
         document.getElementById('cancelar').click()
-    } else {
-        document.getElementById("dados_usuario").submit();
+        return
+    }
+    
+    if (tel.length < 15 && !adicional){
+        abrirjanela('red','Telefone incompleto, por favor verifique-o!','Dados incompletos')
+        document.getElementById("tel_input").classList.add('vermei')
+        return
+    }
+
+    document.querySelectorAll('.adicional').forEach((item)=>{
+        if (item.value.length < 15){
+            item.classList.add('vermei')
+        } else {
+            item.classList.remove('vermei')
+        }
+    })
+
+    document.querySelectorAll('.adicional').forEach((item)=>{
+        if (item.classList.contains('vermei')){
+            abrirjanela('red','Telefone adicional incompleto<br> Por favor verifique-o ou exclua-o!','Dados incompletos')
+            valido = false
+            return
+        } else {
+            valido = true
+        }
+    })
+
+    if(valido){
+        // document.getElementById("dados_usuario").submit();
+        alert('enviado')
     }
 
 

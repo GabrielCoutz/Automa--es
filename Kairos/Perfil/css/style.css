@@ -52,8 +52,8 @@ input:last-child{
   border: 1px solid #ced6e0;
 }
 
-.vermei{
-  border-bottom: 1px solid #ff0000 !important;
+.vermei, .vermei:focus, vermei:hover{
+  border: 1px solid #ff0000 !important;
 }
 
 .select{
@@ -72,7 +72,7 @@ form{
   box-shadow: 0px 10px 20px -13px rgba(32, 56, 117, 0.35);
   text-align: left !important;
   border-radius:6px !important;
-  border-color: #3d9cff !important;
+  border-color: #3d9cff;
   display: inline !important;
   transition: all 0.5s ease-in-out;
   outline: none;
