@@ -133,13 +133,22 @@ document.getElementById("email_input").classList.remove('vermei')
 if (window.location.href.includes(md5('email_duplicado=true'))) {
     alerta+='Email já cadastrado!<br>'
     document.getElementById("email_input").classList.add('vermei')
+    
+    let nextURL = window.location.href.replace(md5('email_duplicado=true'),'').replace('?','');
+    let nextState = { additionalInformation: 'Updated the URL with JS' };
+    window.history.replaceState(nextState, 'Perfil', nextURL);
 }
 
 if(alerta != ""){
     abrirjanela('red',alerta, '| Alteração Inválida |')
     document.getElementById('editar').click()
+
 } else if(window.location.href.includes(md5('livre=true'))){
     abrirjanela('green','tudo certo', '| Alteração realizada com sucesso |')
+
+    let nextURL = window.location.href.replace(md5('livre=true'),'').replace('?','');
+    let nextState = { additionalInformation: 'Updated the URL with JS' };
+    window.history.replaceState(nextState, 'Perfil', nextURL);
 }
 
 
@@ -222,7 +231,7 @@ function cancelar_usuario(){
     document.getElementById('tel_input').value = ''
     document.getElementById('email_input').value = ''
     $('.adicional').closest('.phone-input').remove();
-    
+    document.getElementById("tel_input").classList.remove('vermei')
 
     alternar_edicao()
 }
@@ -261,54 +270,61 @@ function editar_empresa(){
 }
 
 function salvar_usuario(){
+    document.querySelectorAll('.adicional').forEach((item)=>{
+        item.classList.remove('vermei')
+    })
     document.getElementById("tel_input").classList.remove('vermei')
     let tel = document.getElementById('tel_input').value
     let email = document.getElementById('email_input').value
     let adicional = false
     let valido = false
 
-    if(document.querySelectorAll('.adicional').forEach((item)=>{
+    if(email != '' && tel == ''){
+        document.getElementById("dados_usuario").submit();
+        return
+    }
+    var tels = 0
+    document.querySelectorAll('.adicional').forEach((item)=>{
+        tels ++
+
+        Cookies.set(item.getAttribute('name'), item.value)
+
         if (item){
             adicional = true
         } else {
             adicional = false
         }
-    }));
+    });
 
-    if(tel == '' && email == '' && adicional == false){
-        abrirjanela('blue','Dados não preenchidos<br> Cancelando alteração...','Dados Inexistentes')
-        document.getElementById('cancelar').click()
-        return
-    }
-    
+    if (tel == '' && email == '' && !adicional){
+            abrirjanela('blue','Dados não preenchidos<br> Cancelando alteração...','Dados Inexistentes')
+            document.getElementById('cancelar').click()
+            return
+        }
+
     if (tel.length < 15 && !adicional){
         abrirjanela('red','Telefone incompleto, por favor verifique-o!','Dados incompletos')
         document.getElementById("tel_input").classList.add('vermei')
         return
+    } else {
+        valido = true
     }
 
-    document.querySelectorAll('.adicional').forEach((item)=>{
-        if (item.value.length < 15){
-            item.classList.add('vermei')
-        } else {
-            item.classList.remove('vermei')
-        }
-    })
-
-    document.querySelectorAll('.adicional').forEach((item)=>{
-        if (item.classList.contains('vermei')){
-            abrirjanela('red','Telefone adicional incompleto<br> Por favor verifique-o ou exclua-o!','Dados incompletos')
-            valido = false
-            return
-        } else {
-            valido = true
-        }
-    })
+    if(adicional){
+        document.querySelectorAll('.adicional').forEach((item)=>{
+            if (item.value.length == 15){
+                valido = true
+            } else {
+                valido = false
+                item.classList.add('vermei')
+                return
+            }
+    })}
 
     if(valido){
-        // document.getElementById("dados_usuario").submit();
-        alert('enviado')
+        document.getElementById("dados_usuario").submit();
+        Cookies.set('tels',tels)
+    } else {
+        abrirjanela('red','Telefone adicional incompleto<br> Por favor verifique-o ou exclua-o!','Dados incompletos')
     }
-
-
 }

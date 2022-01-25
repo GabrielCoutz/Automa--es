@@ -111,6 +111,7 @@ if (window.location.href.includes(md5('cpf=false'))){
     alerta+='CPF já cadastrado!'
     document.getElementById("cpf").classList.add('vermei')
 }
+
 if (alerta != ''){
     abrirjanela('red',alerta)
     document.getElementById('nome').value=localStorage.getItem('nome')

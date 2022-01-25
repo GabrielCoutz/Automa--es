@@ -13,6 +13,7 @@
   <?php
 session_start();
 
+
 $dbHost     = 'localhost';
 $dbUname = 'root';
 $dbPass = '';
@@ -111,6 +112,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                           <h6 class="mb-0">Email</h6>
                         </div>
                         <input class='none'type="email" id='email_input' name='email_input'>
+                        <input type="text" value='xampson' name='teste' id='teste'>
                         <div class="col-sm-9 text-secondary" id='email'>
                         <a id='aemail'><?= $result['email'] ?></a>
                         </div>
@@ -301,5 +303,6 @@ $result_cartao=$select_cartao->fetch_assoc();
     <script src="script.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 </body>
 </html>
