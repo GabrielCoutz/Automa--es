@@ -214,6 +214,9 @@ function alternar_edicao_empresa(){
     // $("#cidade").toggle();
     // $("#estado_empresa").toggle();
 }
+function sair(){
+    window.location.href= '../index.php'
+}
 
 function editar_usuario(){
     let conteudo_tel = document.getElementById('tel').innerText
@@ -221,7 +224,7 @@ function editar_usuario(){
 
     alternar_edicao()
 
-    document.getElementById('tel_input').placeholder = conteudo_tel
+    document.getElementById('tel_input').placeholder = conteudo_tel.slice(0,15)
     document.getElementById('email_input').placeholder = conteudo_email
 
 }
@@ -285,8 +288,8 @@ function salvar_usuario(){
     }
     var tels = 0
     document.querySelectorAll('.adicional').forEach((item)=>{
-        tels ++
 
+        tels ++
         Cookies.set(item.getAttribute('name'), item.value)
 
         if (item){

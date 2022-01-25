@@ -30,11 +30,19 @@ $result=$select->fetch_assoc();
 $id=$result['id'];
 $cpf=$result['cpf'];
 $_SESSION['email_padrao']=$result['email'];
+$_SESSION['cpf']=$result['cpf'];
 
 $select_telefone=mysqli_query($conec, "SELECT * FROM telefone WHERE cpf_usuario = '$cpf'");
+
 $result_telefone=$select_telefone->fetch_assoc();
+$teste = '';
+
+while ($row = mysqli_fetch_assoc($select_telefone)) {
+  $teste=$teste.$row["tel"].'<br>';
+}
 
 $_SESSION['tel_padrao']=$result_telefone['tel'];
+
 
 
 $select_endereco=mysqli_query($conec, "SELECT * FROM endereco WHERE cpf_usuario = '$cpf'");
@@ -112,7 +120,6 @@ $result_cartao=$select_cartao->fetch_assoc();
                           <h6 class="mb-0">Email</h6>
                         </div>
                         <input class='none'type="email" id='email_input' name='email_input'>
-                        <input type="text" value='xampson' name='teste' id='teste'>
                         <div class="col-sm-9 text-secondary" id='email'>
                         <a id='aemail'><?= $result['email'] ?></a>
                         </div>
@@ -130,7 +137,8 @@ $result_cartao=$select_cartao->fetch_assoc();
                           </div>
                         </div>
                         <div class="col-sm-9 text-secondary" id='tel'>
-                        <a><?= $result_telefone['tel'] ?></a>
+                          <a><?= $result_telefone['tel'].'<br>'?></a>
+                          <a><?= $teste ?></a>
                         </div>
                       </div>
                       
@@ -284,7 +292,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                     <button class="btn btn-info " onclick="editar_empresa()" id='editar_empresa'>Editar</button>
                       <button class="btn btn-info salvar none" onclick="salvar_empresa()" id='salvar_empresa'>Salvar</button>
                       <button class="btn btn-info cancelar none" onclick="cancelar_empresa()" id='cancelar_empresa' >Cancelar</button>
-                      <button class="butao "href="../index.php" id='sair'>Sair</button>
+                      <button class="butao" onclick="sair()">Sair</button>
                     </div>
                   </div>
                 </div>
