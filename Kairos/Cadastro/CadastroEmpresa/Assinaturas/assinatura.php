@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="assets/js/validar.js"></script>
+    <link rel="shortcut icon" href="../../../assets/img/favicon/favicon.ico" type="image/x-icon">
     <title>Assinaturas</title>
     <?php
     session_start();

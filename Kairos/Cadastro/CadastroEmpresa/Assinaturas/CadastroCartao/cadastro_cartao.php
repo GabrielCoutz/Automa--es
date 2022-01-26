@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
   <link rel="stylesheet" href="./style.css">
   <link rel="stylesheet" href="./popup.css">
+  <link rel="shortcut icon" href="../../../../assets/img/favicon/favicon.ico" type="image/x-icon">
   <?php
     session_start();
     $_SESSION['assinatura'] = $_GET['plano'];

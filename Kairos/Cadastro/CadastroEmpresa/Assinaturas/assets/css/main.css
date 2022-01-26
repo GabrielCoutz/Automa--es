@@ -136,7 +136,17 @@
     transform: rotate(1080deg);
   }
 }
-
+::-webkit-scrollbar{
+  width: 10px;
+}
+::-webkit-scrollbar-track{
+  background: transparent;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb{
+  background: #4e6ef1;
+  border-radius: 50px;
+}
 @keyframes spinner-left-spin {
   0% {
     transform: rotate(130deg);

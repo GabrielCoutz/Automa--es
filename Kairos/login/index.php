@@ -11,6 +11,7 @@
 		<!-- STYLE CSS -->
 		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="css/popup.css">
+		<link rel="shortcut icon" href="../assets/img/favicon/favicon.ico" type="image/x-icon">
 		<?php
 			session_start();
 			if(isset($_GET[md5('login=true')])){

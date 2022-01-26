@@ -43,6 +43,18 @@ input:last-child{
   background-color: #a82020;
   border-color: #8b1111;
 }
+::-webkit-scrollbar{
+  width: 10px;
+}
+::-webkit-scrollbar-track{
+  background: transparent;
+  border-radius: 50px;
+}
+::-webkit-scrollbar-thumb{
+  background: #4e6ef1;
+  border-radius: 50px;
+}
+
 .cancelar:hover{
   background-color: #961313fd;
   transition: all 0.3s ease-in-out;

@@ -9,6 +9,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.svg"/>
 	  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css">
     <!-- Place favicon.ico in the root directory -->
+    <link rel="shortcut icon" href="assets/img/favicon/favicon.ico" type="image/x-icon">
 
     <!-- ========================= CSS here ========================= -->
     <link rel="stylesheet" href="assets/css/bootstrap-5.0.0-beta2.min.css" />
