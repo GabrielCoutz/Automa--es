@@ -18,7 +18,7 @@ $nome_fantasia_padrao=$_SESSION['nome_fantasia_padrao'];
 $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 
 
-if(!isset($_COOKIE['cnpj'])){ // alteração de dados usuário
+if(!isset($_COOKIE['empresa'])){ // alteração de dados usuário
     echo 'alterar usuario';
 
     $email=$_POST['email_input'];
@@ -60,60 +60,48 @@ if(!isset($_COOKIE['cnpj'])){ // alteração de dados usuário
     }
 } else { // alteração de dados empresa
     echo 'alterar empresa<br>';
-    echo $_COOKIE['nome_fantasia'];
 
-    if($_COOKIE['cnpj'] != ''){
-        $cnpj=$_COOKIE['cnpj'];
-        $select_cnpj=mysqli_query($conec, "SELECT * FROM empresa WHERE cnpj ='$cnpj'");
-        
+    if($_POST['nome_empresa_input'] != ''){
+        echo 'tem nome';
+        $nome_empresa = $_POST['nome_empresa_input'];
+        $select_nome_empresa=mysqli_query($conec, "SELECT * FROM empresa WHERE nome ='$nome_empresa'");
     }
-    if($_COOKIE['nome_empresa'] != ''){
-        $nome_empresa=$_COOKIE['nome_empresa'];
-        $select_nome_empresa=mysqli_query($conec, "SELECT * FROM empresa WHERE nome_empresa ='$nome_empresa'");
-        
-    }
-    if($_COOKIE['nome_fantasia'] != ''){
-        $nome_fantasia=$_COOKIE['nome_fantasia'];
-        echo $nome_fantasia;
+    if($_POST['nome_fantasia_input'] != ''){
+        echo 'tem fantasia';
+        $nome_fantasia = $_POST['nome_fantasia_input'];
         $select_nome_fantasia=mysqli_query($conec, "SELECT * FROM empresa WHERE nome_fantasia ='$nome_fantasia'");
     }
 
-    if(isset($select_cnpj)){
-        $local=$local.'?'.('cnpj_duplicado=true');
-        $duplicado=true;
-    }
-    
-    if($select_nome_empresa == $nome_empresa){
+    if(isset($nome_empresa) && $select_nome_empresa == $nome_empresa){
+        echo 'nome é igual';
         $local=$local.'?'.('nome_empresa_duplicado=true');
         $duplicado=true;
     }
-    if($select_nome_fantasia == $nome_fantasia){
+    if(isset($nome_fantasia) && $select_nome_fantasia == $nome_fantasia){
+        echo 'fantasia é igual';
         $local=$local.'?'.('nome_fantasia_duplicado=true');
         $duplicado=true;
     }
 
-
     if($duplicado){
-        //header('Location: '.$local);
-        echo ($local);
-        echo '<br>Duplicado';
-        //exit;
+        header('Location: '.$local);
+        exit;
+
+        //echo ($local);
+        //echo '<br>Duplicado';
+
     } else {
-        if(isset($cnpj)){
-            $result_cnpj=mysqli_query($conec,"UPDATE empresa SET cnpj='$cnpj' WHERE cnpj='$cnpj'");
-        }
         if(isset($nome_empresa)){
-            echo $nome_empresa;
-            $result_nome_empresa=mysqli_query($conec,"UPDATE empresa SET nome_empresa='$nome_empresa' WHERE nome_empresa='$nome_empresa_padrao'");
+            $result_nome_empresa=mysqli_query($conec,"UPDATE empresa SET nome='$nome_empresa' WHERE nome='$nome_empresa_padrao'");
         }
         if(isset($nome_fantasia)){
             $result_nome_fantasia=mysqli_query($conec,"UPDATE empresa SET nome_fantasia='$nome_fantasia' WHERE nome_fantasia='$nome_fantasia_padrao'");
         }
-        //header('Location:'.$local.'?'.md5('livre=true'));
-        //exit;
+        header('Location:'.$local.'?'.md5('livre=true'));
+        exit;
 
-        echo($local);
-        echo '<br>Não duplicado';
+        //echo($local);
+        //echo '<br>Não duplicado';
     }
 }
 ?>
