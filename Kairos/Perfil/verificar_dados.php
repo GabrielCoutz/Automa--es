@@ -19,8 +19,6 @@ $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 
 
 if(!isset($_COOKIE['empresa'])){ // alteração de dados usuário
-    echo 'alterar usuario';
-
     $email=$_POST['email_input'];
     $tel=$_POST['tel_input'];
     $cpf=$_SESSION['cpf'];
@@ -59,27 +57,23 @@ if(!isset($_COOKIE['empresa'])){ // alteração de dados usuário
         exit;
     }
 } else { // alteração de dados empresa
-    echo 'alterar empresa<br>';
 
     if($_POST['nome_empresa_input'] != ''){
-        echo 'tem nome';
         $nome_empresa = $_POST['nome_empresa_input'];
         $select_nome_empresa=mysqli_query($conec, "SELECT * FROM empresa WHERE nome ='$nome_empresa'");
     }
     if($_POST['nome_fantasia_input'] != ''){
-        echo 'tem fantasia';
         $nome_fantasia = $_POST['nome_fantasia_input'];
         $select_nome_fantasia=mysqli_query($conec, "SELECT * FROM empresa WHERE nome_fantasia ='$nome_fantasia'");
     }
 
-    if(isset($nome_empresa) && $select_nome_empresa == $nome_empresa){
-        echo 'nome é igual';
-        $local=$local.'?'.('nome_empresa_duplicado=true');
+    if(isset($nome_empresa) && $select_nome_empresa->fetch_assoc()['nome'] == $nome_empresa){
+        $local=$local.'?'.md5(('nome_empresa_duplicado=true'));
         $duplicado=true;
     }
-    if(isset($nome_fantasia) && $select_nome_fantasia == $nome_fantasia){
-        echo 'fantasia é igual';
-        $local=$local.'?'.('nome_fantasia_duplicado=true');
+
+    if(isset($nome_fantasia) && $select_nome_fantasia->fetch_assoc()['nome_fantasia'] == $nome_fantasia){
+        $local=$local.'?'.md5(('nome_fantasia_duplicado=true'));
         $duplicado=true;
     }
 

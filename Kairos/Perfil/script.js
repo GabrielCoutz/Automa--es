@@ -139,8 +139,9 @@ var alerta = ""
 document.getElementById("email_input").classList.remove('vermei')
 
 if (window.location.href.includes(md5('email_duplicado=true'))) {
-    alerta+='Email já cadastrado!<br>'
     document.getElementById("email_input").classList.add('vermei')
+    document.getElementById('editar').click()
+    abrirjanela('red','Email já cadastrado!<br>', '| Alteração Inválida |')
     
     let nextURL = window.location.href.replace(md5('email_duplicado=true'),'').replace('?','');
     let nextState = { additionalInformation: 'Updated the URL with JS' };
@@ -166,7 +167,7 @@ if (window.location.href.includes(md5('nome_fantasia_duplicado=true'))) { //nome
 
 if(alerta != ""){
     abrirjanela('red',alerta, '| Alteração Inválida |')
-    document.getElementById('editar').click()
+    document.getElementById('editar_empresabtn').click()
 
 } else if(window.location.href.includes(md5('livre=true'))){
     abrirjanela('green','Dados alterados com êxito.', '| Alteração realizada com sucesso |')
@@ -379,12 +380,12 @@ function salvar_empresa(){
         return
     } else {
         abrirjanela('blue','Verificando dados...','Atualização de Dados')
+        document.getElementById('asdf_cancelar').addEventListener('click',function(){
+            document.getElementById("dados_empresa").submit()
+        })
 
-        Cookies.set('cnpj', cnpj.value)
-        Cookies.set('nome_fantasia', nome_fantasia.value)
-        Cookies.set('nome_empresa', nome_empresa.value)
         Cookies.set('empresa',1)
-        document.getElementById("dados_empresa").submit()
+
     }
 
 }
