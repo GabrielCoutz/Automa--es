@@ -95,6 +95,11 @@ function abrirjanela(cor, texto){
 
 if (window.location.href.includes(md5('login=false'))) {
     abrirjanela('red','Credenciais incorretas!<br>Por favor, verifique os dados inseridos!')
+    
+    let nextURL = window.location.href.replace(md5('login=false'),'').replace('?','');
+    let nextState = { additionalInformation: 'Updated the URL with JS' };
+    window.history.replaceState(nextState, 'Perfil', nextURL);
+
     document.getElementById("email").classList.add('vermei')
     document.getElementById("senha").classList.add('vermei')
 }

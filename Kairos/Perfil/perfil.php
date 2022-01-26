@@ -44,12 +44,14 @@ while ($row = mysqli_fetch_assoc($select_telefone)) {
 $_SESSION['tel_padrao']=$result_telefone['tel'];
 
 
-
 $select_endereco=mysqli_query($conec, "SELECT * FROM endereco WHERE cpf_usuario = '$cpf'");
 $result_endereco=$select_endereco->fetch_assoc();
 
 $select_empresa=mysqli_query($conec, "SELECT * FROM empresa WHERE cpf_usuario = '$cpf'");
 $result_empresa=$select_empresa->fetch_assoc();
+
+$_SESSION['nome_empresa_padrao']=$result_empresa['nome'];
+$_SESSION['nome_fantasia_padrao']=$result_empresa['nome_fantasia'];
 
 $id_empresa=$result_empresa['id'];
 $cnpj_empresa=$result_empresa['cnpj'];
@@ -153,150 +155,152 @@ $result_cartao=$select_cartao->fetch_assoc();
                 </div>
               </div>
               </form>
-              <div class="card mb-3">
-                <h4 id="cad_empresa">Dados da Empresa</h4>
-                <hr>
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Nome da Empresa</h6>
-                    </div>
-                    <input class='none'type="tel" id='nome_empresa_input' name='nome_empresa_input'>
-                    <div class="col-sm-9 text-secondary" id='nome_empresa'>
-                    <a><?= $result_empresa['nome'] ?></a>
-                    </div>
-                  </div>
+                <div class="card mb-3">
+                  <h4 id="cad_empresa">Dados da Empresa</h4>
                   <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Nome Fantasia</h6>
-                    </div>
-                    <input class='none'type="tel" id='nome_fantasia_input' name='nome_fantasia_input'>
-                    <div class="col-sm-9 text-secondary" id='nome_fantasia'>
-                    <a><?= $result_empresa['nome_fantasia'] ?></a>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-sm-3">
+                        <h6 class="mb-0">Nome da Empresa</h6>
+                      </div>
+                      <form action="verificar_dados.php" method="POST" id='dados_empresa' onsubmit="return false">
+                        <input class='none'type="tel" id='nome_empresa_input' name='nome_empresa_input'>
+                        <div class="col-sm-9 text-secondary" id='nome_empresa'>
+                        <a><?= $result_empresa['nome'] ?></a>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Nome Fantasia</h6>
+                        </div>
+                        <input class='none'type="tel" id='nome_fantasia_input' name='nome_fantasia_input'>
+                        <div class="col-sm-9 text-secondary" id='nome_fantasia'>
+                        <a><?= $result_empresa['nome_fantasia'] ?></a>
+                        </div>
+                      </div>
+                      
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">CNPJ</h6>
+                        </div>
+                        <input class='none'type="tel" id='cnpj_input' name='cnpj_input' onkeypress="$(this).mask('00.000.000/0000-00')">
+                        <div class="col-sm-9 text-secondary" id='cnpj'>
+                        <a><?= ucwords($result_empresa['cnpj']) ?></a>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Ramo</h6>
+                        </div>
+                        <input class='none'type="tel" id='ramo_input' name='ramo_input'>
+                        <div class="col-sm-9 text-secondary" id='ramo'>
+                        <a><?= ucwords($result_empresa['ramo']) ?></a>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">CEP</h6>
+                        </div>
+                        <input class='none'type="tel" id='cep_empresa_input' name='cep_input' onkeypress="$(this).mask('00.000-000')">
+                        <div class="col-sm-9 text-secondary" id='cep_empresa'>
+                        <a><?= $result_empresa_endereco['cep'] ?></a>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Rua</h6>
+                        </div>
+                        <input class='none'type="tel" id='rua_input' name='rua_input'>
+                        <div class="col-sm-9 text-secondary" id='rua_empresa'>
+                        <a id='arua'><?= $result_empresa_endereco['rua'] ?></a>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Número</h6>
+                        </div>
+                        <input class='none'type="tel" id='numero_empresa_input' name='numero_input'>
+                        <div class="col-sm-9 text-secondary" id='numero_empresa'>
+                        <a><?= $result_empresa_endereco['numero'] ?></a>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Bairro</h6>
+                        </div>
+                        <input class='none'type="tel" id='bairro_input' name='bairro_input'>
+                        <div class="col-sm-9 text-secondary" id='bairro_empresa'>
+                        <a><?= $result_empresa_endereco['bairro'] ?></a>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Cidade</h6>
+                        </div>
+                        <input class='none'type="tel" id='cidade_input' name='cidade_input'>
+                        <div class="col-sm-9 text-secondary" id='cidade_empresa'>
+                        <a><?= $result_empresa_endereco['cidade'] ?></a>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Estado</h6>
+                        </div>
+                        <select class="form-control selectpicker none select" id="estado_empresa_input" name='estado_empresa_input'>
+                          <option value="1">Estado</option>
+                          <option value="AC">Acre</option>
+                          <option value="AL">Alagoas</option>
+                          <option value="AP">Amapá</option>
+                          <option value="AM">Amazonas</option>
+                          <option value="BA">Bahia</option>
+                          <option value="CE">Ceará</option>
+                          <option value="DF">Distrito Federal</option>
+                          <option value="ES">Espírito Santo</option>
+                          <option value="GO">Goiás</option>
+                          <option value="MA">Maranhão</option>
+                          <option value="MT">Mato Grosso</option>
+                          <option value="MS">Mato Grosso do Sul</option>
+                          <option value="MG">Minas Gerais</option>
+                          <option value="PA">Pará</option>
+                          <option value="PB">Paraíba</option>
+                          <option value="PR">Paraná</option>
+                          <option value="PE">Pernambuco</option>
+                          <option value="PI">Piauí</option>
+                          <option value="RJ">Rio de Janeiro</option>
+                          <option value="RN">Rio Grande do Norte</option>
+                          <option value="RS">Rio Grande do Sul</option>
+                          <option value="RO">Rondônia</option>
+                          <option value="RR">Roraima</option>
+                          <option value="SC">Santa Catarina</option>
+                          <option value="SP">São Paulo</option>
+                          <option value="SE">Sergipe</option>
+                          <option value="TO">Tocantins</option>
+                        </select>
+                        <div class="col-sm-9 text-secondary" id='estado_empresa' name='estado_empresa'>
+                        <a><?= $result_empresa_endereco['estado'] ?></a>
+                        </div>
+                      </div>
+                      <hr>
+                      <div class="row">
+                        <div class="col-sm-12">
+                        <button class="btn btn-info " onclick="editar_empresa()" id='editar_empresabtn'>Editar</button>
+                          <button class="btn btn-info salvar none" onclick="salvar_empresa()" id='salvar_empresabtn'>Salvar</button>
+                          <button class="btn btn-info cancelar none" onclick="cancelar_empresa()" id='cancelar_empresabtn' >Cancelar</button>
+                          <button class="butao" onclick="sair()">Sair</button>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                  
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">CNPJ</h6>
-                    </div>
-                    <input class='none'type="tel" id='cnpj_input' name='cnpj_input' onkeypress="$(this).mask('00.000.000/0000-00')">
-                    <div class="col-sm-9 text-secondary" id='cnpj'>
-                    <a><?= ucwords($result_empresa['cnpj']) ?></a>
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Ramo</h6>
-                    </div>
-                    <input class='none'type="tel" id='ramo_input' name='ramo_input'>
-                    <div class="col-sm-9 text-secondary" id='ramo'>
-                    <a><?= ucwords($result_empresa['ramo']) ?></a>
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">CEP</h6>
-                    </div>
-                    <input class='none'type="tel" id='cep_input' name='cep_input' onkeypress="$(this).mask('00.000-000')">
-                    <div class="col-sm-9 text-secondary" id='cep_empresa'>
-                    <a><?= $result_empresa_endereco['cep'] ?></a>
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Rua</h6>
-                    </div>
-                    <input class='none'type="tel" id='rua_input' name='rua_input'>
-                    <div class="col-sm-9 text-secondary" id='rua_empresa'>
-                    <a id='arua'><?= $result_empresa_endereco['rua'] ?></a>
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Número</h6>
-                    </div>
-                    <input class='none'type="tel" id='numero_input' name='numero_input'>
-                    <div class="col-sm-9 text-secondary" id='numero_empresa'>
-                    <a><?= $result_empresa_endereco['numero'] ?></a>
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Bairro</h6>
-                    </div>
-                    <input class='none'type="tel" id='bairro_input' name='bairro_input'>
-                    <div class="col-sm-9 text-secondary" id='bairro_empresa'>
-                    <a><?= $result_empresa_endereco['bairro'] ?></a>
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Cidade</h6>
-                    </div>
-                    <input class='none'type="tel" id='cidade_input' name='cidade_input'>
-                    <div class="col-sm-9 text-secondary" id='cidade_empresa'>
-                    <a><?= $result_empresa_endereco['cidade'] ?></a>
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-3">
-                      <h6 class="mb-0">Estado</h6>
-                    </div>
-                    <select class="form-control selectpicker none select" id="estado_empresa_input" name='estado_empresa_input'>
-                      <option value="1">Estado</option>
-                      <option value="AC">Acre</option>
-                      <option value="AL">Alagoas</option>
-                      <option value="AP">Amapá</option>
-                      <option value="AM">Amazonas</option>
-                      <option value="BA">Bahia</option>
-                      <option value="CE">Ceará</option>
-                      <option value="DF">Distrito Federal</option>
-                      <option value="ES">Espírito Santo</option>
-                      <option value="GO">Goiás</option>
-                      <option value="MA">Maranhão</option>
-                      <option value="MT">Mato Grosso</option>
-                      <option value="MS">Mato Grosso do Sul</option>
-                      <option value="MG">Minas Gerais</option>
-                      <option value="PA">Pará</option>
-                      <option value="PB">Paraíba</option>
-                      <option value="PR">Paraná</option>
-                      <option value="PE">Pernambuco</option>
-                      <option value="PI">Piauí</option>
-                      <option value="RJ">Rio de Janeiro</option>
-                      <option value="RN">Rio Grande do Norte</option>
-                      <option value="RS">Rio Grande do Sul</option>
-                      <option value="RO">Rondônia</option>
-                      <option value="RR">Roraima</option>
-                      <option value="SC">Santa Catarina</option>
-                      <option value="SP">São Paulo</option>
-                      <option value="SE">Sergipe</option>
-                      <option value="TO">Tocantins</option>
-                    </select>
-                    <div class="col-sm-9 text-secondary" id='estado_empresa' name='estado_empresa'>
-                    <a><?= $result_empresa_endereco['estado'] ?></a>
-                    </div>
-                  </div>
-                  <hr>
-                  <div class="row">
-                    <div class="col-sm-12">
-                    <button class="btn btn-info " onclick="editar_empresa()" id='editar_empresa'>Editar</button>
-                      <button class="btn btn-info salvar none" onclick="salvar_empresa()" id='salvar_empresa'>Salvar</button>
-                      <button class="btn btn-info cancelar none" onclick="cancelar_empresa()" id='cancelar_empresa' >Cancelar</button>
-                      <button class="butao" onclick="sair()">Sair</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+                </form>
               <div class="row gutters-sm">
                 <div class="col-sm-6 mb-3">
                 </div>
