@@ -54,6 +54,9 @@
 					<button type='submit' id='butao' name="butao" onclick="validar()">
 						<span>Entrar</span>
 					</button>
+					<div id='signup'>
+						<a href="../Cadastro/cadastro.php">Não possui possui conta? Então cadastre-se</a>
+					</div>
 				</form>
 				<img src="images/image-2.png" alt="" class="image-2">
 			</div>

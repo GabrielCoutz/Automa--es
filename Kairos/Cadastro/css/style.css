@@ -9,6 +9,24 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
 
+  a {
+    color: #0060B6;
+    text-decoration: none;
+}
+
+a:hover {
+    color:#00A0C6; 
+    text-decoration:none; 
+    cursor:pointer;  
+}
+  #signin{
+    color: #6486a9;
+    text-align: center;
+    padding-top: 10px;
+    font-weight: bold;
+    font-size: 1.0em;
+  }
+
 ::-webkit-scrollbar{
   width: 10px;
 }

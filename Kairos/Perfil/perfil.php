@@ -139,18 +139,50 @@ $result_cartao=$select_cartao->fetch_assoc();
                             <button type="button" class="btn btn-success btn-sm btn-add-phone none" id='add_tel'><span class="glyphicon glyphicon-plus" ></span> Adicionar telefone</button>
                           </div>
                         </div>
+                        
                         <div class="col-sm-9 text-secondary" id='tel'>
                           <a><?= $result_telefone['tel'].'<br>'?></a>
                           <a><?= $teste ?></a>
                         </div>
                       </div>
-                      
+
                       <hr>
+
+                      <div class="row" id='senha'>
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Senha</h6>
+                        </div>
+                        <button class="btn btn-info " id='editar_senhabtn' onclick="editar_senha()" type="submit">Editar Senha</button>
+
+                        <div class="none" id='pass'>
+                          <div class='texto'>Senha antiga</div>
+                          <input type="password" id='senha_antiga' name='senha_antiga_input'>
+                          <br>
+                        </div>
+                        
+                        <div class="none" id='pass2'>
+                          <div class='texto'>Senha nova</div>
+                          <input type="password" id='senha_nova' name='senha_nova_input'>
+                          <br>
+                        </div>
+                        
+                        <div class="none" id='pass3'>
+                          <div class='texto'>Digite Novamente</div>
+                          <input type="password" id='senha_nova_dup' name='senha_nova_dup_input'>
+                          <br>
+                        </div>
+                        
+                      </div>
+                      <hr>
+                      
                       <div class="row">
                         <div class="col-sm-12">
                           <button class="btn btn-info " id='editar' onclick="editar_usuario()" type="submit">Editar</button>
                           <button class="btn btn-info salvar none" id='salvar' type="submit" onclick="salvar_usuario()">Salvar</button>
                           <button class="btn btn-info cancelar none" onclick="cancelar_usuario()" id='cancelar'>Cancelar</button>
+                          
+                          <button class="btn btn-info salvar none" id='salvar_senhabtn' type="submit" onclick="salvar_senha()">Salvar</button>
+                          <button class="btn btn-info cancelar none" onclick="cancelar_senha()" id='cancelar_senhabtn'>Cancelar</button>
                         </div>
                   </div>
                 </div>

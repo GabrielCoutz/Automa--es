@@ -124,6 +124,9 @@
 					<button class="btn btn-warning" type="submit" onclick="validar()" id='butao' name='butao'>
 						<span >Registrar</span>
 					</button>
+					<div id='signin'>
+						<a href="../login/index.php">Já possui conta? Então faça login</a>
+					</div>
 				</form>
 				<img src="images/image-2.png" alt="" class="image-2">
 			</div>

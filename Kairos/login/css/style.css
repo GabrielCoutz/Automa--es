@@ -100,6 +100,22 @@
     border-left-color: #ddd;
     animation: right-spin 1333ms cubic-bezier(0.4, 0, 0.2, 1) infinite both;
   }
+  a {
+    color: #0060B6;
+    text-decoration: none;
+}
+
+a:hover {
+    color:#00A0C6; 
+    text-decoration:none; 
+    cursor:pointer;  
+}
+  #signup{
+    color: #6486a9;
+    text-align: center;
+    padding-top: 10px;
+    font-weight: bold;
+  }
   
   /* Preloader Animations */
   
@@ -159,6 +175,7 @@
       transform: rotate(-130deg);
     }
   }
+
   ::-webkit-scrollbar{
     width: 10px;
   }

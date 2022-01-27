@@ -200,6 +200,37 @@ $.ajax({
 });
 });
 
+function editar_senha(){
+    $("#pass").toggle();
+    $("#editar_senhabtn").toggle();
+    $("#pass2").toggle();
+    $("#pass3").toggle();
+
+    document.getElementById('pass').style.display = 'grid'
+    document.getElementById('pass2').style.display = 'grid'
+    document.getElementById('pass3').style.display = 'grid'
+
+    $("#editar").toggle();
+    $("#salvar_senhabtn").toggle();
+    $("#cancelar_senhabtn").toggle();
+
+}
+
+function salvar_senha(){
+
+}
+
+function cancelar_senha(){
+    $("#editar").toggle();
+    $("#editar_senhabtn").toggle();
+    $("#salvar_senhabtn").toggle();
+    $("#cancelar_senhabtn").toggle();
+
+    document.getElementById('pass').style.display = 'none'
+    document.getElementById('pass2').style.display = 'none'
+    document.getElementById('pass3').style.display = 'none'
+}
+
 function alternar_edicao(){
     $("#tel_input").toggle();
     $("#add_tel").toggle();
@@ -249,6 +280,12 @@ function editar_usuario(){
     let conteudo_tel = document.getElementById('tel').innerText
     let conteudo_email = document.getElementById('email').innerText
 
+    document.getElementById("editar_senhabtn").disabled = true;
+
+    document.getElementById('senha_antiga').value=''
+    document.getElementById('senha_nova').value=''
+    document.getElementById('senha_nova_dup').value=''
+
     alternar_edicao()
 
     document.getElementById('tel_input').placeholder = conteudo_tel.slice(0,15)
@@ -263,7 +300,17 @@ function cancelar_usuario(){
     $('.adicional').closest('.phone-input').remove();
     document.getElementById("tel_input").classList.remove('vermei')
 
+    document.getElementById("editar_senhabtn").disabled = false;
+
     alternar_edicao()
+
+    document.getElementById('pass').style.display = 'none'
+    document.getElementById('pass2').style.display = 'none'
+    document.getElementById('pass3').style.display = 'none'
+
+    $('#senha_antiga').value = ''
+    $('#senha_nova').value = ''
+    $('#senha_nova_dup').value = ''
 }
 
 function cancelar_empresa(){
@@ -301,6 +348,7 @@ function editar_empresa(){
 }
 
 function salvar_usuario(){
+    document.getElementById("editar_senhabtn").disabled = false;
     document.querySelectorAll('.adicional').forEach((item)=>{
         item.classList.remove('vermei')
     })
