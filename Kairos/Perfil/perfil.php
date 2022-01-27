@@ -150,26 +150,27 @@ $result_cartao=$select_cartao->fetch_assoc();
 
                       <div class="row" id='senha'>
                         <div class="col-sm-3">
-                          <h6 class="mb-0">Senha</h6>
+                          <h6 class="mb-0 senha">Senha</h6>
                         </div>
                         <button class="btn btn-info " id='editar_senhabtn' onclick="editar_senha()" type="submit">Editar Senha</button>
-
-                        <div class="none" id='pass'>
-                          <div class='texto'>Senha antiga</div>
-                          <input type="password" id='senha_antiga' name='senha_antiga_input'>
-                          <br>
-                        </div>
-                        
-                        <div class="none" id='pass2'>
-                          <div class='texto'>Senha nova</div>
-                          <input type="password" id='senha_nova' name='senha_nova_input'>
-                          <br>
-                        </div>
-                        
-                        <div class="none" id='pass3'>
-                          <div class='texto'>Digite Novamente</div>
-                          <input type="password" id='senha_nova_dup' name='senha_nova_dup_input'>
-                          <br>
+                        <div class='row' style="margin-left: 0; margin-right: 0;">
+                          <div class="none" id='pass'>
+                            <div class='texto'>Senha antiga</div>
+                            <input type="password" id='senha_antiga' name='senha_antiga_input'>
+                            <br>
+                          </div>
+                          
+                          <div class="none" id='pass2'>
+                            <div class='texto'>Senha nova</div>
+                            <input type="password" id='senha_nova' name='senha_nova_input'>
+                            <br>
+                          </div>
+                          
+                          <div class="none" id='pass3'>
+                            <div class='texto'>Digite Novamente</div>
+                            <input type="password" id='senha_nova_dup' name='senha_nova_dup_input'>
+                            <br>
+                          </div>
                         </div>
                         
                       </div>

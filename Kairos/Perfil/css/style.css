@@ -78,6 +78,7 @@ input:last-child{
 
 #editar_senhabtn{
   margin-left: 15px;
+  height: 38px;
 }
 
 button:disabled {
@@ -87,6 +88,10 @@ button:disabled {
 .texto{
   margin-left: 12px;
   text-align: center;
+}
+
+#senha_antiga, #senha_nova, #senha_nova_dup{
+  width: 50%;
 }
 
 form{
@@ -110,6 +115,12 @@ form{
 input::-webkit-input-placeholder {
   color: black;
   opacity: 0.4;
+}
+#editar_senhabtn{
+  height: 40px;
+}
+.senha{
+  margin-bottom: 30px !important;
 }
 
 .preloader {
@@ -303,11 +314,20 @@ input::-webkit-input-placeholder {
     flex: none !important;
     max-width: none !important;
     }
+    #pass, #pass2, #pass3{
+      width: 560px;
+    }
+    .texto{
+      text-align: left;
+    }
   }
 
 @media (max-width: 767px){
   .btn-add-phone{
     margin-top: 5px !important;
+  }
+  #pass, #pass2, #pass3{
+    width: 64% !important;
   }
   .adicional{
     height: 35px;
@@ -315,7 +335,14 @@ input::-webkit-input-placeholder {
   input{
     width: 75%;
   }
+  .texto{
+    text-align: left;
+  }
+  #senha_antiga, #senha_nova, #senha_nova_dup{
+    width: 80%;
+  }
 }
+
 @media (max-width:281px) {
   .adicional{
     width: 72%;
@@ -329,6 +356,20 @@ input::-webkit-input-placeholder {
     margin-right: 0.5em !important;
     width: 100%;
     margin-bottom: 2px !important;
+  }
+  #editar_senhabtn{
+    width: 100%;
+    margin-right: 15px;
+    height: auto;
+  }
+  #senha_antiga, #senha_nova, #senha_nova_dup{
+    width: 100%;
+  }
+  .texto{
+    text-align: left;
+  }
+  .senha{
+    margin-bottom: 30px !important;
   }
   button{
     padding: 5px !important;

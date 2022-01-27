@@ -214,6 +214,8 @@ function editar_senha(){
     $("#salvar_senhabtn").toggle();
     $("#cancelar_senhabtn").toggle();
 
+    document.getElementsByClassName('senha')[0].innerText = 'Alterar Senha'
+
 }
 
 function salvar_senha(){
@@ -229,6 +231,9 @@ function cancelar_senha(){
     document.getElementById('pass').style.display = 'none'
     document.getElementById('pass2').style.display = 'none'
     document.getElementById('pass3').style.display = 'none'
+
+    document.getElementsByClassName('senha')[0].innerText = 'Senha'
+
 }
 
 function alternar_edicao(){
