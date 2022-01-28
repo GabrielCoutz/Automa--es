@@ -56,6 +56,7 @@
 
       $id_empresa=$result_empresa['id'];
       $cnpj_empresa=$result_empresa['cnpj'];
+      $_SESSION['cnpj_padrao']=$result_empresa['cnpj'];
 
       $select_empresa_endereco=mysqli_query($conec, "SELECT * FROM endereco_empresa WHERE cnpj_empresa = '$cnpj_empresa'");
       $result_empresa_endereco=$select_empresa_endereco->fetch_assoc();
@@ -160,7 +161,7 @@
                           
                           <div class="none" id='pass2'>
                             <div class='texto'>Senha nova</div>
-                            <input type="password" id='senha_nova' name='senha_nova_input'>
+                              <input type="password" id='senha_nova' name='senha_nova_input'>
                             <br>
                           </div>
                           
@@ -180,8 +181,8 @@
                           <button class="btn btn-info salvar none" id='salvar' type="submit" onclick="salvar_usuario()">Salvar</button>
                           <button class="btn btn-info cancelar none" onclick="cancelar_usuario()" id='cancelar'>Cancelar</button>
                           
-                          <button class="btn btn-info salvar none" id='salvar_senhabtn' type="submit" onclick="salvar_senha()">Salvar</button>
-                          <button class="btn btn-info cancelar none" onclick="cancelar_senha()" id='cancelar_senhabtn'>Cancelar</button>
+                          <button class="btn btn-info salvar none" id='salvar_senhabtn' type="submit" onclick="salvar_senha()">Salvar senha</button>
+                          <button class="btn btn-info cancelar none" onclick="cancelar_senha()" id='cancelar_senhabtn'>Cancelar alteração</button>
                         </div>
                   </div>
                 </div>

@@ -18,7 +18,8 @@ $nome_fantasia_padrao=$_SESSION['nome_fantasia_padrao'];
 $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 
 
-if(!isset($_COOKIE['empresa'])){ // alteração de dados usuário
+if(isset($_COOKIE['usuario'])){ // alteração de dados usuário
+    //echo 'alterar usuario';
     $email=$_POST['email_input'];
     $tel=$_POST['tel_input'];
     $cpf=$_SESSION['cpf'];
@@ -56,7 +57,31 @@ if(!isset($_COOKIE['empresa'])){ // alteração de dados usuário
         header('Location:'.$local.'?'.md5('livre=true'));
         exit;
     }
-} else { // alteração de dados empresa
+}
+
+if(isset($_COOKIE['endereco_empresa'])){ // alteração do endereco da empresa
+    //echo 'alterar endereco empresa';
+    $cep_empresa = $_COOKIE['cep_empresa'];
+    $numero_empresa = $_COOKIE['numero_empresa'];
+    $rua_empresa = $_COOKIE['rua_empresa'];
+    $bairro_empresa = $_COOKIE['bairro_empresa'];
+    $cidade_empresa = $_COOKIE['cidade_empresa'];
+    $estado_empresa = $_COOKIE['estado_empresa'];
+    $cnpj_padrao=$_SESSION['cnpj_padrao'];
+
+    $result_nome_empresa=mysqli_multi_query($conec,"UPDATE endereco_empresa SET cep='$cep_empresa' WHERE cnpj_empresa='$cnpj_padrao';
+    UPDATE endereco_empresa SET rua='$rua_empresa' WHERE cnpj_empresa='$cnpj_padrao';
+    UPDATE endereco_empresa SET numero='$numero_empresa' WHERE cnpj_empresa='$cnpj_padrao';
+    UPDATE endereco_empresa SET bairro='$bairro_empresa' WHERE cnpj_empresa='$cnpj_padrao';
+    UPDATE endereco_empresa SET cidade='$cidade_empresa' WHERE cnpj_empresa='$cnpj_padrao';
+    UPDATE endereco_empresa SET estado='$estado_empresa' WHERE cnpj_empresa='$cnpj_padrao';");
+
+    header('Location:'.$local.'?'.md5('livre=true'));
+    exit;
+}
+
+if(isset($_COOKIE['empresa'])) { // alteração de dados empresa
+    //echo 'alterar empresa';
 
     if($_POST['nome_empresa_input'] != ''){
         $nome_empresa = $_POST['nome_empresa_input'];
@@ -77,24 +102,6 @@ if(!isset($_COOKIE['empresa'])){ // alteração de dados usuário
         $duplicado=true;
     }
 
-    if(isset($_COOKIE['endereco_empresa'])){ // alteração do endereco da empresa
-        $cep_empresa = $_COOKIE['cep_empresa'];
-        $numero_empresa = $_COOKIE['numero_empresa'];
-        $rua_empresa = $_COOKIE['rua_empresa'];
-        $bairro_empresa = $_COOKIE['bairro_empresa'];
-        $cidade_empresa = $_COOKIE['cidade_empresa'];
-        $estado_empresa = $_COOKIE['estado_empresa'];
-    
-        echo $cep_empresa.'<br>';
-        echo $numero_empresa.'<br>';
-        echo $rua_empresa.'<br>';
-        echo $bairro_empresa.'<br>';
-        echo $cidade_empresa.'<br>';
-        echo $estado_empresa.'<br>';
-    } else {
-        echo 'nd';
-    }
-
     if($duplicado){
         header('Location: '.$local);
         exit;
@@ -110,12 +117,32 @@ if(!isset($_COOKIE['empresa'])){ // alteração de dados usuário
         if(isset($nome_fantasia)){
             $result_nome_fantasia=mysqli_query($conec,"UPDATE empresa SET nome_fantasia='$nome_fantasia' WHERE nome_fantasia='$nome_fantasia_padrao'");
         }
-        //header('Location:'.$local.'?'.md5('livre=true'));
-        //exit;
+        header('Location:'.$local.'?'.md5('livre=true'));
+        exit;
 
         //echo($local);
         //echo '<br>Não duplicado';
     }
+}
+
+if(isset($_COOKIE['senha'])){ // alterar senha
+    //echo 'alterar senha';
+    $senha_antiga = md5($_POST['senha_antiga_input']);
+    $senha_nova = md5($_POST['senha_nova_input']);
+    $senha_nova_dup = md5($_POST['senha_nova_dup_input']);
+    $cpf=$_SESSION['cpf'];
+
+    $select_senha=mysqli_query($conec, "SELECT senha FROM usuario WHERE cpf ='$cpf'")->fetch_assoc()['senha'];
+    if($select_senha != $senha_antiga){
+        header('Location:'.$local.'?'.md5('senha=false'));
+        exit;
+    } else {
+        $result_senha=mysqli_query($conec,"UPDATE usuario SET senha = '$senha_nova' WHERE cpf = '$cpf'");
+        header('Location:'.$local.'?'.md5('livre=true'));
+        exit;
+    }
+
+
 }
 ?>
 <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js'></script>

@@ -7,6 +7,15 @@ function fadeout() {
     document.querySelector('.preloader').style.display = 'none';
 }
 
+function fechar_pop() {
+    document.getElementById("dados_empresa").submit()
+}
+
+function nada(){
+    document.getElementById('asdf_cancelar').click()
+}
+
+
 const conteudo_rua = document.getElementById('rua_empresa').innerText
 const conteudo_bairro = document.getElementById('bairro_empresa').innerText
 const conteudo_estado = document.getElementById('estado_empresa').innerText
@@ -73,7 +82,7 @@ janelaPopUp.abre = function(id, classes, titulo, corpo, functionCancelar, functi
         }
     });
     var popFundo = '<div id="popFundo_' + id + '" class="popUpFundo ' + classesFundo + '"></div>'
-    var janela = '<div id="' + id + '" class="popUp ' + classes + '"><h1>' + titulo + "</h1><div><span>" + corpo + "</span></div><button class='puCancelar " + classBot + "' id='" + id +"_cancelar' data-parent=" + id + ">" + cancelar + "</button><button class='puEnviar " + classBot + "' data-parent=" + id + " id='" + id +"_enviar'>" + enviar + "</button></div>";
+    var janela = '<div id="' + id + '" class="popUp ' + classes + '"><h1>' + titulo + "</h1><div><span id='corpo'>" + corpo + "</span></div><button class='puCancelar " + classBot + "' id='" + id +"_cancelar' data-parent=" + id + ">" + cancelar + "</button><button class='puEnviar " + classBot + "' data-parent=" + id + " id='" + id +"_enviar'>" + enviar + "</button></div>";
     $("window, body").css('overflow', 'hidden');
     
     $("body").append(popFundo);
@@ -165,6 +174,19 @@ if (window.location.href.includes(md5('nome_fantasia_duplicado=true'))) { //nome
     window.history.replaceState(nextState, 'Perfil', nextURL);
 }
 
+if (window.location.href.includes(md5('senha=false'))) { // senha erro
+    abrirjanela('red','Não foi possível alterar sua senha!<br>Por favor, verifique os campos e tente novamente.', '| Alteração Inválida |')
+    document.getElementById('editar_senhabtn').click()
+    document.getElementById("senha_antiga").classList.add('vermei')
+    document.getElementById("senha_nova").classList.add('vermei')
+    document.getElementById("senha_nova_dup").classList.add('vermei')
+    
+    let nextURL = window.location.href.replace(md5('senha=false'),'').replace('?','');
+    let nextState = { additionalInformation: 'Updated the URL with JS' };
+    window.history.replaceState(nextState, 'Perfil', nextURL);
+}
+
+
 if(alerta != ""){
     abrirjanela('red',alerta, '| Alteração Inválida |')
     document.getElementById('editar_empresabtn').click()
@@ -219,6 +241,23 @@ function editar_senha(){
 }
 
 function salvar_senha(){
+    let senha_antiga = document.getElementById('senha_antiga')
+    let senha_nova = document.getElementById('senha_nova')
+    let senha_nova_dup = document.getElementById('senha_nova_dup')
+
+    senha_nova.classList.remove('vermei')
+    senha_nova_dup.classList.remove('vermei')
+
+    if (senha_antiga.value == '' || senha_nova.value == '' || senha_nova_dup.value == ''){
+        alert('Preenche tudo carai')
+    } else if(senha_nova.value != senha_nova_dup.value){
+        senha_nova.classList.add('vermei')
+        senha_nova_dup.classList.add('vermei')
+        alert('Senhas não coincidem')
+    } else {
+        Cookies.set('senha',1)
+        document.getElementById("dados_usuario").submit();
+    }
 }
 
 function cancelar_senha(){
@@ -232,6 +271,10 @@ function cancelar_senha(){
     document.getElementById('pass3').style.display = 'none'
 
     document.getElementsByClassName('senha')[0].innerText = 'Senha'
+
+    senha_antiga = document.getElementById('senha_antiga').value = ''
+    senha_nova = document.getElementById('senha_nova').value = ''
+    senha_nova_dup = document.getElementById('senha_nova_dup').value = ''
 
 }
 
@@ -363,6 +406,7 @@ function salvar_usuario(){
 
     if(email != '' && tel == ''){
         document.getElementById("dados_usuario").submit();
+        Cookies.set('usuario',1)
         return
     }
     var tels = 0
@@ -379,8 +423,10 @@ function salvar_usuario(){
     });
 
     if (tel == '' && email == '' && !adicional){
-            abrirjanela('blue','Dados não preenchidos<br> Cancelando alteração...','Dados Inexistentes')
-            document.getElementById('cancelar').click()
+        abrirjanela('blue','<br>Dados não preenchidos<br> Cancelando alteração...','Dados Inexistentes')
+        document.getElementById('cancelar').click()
+        document.getElementById('asdf_cancelar').style.display = 'none'
+        setTimeout(nada , 1500)
             return
         }
 
@@ -405,6 +451,7 @@ function salvar_usuario(){
 
     if(valido){
         document.getElementById("dados_usuario").submit();
+        Cookies.set('usuario',1)
         Cookies.set('tels',tels)
     } else {
         abrirjanela('red','Telefone adicional incompleto<br> Por favor verifique-o ou exclua-o!','Dados incompletos')
@@ -431,11 +478,23 @@ function salvar_empresa(){
         nome_fantasia.classList.add('vermei')
         abrirjanela('red','Nome Fantasia já utilizado!<br>Se não deseja alterá-lo apenas deixe em branco.<br>Senão, verifique a escrita.','Alteração Inválida')
         return
+    }
+    if (nome_fantasia.value == '' && nome_empresa.value == '' && cep_empresa == '' && numero_empresa == ''){
+        abrirjanela('blue','<br>Dados não preenchidos<br> Cancelando alteração...','Dados Inexistentes')
+        document.getElementById('cancelar_empresabtn').click()
+        document.getElementById('asdf_cancelar').style.display = 'none'
+        setTimeout(nada , 1500)
+        return
+
     } else {
-        abrirjanela('blue','Verificando dados...','Atualização de Dados')
-        document.getElementById('asdf_cancelar').addEventListener('click',function(){
-            document.getElementById("dados_empresa").submit()
-        })
+
+        abrirjanela('blue','<br>Verificando dados...','Atualização de Dados')
+        document.getElementById('asdf_cancelar').style.display = 'none'
+        setTimeout(fechar_pop, 1500)
+        
+        //document.getElementById('asdf_cancelar').addEventListener//('click',function(){
+        //    document.getElementById("dados_empresa").submit()
+        //})
 
         Cookies.set('empresa',1)
         
