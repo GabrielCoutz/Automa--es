@@ -219,7 +219,6 @@ function editar_senha(){
 }
 
 function salvar_senha(){
-
 }
 
 function cancelar_senha(){
@@ -297,7 +296,6 @@ function editar_usuario(){
     document.getElementById('email_input').placeholder = conteudo_email
 
 }
-
 
 function cancelar_usuario(){
     document.getElementById('tel_input').value = ''
@@ -417,6 +415,8 @@ function salvar_empresa(){
     let nome_empresa = document.getElementById('nome_empresa_input')
     let nome_fantasia = document.getElementById('nome_fantasia_input')
     let cnpj = document.getElementById('cnpj_input')
+    let cep_empresa = document.getElementById('cep_empresa_input').value
+    let numero_empresa = document.getElementById('numero_empresa_input').value
 
     nome_empresa.classList.remove('vermei')
     nome_fantasia.classList.remove('vermei')
@@ -438,6 +438,17 @@ function salvar_empresa(){
         })
 
         Cookies.set('empresa',1)
+        
+        if (cep_empresa != '' || numero_empresa != ''){
+            Cookies.set('endereco_empresa',1)
+            Cookies.set('cep_empresa',document.getElementById('cep_empresa_input').value)
+            Cookies.set('numero_empresa',document.getElementById('numero_empresa_input').value)
+            Cookies.set('rua_empresa',document.getElementById('rua_empresa').innerText)
+            Cookies.set('bairro_empresa',document.getElementById('bairro_empresa').innerText)
+            Cookies.set('cidade_empresa',document.getElementById('cidade_empresa').innerText)
+            Cookies.set('estado_empresa',document.getElementById('estado_empresa').innerText)
+        }
+        
 
     }
 

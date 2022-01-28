@@ -12,60 +12,58 @@
   <link rel="stylesheet" href="css/popup.css">
   <link rel="shortcut icon" href="../assets/img/favicon/favicon.ico" type="image/x-icon">
   <?php
-session_start();
+      session_start();
 
 
-$dbHost     = 'localhost';
-$dbUname = 'root';
-$dbPass = '';
-$dbName     = 'kairos';
+      $dbHost     = 'localhost';
+      $dbUname = 'root';
+      $dbPass = '';
+      $dbName     = 'kairos';
 
-$email=$_SESSION['email'];
-
-
-$conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
-
-$select=mysqli_query($conec, "SELECT * FROM usuario WHERE email = '$email'");
-$result=$select->fetch_assoc();
-
-$id=$result['id'];
-$cpf=$result['cpf'];
-$_SESSION['email_padrao']=$result['email'];
-$_SESSION['cpf']=$result['cpf'];
-
-$select_telefone=mysqli_query($conec, "SELECT * FROM telefone WHERE cpf_usuario = '$cpf'");
-
-$result_telefone=$select_telefone->fetch_assoc();
-$teste = '';
-
-while ($row = mysqli_fetch_assoc($select_telefone)) {
-  $teste=$teste.$row["tel"].'<br>';
-}
-
-$_SESSION['tel_padrao']=$result_telefone['tel'];
+      $email=$_SESSION['email'];
 
 
-$select_endereco=mysqli_query($conec, "SELECT * FROM endereco WHERE cpf_usuario = '$cpf'");
-$result_endereco=$select_endereco->fetch_assoc();
+      $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 
-$select_empresa=mysqli_query($conec, "SELECT * FROM empresa WHERE cpf_usuario = '$cpf'");
-$result_empresa=$select_empresa->fetch_assoc();
+      $select=mysqli_query($conec, "SELECT * FROM usuario WHERE email = '$email'");
+      $result=$select->fetch_assoc();
 
-$_SESSION['nome_empresa_padrao']=$result_empresa['nome'];
-$_SESSION['nome_fantasia_padrao']=$result_empresa['nome_fantasia'];
+      $id=$result['id'];
+      $cpf=$result['cpf'];
+      $_SESSION['email_padrao']=$result['email'];
+      $_SESSION['cpf']=$result['cpf'];
 
-$id_empresa=$result_empresa['id'];
-$cnpj_empresa=$result_empresa['cnpj'];
+      $select_telefone=mysqli_query($conec, "SELECT * FROM telefone WHERE cpf_usuario = '$cpf'");
 
-$select_empresa_endereco=mysqli_query($conec, "SELECT * FROM endereco_empresa WHERE cnpj_empresa = '$cnpj_empresa'");
-$result_empresa_endereco=$select_empresa_endereco->fetch_assoc();
+      $result_telefone=$select_telefone->fetch_assoc();
+      $teste = '';
 
-$select_cartao=mysqli_query($conec, "SELECT * FROM cartao WHERE cpf_usuario = '$cpf'");
-$result_cartao=$select_cartao->fetch_assoc();
+      while ($row = mysqli_fetch_assoc($select_telefone)) {
+        $teste=$teste.$row["tel"].'<br>';
+      }
+
+      $_SESSION['tel_padrao']=$result_telefone['tel'];
 
 
+      $select_endereco=mysqli_query($conec, "SELECT * FROM endereco WHERE cpf_usuario = '$cpf'");
+      $result_endereco=$select_endereco->fetch_assoc();
 
-?>
+      $select_empresa=mysqli_query($conec, "SELECT * FROM empresa WHERE cpf_usuario = '$cpf'");
+      $result_empresa=$select_empresa->fetch_assoc();
+
+      $_SESSION['nome_empresa_padrao']=$result_empresa['nome'];
+      $_SESSION['nome_fantasia_padrao']=$result_empresa['nome_fantasia'];
+
+      $id_empresa=$result_empresa['id'];
+      $cnpj_empresa=$result_empresa['cnpj'];
+
+      $select_empresa_endereco=mysqli_query($conec, "SELECT * FROM endereco_empresa WHERE cnpj_empresa = '$cnpj_empresa'");
+      $result_empresa_endereco=$select_empresa_endereco->fetch_assoc();
+
+      $select_cartao=mysqli_query($conec, "SELECT * FROM cartao WHERE cpf_usuario = '$cpf'");
+      $result_cartao=$select_cartao->fetch_assoc();
+
+  ?>
 </head>
 <body style="background-image: url('css/wave.svg'); background-repeat: no-repeat;background-attachment: fixed;
   background-size: cover;">
@@ -198,7 +196,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                         <h6 class="mb-0">Nome da Empresa</h6>
                       </div>
                       <form action="verificar_dados.php" method="POST" id='dados_empresa' onsubmit="return false">
-                        <input class='none'type="tel" id='nome_empresa_input' name='nome_empresa_input'>
+                        <input class='none'type="text" id='nome_empresa_input' name='nome_empresa_input'>
                         <div class="col-sm-9 text-secondary" id='nome_empresa'>
                         <a><?= $result_empresa['nome'] ?></a>
                         </div>
@@ -208,7 +206,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                         <div class="col-sm-3">
                           <h6 class="mb-0">Nome Fantasia</h6>
                         </div>
-                        <input class='none'type="tel" id='nome_fantasia_input' name='nome_fantasia_input'>
+                        <input class='none'type="text" id='nome_fantasia_input' name='nome_fantasia_input'>
                         <div class="col-sm-9 text-secondary" id='nome_fantasia'>
                         <a><?= $result_empresa['nome_fantasia'] ?></a>
                         </div>
@@ -219,7 +217,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                         <div class="col-sm-3">
                           <h6 class="mb-0">CNPJ</h6>
                         </div>
-                        <input class='none'type="tel" id='cnpj_input' name='cnpj_input' onkeypress="$(this).mask('00.000.000/0000-00')">
+                        <input class='none'type="text" id='cnpj_input' name='cnpj_input' onkeypress="$(this).mask('00.000.000/0000-00')">
                         <div class="col-sm-9 text-secondary" id='cnpj'>
                         <a><?= ucwords($result_empresa['cnpj']) ?></a>
                         </div>
@@ -229,7 +227,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                         <div class="col-sm-3">
                           <h6 class="mb-0">Ramo</h6>
                         </div>
-                        <input class='none'type="tel" id='ramo_input' name='ramo_input'>
+                        <input class='none'type="text" id='ramo_input' name='ramo_input'>
                         <div class="col-sm-9 text-secondary" id='ramo'>
                         <a><?= ucwords($result_empresa['ramo']) ?></a>
                         </div>
@@ -239,7 +237,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                         <div class="col-sm-3">
                           <h6 class="mb-0">CEP</h6>
                         </div>
-                        <input class='none'type="tel" id='cep_empresa_input' name='cep_input' onkeypress="$(this).mask('00.000-000')">
+                        <input class='none'type="text" id='cep_empresa_input' name='cep_empresa_input' onkeypress="$(this).mask('00.000-000')">
                         <div class="col-sm-9 text-secondary" id='cep_empresa'>
                         <a><?= $result_empresa_endereco['cep'] ?></a>
                         </div>
@@ -249,7 +247,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                         <div class="col-sm-3">
                           <h6 class="mb-0">Rua</h6>
                         </div>
-                        <input class='none'type="tel" id='rua_input' name='rua_input'>
+                        <input class='none'type="text" id='rua_empresa_input' name='rua_empresa_input'>
                         <div class="col-sm-9 text-secondary" id='rua_empresa'>
                         <a id='arua'><?= $result_empresa_endereco['rua'] ?></a>
                         </div>
@@ -259,7 +257,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                         <div class="col-sm-3">
                           <h6 class="mb-0">Número</h6>
                         </div>
-                        <input class='none'type="tel" id='numero_empresa_input' name='numero_input'>
+                        <input class='none'type="text" id='numero_empresa_input' name='numero_empresa_input'>
                         <div class="col-sm-9 text-secondary" id='numero_empresa'>
                         <a><?= $result_empresa_endereco['numero'] ?></a>
                         </div>
@@ -269,7 +267,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                         <div class="col-sm-3">
                           <h6 class="mb-0">Bairro</h6>
                         </div>
-                        <input class='none'type="tel" id='bairro_input' name='bairro_input'>
+                        <input class='none'type="text" id='bairro_input' name='bairro_empresa_input'>
                         <div class="col-sm-9 text-secondary" id='bairro_empresa'>
                         <a><?= $result_empresa_endereco['bairro'] ?></a>
                         </div>
@@ -279,7 +277,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                         <div class="col-sm-3">
                           <h6 class="mb-0">Cidade</h6>
                         </div>
-                        <input class='none'type="tel" id='cidade_input' name='cidade_input'>
+                        <input class='none'type="text" id='cidade_input' name='cidade_empresa_input'>
                         <div class="col-sm-9 text-secondary" id='cidade_empresa'>
                         <a><?= $result_empresa_endereco['cidade'] ?></a>
                         </div>
@@ -289,7 +287,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                         <div class="col-sm-3">
                           <h6 class="mb-0">Estado</h6>
                         </div>
-                        <select class="form-control selectpicker none select" id="estado_empresa_input" name='estado_empresa_input'>
+                        <select class="form-control selectpicker none select" id="estado_empresa_input" name='estado_input'>
                           <option value="1">Estado</option>
                           <option value="AC">Acre</option>
                           <option value="AL">Alagoas</option>
@@ -319,7 +317,7 @@ $result_cartao=$select_cartao->fetch_assoc();
                           <option value="SE">Sergipe</option>
                           <option value="TO">Tocantins</option>
                         </select>
-                        <div class="col-sm-9 text-secondary" id='estado_empresa' name='estado_empresa'>
+                        <div class="col-sm-9 text-secondary" id='estado_empresa' name='estado_empresa_input'>
                         <a><?= $result_empresa_endereco['estado'] ?></a>
                         </div>
                       </div>

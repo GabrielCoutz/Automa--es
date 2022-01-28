@@ -77,6 +77,24 @@ if(!isset($_COOKIE['empresa'])){ // alteração de dados usuário
         $duplicado=true;
     }
 
+    if(isset($_COOKIE['endereco_empresa'])){ // alteração do endereco da empresa
+        $cep_empresa = $_COOKIE['cep_empresa'];
+        $numero_empresa = $_COOKIE['numero_empresa'];
+        $rua_empresa = $_COOKIE['rua_empresa'];
+        $bairro_empresa = $_COOKIE['bairro_empresa'];
+        $cidade_empresa = $_COOKIE['cidade_empresa'];
+        $estado_empresa = $_COOKIE['estado_empresa'];
+    
+        echo $cep_empresa.'<br>';
+        echo $numero_empresa.'<br>';
+        echo $rua_empresa.'<br>';
+        echo $bairro_empresa.'<br>';
+        echo $cidade_empresa.'<br>';
+        echo $estado_empresa.'<br>';
+    } else {
+        echo 'nd';
+    }
+
     if($duplicado){
         header('Location: '.$local);
         exit;
@@ -85,14 +103,15 @@ if(!isset($_COOKIE['empresa'])){ // alteração de dados usuário
         //echo '<br>Duplicado';
 
     } else {
+
         if(isset($nome_empresa)){
             $result_nome_empresa=mysqli_query($conec,"UPDATE empresa SET nome='$nome_empresa' WHERE nome='$nome_empresa_padrao'");
         }
         if(isset($nome_fantasia)){
             $result_nome_fantasia=mysqli_query($conec,"UPDATE empresa SET nome_fantasia='$nome_fantasia' WHERE nome_fantasia='$nome_fantasia_padrao'");
         }
-        header('Location:'.$local.'?'.md5('livre=true'));
-        exit;
+        //header('Location:'.$local.'?'.md5('livre=true'));
+        //exit;
 
         //echo($local);
         //echo '<br>Não duplicado';
