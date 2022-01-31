@@ -86,6 +86,19 @@ janelaPopUp.fecha = function(id){
 }
 // -------------------- fim código popup --------------------
 
+function mudar_senha(botao,elemento){
+    let togglePassword = document.querySelector('#'+botao);
+    let password = document.querySelector('#'+elemento);
+
+  togglePassword.addEventListener('click', function (e) {
+    let type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    this.classList.toggle('bi-eye');
+});
+}
+
+mudar_senha('togglePassword','senha')
+
 function abrirjanela(cor, texto){
     var tamanho = 'p';
     var modo = 'alert';

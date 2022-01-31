@@ -15,6 +15,7 @@
 		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="css/popup.css">
 		<link rel="shortcut icon" href="../assets/img/favicon/favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
 	</head>
 
 	<body>
@@ -114,12 +115,18 @@
 
 					<div class="form-holder">
 						<span class="lnr lnr-lock"></span>
-						<input type="password" class="form-control" placeholder="Senha"  id="senha" name='senha'>
+						<p>
+							<input type="password" class="form-control" placeholder="Senha"  id="senha" name='senha'>
+							<i class="bi bi-eye-slash" id="togglePassword"></i>
+						</p>
 						<span id="StrengthDisp" class="badge displayBadge">Validando senha...</span>
 					</div>
 					<div class="form-holder">
 						<span class="lnr lnr-lock"></span>
-						<input type="password" class="form-control" placeholder="Confirmar Senha" id="confirm_senha" name='confirm_senha'>
+						<p>
+							<input type="password" class="form-control" placeholder="Confirmar Senha" id="confirm_senha" name='confirm_senha'>
+							<i class="bi bi-eye-slash" id="togglePassword_confirm"></i>
+						</p>
 					</div>
 					<button class="btn btn-warning" type="submit" onclick="validar()" id='butao' name='butao'>
 						<span >Registrar</span>

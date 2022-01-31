@@ -678,6 +678,7 @@ body {
   background: transparent;
   border-radius: 50px;
 }
+
 ::-webkit-scrollbar-thumb{
   background: #4e6ef1;
   border-radius: 50px;
@@ -772,6 +773,7 @@ body {
   text-align: center;
   transition: all 0.3s ease-in-out;
 }
+
 @media screen and (min-width: 500px) {
   .github-btn:hover {
     transform: scale(1.1);

@@ -17,10 +17,12 @@
 input{
   margin-left: 12px;
   margin-bottom: -4px;
+  caret-color: #4e6ef1;
 }
 input:last-child{
   margin-bottom: 0px;
 }
+
 .adicional{
   margin-top: 4px !important;
   height: 30px !important;
@@ -34,10 +36,6 @@ input:last-child{
   height: 29px;
 }
 
-.salvar:hover{
-  background-color: #139629fd;
-  transition: all 0.3s ease-in-out;
-}
 
 .cancelar{
   background-color: #a82020;
@@ -55,10 +53,7 @@ input:last-child{
   border-radius: 50px;
 }
 
-.cancelar:hover{
-  background-color: #961313fd;
-  transition: all 0.3s ease-in-out;
-}
+
 #cpf_input, #tel_input, #email_input, #senha_antiga, #senha_nova, #senha_nova_dup, #nome_empresa_input, #nome_fantasia_input, #cnpj_input, #ramo_input, #cep_empresa_input, #rua_input, #numero_empresa_input, #bairro_input, #cidade_input, #estado_input{
   border-radius:6px;
   border: 1px solid #ced6e0;
@@ -76,7 +71,7 @@ input:last-child{
   padding-left: 10px !important;
 }
 
-#editar_senhabtn{
+#editarsenha{
   margin-left: 15px;
   height: 38px;
 }
@@ -116,9 +111,62 @@ input::-webkit-input-placeholder {
   color: black;
   opacity: 0.4;
 }
-#editar_senhabtn{
-  height: 40px;
+#editar, #editar_empresabtn, #editarsenha{
+  background-color: #4E6EF1 !important;
 }
+
+#cancelar_senhabtn, #salvar_senhabtn{
+  color: white;
+}
+#editarsenha, #salvar_senhabtn, #cancelar_senhabtn{
+  white-space: nowrap;
+  text-align: center;
+  width: 162px;
+  position:relative;
+  opacity:1;
+  text-align:center;
+  color:white;
+  font-family: "Futura", Sans-serif;
+  font-weight:200;
+  border: none;
+}
+#editarsenha:disabled, #salvar_senhabtn:disabled{
+  opacity: 0.6;
+}
+#editar, #editar_empresabtn, #salvar, #cancelar, #salvar_empresabtn, #cancelar_empresabtn, .butao{
+  width:86px;
+  position:relative;
+  opacity:1;
+  font-size: 99% !important;
+  padding:8px;
+  text-align:center;
+  color:white;
+  font-family: "Futura", Sans-serif;
+  font-weight:200;
+  border: none;
+}
+
+#editar, #editar_empresabtn, #editarsenha, #salvar, #cancelar, #salvar_empresabtn, #cancelar_empresabtn, .butao, #cancelar_senhabtn, #salvar_senhabtn{
+  overflow:hidden;
+}
+.circle{
+  border-radius:50%;
+  transition: all 0.4s cubic-bezier(.86,.31,.55,.99);
+  width:4px;
+  top:calc(50% - 1px);
+  left:calc(50% - 1px);
+  height:2px;
+  position:absolute;
+  display:inline-block;
+  background:#ffffff23;
+}
+#editar:hover, #editar_empresabtn:hover, #editarsenha:hover{
+  color:white;
+}
+#editar:hover >.circle, #editar_empresabtn:hover >.circle, #editarsenha:hover >.circle, #salvar:hover >.circle, #cancelar:hover >.circle, #salvar_empresabtn:hover >.circle, #cancelar_empresabtn:hover >.circle, #sair:hover >.circle, .butao:hover>.circle, #cancelar_senhabtn:hover>.circle, #salvar_senhabtn:hover>.circle{
+  transform:scale(90);
+}
+
 .senha{
   margin-bottom: 30px !important;
 }
@@ -278,33 +326,12 @@ i {
   }
 .butao{
     float: right;
-    color: rgb(253, 0, 0);
+    color: rgb(255, 255, 255);
     background-color: #ff0000;
-
-    display: inline-block;
-    font-weight: 400;
-    text-align: center;
-    vertical-align: middle;
-    cursor: pointer;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    border: 1px solid transparent;
-    padding: 0.375rem 0.75rem;
-    font-size: 1rem;
-    line-height: 1.5;
     border-radius: 0.25rem;
+    border: none;
+}
 
-    color: #fff;
-    background-color: #c00000be;
-}
-.butao:hover {
-    
-    background-color: #ff3131a9;
-    text-decoration: none;
-    color: white;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-}
 
 #diamante{
     padding-right: 10px !important;
@@ -352,6 +379,10 @@ i {
   .adicional{
     width: 72%;
   }
+  #salvar_empresabtn, #cancelar_empresabtn{
+    width: 100%;
+    float: left;
+  }
 }
 @media (max-width: 500px){
   .btn-remove-phone{
@@ -362,12 +393,31 @@ i {
     width: 100%;
     margin-bottom: 2px !important;
   }
-  #editar_senhabtn{
+  #editarsenha{
     width: 100%;
     margin-right: 15px;
     height: auto;
   }
+  #salvar_senhabtn, #salvar_empresabtn{
+    margin-bottom: 10px;
+  }
+  #salvar_senhabtn, #cancelar_senhabtn{
+    width: 100%;
+  }
   #senha_antiga, #senha_nova, #senha_nova_dup{
+    width: 100%;
+  }
+  #editar_empresabtn{
+    width: 100%;
+  }
+  #salvar_empresabtn, #cancelar_empresabtn{
+    width: 100;
+  }
+  #cancelar_empresabtn{
+    float: right;
+  }
+  #sairbtn{
+    margin-top: 20px;
     width: 100%;
   }
   .texto{

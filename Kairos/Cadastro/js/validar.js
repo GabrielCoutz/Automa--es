@@ -143,6 +143,20 @@ password.addEventListener("input", () => {
     }
 });
 
+function mudar_senha(botao,elemento){
+    let togglePassword = document.querySelector('#'+botao);
+    let password = document.querySelector('#'+elemento);
+
+  togglePassword.addEventListener('click', function (e) {
+    let type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    this.classList.toggle('bi-eye');
+});
+}
+
+mudar_senha('togglePassword','senha')
+mudar_senha('togglePassword_confirm','confirm_senha')
+
 function StrengthChecker(PasswordParameter){
     if(PasswordParameter.length < 10){
         strengthBadge.style.color="red"

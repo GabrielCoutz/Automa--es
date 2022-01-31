@@ -12,6 +12,7 @@
 		<link rel="stylesheet" href="css/style.css">
 		<link rel="stylesheet" href="css/popup.css">
 		<link rel="shortcut icon" href="../assets/img/favicon/favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
 		<?php
 			session_start();
 			if(isset($_GET[md5('login=true')])){
@@ -48,7 +49,10 @@
 			
 					<div class="form-holder">
 						<span class="lnr lnr-lock"></span>
-						<input type="password" class="form-control" placeholder="Senha" id="senha" name='senha'>
+						<p>
+							<input type="password" class="form-control" placeholder="Senha" id="senha" name='senha'>
+							<i class="bi bi-eye-slash" id="togglePassword"></i>
+						</p>
 					</div>
 
 					<button type='submit' id='butao' name="butao" onclick="validar()">

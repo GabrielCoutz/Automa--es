@@ -152,7 +152,7 @@
                         <div class="col-sm-3">
                           <h6 class="mb-0 senha">Senha</h6>
                         </div>
-                        <button class="btn btn-info " id='editar_senhabtn' onclick="editar_senha()" type="submit">Editar Senha</button>
+                        <button class="btn" onclick="editar_senha()" type="submit" id="editarsenha"><div class='circle'></div>Editar Senha</button>
                         <div class='row' style="margin-left: 0; margin-right: 0;">
                           <div class="none" id='pass'>
                             <div class='texto'>Senha antiga</div>
@@ -188,12 +188,12 @@
                       
                       <div class="row">
                         <div class="col-sm-12">
-                          <button class="btn btn-info " id='editar' onclick="editar_usuario()" type="submit">Editar</button>
-                          <button class="btn btn-info salvar none" id='salvar' type="submit" onclick="salvar_usuario()">Salvar</button>
-                          <button class="btn btn-info cancelar none" onclick="cancelar_usuario()" id='cancelar'>Cancelar</button>
+                          <button class="btn button b4" id='editar' onclick="editar_usuario()" type="submit"><div class='circle'></div> Editar</button>
+                          <button class="btn salvar none" id='salvar' type="submit" onclick="salvar_usuario()"><div class='circle'></div>Salvar</button>
+                          <button class="btn cancelar none" onclick="cancelar_usuario()" id='cancelar'><div class='circle'></div>Cancelar</button>
                           
-                          <button class="btn btn-info salvar none" id='salvar_senhabtn' type="submit" onclick="salvar_senha()">Salvar senha</button>
-                          <button class="btn btn-info cancelar none" onclick="cancelar_senha()" id='cancelar_senhabtn'>Cancelar alteração</button>
+                          <button class="btn salvar none" id='salvar_senhabtn' type="submit" onclick="salvar_senha()"><div class='circle'></div>Salvar senha</button>
+                          <button class="btn cancelar none" onclick="cancelar_senha()" id='cancelar_senhabtn'><div class='circle'></div>Cancelar alteração</button>
                         </div>
                   </div>
                 </div>
@@ -336,10 +336,10 @@
                       <hr>
                       <div class="row">
                         <div class="col-sm-12">
-                        <button class="btn btn-info " onclick="editar_empresa()" id='editar_empresabtn'>Editar</button>
-                          <button class="btn btn-info salvar none" onclick="salvar_empresa()" id='salvar_empresabtn'>Salvar</button>
-                          <button class="btn btn-info cancelar none" onclick="cancelar_empresa()" id='cancelar_empresabtn' >Cancelar</button>
-                          <button class="butao" onclick="sair()">Sair</button>
+                        <button class="btn " onclick="editar_empresa()" id='editar_empresabtn'><div class='circle'></div>Editar</button>
+                          <button class="btn salvar none" onclick="salvar_empresa()" id='salvar_empresabtn'><div class='circle'></div>Salvar</button>
+                          <button class="btn cancelar none" onclick="cancelar_empresa()" id='cancelar_empresabtn'><div class='circle'></div>Cancelar</button>
+                          <button class="butao" onclick="sair()" id='sairbtn'><div class='circle'></div>Sair</button>
                         </div>
                       </div>
                     </div>

@@ -177,7 +177,7 @@ if (window.location.href.includes(md5('nome_fantasia_duplicado=true'))) { //nome
 if (window.location.href.includes(md5('senha=false'))) { // senha erro
     abrirjanela('red','Não foi possível alterar sua senha!<br>Por favor, verifique os campos e tente novamente.', '| Alteração Inválida |')
     
-    document.getElementById('editar_senhabtn').click()
+    document.getElementById('editarsenha').click()
     document.getElementById("senha_antiga").classList.add('vermei')
     document.getElementById("senha_nova").classList.add('vermei')
     document.getElementById("senha_nova_dup").classList.add('vermei')
@@ -263,7 +263,7 @@ function vazio_senha(){
 
 function editar_senha(){
     $("#pass").toggle();
-    $("#editar_senhabtn").toggle();
+    $("#editarsenha").toggle();
     $("#pass2").toggle();
     $("#pass3").toggle();
 
@@ -310,7 +310,7 @@ function salvar_senha(){
 
 function cancelar_senha(){
     $("#editar").toggle();
-    $("#editar_senhabtn").toggle();
+    $("#editarsenha").toggle();
     $("#salvar_senhabtn").toggle();
     $("#cancelar_senhabtn").toggle();
 
@@ -375,7 +375,7 @@ function editar_usuario(){
     let conteudo_tel = document.getElementById('tel').innerText
     let conteudo_email = document.getElementById('email').innerText
 
-    document.getElementById("editar_senhabtn").disabled = true;
+    document.getElementById("editarsenha").disabled = true;
 
     document.getElementById('senha_antiga').value=''
     document.getElementById('senha_nova').value=''
@@ -394,7 +394,7 @@ function cancelar_usuario(){
     $('.adicional').closest('.phone-input').remove();
     document.getElementById("tel_input").classList.remove('vermei')
 
-    document.getElementById("editar_senhabtn").disabled = false;
+    document.getElementById("editarsenha").disabled = false;
 
     alternar_edicao()
 
@@ -442,7 +442,7 @@ function editar_empresa(){
 }
 
 function salvar_usuario(){
-    document.getElementById("editar_senhabtn").disabled = false;
+    document.getElementById("editarsenha").disabled = false;
     document.querySelectorAll('.adicional').forEach((item)=>{
         item.classList.remove('vermei')
     })

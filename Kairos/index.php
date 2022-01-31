@@ -303,7 +303,7 @@
                                         Análise de Resultados
                                     </li>
                                 </ul>
-                                <div class="d-grid"><a class="btn btn-outline-primary" href="#!">Escolher Plano</a></div>
+                                <div class="d-grid"><a class="btn btn-outline-primary" href="Cadastro/cadastro.php">Escolher Plano</a></div>
                             </div>
                         </div>
                     </div>
@@ -353,7 +353,7 @@
                                         Análise de Resultados
                                     </li>
                                 </ul>
-                                <div class="d-grid"><a class="btn btn-primary" href="#!">Escolher Plano</a></div>
+                                <div class="d-grid"><a class="btn btn-primary" href="Cadastro/cadastro.php">Escolher Plano</a></div>
                             </div>
                         </div>
                     </div>
@@ -400,7 +400,7 @@
                                         Análise de Resultados
                                     </li>
                                 </ul>
-                                <div class="d-grid"><a class="btn btn-outline-primary" href="#!">Escolher Plano</a></div>
+                                <div class="d-grid"><a class="btn btn-outline-primary" href="Cadastro/cadastro.php">Escolher Plano</a></div>
                             </div>
                         </div>
                     </div>
