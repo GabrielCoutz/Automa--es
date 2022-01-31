@@ -122,7 +122,11 @@ input::-webkit-input-placeholder {
 .senha{
   margin-bottom: 30px !important;
 }
-
+i {
+  margin-left: -30px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
 
 .preloader {
     position: fixed;

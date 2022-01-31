@@ -176,6 +176,7 @@ if (window.location.href.includes(md5('nome_fantasia_duplicado=true'))) { //nome
 
 if (window.location.href.includes(md5('senha=false'))) { // senha erro
     abrirjanela('red','Não foi possível alterar sua senha!<br>Por favor, verifique os campos e tente novamente.', '| Alteração Inválida |')
+    
     document.getElementById('editar_senhabtn').click()
     document.getElementById("senha_antiga").classList.add('vermei')
     document.getElementById("senha_nova").classList.add('vermei')
@@ -208,19 +209,57 @@ $('select').on('change', function() {
     }
   }).change();
 
+function mudar_senha(botao,elemento){
+    let togglePassword = document.querySelector('#'+botao);
+    let password = document.querySelector('#'+elemento);
+
+  togglePassword.addEventListener('click', function (e) {
+    let type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    this.classList.toggle('bi-eye');
+});
+}
+
+mudar_senha('togglePassword_antigo','senha_antiga')
+mudar_senha('togglePassword_novo','senha_nova')
+mudar_senha('togglePassword_novo_dup','senha_nova_dup')
+
 $("#cep_empresa_input").focusout(function(){
 $.ajax({
     url: 'https://viacep.com.br/ws/'+$(this).val().toString().replace(/-/, '').replace('.', '')+'/json/unicode/',
     dataType: 'json',
     success: function(resposta){
-        document.getElementById('rua_empresa').innerHTML = resposta.logradouro
-        document.getElementById('bairro_empresa').innerHTML = resposta.bairro
-        document.getElementById('cidade_empresa').innerHTML = resposta.localidade
-        document.getElementById('estado_empresa').innerHTML = resposta.uf
-        document.getElementById('numero_empresa_input').focus()
+        if(resposta.logradouro == undefined || resposta.bairro == undefined || resposta.localidade == undefined || resposta.uf == undefined){
+            abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','| Alteração Inválida |')
+            document.getElementById('cep_empresa_input').classList.add('vermei')
+            document.getElementById('cep_empresa_input').focus()
+            document.getElementById('cep_empresa_input').placeholder = document.getElementById('cep_empresa_input').value
+            document.getElementById('cep_empresa_input').value = ''
+            return
+            
+        }else {
+            document.getElementById('cep_empresa_input').classList.remove('vermei')
+            document.getElementById('rua_empresa').innerHTML = resposta.logradouro
+            document.getElementById('bairro_empresa').innerHTML = resposta.bairro
+            document.getElementById('cidade_empresa').innerHTML = resposta.localidade
+            document.getElementById('estado_empresa').innerHTML = resposta.uf
+            document.getElementById('numero_empresa_input').focus()
+        }
     }
 });
 });
+
+function vazio_senha(){
+    let senha_antiga = document.getElementById('senha_antiga').value
+    let senha_nova = document.getElementById('senha_nova').value
+    let senha_nova_dup = document.getElementById('senha_nova_dup').value
+
+    if(senha_antiga == '' || senha_nova == '' || senha_nova_dup == ''){
+        document.getElementById("salvar_senhabtn").disabled = true;
+    } else {
+        document.getElementById("salvar_senhabtn").disabled = false;
+    }
+}
 
 function editar_senha(){
     $("#pass").toggle();
@@ -236,21 +275,30 @@ function editar_senha(){
     $("#salvar_senhabtn").toggle();
     $("#cancelar_senhabtn").toggle();
 
+    document.getElementById("salvar_senhabtn").disabled = true;
     document.getElementsByClassName('senha')[0].innerText = 'Alterar Senha'
 
 }
 
+function vazio_empresa(){
+    let cep = document.getElementById('cep_empresa_input').value
+    let num = document.getElementById('numero_empresa_input').value
+    
+    if(cep == '' || num == ''){
+        document.getElementById('salvar_empresabtn').disabled = true
+    } else {
+        document.getElementById('salvar_empresabtn').disabled = false
+    }
+}
+
 function salvar_senha(){
-    let senha_antiga = document.getElementById('senha_antiga')
     let senha_nova = document.getElementById('senha_nova')
     let senha_nova_dup = document.getElementById('senha_nova_dup')
 
     senha_nova.classList.remove('vermei')
     senha_nova_dup.classList.remove('vermei')
 
-    if (senha_antiga.value == '' || senha_nova.value == '' || senha_nova_dup.value == ''){
-        alert('Preenche tudo carai')
-    } else if(senha_nova.value != senha_nova_dup.value){
+    if(senha_nova.value != senha_nova_dup.value){
         senha_nova.classList.add('vermei')
         senha_nova_dup.classList.add('vermei')
         alert('Senhas não coincidem')
@@ -362,7 +410,6 @@ function cancelar_usuario(){
 function cancelar_empresa(){
     document.getElementById('nome_fantasia_input').value = ''
     document.getElementById('nome_empresa_input').value = ''
-    document.getElementById('cnpj_input').value = ''
     document.getElementById('ramo_input').value = ''
     document.getElementById('cep_empresa_input').value = ''
     document.getElementById('numero_empresa_input').value = ''
@@ -373,10 +420,11 @@ function cancelar_empresa(){
 
     document.getElementById('nome_empresa_input').classList.remove('vermei')
     document.getElementById('nome_fantasia_input').classList.remove('vermei')
-    document.getElementById('cnpj_input').classList.remove('vermei')
     document.getElementById('ramo_input').classList.remove('vermei')
     document.getElementById('cep_empresa_input').classList.remove('vermei')
     document.getElementById('numero_empresa_input').classList.remove('vermei')
+
+    document.getElementById('salvar_empresabtn').disabled = false
 
     alternar_edicao_empresa()
 }
@@ -507,8 +555,5 @@ function salvar_empresa(){
             Cookies.set('cidade_empresa',document.getElementById('cidade_empresa').innerText)
             Cookies.set('estado_empresa',document.getElementById('estado_empresa').innerText)
         }
-        
-
     }
-
 }

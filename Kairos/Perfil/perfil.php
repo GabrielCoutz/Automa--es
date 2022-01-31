@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../Cadastro/fonts/linearicons/style.css">
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="css/popup.css">
   <link rel="shortcut icon" href="../assets/img/favicon/favicon.ico" type="image/x-icon">
@@ -155,19 +156,29 @@
                         <div class='row' style="margin-left: 0; margin-right: 0;">
                           <div class="none" id='pass'>
                             <div class='texto'>Senha antiga</div>
-                            <input type="password" id='senha_antiga' name='senha_antiga_input'>
+                            <p>
+                              <input type="password" id='senha_antiga' name='senha_antiga_input' onchange="vazio_senha()">
+                              <i class="bi bi-eye-slash" id="togglePassword_antigo"></i>
+                            </p>
+                            
                             <br>
                           </div>
                           
                           <div class="none" id='pass2'>
                             <div class='texto'>Senha nova</div>
-                              <input type="password" id='senha_nova' name='senha_nova_input'>
+                              <p>
+                                <input type="password" id='senha_nova' name='senha_nova_input' onchange="vazio_senha()">
+                                <i class="bi bi-eye-slash" id="togglePassword_novo"></i>
+                              </p>
                             <br>
                           </div>
                           
                           <div class="none" id='pass3'>
                             <div class='texto'>Digite Novamente</div>
-                            <input type="password" id='senha_nova_dup' name='senha_nova_dup_input'>
+                            <p>
+                              <input type="password" id='senha_nova_dup' name='senha_nova_dup_input' onchange="vazio_senha()">
+                              <i class="bi bi-eye-slash" id="togglePassword_novo_dup"></i>
+                            </p>
                             <br>
                           </div>
                         </div>
@@ -238,7 +249,7 @@
                         <div class="col-sm-3">
                           <h6 class="mb-0">CEP</h6>
                         </div>
-                        <input class='none'type="text" id='cep_empresa_input' name='cep_empresa_input' onkeypress="$(this).mask('00.000-000')">
+                        <input class='none'type="text" id='cep_empresa_input' name='cep_empresa_input' onkeypress="$(this).mask('00.000-000')" onchange="vazio_empresa()">
                         <div class="col-sm-9 text-secondary" id='cep_empresa'>
                         <a><?= $result_empresa_endereco['cep'] ?></a>
                         </div>
@@ -258,7 +269,7 @@
                         <div class="col-sm-3">
                           <h6 class="mb-0">Número</h6>
                         </div>
-                        <input class='none'type="text" id='numero_empresa_input' name='numero_empresa_input'>
+                        <input class='none'type="text" id='numero_empresa_input' name='numero_empresa_input' onchange="vazio_empresa()">
                         <div class="col-sm-9 text-secondary" id='numero_empresa'>
                         <a><?= $result_empresa_endereco['numero'] ?></a>
                         </div>
