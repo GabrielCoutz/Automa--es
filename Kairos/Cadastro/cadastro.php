@@ -54,11 +54,11 @@
 					</div>
 					<div class="form-holder">
 						<span class="lnr lnr-user"></span>
-						<input type="text" class="form-control" placeholder="CPF"  id="cpf" name='cpf' onkeypress="$(this).mask('000.000.000-00')">
+						<input type="tel" class="form-control" placeholder="CPF"  id="cpf" name='cpf' onkeypress="$(this).mask('000.000.000-00')">
 					</div>
 					<div class="form-holder">
 						<span class="lnr lnr-map-marker"></span>
-						<input type="text" class="form-control" placeholder="CEP"  id="cep" name='cep' onkeypress="$(this).mask('00.000-000')">
+						<input type="tel" class="form-control" placeholder="CEP"  id="cep" name='cep' onkeypress="$(this).mask('00.000-000')">
 					</div>
 					<div class="form-holder">
 						<span class="lnr lnr-map-marker"></span>
@@ -66,7 +66,7 @@
 					</div>
 					<div class="form-holder">
 						<span class="lnr lnr-map-marker"></span>
-						<input type="text" class="form-control" placeholder="Número"  id="numero" name='numero'>
+						<input type="tel" class="form-control" placeholder="Número"  id="numero" name='numero'>
 					</div>
 					<div class="form-holder">
 						<span class="lnr lnr-map-marker"></span>

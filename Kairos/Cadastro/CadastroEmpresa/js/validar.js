@@ -6,6 +6,11 @@ function fadeout() {
     document.querySelector('.preloader').style.opacity = '0';
     document.querySelector('.preloader').style.display = 'none';
 }
+
+function nada(){
+    document.getElementById('asdf_cancelar').click()
+}
+
 var estado_empresa=""
 $('select[name="estado_empresa"]').on('change', function() {
 if (this.value == "estado") {
@@ -102,7 +107,30 @@ janelaPopUp.fecha = function(id){
        
     }
 }
+function abrirjanela(cor, texto, titulo){
+    var tamanho = 'p';
+    var modo = 'alert';
+    janelaPopUp.abre( "asdf", tamanho + " "  + cor + ' ' + modo,  titulo ,  texto)
+}
 // -------------------- fim código popup --------------------
+
+
+if (window.location.href.includes(md5('cnpj=false'))){
+    abrirjanela('red','CNPJ já cadastrado!','| Andamento Cadastro | 2/3')
+    document.getElementById("cnpj").classList.add('vermei')
+    document.getElementById("cnpj").focus()
+
+    document.getElementById('nome_empresa').value=localStorage.getItem('nome_empresa')
+    document.getElementById('nome_fantasia').value=localStorage.getItem('nome_fantasia')
+    document.getElementById('cep_empresa').value=localStorage.getItem('cep_empresa')
+    document.getElementById('numero_empresa').value=localStorage.getItem('numero_empresa')
+    document.getElementById('ramo').value=localStorage.getItem('ramo')
+    
+    
+    let nextURL = window.location.href.replace(md5('cnpj=false'),'').replace('?','');
+    let nextState = { additionalInformation: 'Updated the URL with JS' };
+    window.history.replaceState(nextState, 'Perfil', nextURL);
+}
 
 document.getElementById('estado_empresa').addEventListener('change', function() {
     selecionar(document.getElementById('estado_empresa').value)
@@ -120,14 +148,21 @@ $("#cep_empresa").focusout(function(){
         url: 'https://viacep.com.br/ws/'+$(this).val().toString().replace(/-/, '').replace('.', '')+'/json/unicode/',
         dataType: 'json',
         success: function(resposta){
-            $("#rua_empresa").val(resposta.logradouro);
-            $("#bairro_empresa").val(resposta.bairro);
-            $("#cidade_empresa").val(resposta.localidade);
-            $("#estado_empresa").val(resposta.uf);
-            $("#estado_empresa").css('opacity', '1').change();
-            document.getElementById("numero_empresa").focus()
-            estado_empresa = resposta.uf;
-        }
+            if(resposta.logradouro == undefined || resposta.bairro == undefined || resposta.localidade == undefined || resposta.uf == undefined){
+                abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','| Dados Inválidos |')
+                document.getElementById('cep_empresa').classList.add('vermei')
+                document.getElementById('cep_empresa').focus()
+                return
+            } else {
+                document.getElementById('cep_empresa').classList.remove('vermei')
+                $("#rua_empresa").val(resposta.logradouro);
+                $("#bairro_empresa").val(resposta.bairro);
+                $("#cidade_empresa").val(resposta.localidade);
+                $("#estado_empresa").val(resposta.uf);
+                $("#estado_empresa").css('opacity', '1').change();
+                document.getElementById("numero_empresa").focus()
+                estado_empresa = resposta.uf;
+        }}
     });
 });
 
@@ -247,14 +282,18 @@ function validar(){
         document.getElementById("estado_empresa").classList.add("vermei")
 
     }else{
-        var tamanho = 'p';
-        var cor = 'green';
-        var modo = 'alert';
-        var titulo = '| Andamento Cadastro | 2/3';
-        var texto = 'Empresa Cadastrada com sucesso!';
-        janelaPopUp.abre( "asdf", tamanho + " "  + cor + ' ' + modo,  titulo ,  texto)
+        localStorage.setItem(nome_empresa.id,nome_empresa.value)
+        localStorage.setItem(nome_fantasia.id,nome_fantasia.value)
+        localStorage.setItem(cep_empresa.id,cep_empresa.value)
+        localStorage.setItem(numero_empresa.id,numero_empresa.value)
+        localStorage.setItem(ramo.id,ramo.value)
+
+        abrirjanela('blue','Verificando Banco de Dados, caso tudo certo prosseguiremos.','| Andamento Cadastro | 2/3')
+        document.getElementById('asdf_cancelar').style.display = 'none'
+        setTimeout(nada , 1500)
         document.getElementById('asdf_cancelar').addEventListener('click',function(){
-            document.getElementById('cadastro').submit();
-        })
+            document.getElementById('cadastro').submit()
+            }
+        )
         }
     }

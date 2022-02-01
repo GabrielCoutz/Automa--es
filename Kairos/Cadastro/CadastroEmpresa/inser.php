@@ -6,6 +6,9 @@ $dbUname = 'root';
 $dbPass = '';
 $dbName     = 'kairos';
 
+$duplicado=false;
+$local='cadastro_empresa.php';
+
 $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 
 $cpf=$_SESSION['cpf'];
@@ -20,8 +23,25 @@ $bairro_empresa=$_POST['bairro_empresa'];
 $cidade_empresa=$_POST['cidade_empresa'];
 $estado_empresa=$_POST['estado_empresa'];
 
-$result=mysqli_multi_query($conec, "INSERT INTO empresa(cpf_usuario,nome,nome_fantasia,cnpj,ramo) VALUES((SELECT cpf FROM usuario WHERE cpf = '$cpf'),'$nome_empresa','$nome_fantasia','$cnpj','$ramo');
-INSERT INTO endereco_empresa(cnpj_empresa,cep,rua,numero,bairro,cidade,estado) VALUES((SELECT cnpj FROM empresa WHERE cnpj = '$cnpj'),'$cep_empresa','$rua_empresa','$numero_empresa','$bairro_empresa','$cidade_empresa','$estado_empresa')");
+$select=mysqli_query($conec, "SELECT cnpj FROM empresa WHERE cnpj = '$cnpj'");
+$result=$select->fetch_assoc();
 
-header('Location: Assinaturas/assinatura.php');
+if(isset($result['cnpj'])){
+    $local=$local.'?'.md5('cnpj=false');
+    $duplicado=true;
+}
+if($duplicado){
+    header("Refresh:0; url="."$local");
+    exit;
+} else {
+    $result=mysqli_multi_query($conec, "INSERT INTO empresa(cpf_usuario,nome,nome_fantasia,cnpj,ramo) VALUES((SELECT cpf FROM usuario WHERE cpf = '$cpf'),'$nome_empresa','$nome_fantasia','$cnpj','$ramo');
+    INSERT INTO endereco_empresa(cnpj_empresa,cep,rua,numero,bairro,cidade,estado) VALUES((SELECT cnpj FROM empresa WHERE cnpj = '$cnpj'),'$cep_empresa','$rua_empresa','$numero_empresa','$bairro_empresa','$cidade_empresa','$estado_empresa')");
+
+    header('Location: Assinaturas/assinatura.php');
+    exit;
+}
+
+
 ?>
+
+<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js'></script>

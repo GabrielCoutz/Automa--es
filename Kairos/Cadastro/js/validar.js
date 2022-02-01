@@ -104,10 +104,16 @@ var alerta=''
 
 if (window.location.href.includes(md5('email=false'))){
     alerta='Email já cadastrado!<br>'
+    let nextURL = window.location.href.replace(md5('email=false'),'').replace('?','');
+    let nextState = { additionalInformation: 'Updated the URL with JS' };
+    window.history.replaceState(nextState, 'Perfil', nextURL);
     document.getElementById("email").classList.add('vermei')
     
 } 
 if (window.location.href.includes(md5('cpf=false'))){
+    let nextURL = window.location.href.replace(md5('cpf=false'),'').replace('?','');
+    let nextState = { additionalInformation: 'Updated the URL with JS' };
+    window.history.replaceState(nextState, 'Perfil', nextURL);
     alerta+='CPF já cadastrado!'
     document.getElementById("cpf").classList.add('vermei')
 }
@@ -217,14 +223,21 @@ $("#cep").focusout(function(){
         url: 'https://viacep.com.br/ws/'+$(this).val().toString().replace(/-/, '').replace('.', '')+'/json/unicode/',
         dataType: 'json',
         success: function(resposta){
-            $("#rua").val(resposta.logradouro);
-            $("#bairro").val(resposta.bairro);
-            $("#cidade").val(resposta.localidade);
-            $("#estado").val(resposta.uf);
-            $("#estado").css('opacity', '1').change();
-            document.getElementById("numero").focus();
-            estado = resposta.uf;
-        }
+            if(resposta.logradouro == undefined || resposta.bairro == undefined || resposta.localidade == undefined || resposta.uf == undefined){
+                abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','| Dados Inválidos |')
+                document.getElementById('cep').classList.add('vermei')
+                document.getElementById('cep').focus()
+                return
+            } else {
+                document.getElementById('cep').classList.remove('vermei')
+                $("#rua").val(resposta.logradouro);
+                $("#bairro").val(resposta.bairro);
+                $("#cidade").val(resposta.localidade);
+                $("#estado").val(resposta.uf);
+                $("#estado").css('opacity', '1').change();
+                document.getElementById("numero").focus();
+                estado = resposta.uf;
+        }}
     });
 });
 
