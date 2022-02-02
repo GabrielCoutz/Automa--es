@@ -114,6 +114,20 @@ function abrirjanela(cor, texto, titulo){
 }
 // -------------------- fim código popup --------------------
 
+if (window.location.href.includes(md5('erro=true'))) { // erro de cadastro
+    abrirjanela('red','<br>Não foi possível realizar o cadastro!', 'Conta não sincronizada')
+
+    document.getElementById('asdf_cancelar').style.display = 'none'
+    setTimeout(nada , 4000)
+    document.getElementById('asdf_cancelar').addEventListener('click',function(){
+            window.location.href = "../../index.php"
+        })
+    
+    let nextURL = window.location.href.replace(md5('erro=true'),'').replace('?','');
+    let nextState = { additionalInformation: 'Updated the URL with JS' };
+    window.history.replaceState(nextState, 'CadastroEmpresa', nextURL);
+}
+
 
 if (window.location.href.includes(md5('cnpj=false'))){
     abrirjanela('red','CNPJ já cadastrado!','| Andamento Cadastro | 2/3')

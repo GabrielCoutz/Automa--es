@@ -13,6 +13,7 @@ $email_padrao=$_SESSION['email_padrao'];
 $tel_padrao=$_SESSION['tel_padrao'];
 $nome_empresa_padrao=$_SESSION['nome_empresa_padrao'];
 $nome_fantasia_padrao=$_SESSION['nome_fantasia_padrao'];
+$ramo_padrao=$_SESSION['ramo_padrao'];
 
 
 $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
@@ -116,6 +117,11 @@ if(isset($_COOKIE['empresa'])) { // alteração de dados empresa
         }
         if(isset($nome_fantasia)){
             $result_nome_fantasia=mysqli_query($conec,"UPDATE empresa SET nome_fantasia='$nome_fantasia' WHERE nome_fantasia='$nome_fantasia_padrao'");
+        }
+        if(isset($_COOKIE['ramo'])){
+            $ramo=$_COOKIE['ramo'];
+
+            $result_ramo=mysqli_query($conec,"UPDATE empresa SET ramo='$ramo' WHERE ramo='$ramo_padrao'");
         }
         header('Location:'.$local.'?'.md5('livre=true'));
         exit;

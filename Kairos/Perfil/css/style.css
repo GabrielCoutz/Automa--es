@@ -6,6 +6,10 @@
     justify-content: center !important;
 }
 
+.select{
+  width: auto !important;
+}
+
 .none{
   display: none;
 }

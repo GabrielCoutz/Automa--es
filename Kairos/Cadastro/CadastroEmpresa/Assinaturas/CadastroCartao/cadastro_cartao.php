@@ -9,6 +9,12 @@
   <link rel="shortcut icon" href="../../../../assets/img/favicon/favicon.ico" type="image/x-icon">
   <?php
     session_start();
+    error_reporting(E_ERROR | E_PARSE);
+    if(!isset($_SESSION['cadastro']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
+      header("Refresh:0; url=cadastro_cartao.php".'?'.md5('erro=true'));
+      exit;
+	}
+
     $_SESSION['assinatura'] = $_GET['plano'];
   ?>
 
@@ -197,6 +203,7 @@
   <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js'></script>
   <script src='https://unpkg.com/vue-the-mask@0.11.1/dist/vue-the-mask.js'></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js'></script>
   <script  src="script.js"></script>
 
 </body>

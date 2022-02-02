@@ -6,6 +6,11 @@ function fadeout() {
     document.querySelector('.preloader').style.opacity = '0';
     document.querySelector('.preloader').style.display = 'none';
 }
+
+function nada(){
+    document.getElementById('asdf_cancelar').click()
+}
+
 $('select').on('change', function() {
     if (this.value == "1") {
       $(this).css('opacity', '0.7');
@@ -332,14 +337,11 @@ function validar(){
         localStorage.setItem(tel.id,tel.value)
         localStorage.setItem(cep.id,cep.value)
         localStorage.setItem(numero.id,numero.value)
-        var tamanho = 'p';
-        var cor = 'blue';
-        var modo = 'alert';
-        var titulo = '| Andamento Cadastro | 1/3';
-        var texto = 'Verificando Banco de Dados, caso tudo certo prosseguiremos.';
-        janelaPopUp.abre( "asdf", tamanho + " "  + cor + ' ' + modo,  titulo ,  texto)
+        abrirjanela('blue','Verificando Banco de Dados, caso tudo certo prosseguiremos.')
+        document.getElementById('asdf_cancelar').style.display = 'none'
+        setTimeout(nada , 4000)
         document.getElementById('asdf_cancelar').addEventListener('click',function(){
-            document.getElementById('cadastro').submit();
-        })
+                document.getElementById('cadastro').submit()
+            })
     }
 }

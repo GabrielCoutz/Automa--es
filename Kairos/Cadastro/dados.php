@@ -50,6 +50,7 @@ if($duplicado){
     "INSERT INTO usuario(nome,email,cpf,cep,senha) VALUES('$nome','$email','$cpf','$cep','$senha');
      INSERT INTO endereco(cpf_usuario,cep,rua,numero,bairro,cidade,estado) VALUES((SELECT cpf FROM usuario WHERE cpf = '$cpf'),'$cep', '$rua', '$numero', '$bairro', '$cidade', '$estado');
      INSERT INTO telefone(cpf_usuario, tel) VALUES((SELECT cpf FROM usuario WHERE cpf = '$cpf'), '$tel')");
+     echo 'teste';
     header('Location: CadastroEmpresa/cadastro_empresa.php');
     exit;
 }

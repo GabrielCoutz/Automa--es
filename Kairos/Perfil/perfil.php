@@ -20,9 +20,13 @@
       $dbUname = 'root';
       $dbPass = '';
       $dbName     = 'kairos';
-
-      $email=$_SESSION['email'];
-
+      error_reporting(E_ERROR | E_PARSE);
+      if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
+        header("Refresh:0; url=perfil.php".'?'.md5('erro=true'));
+        exit;
+      } else {
+        $email=$_SESSION['email'];
+      }
 
       $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 
@@ -58,6 +62,7 @@
       $id_empresa=$result_empresa['id'];
       $cnpj_empresa=$result_empresa['cnpj'];
       $_SESSION['cnpj_padrao']=$result_empresa['cnpj'];
+      $_SESSION['ramo_padrao']=$result_empresa['ramo'];
 
       $select_empresa_endereco=mysqli_query($conec, "SELECT * FROM endereco_empresa WHERE cnpj_empresa = '$cnpj_empresa'");
       $result_empresa_endereco=$select_empresa_endereco->fetch_assoc();
@@ -229,7 +234,6 @@
                         <div class="col-sm-3">
                           <h6 class="mb-0">CNPJ</h6>
                         </div>
-                        <input class='none'type="text" id='cnpj_input' name='cnpj_input' onkeypress="$(this).mask('00.000.000/0000-00')">
                         <div class="col-sm-9 text-secondary" id='cnpj'>
                         <a><?= ucwords($result_empresa['cnpj']) ?></a>
                         </div>
@@ -239,7 +243,18 @@
                         <div class="col-sm-3">
                           <h6 class="mb-0">Ramo</h6>
                         </div>
-                        <input class='none'type="text" id='ramo_input' name='ramo_input'>
+                          <select class="form-control selectpicker select none" onChange="selecionar2(this)" id="ramo_input" name="ramo_input"> 
+                              <option value="ramo">Selecione o Ramo</option>
+                              <option>Alimentação</option>
+                              <option>Construção</option>
+                              <option>Educação</option>
+                              <option>Entretenimento</option>
+                              <option>Saúde</option>
+                              <option>Serviços Pessoais</option>
+                              <option>Tecnologia</option>
+                              <option>Vendas</option>
+                              <option>Vestuário</option>
+                          </select> 
                         <div class="col-sm-9 text-secondary" id='ramo'>
                         <a><?= ucwords($result_empresa['ramo']) ?></a>
                         </div>
@@ -249,7 +264,7 @@
                         <div class="col-sm-3">
                           <h6 class="mb-0">CEP</h6>
                         </div>
-                        <input class='none'type="text" id='cep_empresa_input' name='cep_empresa_input' onkeypress="$(this).mask('00.000-000')" onchange="vazio_empresa()">
+                        <input class='none'type="tel" id='cep_empresa_input' name='cep_empresa_input' onkeypress="$(this).mask('00.000-000')" onchange="vazio_empresa()">
                         <div class="col-sm-9 text-secondary" id='cep_empresa'>
                         <a><?= $result_empresa_endereco['cep'] ?></a>
                         </div>
@@ -269,7 +284,7 @@
                         <div class="col-sm-3">
                           <h6 class="mb-0">Número</h6>
                         </div>
-                        <input class='none'type="text" id='numero_empresa_input' name='numero_empresa_input' onchange="vazio_empresa()">
+                        <input class='none'type="tel" id='numero_empresa_input' name='numero_empresa_input' onchange="vazio_empresa()">
                         <div class="col-sm-9 text-secondary" id='numero_empresa'>
                         <a><?= $result_empresa_endereco['numero'] ?></a>
                         </div>
@@ -299,36 +314,6 @@
                         <div class="col-sm-3">
                           <h6 class="mb-0">Estado</h6>
                         </div>
-                        <select class="form-control selectpicker none select" id="estado_empresa_input" name='estado_input'>
-                          <option value="1">Estado</option>
-                          <option value="AC">Acre</option>
-                          <option value="AL">Alagoas</option>
-                          <option value="AP">Amapá</option>
-                          <option value="AM">Amazonas</option>
-                          <option value="BA">Bahia</option>
-                          <option value="CE">Ceará</option>
-                          <option value="DF">Distrito Federal</option>
-                          <option value="ES">Espírito Santo</option>
-                          <option value="GO">Goiás</option>
-                          <option value="MA">Maranhão</option>
-                          <option value="MT">Mato Grosso</option>
-                          <option value="MS">Mato Grosso do Sul</option>
-                          <option value="MG">Minas Gerais</option>
-                          <option value="PA">Pará</option>
-                          <option value="PB">Paraíba</option>
-                          <option value="PR">Paraná</option>
-                          <option value="PE">Pernambuco</option>
-                          <option value="PI">Piauí</option>
-                          <option value="RJ">Rio de Janeiro</option>
-                          <option value="RN">Rio Grande do Norte</option>
-                          <option value="RS">Rio Grande do Sul</option>
-                          <option value="RO">Rondônia</option>
-                          <option value="RR">Roraima</option>
-                          <option value="SC">Santa Catarina</option>
-                          <option value="SP">São Paulo</option>
-                          <option value="SE">Sergipe</option>
-                          <option value="TO">Tocantins</option>
-                        </select>
                         <div class="col-sm-9 text-secondary" id='estado_empresa' name='estado_empresa_input'>
                         <a><?= $result_empresa_endereco['estado'] ?></a>
                         </div>

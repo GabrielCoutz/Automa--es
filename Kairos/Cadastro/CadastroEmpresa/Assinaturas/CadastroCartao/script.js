@@ -6,6 +6,10 @@ function fadeout() {
   document.querySelector('.preloader').style.opacity = '0';
   document.querySelector('.preloader').style.display = 'none';
 }
+
+function nada(){
+  document.getElementById('asdf_cancelar').click()
+}
 // -------------------- início código popup --------------------
 var janelaPopUp = new Object();
 
@@ -87,12 +91,26 @@ janelaPopUp.fecha = function(id){
 }
 // -------------------- fim código popup --------------------
 
-function abrirjanela(cor, texto){
+function abrirjanela(cor, texto, titulo){
   var tamanho = 'p';
   var modo = 'alert';
-  var titulo = '| Andamento Cadastro | 3/3';
   janelaPopUp.abre( "asdf", tamanho + " "  + cor + ' ' + modo,  titulo ,  texto)
 }
+
+if (window.location.href.includes(md5('erro=true'))) { // erro de cadastro
+  abrirjanela('red','<br>Não foi possível realizar o cadastro!', 'Conta não sincronizada')
+
+  document.getElementById('asdf_cancelar').style.display = 'none'
+  setTimeout(nada , 4000)
+  document.getElementById('asdf_cancelar').addEventListener('click',function(){
+          window.location.href = "../../../../index.php"
+      })
+  
+  let nextURL = window.location.href.replace(md5('erro=true'),'').replace('?','');
+  let nextState = { additionalInformation: 'Updated the URL with JS' };
+  window.history.replaceState(nextState, 'CadastroCartao', nextURL);
+}
+
 function validar(){
   var num = document.getElementById('cardNumber')
   var nome = document.getElementById('cardName')
@@ -128,7 +146,7 @@ function validar(){
     cvv.focus()
     cvv.classList.add('vermei')
   } else {
-    abrirjanela('green','Cartão cadastrado com sucesso!')
+    abrirjanela('green','Cartão cadastrado com sucesso!','| Cadastro Finalizado |')
     document.getElementById('asdf_cancelar').addEventListener('click',function(){
       document.getElementById('cadastro').submit()
       

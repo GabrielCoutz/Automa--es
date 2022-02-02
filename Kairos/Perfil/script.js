@@ -23,7 +23,6 @@ const conteudo_cidade = document.getElementById('cidade_empresa').innerText
 
 const conteudo_nome_empresa = document.getElementById('nome_empresa').innerText
 const conteudo_nome_fantasia = document.getElementById('nome_fantasia').innerText
-const conteudo_cnpj = document.getElementById('cnpj').innerText
 const conteudo_ramo = document.getElementById('ramo').innerText
 const conteudo_cep = document.getElementById('cep_empresa').innerText
 const conteudo_numero = document.getElementById('numero_empresa').innerText
@@ -187,6 +186,21 @@ if (window.location.href.includes(md5('senha=false'))) { // senha erro
     window.history.replaceState(nextState, 'Perfil', nextURL);
 }
 
+if (window.location.href.includes(md5('erro=true'))) { // erro de login
+    abrirjanela('red','Erro inesperado!<br>Por favor, faça login novamente.', 'Conta não sincronizada')
+    document.getElementsByClassName('container')[0].style.display = 'none'
+    document.getElementById('asdf_cancelar').style.display = 'none'
+    setTimeout(nada , 3000)
+    document.getElementById('asdf_cancelar').addEventListener('click',function(){
+            window.location.href = "../Login/index.php"
+        })
+    
+    let nextURL = window.location.href.replace(md5('erro=true'),'').replace('?','');
+    let nextState = { additionalInformation: 'Updated the URL with JS' };
+    window.history.replaceState(nextState, 'Perfil', nextURL);
+
+}
+
 
 if(alerta != ""){
     abrirjanela('red',alerta, '| Alteração Inválida |')
@@ -248,6 +262,10 @@ $.ajax({
     }
 });
 });
+var ramo = ""
+function selecionar2(obj){
+    ramo = obj.options[obj.selectedIndex].text
+}
 
 function vazio_senha(){
     let senha_antiga = document.getElementById('senha_antiga').value
@@ -432,11 +450,10 @@ function cancelar_empresa(){
 function editar_empresa(){
 
     alternar_edicao_empresa()
-
     document.getElementById('nome_empresa_input').placeholder = conteudo_nome_empresa
     document.getElementById('nome_fantasia_input').placeholder = conteudo_nome_fantasia
-    document.getElementById('cnpj_input').placeholder = conteudo_cnpj
-    document.getElementById('ramo_input').placeholder = conteudo_ramo
+    $('#ramo_input').val(conteudo_ramo); 
+    $('#ramo_input').change();
     document.getElementById('cep_empresa_input').placeholder = conteudo_cep
     document.getElementById('numero_empresa_input').placeholder = conteudo_numero
 }
@@ -509,13 +526,16 @@ function salvar_usuario(){
 function salvar_empresa(){
     let nome_empresa = document.getElementById('nome_empresa_input')
     let nome_fantasia = document.getElementById('nome_fantasia_input')
-    let cnpj = document.getElementById('cnpj_input')
+    let ramo = document.getElementById('ramo_input')
     let cep_empresa = document.getElementById('cep_empresa_input').value
     let numero_empresa = document.getElementById('numero_empresa_input').value
 
     nome_empresa.classList.remove('vermei')
     nome_fantasia.classList.remove('vermei')
-    cnpj.classList.remove('vermei')
+
+    if (ramo.value != conteudo_ramo){
+        Cookies.set('ramo',ramo.value)
+    }
 
     if(nome_empresa.value == conteudo_nome_empresa){
         nome_empresa.classList.add('vermei')
@@ -527,7 +547,7 @@ function salvar_empresa(){
         abrirjanela('red','Nome Fantasia já utilizado!<br>Se não deseja alterá-lo apenas deixe em branco.<br>Senão, verifique a escrita.','Alteração Inválida')
         return
     }
-    if (nome_fantasia.value == '' && nome_empresa.value == '' && cep_empresa == '' && numero_empresa == ''){
+    if (nome_fantasia.value == '' && nome_empresa.value == '' && cep_empresa == '' && numero_empresa == '' && ramo.value == conteudo_ramo){
         abrirjanela('blue','<br>Dados não preenchidos<br> Cancelando alteração...','Dados Inexistentes')
         document.getElementById('cancelar_empresabtn').click()
         document.getElementById('asdf_cancelar').style.display = 'none'

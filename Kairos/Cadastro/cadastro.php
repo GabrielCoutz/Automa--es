@@ -2,6 +2,7 @@
 <html>
 	<?php
 	session_start();
+	$_SESSION['cadastro']=md5('valido')
 	?>
 	<head>
 		<meta charset="utf-8">
@@ -79,8 +80,7 @@
 					<div class="form-holder">
 						<span class="lnr lnr-map-marker"></span>
 						<div class="input-group">
-							<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-						<select name="estado" class="form-control selectpicker" onChange="selecionar(this)" id="estado" name='estado'>
+						<select class="form-control selectpicker none select" id="estado" name='estado'>
 							<option value="1">Estado</option>
 							<option value="AC">Acre</option>
 							<option value="AL">Alagoas</option>
