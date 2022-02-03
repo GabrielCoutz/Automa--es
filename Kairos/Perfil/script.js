@@ -28,7 +28,6 @@ const conteudo_cep = document.getElementById('cep_empresa').innerText
 const conteudo_numero = document.getElementById('numero_empresa').innerText
 
 $(function(){
-		
     $(document.body).on('click', '.changeType' ,function(){
         $(this).closest('.phone-input').find('.type-text').text($(this).text());
         $(this).closest('.phone-input').find('.type-input').val($(this).data('type-value'));
@@ -41,7 +40,10 @@ $(function(){
     
     
     $('.btn-add-phone').click(function(){
-
+        if(document.getElementById('del_tel').style.display != 'none'){
+            $('#del_tel').toggle();
+            
+        };
         var index = $('.phone-input').length + 1;
         var num = "'(00) 0000-00009'"
         $('.phone-list').append(''+
@@ -57,12 +59,14 @@ $(function(){
     });
         var pos = 1
     $('.btn-del-phone').click(function(){
+        $('.btn-add-phone').toggle();
+        $('.btn-del-phone').toggle();
         while(document.getElementById('tel').innerText.split('(')[pos] != undefined){
             $('.phone-list').append(''+
-            '<div>'+
+            '<div class="exclusao_tel">'+
                 '<div class="del_num" id="del_tel'+pos+'">'+'('+document.getElementById('tel').innerText.split('(')[pos]+'</div>'+
                     '<span class="input-group-btn">'+
-                        '<button class="btn btn-danger btn-excluir-phone btn-info" type="button" onclick="deletar_tel(this)" id="del_telbtn'+pos+'"><span class="lnr lnr-cross"></span></button>'+
+                        '<button class="btn btn-danger btn-remove-phone btn-info" type="button" onclick="deletar_tel(this)" id="del_telbtn'+pos+'"><span class="lnr lnr-cross"></span></button>'+
                     '</span>'+ '<br>'+
             '</div>'
         
@@ -373,7 +377,6 @@ function cancelar_senha(){
 }
 
 function alternar_edicao(){
-    $("#tel_input").toggle();
     $("#add_tel").toggle();
     $("#del_tel").toggle();
     $("#email_input").toggle();
@@ -438,11 +441,15 @@ function cancelar_usuario(){
     document.getElementById('tel_input').value = ''
     document.getElementById('email_input').value = ''
     $('.adicional').closest('.phone-input').remove();
+    $('.exclusao_tel').remove();
     document.getElementById("tel_input").classList.remove('vermei')
 
     document.getElementById("editarsenha").disabled = false;
 
     alternar_edicao()
+    if(document.getElementById('add_tel').style.display != 'none'){
+        document.getElementById('add_tel').style.display = 'none'
+    }
 
     document.getElementById('pass').style.display = 'none'
     document.getElementById('pass2').style.display = 'none'
@@ -451,6 +458,13 @@ function cancelar_usuario(){
     $('#senha_antiga').value = ''
     $('#senha_nova').value = ''
     $('#senha_nova_dup').value = ''
+    document.getElementById('del_tel').style.display = 'none'
+    let pos = 1
+    while(document.getElementById('del_tel'+pos)){
+        $('#del_telbtn'+pos).remove();
+        document.getElementById('del_tel'+pos).remove()
+        pos++
+    }
 }
 
 function cancelar_empresa(){
