@@ -142,6 +142,7 @@
                           <div class="input-group phone-input">
                             <input class='none'type="tel" id='tel_input' name='tel_input' onkeypress="$(this).mask('(00) 0000-00009')">
                             <button type="button" class="btn btn-success btn-sm btn-add-phone none" id='add_tel'><span class="glyphicon glyphicon-plus" ></span> Adicionar telefone</button>
+                            <button type="button" class="btn btn-success btn-sm btn-del-phone none" id='del_tel'><span class="glyphicon glyphicon-plus" ></span> Excluir telefone</button>
                           </div>
                         </div>
                         

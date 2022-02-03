@@ -37,6 +37,7 @@ $(function(){
     $(document.body).on('click', '.btn-remove-phone' ,function(){
         $(this).closest('.phone-input').remove();
     });
+
     
     
     $('.btn-add-phone').click(function(){
@@ -54,8 +55,34 @@ $(function(){
         );
 
     });
-    
+        var pos = 1
+    $('.btn-del-phone').click(function(){
+        while(document.getElementById('tel').innerText.split('(')[pos] != undefined){
+            $('.phone-list').append(''+
+            '<div>'+
+                '<div class="del_num" id="del_tel'+pos+'">'+'('+document.getElementById('tel').innerText.split('(')[pos]+'</div>'+
+                    '<span class="input-group-btn">'+
+                        '<button class="btn btn-danger btn-excluir-phone btn-info" type="button" onclick="deletar_tel(this)" id="del_telbtn'+pos+'"><span class="lnr lnr-cross"></span></button>'+
+                    '</span>'+ '<br>'+
+            '</div>'
+        
+        );
+        pos += 1
+        }
+        
+    });
+
 });
+
+function deletar_tel(tel){
+    let elemento = document.getElementById(tel.id.replace('btn',''))
+    if(elemento.style.opacity != '0.5'){
+        elemento.style.opacity = '0.5'
+    } else {
+        elemento.style.opacity = '1'
+    }
+
+}
 
 // -------------------- início código popup --------------------
 var janelaPopUp = new Object();
@@ -251,7 +278,7 @@ $.ajax({
             document.getElementById('cep_empresa_input').value = ''
             return
             
-        }else {
+        } else {
             document.getElementById('cep_empresa_input').classList.remove('vermei')
             document.getElementById('rua_empresa').innerHTML = resposta.logradouro
             document.getElementById('bairro_empresa').innerHTML = resposta.bairro
@@ -262,6 +289,7 @@ $.ajax({
     }
 });
 });
+
 var ramo = ""
 function selecionar2(obj){
     ramo = obj.options[obj.selectedIndex].text
@@ -347,12 +375,12 @@ function cancelar_senha(){
 function alternar_edicao(){
     $("#tel_input").toggle();
     $("#add_tel").toggle();
+    $("#del_tel").toggle();
     $("#email_input").toggle();
 
     $("#editar").toggle();
     $("#cancelar").toggle();
     $("#salvar").toggle();
-
     $("#tel").toggle();
     $("#email").toggle();
 }
