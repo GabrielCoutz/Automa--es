@@ -42,7 +42,6 @@ $(function(){
     $('.btn-add-phone').click(function(){
         if(document.getElementById('del_tel').style.display != 'none'){
             $('#del_tel').toggle();
-            
         };
         var index = $('.phone-input').length + 1;
         var num = "'(00) 0000-00009'"
@@ -57,14 +56,15 @@ $(function(){
         );
 
     });
-        var pos = 1
+        
     $('.btn-del-phone').click(function(){
+        var pos = 1
         $('.btn-add-phone').toggle();
         $('.btn-del-phone').toggle();
         while(document.getElementById('tel').innerText.split('(')[pos] != undefined){
             $('.phone-list').append(''+
             '<div class="exclusao_tel">'+
-                '<div class="del_num" id="del_tel'+pos+'">'+'('+document.getElementById('tel').innerText.split('(')[pos]+'</div>'+
+                '<div class="del_num" id="del_tel'+pos+'" name="del_tel'+pos+'">'+'('+document.getElementById('tel').innerText.split('(')[pos]+'</div>'+
                     '<span class="input-group-btn">'+
                         '<button class="btn btn-danger btn-remove-phone btn-info" type="button" onclick="deletar_tel(this)" id="del_telbtn'+pos+'"><span class="lnr lnr-cross"></span></button>'+
                     '</span>'+ '<br>'+
@@ -501,6 +501,26 @@ function editar_empresa(){
 }
 
 function salvar_usuario(){
+    let numeros = []
+    if (document.getElementsByClassName('exclusao_tel')[0] != undefined){
+        let pos = 1
+        while(document.getElementById('del_tel'+pos) != undefined){
+            if (document.getElementById('del_tel'+pos).style.opacity == '0.5'){
+                numeros.push(document.getElementById('del_tel'+pos).innerText)
+            }
+        pos ++
+        }
+    Cookies.set('excluir_num',1)
+    Cookies.set('excluir_nums',numeros.length)
+    Cookies.set('numeros',numeros)
+    let a = 1
+    numeros.forEach((item)=>{
+        Cookies.set('del_num'+a,item)
+        a++
+    });
+    document.getElementById('dados_usuario').submit()
+    
+    }
     document.getElementById("editarsenha").disabled = false;
     document.querySelectorAll('.adicional').forEach((item)=>{
         item.classList.remove('vermei')

@@ -19,6 +19,21 @@ $ramo_padrao=$_SESSION['ramo_padrao'];
 $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 
 
+if(isset($_COOKIE['excluir_num'])){
+    $limite = $_COOKIE['excluir_nums'];
+    $i = 1;
+    echo $_COOKIE['numeros'].'<br>';
+    while($limite > 0){
+        echo $_COOKIE['del_num'.$i].'<br>';
+        $exc = $_COOKIE['del_num'.$i];
+        $deletar = mysqli_query($conec, "DELETE FROM telefone WHERE tel='$exc'");
+        $i ++;
+        $limite --;
+    }
+    
+}
+
+
 if(isset($_COOKIE['usuario'])){ // alteração de dados usuário
     //echo 'alterar usuario';
     $email=$_POST['email_input'];
