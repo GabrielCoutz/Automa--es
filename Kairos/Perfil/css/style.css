@@ -10,6 +10,22 @@
   width: auto !important;
 }
 
+.btn-success{
+  position: relative !important;
+  color: #fff !important;
+}
+.btn-success:hover{
+  background-color: #28a745 !important;
+}
+
+#del_tel{
+  position: relative;
+  color: #fff;
+  margin-left: 10px;
+  background-color: #a82020cf;
+  border-color: #a82020;
+}
+
 .del_num{
   float: left;
   display: inline !important; 
@@ -35,6 +51,9 @@ input:last-child{
 .adicional{
   margin-top: 4px !important;
   height: 30px !important;
+}
+.input-group{
+  margin-top: 5px;
 }
 #tel_input{
   margin-bottom: 1px !important;
@@ -127,6 +146,10 @@ input::-webkit-input-placeholder {
 #cancelar_senhabtn, #salvar_senhabtn{
   color: white;
 }
+.phone-list{
+  margin-top: 11px;
+  margin-left: 10px;
+}
 #editarsenha, #salvar_senhabtn, #cancelar_senhabtn{
   white-space: nowrap;
   text-align: center;
@@ -155,7 +178,7 @@ input::-webkit-input-placeholder {
   border: none;
 }
 
-#editar, #editar_empresabtn, #editarsenha, #salvar, #cancelar, #salvar_empresabtn, #cancelar_empresabtn, .butao, #cancelar_senhabtn, #salvar_senhabtn{
+#editar, #editar_empresabtn, #editarsenha, #salvar, #cancelar, #salvar_empresabtn, #cancelar_empresabtn, .butao, #cancelar_senhabtn, #salvar_senhabtn, #del_tel, .btn-success, #sairbtn{
   overflow:hidden;
 }
 .circle{
@@ -172,7 +195,7 @@ input::-webkit-input-placeholder {
 #editar:hover, #editar_empresabtn:hover, #editarsenha:hover{
   color:white;
 }
-#editar:hover >.circle, #editar_empresabtn:hover >.circle, #editarsenha:hover >.circle, #salvar:hover >.circle, #cancelar:hover >.circle, #salvar_empresabtn:hover >.circle, #cancelar_empresabtn:hover >.circle, #sair:hover >.circle, .butao:hover>.circle, #cancelar_senhabtn:hover>.circle, #salvar_senhabtn:hover>.circle{
+#editar:hover >.circle, #editar_empresabtn:hover >.circle, #editarsenha:hover >.circle, #salvar:hover >.circle, #cancelar:hover >.circle, #salvar_empresabtn:hover >.circle, #cancelar_empresabtn:hover >.circle, #sair:hover >.circle, .butao:hover>.circle, #cancelar_senhabtn:hover>.circle, #salvar_senhabtn:hover>.circle, #del_tel:hover>.circle, .btn-success:hover>.circle, #sairbtn:hover>.circle{
   transform:scale(90);
 }
 
@@ -346,6 +369,7 @@ i {
     padding-right: 10px !important;
 }
 
+
 .btn-add-phone, .btn-remove-phone{
   margin-left: 0.5em !important;
 }
@@ -393,14 +417,26 @@ i {
     float: left;
   }
 }
+
 @media (max-width: 500px){
   .btn-remove-phone{
-    margin-left: 0.2em !important;
+    margin-left: 0.5em !important;
+    margin-top: 0;
   }
   .btn-add-phone{
     margin-right: 0.5em !important;
     width: 100%;
     margin-bottom: 2px !important;
+  }
+  #del_tel{
+    width: 100%;
+    margin-top: 10px;
+    margin-right: 0.5em;
+    margin-left: 0.5em;
+  }
+  .exclusao_tel{
+    padding-left: 15px;
+    margin-top: 5px;
   }
   #editarsenha{
     width: 100%;

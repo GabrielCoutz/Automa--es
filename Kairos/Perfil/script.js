@@ -381,6 +381,8 @@ function alternar_edicao(){
     $("#del_tel").toggle();
     $("#email_input").toggle();
 
+    document.getElementsByClassName('phone-list')[0].style.display = 'inline'
+
     $("#editar").toggle();
     $("#cancelar").toggle();
     $("#salvar").toggle();
@@ -421,7 +423,6 @@ function sair(){
 }
 
 function editar_usuario(){
-    let conteudo_tel = document.getElementById('tel').innerText
     let conteudo_email = document.getElementById('email').innerText
 
     document.getElementById("editarsenha").disabled = true;
@@ -432,21 +433,18 @@ function editar_usuario(){
 
     alternar_edicao()
 
-    document.getElementById('tel_input').placeholder = conteudo_tel.slice(0,15)
     document.getElementById('email_input').placeholder = conteudo_email
 
 }
 
 function cancelar_usuario(){
-    document.getElementById('tel_input').value = ''
     document.getElementById('email_input').value = ''
     $('.adicional').closest('.phone-input').remove();
     $('.exclusao_tel').remove();
-    document.getElementById("tel_input").classList.remove('vermei')
-
     document.getElementById("editarsenha").disabled = false;
 
     alternar_edicao()
+    document.getElementsByClassName('phone-list')[0].style.display = 'none'
     if(document.getElementById('add_tel').style.display != 'none'){
         document.getElementById('add_tel').style.display = 'none'
     }

@@ -22,13 +22,6 @@ $tel=$_POST['tel_input'];
 $tels= $_COOKIE['tels'];
 $num = 2;
 
-for($i= 0 ; $i < $tels ; $i++){
-    $tel_add = $_COOKIE['phone%5B'.$num.'%5D%5Bnumber%5D'];
-    echo $tel_add;
-    $num+=1;
-}
-
-
 if(isset($_COOKIE['excluir_num'])){ // deletar numeros de telefone
     $limite = $_COOKIE['excluir_nums'];
     $limite2 = $_COOKIE['excluir_nums'];

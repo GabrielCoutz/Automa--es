@@ -140,11 +140,10 @@
                         <div class="col-sm-3">
                           <h6 class="mb-0">Telefone</h6>
                         </div>
-                        <div class="phone-list">
+                        <div class="phone-list none">
                           <div class="input-group phone-input">
-                            <input class='none'type="tel" id='tel_input' name='tel_input' onkeypress="$(this).mask('(00) 0000-00009')">
-                            <button type="button" class="btn btn-success btn-sm btn-add-phone none" id='add_tel'><span class="glyphicon glyphicon-plus" ></span> Adicionar telefone</button>
-                            <button type="button" class="btn btn-success btn-sm btn-del-phone none" id='del_tel'><span class="glyphicon glyphicon-plus" ></span> Excluir telefone</button>
+                            <button type="button" class="btn btn-success btn-sm btn-add-phone none" id='add_tel'><div class='circle'></div>Adicionar telefone</button>
+                            <button type="button" class="btn btn-sm btn-del-phone none" id='del_tel'><div class='circle'></div>Excluir telefone</button>
                           </div>
                         </div>
                         
