@@ -18,21 +18,40 @@ $ramo_padrao=$_SESSION['ramo_padrao'];
 
 $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 
+$tel=$_POST['tel_input'];
+$tels= $_COOKIE['tels'];
+$num = 2;
 
-if(isset($_COOKIE['excluir_num'])){
+for($i= 0 ; $i < $tels ; $i++){
+    $tel_add = $_COOKIE['phone%5B'.$num.'%5D%5Bnumber%5D'];
+    echo $tel_add;
+    $num+=1;
+}
+
+
+if(isset($_COOKIE['excluir_num'])){ // deletar numeros de telefone
     $limite = $_COOKIE['excluir_nums'];
+    $limite2 = $_COOKIE['excluir_nums'];
+
     $i = 1;
-    echo $_COOKIE['numeros'].'<br>';
     while($limite > 0){
-        echo $_COOKIE['del_num'.$i].'<br>';
         $exc = $_COOKIE['del_num'.$i];
         $deletar = mysqli_query($conec, "DELETE FROM telefone WHERE tel='$exc'");
         $i ++;
         $limite --;
     }
+    $i = 1;
+    while($limite2 > 0){
+        setcookie('del_num'.$i, '', time() - 3600, '/');
+        $i ++;
+        $limite2 --;
+    }
+    setcookie('excluir_num', '', time() - 3600, '/');
+    setcookie('excluir_nums', '', time() - 3600, '/');
+    header('Location:'.$local.'?'.md5('livre=true'));
+    exit;
     
 }
-
 
 if(isset($_COOKIE['usuario'])){ // alteração de dados usuário
     //echo 'alterar usuario';
@@ -70,6 +89,16 @@ if(isset($_COOKIE['usuario'])){ // alteração de dados usuário
                 $num+=1;
             }
         }
+        $num = 2;
+        if ($tels != 0){
+            for($i= 0 ; $i < $tels ; $i++){
+                setcookie('phone%5B'.$num.'%5D%5Bnumber%5D', '', time() - 3600, '/');
+                $num+=1;
+            }
+        }
+        if (isset($_COOKIE['tels'])){
+            setcookie('tels', '', time() - 3600, '/');
+        }
         header('Location:'.$local.'?'.md5('livre=true'));
         exit;
     }
@@ -92,8 +121,23 @@ if(isset($_COOKIE['endereco_empresa'])){ // alteração do endereco da empresa
     UPDATE endereco_empresa SET cidade='$cidade_empresa' WHERE cnpj_empresa='$cnpj_padrao';
     UPDATE endereco_empresa SET estado='$estado_empresa' WHERE cnpj_empresa='$cnpj_padrao';");
 
+    setcookie('cep_empresa', '', time() - 3600, '/');
+    setcookie('numero_empresa', '', time() - 3600, '/');
+    setcookie('rua_empresa', '', time() - 3600, '/');
+    setcookie('bairro_empresa', '', time() - 3600, '/');
+    setcookie('cidade_empresa', '', time() - 3600, '/');
+    setcookie('estado_empresa', '', time() - 3600, '/');
+
     header('Location:'.$local.'?'.md5('livre=true'));
     exit;
+}
+
+if(isset($_COOKIE['ramo'])){ // alteração de ramo
+    $ramo=$_COOKIE['ramo'];
+
+    $result_ramo=mysqli_query($conec,"UPDATE empresa SET ramo='$ramo' WHERE ramo='$ramo_padrao'");
+
+    setcookie('ramo', '', time() - 3600, '/');
 }
 
 if(isset($_COOKIE['empresa'])) { // alteração de dados empresa
@@ -133,11 +177,7 @@ if(isset($_COOKIE['empresa'])) { // alteração de dados empresa
         if(isset($nome_fantasia)){
             $result_nome_fantasia=mysqli_query($conec,"UPDATE empresa SET nome_fantasia='$nome_fantasia' WHERE nome_fantasia='$nome_fantasia_padrao'");
         }
-        if(isset($_COOKIE['ramo'])){
-            $ramo=$_COOKIE['ramo'];
 
-            $result_ramo=mysqli_query($conec,"UPDATE empresa SET ramo='$ramo' WHERE ramo='$ramo_padrao'");
-        }
         header('Location:'.$local.'?'.md5('livre=true'));
         exit;
 
@@ -165,5 +205,6 @@ if(isset($_COOKIE['senha'])){ // alterar senha
 
 
 }
+
 ?>
 <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js'></script>

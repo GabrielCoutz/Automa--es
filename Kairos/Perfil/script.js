@@ -512,13 +512,17 @@ function salvar_usuario(){
         }
     Cookies.set('excluir_num',1)
     Cookies.set('excluir_nums',numeros.length)
-    Cookies.set('numeros',numeros)
     let a = 1
     numeros.forEach((item)=>{
         Cookies.set('del_num'+a,item)
         a++
     });
-    document.getElementById('dados_usuario').submit()
+    abrirjanela('blue','Verificando dados...','Validando Alteração')
+        document.getElementById('asdf_cancelar').style.display = 'none'
+        setTimeout(nada , 3000)
+        document.getElementById('asdf_cancelar').addEventListener('click', function(){
+            document.getElementById("dados_usuario").submit();
+        })
     
     }
     document.getElementById("editarsenha").disabled = false;
@@ -526,45 +530,34 @@ function salvar_usuario(){
         item.classList.remove('vermei')
     })
     document.getElementById("tel_input").classList.remove('vermei')
-    let tel = document.getElementById('tel_input').value
     let email = document.getElementById('email_input').value
     let adicional = false
     let valido = false
 
-    if(email != '' && tel == ''){
+    if(email != ''){
         document.getElementById("dados_usuario").submit();
         Cookies.set('usuario',1)
         return
     }
     var tels = 0
     document.querySelectorAll('.adicional').forEach((item)=>{
-
         tels ++
         Cookies.set(item.getAttribute('name'), item.value)
+        Cookies.set('usuario',1)
 
         if (item){
             adicional = true
-        } else {
-            adicional = false
         }
     });
 
-    if (tel == '' && email == '' && !adicional){
+    if (email == '' && !adicional && document.getElementsByClassName('exclusao_tel')[0] == undefined){
         abrirjanela('blue','<br>Dados não preenchidos<br> Cancelando alteração...','Dados Inexistentes')
         document.getElementById('cancelar').click()
         document.getElementById('asdf_cancelar').style.display = 'none'
         setTimeout(nada , 1500)
             return
         }
-
-    if (tel.length < 15 && !adicional){
-        abrirjanela('red','Telefone incompleto, por favor verifique-o!','Dados incompletos')
-        document.getElementById("tel_input").classList.add('vermei')
-        return
-    } else {
-        valido = true
-    }
-
+        
     if(adicional){
         document.querySelectorAll('.adicional').forEach((item)=>{
             if (item.value.length == 15){
@@ -577,7 +570,13 @@ function salvar_usuario(){
     })}
 
     if(valido){
-        document.getElementById("dados_usuario").submit();
+        abrirjanela('blue','Verificando dados...','Validando Alteração')
+        document.getElementById('asdf_cancelar').style.display = 'none'
+        setTimeout(nada , 3000)
+        document.getElementById('asdf_cancelar').addEventListener('click', function(){
+            document.getElementById("dados_usuario").submit();
+        })
+
         Cookies.set('usuario',1)
         Cookies.set('tels',tels)
     } else {
@@ -595,7 +594,7 @@ function salvar_empresa(){
     nome_empresa.classList.remove('vermei')
     nome_fantasia.classList.remove('vermei')
 
-    if (ramo.value != conteudo_ramo){
+    if (ramo.value != conteudo_ramo && ramo.value != undefined){
         Cookies.set('ramo',ramo.value)
     }
 
@@ -621,10 +620,6 @@ function salvar_empresa(){
         abrirjanela('blue','<br>Verificando dados...','Atualização de Dados')
         document.getElementById('asdf_cancelar').style.display = 'none'
         setTimeout(fechar_pop, 1500)
-        
-        //document.getElementById('asdf_cancelar').addEventListener//('click',function(){
-        //    document.getElementById("dados_empresa").submit()
-        //})
 
         Cookies.set('empresa',1)
         
