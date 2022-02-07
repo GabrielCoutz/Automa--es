@@ -59,7 +59,7 @@
 					</div>
 					<div class="form-holder">
 						<span class="lnr lnr-map-marker"></span>
-						<input type="tel" class="form-control" placeholder="CEP"  id="cep" name='cep' onkeypress="$(this).mask('00.000-000')">
+						<input type="tel" class="form-control" placeholder="CEP"  id="cep" name='cep' onkeypress="$(this).mask('00.000-000')" onkeyup="ler(this)">
 					</div>
 					<div class="form-holder">
 						<span class="lnr lnr-map-marker"></span>

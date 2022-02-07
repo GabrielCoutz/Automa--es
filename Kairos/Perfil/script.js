@@ -527,7 +527,6 @@ function salvar_usuario(){
     document.querySelectorAll('.adicional').forEach((item)=>{
         item.classList.remove('vermei')
     })
-    document.getElementById("tel_input").classList.remove('vermei')
     let email = document.getElementById('email_input').value
     let adicional = false
     let valido = false

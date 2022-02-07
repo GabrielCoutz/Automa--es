@@ -120,7 +120,7 @@
                       <h6 class="mb-0">CPF</h6>
                     </div>
                     <form action="verificar_dados.php" method="POST" id='dados_usuario' onsubmit="return false">
-                        <div class="col-sm-9 text-secondary" maxlength="14" type="text" id='cpf' name='xampson'>
+                        <div class="col-sm-9 text-secondary" maxlength="14" type="text" id='cpf'>
                           <a><?= $result['cpf'] ?></a>
                         </div>
                       </div>

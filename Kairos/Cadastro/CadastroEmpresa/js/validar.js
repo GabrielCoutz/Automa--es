@@ -114,6 +114,15 @@ function abrirjanela(cor, texto, titulo){
 }
 // -------------------- fim código popup --------------------
 
+const nome_empresa = document.getElementById("nome_empresa")
+const nome_fantasia = document.getElementById("nome_fantasia")
+const cnpj = document.getElementById("cnpj")
+const cep_empresa = document.getElementById("cep_empresa")
+const rua_empresa = document.getElementById("rua_empresa")
+const numero_empresa = document.getElementById("numero_empresa")
+const bairro_empresa = document.getElementById("bairro_empresa")
+const cidade_empresa = document.getElementById("cidade_empresa")
+
 if (window.location.href.includes(md5('erro=true'))) { // erro de cadastro
     abrirjanela('red','<br>Não foi possível realizar o cadastro!', 'Conta não sincronizada')
 
@@ -157,33 +166,7 @@ function selecionar(obj){
     estado_empresa = obj.options[obj.selectedIndex].text
 }
 
-$("#cep_empresa").focusout(function(){
-    $.ajax({
-        url: 'https://viacep.com.br/ws/'+$(this).val().toString().replace(/-/, '').replace('.', '')+'/json/unicode/',
-        dataType: 'json',
-        success: function(resposta){
-            if(resposta.logradouro == undefined || resposta.bairro == undefined || resposta.localidade == undefined || resposta.uf == undefined){
-                abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','| Dados Inválidos |')
-                document.getElementById('cep_empresa').classList.add('vermei')
-                document.getElementById('cep_empresa').focus()
-                return
-            } else {
-                document.getElementById('cep_empresa').classList.remove('vermei')
-                $("#rua_empresa").val(resposta.logradouro);
-                $("#bairro_empresa").val(resposta.bairro);
-                $("#cidade_empresa").val(resposta.localidade);
-                $("#estado_empresa").val(resposta.uf);
-                $("#estado_empresa").css('opacity', '1').change();
-                document.getElementById("numero_empresa").focus()
-                estado_empresa = resposta.uf;
-        }}
-    });
-});
-
-function validarCNPJ() {
-    cnpj = document.getElementById("cnpj").value
-    cnpj = cnpj.replace(/[^\d]+/g,'');
-
+function validarCNPJ(cnpj) {
     if (cnpj == "00000000000000" || 
         cnpj == "11111111111111" || 
         cnpj == "22222222222222" || 
@@ -224,78 +207,95 @@ function validarCNPJ() {
     
 }
 
-function validar(){
-    var nome_empresa = document.getElementById("nome_empresa")
-    var nome_fantasia = document.getElementById("nome_fantasia")
-    var cnpj = document.getElementById("cnpj")
-    var cep_empresa = document.getElementById("cep_empresa")
-    var rua_empresa = document.getElementById("rua_empresa")
-    var numero_empresa = document.getElementById("numero_empresa")
-    var bairro_empresa = document.getElementById("bairro_empresa")
-    var cidade_empresa = document.getElementById("cidade_empresa")
+cnpj.addEventListener('keyup',function(){
+    if(cnpj.value.length == 18){
+        if (cnpj.value == "" || validarCNPJ(cnpj.value.replace(/[^\d]+/g,'')) == 1){
+            alert("Por favor, insira um CNPJ válido!")
+            cnpj.focus()
+            cnpj.classList.add("vermei")
+        } else {
+            cnpj.classList.remove("vermei")
+        }
 
-    cep_empresa.classList.remove("vermei")
+    }
+})
+
+function ler(cep){
+    if(cep.value.length == 10){
+            $.ajax({
+                url: 'https://viacep.com.br/ws/'+cep.value.replace(/-/, '').replace('.', '')+'/json/unicode/',
+                dataType: 'json',
+                success: function(resposta){
+                    if(resposta.logradouro == undefined || resposta.bairro == undefined || resposta.localidade == undefined || resposta.uf == undefined){
+                        abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','| Dados Inválidos |')
+                        cep_empresa.classList.add('vermei')
+                        cep_empresa.focus()
+                        return
+                    } else {
+                        cep_empresa.classList.remove('vermei')
+                        $("#rua_empresa").val(resposta.logradouro);
+                        $("#bairro_empresa").val(resposta.bairro);
+                        $("#cidade_empresa").val(resposta.localidade);
+                        $("#estado_empresa").val(resposta.uf);
+                        $("#estado_empresa").css('opacity', '1').change();
+                        numero_empresa.focus()
+                        estado_empresa = resposta.uf;
+                }}
+            });
+    }
+}
+
+function validar(){
     rua_empresa.classList.remove("vermei")
     numero_empresa.classList.remove("vermei")
     bairro_empresa.classList.remove("vermei")
     cidade_empresa.classList.remove("vermei")
     document.getElementById("estado_empresa").classList.remove("vermei")
-    
     nome_empresa.classList.remove("vermei")
     nome_fantasia.classList.remove("vermei")
-    cnpj.classList.remove("vermei")
     document.getElementById("ramo").classList.remove("vermei")
     
     if(nome_empresa.value == ""){
-        alert("Por favor, preencha o Nome!");
-        document.getElementById("nome_empresa").focus()
+        alert("Por favor, preencha o Nome em Empresa!");
+        nome_empresa.focus()
         nome_empresa.classList.add("vermei")
 
     } else if (nome_fantasia.value == "") {
         alert("Por favor, preencha o Nome Fantasia!");
-        document.getElementById("nome_fantasia").focus()
+        nome_fantasia.focus()
         nome_fantasia.classList.add("vermei")
-
-    } else if (cnpj.value == "" || validarCNPJ(cnpj.value) == 1){
-        alert("Por favor, insira um CNPJ válido!");
-        document.getElementById("cnpj").focus()
-        cnpj.classList.add("vermei")
 
     } else if (ramo == "Selecione o Ramo"){
         alert("Por favor, preencha o ramo!")
-        document.getElementById("ramo").focus()
-        document.getElementById("ramo").classList.add("vermei")
-    }else if (cep_empresa.value == ""){
-        alert("Por favor, preencha o CEP!")
-        document.getElementById("cep_empresa").focus()
-        document.getElementById("cep_empresa").classList.add("vermei")
+        ramo.focus()
+        ramo.classList.add("vermei")
 
     } else if (rua_empresa.value == ""){
         alert("Por favor, preencha o Rua!")
-        document.getElementById("rua_empresa").focus()
-        document.getElementById("rua_empresa").classList.add("vermei")
+        rua_empresa.focus()
+        rua_empresa.classList.add("vermei")
 
     } else if (numero_empresa.value == ""){
         alert("Por favor, preencha o Número!")
-        document.getElementById("numero_empresa").focus()
-        document.getElementById("numero_empresa").classList.add("vermei")
+        numero_empresa.focus()
+        numero_empresa.classList.add("vermei")
 
     } else if (bairro_empresa.value == ""){
         alert("Por favor, preencha o Bairro!")
-        document.getElementById("bairro_empresa").focus()
-        document.getElementById("bairro_empresa").classList.add("vermei")
+        bairro_empresa.focus()
+        bairro_empresa.classList.add("vermei")
 
     } else if (cidade_empresa.value == ""){
         alert("Por favor, preencha a Cidade!")
-        document.getElementById("cidade_empresa").focus()
-        document.getElementById("cidade_empresa").classList.add("vermei")
+        cidade_empresa.focus()
+        cidade_empresa.classList.add("vermei")
 
     } else if (estado_empresa == "estado"){
         alert("Por favor, preencha o Estado!")
         document.getElementById("estado_empresa").focus()
         document.getElementById("estado_empresa").classList.add("vermei")
 
-    }else{
+    } else {
         localStorage.setItem(nome_empresa.id,nome_empresa.value)
         localStorage.setItem(nome_fantasia.id,nome_fantasia.value)
         localStorage.setItem(cep_empresa.id,cep_empresa.value)

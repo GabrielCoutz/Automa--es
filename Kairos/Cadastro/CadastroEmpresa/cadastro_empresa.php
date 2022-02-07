@@ -55,7 +55,7 @@
 					</div>
 					<div class="form-holder">
 						<span class="lnr lnr-apartment"></span>
-						<input type="text" class="form-control" placeholder="CNPJ"  id="cnpj" name="cnpj" onkeypress="$(this).mask('00.000.000/0000-00')">
+						<input type="tel" class="form-control" placeholder="CNPJ"  id="cnpj" name="cnpj" onkeypress="$(this).mask('00.000.000/0000-00')">
 					</div>
 					<div class="form-holder">
 						<span class="lnr lnr-apartment"></span>
@@ -82,7 +82,7 @@
 					</div>
 					<div class="form-holder">
 						<span class="lnr lnr-map-marker"></span>
-						<input type="text" class="form-control" placeholder="CEP"  id="cep_empresa" name="cep_empresa" onkeypress="$(this).mask('00.000-000')">
+						<input type="tel" class="form-control" placeholder="CEP"  id="cep_empresa" name="cep_empresa" onkeypress="$(this).mask('00.000-000')" onkeyup="ler(this)">
 					</div>
 					<div class="form-holder">
 						<span class="lnr lnr-map-marker"></span>
@@ -90,7 +90,7 @@
 					</div>
 					<div class="form-holder">
 						<span class="lnr lnr-map-marker"></span>
-						<input type="text" class="form-control" placeholder="Número"  id="numero_empresa" name="numero_empresa">
+						<input type="tel" class="form-control" placeholder="Número"  id="numero_empresa" name="numero_empresa">
 					</div>
 					<div class="form-holder">
 						<span class="lnr lnr-map-marker"></span>

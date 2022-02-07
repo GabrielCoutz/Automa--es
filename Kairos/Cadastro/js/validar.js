@@ -99,44 +99,58 @@ janelaPopUp.fecha = function(id){
 }
 // -------------------- fim código popup --------------------
 
+const nome = document.getElementById("nome")
+const tel = document.getElementById("tel")
+const email = document.getElementById("email")
+const cpf = document.getElementById("cpf")
+const senha = document.getElementById("senha")
+const confirm_senha = document.getElementById("confirm_senha")
+const cep = document.getElementById("cep")
+const rua = document.getElementById("rua")
+const numero = document.getElementById("numero")
+const bairro = document.getElementById("bairro")
+const cidade = document.getElementById("cidade")
+var estado = ""
+var alerta = ''
+
 function abrirjanela(cor, texto){
-    var tamanho = 'p';
-    var modo = 'alert';
-    var titulo = '| Andamento Cadastro | 1/3';
+    let tamanho = 'p';
+    let modo = 'alert';
+    let titulo = '| Andamento Cadastro | 1/3';
     janelaPopUp.abre( "asdf", tamanho + " "  + cor + ' ' + modo,  titulo ,  texto)
 }
-var alerta=''
+
 
 if (window.location.href.includes(md5('email=false'))){
     alerta='Email já cadastrado!<br>'
     let nextURL = window.location.href.replace(md5('email=false'),'').replace('?','');
     let nextState = { additionalInformation: 'Updated the URL with JS' };
     window.history.replaceState(nextState, 'Perfil', nextURL);
-    document.getElementById("email").classList.add('vermei')
+    email.classList.add('vermei')
     
 } 
+
 if (window.location.href.includes(md5('cpf=false'))){
     let nextURL = window.location.href.replace(md5('cpf=false'),'').replace('?','');
     let nextState = { additionalInformation: 'Updated the URL with JS' };
     window.history.replaceState(nextState, 'Perfil', nextURL);
     alerta+='CPF já cadastrado!'
-    document.getElementById("cpf").classList.add('vermei')
+    cpf.classList.add('vermei')
 }
 
 if (alerta != ''){
     abrirjanela('red',alerta)
-    document.getElementById('nome').value=localStorage.getItem('nome')
-    document.getElementById('tel').value=localStorage.getItem('tel')
-    document.getElementById('cep').value=localStorage.getItem('cep')
-    document.getElementById('numero').value=localStorage.getItem('numero')
+    nome.value=localStorage.getItem('nome')
+    tel.value=localStorage.getItem('tel')
+    cep.value=localStorage.getItem('cep')
+    numero.value=localStorage.getItem('numero')
     document.getElementById('asdf_cancelar').addEventListener('click',function(){
         if (localStorage.getItem('numero')){
-            document.getElementById('cep').focus()
+            cep.focus()
         }
     })
 }
 
-var estado=""
 let timeout;
 let password = document.getElementById('senha')
 let strengthBadge = document.getElementById('StrengthDisp')
@@ -221,103 +235,95 @@ function selecionar(obj){
     estado = obj.options[obj.selectedIndex].text
 }
 
+function ler(cep){
+    if(cep.value.length == 10){
+            $.ajax({
+                url: 'https://viacep.com.br/ws/'+cep.value.replace(/-/, '').replace('.', '')+'/json/unicode/',
+                dataType: 'json',
+                success: function(resposta){
+                    if(resposta.logradouro == undefined || resposta.bairro == undefined || resposta.localidade == undefined || resposta.uf == undefined){
+                        abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','| Dados Inválidos |')
+                        cep.classList.add('vermei')
+                        cep.focus()
+                        return
+                    } else {
+                        cep.classList.remove('vermei')
+                        $("#rua").val(resposta.logradouro);
+                        $("#bairro").val(resposta.bairro);
+                        $("#cidade").val(resposta.localidade);
+                        $("#estado").val(resposta.uf);
+                        $("#estado").css('opacity', '1').change();
+                        numero.focus();
+                        estado = resposta.uf;
+                }}
+            });
+    }
+}
 
+cpf.addEventListener('keyup',function(){
+    if(cpf.value.length == 14){
+        if (cpf.value.replace('.','').replace('-','') == "" || validar_cpf(cpf.value) == 1){
+            alert("Por favor, insira um CPF válido!")
+            cpf.focus()
+            cpf.classList.add("vermei")
+        } else {
+            cpf.classList.remove("vermei")
+        }
 
-$("#cep").focusout(function(){
-    $.ajax({
-        url: 'https://viacep.com.br/ws/'+$(this).val().toString().replace(/-/, '').replace('.', '')+'/json/unicode/',
-        dataType: 'json',
-        success: function(resposta){
-            if(resposta.logradouro == undefined || resposta.bairro == undefined || resposta.localidade == undefined || resposta.uf == undefined){
-                abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','| Dados Inválidos |')
-                document.getElementById('cep').classList.add('vermei')
-                document.getElementById('cep').focus()
-                return
-            } else {
-                document.getElementById('cep').classList.remove('vermei')
-                $("#rua").val(resposta.logradouro);
-                $("#bairro").val(resposta.bairro);
-                $("#cidade").val(resposta.localidade);
-                $("#estado").val(resposta.uf);
-                $("#estado").css('opacity', '1').change();
-                document.getElementById("numero").focus();
-                estado = resposta.uf;
-        }}
-    });
-});
+    }
+})
 
 
 function validar(){
-    var nome = document.getElementById("nome")
-    var tel = document.getElementById("tel")
-    var email = document.getElementById("email")
-    var cpf = document.getElementById("cpf")
-    var senha = document.getElementById("senha")
-    var confirm_senha = document.getElementById("confirm_senha")
-    var cep = document.getElementById("cep")
-    var rua = document.getElementById("rua")
-    var numero = document.getElementById("numero")
-    var bairro = document.getElementById("bairro")
-    var cidade = document.getElementById("cidade")
-
-
     nome.classList.remove("vermei")
     email.classList.remove("vermei")
     tel.classList.remove("vermei")
-    cpf.classList.remove("vermei")
     senha.classList.remove("vermei")
     confirm_senha.classList.remove("vermei")
-    cep.classList.remove("vermei")
     rua.classList.remove("vermei")
     numero.classList.remove("vermei")
     bairro.classList.remove("vermei")
     cidade.classList.remove("vermei")
     document.getElementById("estado").classList.remove("vermei")
 
-    if (tel.value.replace('(','').replace(')','').replace('-','').replace(' ','') == "") {
+    if (nome.value == ''){
+        alert("Por favor, preencha o nome!");
+        nome.focus()
+        nome.classList.add("vermei")
+    } else if (tel.value.replace('(','').replace(')','').replace('-','').replace(' ','') == "") {
         alert("Por favor, preencha o telefone!");
-        document.getElementById("tel").focus()
+        tel.focus()
         tel.classList.add("vermei")
 
     } else if (email.value == "" ||  !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email.value)){
         alert("Por favor, insira um email válido!");
-        document.getElementById("email").focus()
+        email.focus()
         email.classList.add("vermei")
-
-    } else if (cpf.value.replace('.','').replace('-','') == "" || validar_cpf(cpf.value) == 1){
-        alert("Por favor, insira um CPF válido!")
-        document.getElementById("cpf").focus()
-        document.getElementById("cpf").classList.add("vermei")
-
-    } else if (cep.value.replace('.','').replace('-','') == ""){
-        alert("Por favor, preencha o CEP!")
-        document.getElementById("cep").focus()
-        document.getElementById("cep").classList.add("vermei")
 
     } else if (rua.value == ""){
         alert("Por favor, preencha o Rua!")
-        document.getElementById("rua").focus()
-        document.getElementById("rua").classList.add("vermei")
+        rua.focus()
+        rua.classList.add("vermei")
 
     } else if (numero.value == ""){
         alert("Por favor, preencha o Número!")
-        document.getElementById("numero").focus()
-        document.getElementById("numero").classList.add("vermei")
+        numero.focus()
+        numero.classList.add("vermei")
 
     } else if (bairro.value == ""){
         alert("Por favor, preencha o Bairro!")
-        document.getElementById("bairro").focus()
-        document.getElementById("bairro").classList.add("vermei")
+        bairro.focus()
+        bairro.classList.add("vermei")
 
     } else if (cidade.value == ""){
         alert("Por favor, preencha a Cidade!")
-        document.getElementById("cidade").focus()
-        document.getElementById("cidade").classList.add("vermei")
+        cidade.focus()
+        cidade.classList.add("vermei")
 
     } else if (estado == ""){
         alert("Por favor, preencha o Estado!")
-        document.getElementById("estado").focus()
-        document.getElementById("estado").classList.add("vermei")
+        estado.focus()
+        estado.classList.add("vermei")
 
     } else if (senha.value == "" || confirm_senha.value == ""){
         alert("Por favor, preencha a senha!");
@@ -326,13 +332,13 @@ function validar(){
 
     } else if (senha.value != confirm_senha.value){
         alert("Senhas não coincidem! Por favor, verifique-as!")
-        document.getElementById("senha").focus()
+        senha.focus()
         senha.classList.add("vermei")
         confirm_senha.classList.add("vermei")
         senha.value=""
         confirm_senha.value=""
 
-    }else{
+    } else {
         localStorage.setItem(nome.id,nome.value)
         localStorage.setItem(tel.id,tel.value)
         localStorage.setItem(cep.id,cep.value)
