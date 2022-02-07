@@ -34,8 +34,9 @@ if($duplicado){
     header("Refresh:0; url="."$local");
     exit;
 } else {
-    $result=mysqli_multi_query($conec, "INSERT INTO empresa(cpf_usuario,nome,nome_fantasia,cnpj,ramo) VALUES((SELECT cpf FROM usuario WHERE cpf = '$cpf'),'$nome_empresa','$nome_fantasia','$cnpj','$ramo');
-    INSERT INTO endereco_empresa(cnpj_empresa,cep,rua,numero,bairro,cidade,estado) VALUES((SELECT cnpj FROM empresa WHERE cnpj = '$cnpj'),'$cep_empresa','$rua_empresa','$numero_empresa','$bairro_empresa','$cidade_empresa','$estado_empresa')");
+    $_SESSION['cmpny_data'] = "INSERT INTO empresa(cpf_usuario,nome,nome_fantasia,cnpj,ramo) VALUES((SELECT cpf FROM usuario WHERE cpf = '$cpf'),'$nome_empresa','$nome_fantasia','$cnpj','$ramo')";
+
+    $_SESSION['cmpny_edr_data'] = "INSERT INTO endereco_empresa(cnpj_empresa,cep,rua,numero,bairro,cidade,estado) VALUES((SELECT cnpj FROM empresa WHERE cnpj = '$cnpj'),'$cep_empresa','$rua_empresa','$numero_empresa','$bairro_empresa','$cidade_empresa','$estado_empresa')";
 
     header('Location: Assinaturas/assinatura.php');
     exit;

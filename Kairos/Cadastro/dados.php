@@ -19,6 +19,7 @@ $bairro=$_POST['bairro'];
 $cidade=$_POST['cidade'];
 $estado=$_POST['estado'];
 $senha=md5($_POST['senha']);
+$email=$_POST['email'];
 
 $duplicado=false;
 $local='cadastro.php';
@@ -43,13 +44,11 @@ if($duplicado){
     header("Refresh:0; url="."$local");
     exit;
 } else {
-    $_SESSION['email'] = $_POST['email'];
-    $email=$_POST['email'];
+    $_SESSION['usr_data'] = "INSERT INTO usuario(nome,email,cpf,cep,senha) VALUES('$nome','$email','$cpf','$cep','$senha')";
+
+    $_SESSION['edr_data'] = "INSERT INTO endereco(cpf_usuario,cep,rua,numero,bairro,cidade,estado) VALUES((SELECT cpf FROM usuario WHERE cpf = '$cpf'),'$cep', '$rua', '$numero', '$bairro', '$cidade', '$estado')";
     
-    $result=mysqli_multi_query($conec,
-    "INSERT INTO usuario(nome,email,cpf,cep,senha) VALUES('$nome','$email','$cpf','$cep','$senha');
-     INSERT INTO endereco(cpf_usuario,cep,rua,numero,bairro,cidade,estado) VALUES((SELECT cpf FROM usuario WHERE cpf = '$cpf'),'$cep', '$rua', '$numero', '$bairro', '$cidade', '$estado');
-     INSERT INTO telefone(cpf_usuario, tel) VALUES((SELECT cpf FROM usuario WHERE cpf = '$cpf'), '$tel')");
+    $_SESSION['cell_data'] = "INSERT INTO telefone(cpf_usuario, tel) VALUES((SELECT cpf FROM usuario WHERE cpf = '$cpf'), '$tel')";
      echo 'teste';
     header('Location: CadastroEmpresa/cadastro_empresa.php');
     exit;
