@@ -149,6 +149,7 @@ function validar(){
     abrirjanela('green','Cartão cadastrado com sucesso!','| Cadastro Finalizado |')
     document.getElementById('asdf_cancelar').addEventListener('click',function(){
       document.getElementById('cadastro').submit()
+      localStorage.clear();
       
   })
     

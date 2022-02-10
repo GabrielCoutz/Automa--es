@@ -420,6 +420,7 @@ function alternar_edicao_empresa(){
 
 function sair(){
     window.location.href= '../index.php'
+    localStorage.clear()
 }
 
 function editar_usuario(){

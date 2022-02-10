@@ -63,8 +63,8 @@
 						<div class="col-md-4 selectContainer">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-							<select class="form-control selectpicker" onChange="selecionar2(this)" id="ramo" name="ramo"> 
-							  <option value="ramo">Selecione o Ramo</option>
+							<select class="form-control selectpicker" id="ramo" name="ramo"> 
+							  <option value disabled selected>Selecione o Ramo</option>
 							  <option>Alimentação</option>
 							  <option>Construção</option>
 							  <option>Educação</option>
@@ -77,7 +77,6 @@
 							</select>
 						  </div>
 						</div>
-						
 
 					</div>
 					<div class="form-holder">
@@ -105,8 +104,8 @@
 						<div class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
 						
-							<select class="form-control selectpicker" onChange="selecionar(this)" id="estado_empresa" name="estado_empresa">
-							<option value="estado">Estado</option>
+							<select class="form-control selectpicker" id="estado_empresa" name="estado_empresa">
+							<option value disabled selected>Estado</option>
 							<option value="AC">Acre</option>
 							<option value="AL">Alagoas</option>
 							<option value="AP">Amapá</option>

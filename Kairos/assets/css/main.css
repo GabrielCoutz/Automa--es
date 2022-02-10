@@ -5,6 +5,7 @@
   align-items: center;
 }
 
+
 /*===========================
     01.COMMON css 
 ===========================*/
@@ -14,6 +15,12 @@ html {
 ::-webkit-scrollbar{
   width: 10px;
 }
+
+
+#home{
+  overflow: hidden !important;
+}
+
 ::-webkit-scrollbar-track{
   background: transparent;
   border-radius: 50px;
@@ -114,6 +121,7 @@ h2 {
 }
 
 h3 {
+  cursor: default;
   font-size: 25px;
 }
 
@@ -579,6 +587,12 @@ p {
   }
 }
 
+@media (min-width: 767px){
+  .content{
+    min-height: 170px;
+  }
+}
+
 .navbar-nav .nav-item .sub-menu {
   width: 200px;
   background-color: #fff;
@@ -1005,8 +1019,16 @@ p {
   padding-top: 150px;
 }
 
+.aaa{
+  margin-left: 150px;
+}
+
 .footer .widget-wrapper .footer-widget {
   margin-bottom: 40px;
+}
+
+.desc{
+  cursor: default;
 }
 
 .footer .widget-wrapper .footer-widget .desc {

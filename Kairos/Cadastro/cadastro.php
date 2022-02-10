@@ -81,7 +81,7 @@
 						<span class="lnr lnr-map-marker"></span>
 						<div class="input-group">
 						<select class="form-control selectpicker none select" id="estado" name='estado'>
-							<option value="1">Estado</option>
+							<option value disabled selected>Estado</option>
 							<option value="AC">Acre</option>
 							<option value="AL">Alagoas</option>
 							<option value="AP">Amapá</option>

@@ -12,7 +12,7 @@ function nada(){
 }
 
 $('select').on('change', function() {
-    if (this.value == "1") {
+    if (this.value == "") {
       $(this).css('opacity', '0.7');
     } else {
       $(this).css('opacity', '1');
@@ -110,7 +110,8 @@ const rua = document.getElementById("rua")
 const numero = document.getElementById("numero")
 const bairro = document.getElementById("bairro")
 const cidade = document.getElementById("cidade")
-var estado = ""
+const estado = document.getElementById("estado")
+
 var alerta = ''
 
 function abrirjanela(cor, texto){
@@ -231,10 +232,6 @@ function validar_cpf(cpf) {
     return 0
 }
 
-function selecionar(obj){
-    estado = obj.options[obj.selectedIndex].text
-}
-
 function ler(cep){
     if(cep.value.length == 10){
             $.ajax({
@@ -252,9 +249,8 @@ function ler(cep){
                         $("#bairro").val(resposta.bairro);
                         $("#cidade").val(resposta.localidade);
                         $("#estado").val(resposta.uf);
-                        $("#estado").css('opacity', '1').change();
+                        // $("#estado").css('opacity', '1').change();
                         numero.focus();
-                        estado = resposta.uf;
                 }}
             });
     }

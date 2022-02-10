@@ -10,6 +10,11 @@
   justify-content: center;
   align-items: center;
 }
+
+body{
+  background-color: #accffe !important;
+}
+
 .preloader {
   /* Body Overlay */
   position: fixed;

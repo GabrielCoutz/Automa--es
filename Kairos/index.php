@@ -60,7 +60,7 @@
           <div class="row align-items-center">
             <div class="col-lg-12">
               <nav class="navbar navbar-expand-lg">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand">
                   <img src="assets/img/logo/airos.png" alt="Logo" />
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -434,7 +434,7 @@
 						<div class="col-xl-3 col-md-6">
 							<div class="footer-widget">
 								<div class="logo mb-35">
-									<a href="index.html"> <img src="assets/img/logo/logo.svg" alt=""> </a>
+									<a><img src="assets/img/logo/airos.png" alt="" style="max-width: 150px;"></a>
 								</div>
 								<p class="desc mb-35">We are expert designer team, There have a lot of designer and developer If you have any project you can hire Create a website.</p>
 								<ul class="socials">
@@ -469,7 +469,7 @@
 
 						<div class="col-xl-3 col-md-6 col-sm-6">
 							<div class="footer-widget">
-								<h3>Services</h3>
+								<h3>Serviços</h3>
 								<ul class="links">
 									<li> <a href="javascript:void(0)">Graphic design</a> </li>
 									<li> <a href="javascript:void(0)">Web design</a> </li>
@@ -484,25 +484,16 @@
 
 						<div class="col-xl-3 col-md-6">
 							<div class="footer-widget">
-								<h3>Contact</h3>
+								<h3>Contato</h3>
 								<ul>
 									<li>+003894372632</li>
 									<li>helldesigner@gmail.ccom</li>
 									<li>United state of America</li>
 								</ul>
-								<div class="contact_map" style="width: 100%; height: 150px; margin-top: 25px;">
-									<div class="gmap_canvas">
-										<iframe id="gmap_canvas" src="https://maps.google.com/maps?q=Mission%20District%2C%20San%20Francisco%2C%20CA%2C%20USA&amp;t=&amp;z=13&amp;ie=UTF8&amp;iwloc=&amp;output=embed" style="width: 100%;"></iframe>
-									</div>
-									</div>
 							</div>
 						</div>
 
 					</div>
-				</div>
-
-				<div class="copy-right">
-					<p>Design and Developed by <a href="https://uideck.com" rel="nofollow" target="_blank"> UIdeck </a></p>
 				</div>
 
 			</div>

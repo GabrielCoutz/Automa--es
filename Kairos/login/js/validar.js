@@ -145,5 +145,6 @@ function validar(){
 
     } else{
         document.getElementById('cadastro').submit();
+        localStorage.clear();
     }
 }

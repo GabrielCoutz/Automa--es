@@ -11,9 +11,9 @@ function nada(){
     document.getElementById('asdf_cancelar').click()
 }
 
-var estado_empresa=""
+
 $('select[name="estado_empresa"]').on('change', function() {
-if (this.value == "estado") {
+if (this.value == "") {
     $(this).css('opacity', '0.7');
 } else {
     $(this).css('opacity', '1');
@@ -21,7 +21,7 @@ if (this.value == "estado") {
   }).change();
 
 $('select[name="ramo"]').on('change', function() {
-    if (this.value == "ramo") {
+    if (this.value == "") {
       $(this).css('opacity', '0.7');
     } else {
       $(this).css('opacity', '1');
@@ -122,6 +122,8 @@ const rua_empresa = document.getElementById("rua_empresa")
 const numero_empresa = document.getElementById("numero_empresa")
 const bairro_empresa = document.getElementById("bairro_empresa")
 const cidade_empresa = document.getElementById("cidade_empresa")
+const estado_empresa = document.getElementById("estado_empresa")
+const ramo = document.getElementById("ramo")
 
 if (window.location.href.includes(md5('erro=true'))) { // erro de cadastro
     abrirjanela('red','<br>Não foi possível realizar o cadastro!', 'Conta não sincronizada')
@@ -140,30 +142,19 @@ if (window.location.href.includes(md5('erro=true'))) { // erro de cadastro
 
 if (window.location.href.includes(md5('cnpj=false'))){
     abrirjanela('red','CNPJ já cadastrado!','| Andamento Cadastro | 2/3')
-    document.getElementById("cnpj").classList.add('vermei')
-    document.getElementById("cnpj").focus()
+    cnpj.classList.add('vermei')
+    cnpj.focus()
 
-    document.getElementById('nome_empresa').value=localStorage.getItem('nome_empresa')
-    document.getElementById('nome_fantasia').value=localStorage.getItem('nome_fantasia')
-    document.getElementById('cep_empresa').value=localStorage.getItem('cep_empresa')
-    document.getElementById('numero_empresa').value=localStorage.getItem('numero_empresa')
-    document.getElementById('ramo').value=localStorage.getItem('ramo')
+    nome_empresa.value=localStorage.getItem('nome_empresa')
+    nome_fantasia.value=localStorage.getItem('nome_fantasia')
+    cep_empresa.value=localStorage.getItem('cep_empresa')
+    numero_empresa.value=localStorage.getItem('numero_empresa')
+    ramo.value=localStorage.getItem('ramo')
     
     
     let nextURL = window.location.href.replace(md5('cnpj=false'),'').replace('?','');
     let nextState = { additionalInformation: 'Updated the URL with JS' };
     window.history.replaceState(nextState, 'Perfil', nextURL);
-}
-
-document.getElementById('estado_empresa').addEventListener('change', function() {
-    selecionar(document.getElementById('estado_empresa').value)
-});
-
-function selecionar2(obj){
-    var ramo = obj.options[obj.selectedIndex].text
-}
-function selecionar(obj){
-    estado_empresa = obj.options[obj.selectedIndex].text
 }
 
 function validarCNPJ(cnpj) {
@@ -237,9 +228,8 @@ function ler(cep){
                         $("#bairro_empresa").val(resposta.bairro);
                         $("#cidade_empresa").val(resposta.localidade);
                         $("#estado_empresa").val(resposta.uf);
-                        $("#estado_empresa").css('opacity', '1').change();
+                        //$("#estado_empresa").css('opacity', '1').change();
                         numero_empresa.focus()
-                        estado_empresa = resposta.uf;
                 }}
             });
     }
@@ -250,11 +240,11 @@ function validar(){
     numero_empresa.classList.remove("vermei")
     bairro_empresa.classList.remove("vermei")
     cidade_empresa.classList.remove("vermei")
-    document.getElementById("estado_empresa").classList.remove("vermei")
+    estado_empresa.classList.remove("vermei")
     nome_empresa.classList.remove("vermei")
     nome_fantasia.classList.remove("vermei")
-    document.getElementById("ramo").classList.remove("vermei")
-    
+    ramo.classList.remove("vermei")
+
     if(nome_empresa.value == ""){
         alert("Por favor, preencha o Nome em Empresa!");
         nome_empresa.focus()
@@ -265,7 +255,7 @@ function validar(){
         nome_fantasia.focus()
         nome_fantasia.classList.add("vermei")
 
-    } else if (ramo == "Selecione o Ramo"){
+    } else if (ramo == ""){
         alert("Por favor, preencha o ramo!")
         ramo.focus()
         ramo.classList.add("vermei")
@@ -290,10 +280,10 @@ function validar(){
         cidade_empresa.focus()
         cidade_empresa.classList.add("vermei")
 
-    } else if (estado_empresa == "estado"){
+    } else if (estado_empresa == ""){
         alert("Por favor, preencha o Estado!")
-        document.getElementById("estado_empresa").focus()
-        document.getElementById("estado_empresa").classList.add("vermei")
+        estado_empresa.focus()
+        estado_empresa.classList.add("vermei")
 
     } else {
         localStorage.setItem(nome_empresa.id,nome_empresa.value)
