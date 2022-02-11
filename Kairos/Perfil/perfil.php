@@ -245,8 +245,8 @@
                         <div class="col-sm-3">
                           <h6 class="mb-0">Ramo</h6>
                         </div>
-                          <select class="form-control selectpicker select none" onChange="selecionar2(this)" id="ramo_input" name="ramo_input"> 
-                              <option value="ramo">Selecione o Ramo</option>
+                          <select class="form-control selectpicker select none" id="ramo_input" name="ramo_input"> 
+                              <option value disabled selected>Selecione o Ramo</option>
                               <option>Alimentação</option>
                               <option>Construção</option>
                               <option>Educação</option>

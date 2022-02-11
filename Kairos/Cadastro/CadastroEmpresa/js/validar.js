@@ -228,7 +228,7 @@ function ler(cep){
                         $("#bairro_empresa").val(resposta.bairro);
                         $("#cidade_empresa").val(resposta.localidade);
                         $("#estado_empresa").val(resposta.uf);
-                        //$("#estado_empresa").css('opacity', '1').change();
+                        $("#estado_empresa").css('opacity', '1').change();
                         numero_empresa.focus()
                 }}
             });

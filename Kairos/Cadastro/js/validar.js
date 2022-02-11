@@ -249,7 +249,7 @@ function ler(cep){
                         $("#bairro").val(resposta.bairro);
                         $("#cidade").val(resposta.localidade);
                         $("#estado").val(resposta.uf);
-                        // $("#estado").css('opacity', '1').change();
+                        $("#estado").css('opacity', '1').change();
                         numero.focus();
                 }}
             });

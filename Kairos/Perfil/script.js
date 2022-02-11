@@ -247,7 +247,7 @@ if(alerta != ""){
 
 
 $('select').on('change', function() {
-    if (this.value == "1") {
+    if (this.value == "") {
       $(this).css('opacity', '0.7');
     } else {
       $(this).css('opacity', '1');
@@ -293,11 +293,6 @@ $.ajax({
     }
 });
 });
-
-var ramo = ""
-function selecionar2(obj){
-    ramo = obj.options[obj.selectedIndex].text
-}
 
 function vazio_senha(){
     let senha_antiga = document.getElementById('senha_antiga').value
