@@ -114,33 +114,38 @@ const estado = document.getElementById("estado")
 
 var alerta = ''
 
-function abrirjanela(cor, texto){
+function abrirjanela(cor, texto, titulo){
     let tamanho = 'p';
     let modo = 'alert';
-    let titulo = '| Andamento Cadastro | 1/3';
     janelaPopUp.abre( "asdf", tamanho + " "  + cor + ' ' + modo,  titulo ,  texto)
 }
 
+if (window.location.href.includes(md5('erro=true'))){ //erro no captcha
+    abrirjanela('red','Possível Fraude detectada!<br>Por favor, insira as informações novamente.','Erro no CAPTCHA')
+    let nextURL = window.location.href.replace(md5('erro=true'),'').replace('?','');
+    let nextState = { additionalInformation: 'Updated the URL with JS' };
+    window.history.replaceState(nextState, 'Cadastro', nextURL);
+}
 
-if (window.location.href.includes(md5('email=false'))){
+if (window.location.href.includes(md5('email=false'))){ //email já cadastrado
     alerta='Email já cadastrado!<br>'
     let nextURL = window.location.href.replace(md5('email=false'),'').replace('?','');
     let nextState = { additionalInformation: 'Updated the URL with JS' };
-    window.history.replaceState(nextState, 'Perfil', nextURL);
+    window.history.replaceState(nextState, 'Cadastro', nextURL);
     email.classList.add('vermei')
     
 } 
 
-if (window.location.href.includes(md5('cpf=false'))){
+if (window.location.href.includes(md5('cpf=false'))){ //cpf já cadastrado
     let nextURL = window.location.href.replace(md5('cpf=false'),'').replace('?','');
     let nextState = { additionalInformation: 'Updated the URL with JS' };
-    window.history.replaceState(nextState, 'Perfil', nextURL);
+    window.history.replaceState(nextState, 'Cadastro', nextURL);
     alerta+='CPF já cadastrado!'
     cpf.classList.add('vermei')
 }
 
 if (alerta != ''){
-    abrirjanela('red',alerta)
+    abrirjanela('red',alerta,'| Andamento Cadastro | 1/3')
     nome.value=localStorage.getItem('nome')
     tel.value=localStorage.getItem('tel')
     cep.value=localStorage.getItem('cep')
@@ -334,12 +339,14 @@ function validar(){
         senha.value=""
         confirm_senha.value=""
 
+    } else if (grecaptcha.getResponse() == ""){
+        alert('Por favor, preencha o CAPTCHA!')
     } else {
         localStorage.setItem(nome.id,nome.value)
         localStorage.setItem(tel.id,tel.value)
         localStorage.setItem(cep.id,cep.value)
         localStorage.setItem(numero.id,numero.value)
-        abrirjanela('blue','Verificando Banco de Dados, caso tudo certo prosseguiremos.')
+        abrirjanela('blue','Verificando Banco de Dados, caso tudo certo prosseguiremos.','| Andamento Cadastro | 1/3')
         document.getElementById('asdf_cancelar').style.display = 'none'
         setTimeout(nada , 4000)
         document.getElementById('asdf_cancelar').addEventListener('click',function(){

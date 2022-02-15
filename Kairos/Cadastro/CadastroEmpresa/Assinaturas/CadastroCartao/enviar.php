@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-$dbHost     = 'localhost';
-$dbUname = 'root';
-$dbPass = '';
-$dbName     = 'kairos';
+$dbHost = 'sql210.epizy.com';
+$dbUname = 'epiz_30663895';
+$dbPass = 'ndLdcOqYk0K';
+$dbName = 'epiz_30663895_Banco_Kairos';
 
 $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 

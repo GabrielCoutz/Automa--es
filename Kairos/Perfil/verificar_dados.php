@@ -1,9 +1,9 @@
 <?php
 session_start();
-$dbHost     = 'localhost';
-$dbUname = 'root';
-$dbPass = '';
-$dbName     = 'kairos';
+$dbHost = 'sql210.epizy.com';
+$dbUname = 'epiz_30663895';
+$dbPass = 'ndLdcOqYk0K';
+$dbName = 'epiz_30663895_Banco_Kairos';
 
 
 $local='perfil.php';
@@ -17,10 +17,6 @@ $ramo_padrao=$_SESSION['ramo_padrao'];
 
 
 $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
-
-$tel=$_POST['tel_input'];
-$tels= $_COOKIE['tels'];
-$num = 2;
 
 if(isset($_COOKIE['excluir_num'])){ // deletar numeros de telefone
     $limite = $_COOKIE['excluir_nums'];
@@ -44,6 +40,28 @@ if(isset($_COOKIE['excluir_num'])){ // deletar numeros de telefone
     header('Location:'.$local.'?'.md5('livre=true'));
     exit;
     
+}
+
+if(isset($_COOKIE['senha'])){ // alterar senha
+    //echo 'alterar senha';
+    $senha_antiga = md5($_POST['senha_antiga_input']);
+    $senha_nova = md5($_POST['senha_nova_input']);
+    $senha_nova_dup = md5($_POST['senha_nova_dup_input']);
+    $cpf=$_SESSION['cpf'];
+
+    $select_senha=mysqli_query($conec, "SELECT senha FROM usuario WHERE cpf ='$cpf'")->fetch_assoc()['senha'];
+    if($select_senha != $senha_antiga){
+        setcookie('senha', '', time() - 3600, '/');
+        header('Location:'.$local.'?'.md5('senha=false'));
+        exit;
+    } else {
+        $result_senha=mysqli_query($conec,"UPDATE usuario SET senha = '$senha_nova' WHERE cpf = '$cpf'");
+        setcookie('senha', '', time() - 3600, '/');
+        header('Location:'.$local.'?'.md5('livre=true'));
+        exit;
+    }
+
+
 }
 
 if(isset($_COOKIE['usuario'])){ // alteração de dados usuário
@@ -77,7 +95,9 @@ if(isset($_COOKIE['usuario'])){ // alteração de dados usuário
         }
         if ($tels != 0){
             for($i= 0 ; $i < $tels ; $i++){
-                $tel_add = $_COOKIE['phone%5B'.$num.'%5D%5Bnumber%5D'];
+                $tel_add = $_COOKIE['phone'.$num.'number'];
+                $aaa = "INSERT INTO telefone(cpf_usuario,tel) VALUES('$cpf', '$tel_add')";
+                
                 $result=mysqli_query($conec,"INSERT INTO telefone(cpf_usuario,tel) VALUES('$cpf','$tel_add')");
                 $num+=1;
             }
@@ -85,13 +105,14 @@ if(isset($_COOKIE['usuario'])){ // alteração de dados usuário
         $num = 2;
         if ($tels != 0){
             for($i= 0 ; $i < $tels ; $i++){
-                setcookie('phone%5B'.$num.'%5D%5Bnumber%5D', '', time() - 3600, '/');
+                setcookie('phone'.$num.'number', '', time() - 3600, '/');
                 $num+=1;
             }
         }
         if (isset($_COOKIE['tels'])){
             setcookie('tels', '', time() - 3600, '/');
         }
+        setcookie('usuario', '', time() - 3600, '/');
         header('Location:'.$local.'?'.md5('livre=true'));
         exit;
     }
@@ -177,26 +198,6 @@ if(isset($_COOKIE['empresa'])) { // alteração de dados empresa
         //echo($local);
         //echo '<br>Não duplicado';
     }
-}
-
-if(isset($_COOKIE['senha'])){ // alterar senha
-    //echo 'alterar senha';
-    $senha_antiga = md5($_POST['senha_antiga_input']);
-    $senha_nova = md5($_POST['senha_nova_input']);
-    $senha_nova_dup = md5($_POST['senha_nova_dup_input']);
-    $cpf=$_SESSION['cpf'];
-
-    $select_senha=mysqli_query($conec, "SELECT senha FROM usuario WHERE cpf ='$cpf'")->fetch_assoc()['senha'];
-    if($select_senha != $senha_antiga){
-        header('Location:'.$local.'?'.md5('senha=false'));
-        exit;
-    } else {
-        $result_senha=mysqli_query($conec,"UPDATE usuario SET senha = '$senha_nova' WHERE cpf = '$cpf'");
-        header('Location:'.$local.'?'.md5('livre=true'));
-        exit;
-    }
-
-
 }
 
 ?>

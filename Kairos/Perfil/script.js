@@ -47,7 +47,7 @@ $(function(){
         var num = "'(00) 0000-00009'"
         $('.phone-list').append(''+
                 '<div class="input-group phone-input">'+
-                    '<input type="tel" name="phone['+index+'][number]" placeholder="(00) 0000-00000" id="tel_input" class="adicional" onkeypress="$(this).mask('+num+')"/>'+
+                    '<input type="tel" name="phone'+index+'number" placeholder="(00) 0000-00000" id="tel_input" class="adicional" onkeypress="$(this).mask('+num+')"/>'+
                     '<input type="hidden" name="phone['+index+'][type]" class="type-input"/>'+
                     '<span class="input-group-btn">'+
                         '<button class="btn btn-danger btn-remove-phone btn-info" type="button"><span class="lnr lnr-cross"></span></button>'+
@@ -223,7 +223,7 @@ if (window.location.href.includes(md5('erro=true'))) { // erro de login
     document.getElementById('asdf_cancelar').style.display = 'none'
     setTimeout(nada , 3000)
     document.getElementById('asdf_cancelar').addEventListener('click',function(){
-            window.location.href = "../Login/index.php"
+            window.location.href = "../login/index.php"
         })
     
     let nextURL = window.location.href.replace(md5('erro=true'),'').replace('?','');

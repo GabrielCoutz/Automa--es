@@ -17,6 +17,7 @@
 		<link rel="stylesheet" href="css/popup.css">
 		<link rel="shortcut icon" href="../assets/img/favicon/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 	</head>
 
 	<body>
@@ -128,6 +129,7 @@
 							<i class="bi bi-eye-slash" id="togglePassword_confirm"></i>
 						</p>
 					</div>
+                    <div class="g-recaptcha" data-sitekey="6Ld5L3oeAAAAAAH8CgndVZBek5uasbGl5mroKjP5" id="captcha"></div>
 					<button class="btn btn-warning" type="submit" onclick="validar()" id='butao' name='butao'>
 						<span >Registrar</span>
 					</button>

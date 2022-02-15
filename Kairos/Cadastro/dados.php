@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-$dbHost     = 'localhost';
-$dbUname = 'root';
-$dbPass = '';
-$dbName     = 'kairos';
+$dbHost = 'sql210.epizy.com';
+$dbUname = 'epiz_30663895';
+$dbPass = 'ndLdcOqYk0K';
+$dbName = 'epiz_30663895_Banco_Kairos';
 
 $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 
@@ -23,6 +23,27 @@ $email=$_POST['email'];
 
 $duplicado=false;
 $local='cadastro.php';
+
+if(isset($_POST['g-recaptcha-response']) && $_POST['g-recaptcha-response'] != ""){
+        $url='https://www.google.com/recaptcha/api/siteverify';
+        $secret = '6Ld5L3oeAAAAAF7ExJjjJbY9EnWGQSyjCin5aGRL';
+        $response = $_POST['g-recaptcha-response'];
+        $variaveis = "secret=".$secret."&response=".$response;
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $variaveis);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+        curl_setopt($ch, CURLOPT_HEADER, 0);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        $resp = json_decode(curl_exec($ch));
+
+        if ($resp->success != 1){
+            $local=$local.'?'.md5('erro=true');
+            header("Refresh:0; url=".$local);
+            exit;
+        }
+    }
 
 $select=mysqli_query($conec, "SELECT cpf FROM usuario WHERE cpf = '$cpf'");
 
@@ -49,7 +70,6 @@ if($duplicado){
     $_SESSION['edr_data'] = "INSERT INTO endereco(cpf_usuario,cep,rua,numero,bairro,cidade,estado) VALUES((SELECT cpf FROM usuario WHERE cpf = '$cpf'),'$cep', '$rua', '$numero', '$bairro', '$cidade', '$estado')";
     
     $_SESSION['cell_data'] = "INSERT INTO telefone(cpf_usuario, tel) VALUES((SELECT cpf FROM usuario WHERE cpf = '$cpf'), '$tel')";
-     echo 'teste';
     header('Location: CadastroEmpresa/cadastro_empresa.php');
     exit;
 }

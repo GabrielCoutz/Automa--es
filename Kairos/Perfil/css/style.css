@@ -15,14 +15,14 @@
   color: #fff !important;
 }
 .btn-success:hover{
-  background-color: #28a745 !important;
+  background-color: #20a837 !important;
 }
 
 #del_tel{
   position: relative;
   color: #fff;
   margin-left: 10px;
-  background-color: #a82020cf;
+  background-color: #a82020;
   border-color: #a82020;
 }
 
@@ -456,13 +456,15 @@ i {
     width: 100%;
   }
   #salvar_empresabtn, #cancelar_empresabtn{
-    width: 100;
+      height: 40px;
+    width: 100%;
   }
   #cancelar_empresabtn{
     float: right;
   }
   #sairbtn{
     margin-top: 20px;
+    height: 40px;
     width: 100%;
   }
   .texto{
@@ -482,6 +484,11 @@ i {
   }
   #cancelar_empresa, #cancelar{
     float: right;
+  }
+  #salvar, #cancelar{
+        width: 100%;
+        height: 40px;
+        margin-top: 12px;
   }
 }
   

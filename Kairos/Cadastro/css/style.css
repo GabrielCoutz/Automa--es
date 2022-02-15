@@ -258,6 +258,11 @@ a {
 .vermei{
   border-bottom: 1px solid #ff0000 !important;
 }
+
+.vermei_cap{
+  border: 1px solid #ff0000 !important;
+}
+
 .setor{
     color: rgb(255, 0, 0);
     font-family: "Muli-SemiBold";
@@ -411,6 +416,12 @@ h3 {
     right: -63px;
   }
 }
+
+.g-recaptcha{
+    justify-content: center;
+    display: flex;
+}
+
 @media (max-width: 767px) {
   .inner {
     width: 100%;

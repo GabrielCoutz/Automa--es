@@ -16,10 +16,10 @@
       session_start();
 
 
-      $dbHost     = 'localhost';
-      $dbUname = 'root';
-      $dbPass = '';
-      $dbName     = 'kairos';
+    $dbHost = 'sql210.epizy.com';
+    $dbUname = 'epiz_30663895';
+    $dbPass = 'ndLdcOqYk0K';
+    $dbName = 'epiz_30663895_Banco_Kairos';
       error_reporting(E_ERROR | E_PARSE);
       
 
@@ -46,7 +46,9 @@
       $teste = '';
 
       while ($row = mysqli_fetch_assoc($select_telefone)) {
-        $teste=$teste.$row["tel"].'<br>';
+        if($row['tel'] != ""){
+            $teste=$teste.$row["tel"].'<br>';
+        }
       }
 
       $_SESSION['tel_padrao']=$result_telefone['tel'];
@@ -148,8 +150,8 @@
                         </div>
                         
                         <div class="col-sm-9 text-secondary" id='tel'>
-                          <a><?= $result_telefone['tel'].'<br>'?></a>
-                          <a><?= $teste ?></a>
+                          <a><?= $result_telefone['tel']?></a>
+                          <a><?= '<br>'.$teste ?></a>
                         </div>
                       </div>
 
