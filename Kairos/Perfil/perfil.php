@@ -104,7 +104,7 @@
                     <div class="d-flex flex-column align-items-center text-center">
                       <div class="mt-3">
                       <h4><a><?= ucwords($result['nome']) ?></a></h4>
-                        <p class="text-muted font-size-sm"><a><?= ucwords($result_endereco['bairro']) ?>, <?= ucwords($result_endereco['cidade']) ?>, <?= $result_endereco['estado'] ?></a></p>
+                        <p class="text-muted font-size-sm" id='endereco_usuario'><a><?= ucwords($result_endereco['bairro']) ?>, <?= ucwords($result_endereco['cidade']) ?>, <?= $result_endereco['estado'] ?></a></p>
                         <ul class="list-group list-group-flush">
                           <li class="list-group-item d-flex  align-items-center flex-wrap" id='teste'>
                             <span class="lnr lnr-diamond" id ='diamante'></span>Plano
@@ -138,6 +138,32 @@
                       </div>
                       
                       <hr>
+
+                      <div class="row none" id='cep_row'>
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">CEP</h6>
+                        </div>
+                        <input class='none'type="tel" id='cep_usuario_input' name='cep_usuario_input' onkeypress="$(this).mask('00.000-000')" onkeyup="ler_usuario(this)">
+                        <div class="col-sm-9 text-secondary" id='cep_usuario'>
+                        <a><?= $result_endereco['cep'] ?></a>
+                        </div>
+                      </div>
+
+                      <hr class='none'id='hr_row'>
+
+                      <div class="row none" id='numero_row'>
+                        <div class="col-sm-3">
+                          <h6 class="mb-0">Numero</h6>
+                        </div>
+                        <input class='none'type="tel" id='numero_usuario_input' name='numero_usuario_input' onkeypress="$(this).mask('00.000-000')" onkeyup="ler_usuario(this)">
+                        <div class="col-sm-9 text-secondary" id='numero_usuario'>
+                        <a><?= $result_endereco['numero'] ?></a>
+                        </div>
+                      </div>
+
+                      <hr class='none'id='hrn_row'>
+
+
                       <div class="row">
                         <div class="col-sm-3">
                           <h6 class="mb-0">Telefone</h6>
@@ -269,7 +295,7 @@
                         <div class="col-sm-3">
                           <h6 class="mb-0">CEP</h6>
                         </div>
-                        <input class='none'type="tel" id='cep_empresa_input' name='cep_empresa_input' onkeypress="$(this).mask('00.000-000')" onchange="vazio_empresa()">
+                        <input class='none'type="tel" id='cep_empresa_input' name='cep_empresa_input' onkeypress="$(this).mask('00.000-000')" onchange="vazio_empresa()" onkeyup="ler_empresa(this)">
                         <div class="col-sm-9 text-secondary" id='cep_empresa'>
                         <a><?= $result_empresa_endereco['cep'] ?></a>
                         </div>

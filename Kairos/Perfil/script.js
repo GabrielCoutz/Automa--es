@@ -24,8 +24,14 @@ const conteudo_cidade = document.getElementById('cidade_empresa').innerText
 const conteudo_nome_empresa = document.getElementById('nome_empresa').innerText
 const conteudo_nome_fantasia = document.getElementById('nome_fantasia').innerText
 const conteudo_ramo = document.getElementById('ramo').innerText
-const conteudo_cep = document.getElementById('cep_empresa').innerText
+const conteudo_cep_empresa = document.getElementById('cep_empresa').innerText
 const conteudo_numero = document.getElementById('numero_empresa').innerText
+
+const conteudo_cep_usuario = document.getElementById('cep_usuario').innerText
+const conteudo_numero_usuario = document.getElementById('numero_usuario').innerText
+const cep_usuario = document.getElementById('cep_usuario_input')
+const cep_empresa_input = document.getElementById('cep_empresa_input')
+
 
 $(function(){
     $(document.body).on('click', '.changeType' ,function(){
@@ -269,30 +275,58 @@ mudar_senha('togglePassword_antigo','senha_antiga')
 mudar_senha('togglePassword_novo','senha_nova')
 mudar_senha('togglePassword_novo_dup','senha_nova_dup')
 
-$("#cep_empresa_input").focusout(function(){
-$.ajax({
-    url: 'https://viacep.com.br/ws/'+$(this).val().toString().replace(/-/, '').replace('.', '')+'/json/unicode/',
-    dataType: 'json',
-    success: function(resposta){
-        if(resposta.logradouro == undefined || resposta.bairro == undefined || resposta.localidade == undefined || resposta.uf == undefined){
-            abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','| Alteração Inválida |')
-            document.getElementById('cep_empresa_input').classList.add('vermei')
-            document.getElementById('cep_empresa_input').focus()
-            document.getElementById('cep_empresa_input').placeholder = document.getElementById('cep_empresa_input').value
-            document.getElementById('cep_empresa_input').value = ''
-            return
-            
-        } else {
-            document.getElementById('cep_empresa_input').classList.remove('vermei')
-            document.getElementById('rua_empresa').innerHTML = resposta.logradouro
-            document.getElementById('bairro_empresa').innerHTML = resposta.bairro
-            document.getElementById('cidade_empresa').innerHTML = resposta.localidade
-            document.getElementById('estado_empresa').innerHTML = resposta.uf
-            document.getElementById('numero_empresa_input').focus()
-        }
+function ler_empresa(cep){ // preenche o endereço automaticamente da empresa usando o cep
+    if(cep.value.length == 10){
+        $.ajax({
+            url: 'https://viacep.com.br/ws/'+cep.value.replace(/-/, '').replace('.', '')+'/json/unicode/',
+            dataType: 'json',
+            success: function(resposta){
+                if(resposta.logradouro == undefined || resposta.bairro == undefined || resposta.localidade == undefined || resposta.uf == undefined){
+                    abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','| Alteração Inválida |')
+                    cep_empresa_input.classList.add('vermei')
+                    cep_empresa_input.focus()
+                    document.getElementById('cep_empresa_input').placeholder = cep_empresa_input.value
+                    document.getElementById('cep_empresa_input').value = ''
+                    return
+                    
+                } else {
+                    cep_empresa_input.classList.remove('vermei')
+                    document.getElementById('rua_empresa').innerHTML = resposta.logradouro
+                    document.getElementById('bairro_empresa').innerHTML = resposta.bairro
+                    document.getElementById('cidade_empresa').innerHTML = resposta.localidade
+                    document.getElementById('estado_empresa').innerHTML = resposta.uf
+                    document.getElementById('numero_empresa_input').focus()
+                }
+            }
+        })
     }
-});
-});
+}
+
+function ler_usuario(cep){ // preenche o endereço automaticamente do usuario usando o cep
+    if(cep.value.length == 10){
+        $.ajax({
+            url: 'https://viacep.com.br/ws/'+cep.value.replace(/-/, '').replace('.', '')+'/json/unicode/',
+            dataType: 'json',
+            success: function(resposta){
+                if(resposta.logradouro == undefined || resposta.bairro == undefined || resposta.localidade == undefined || resposta.uf == undefined){
+                    abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','| Alteração Inválida |')
+                    cep_usuario.classList.add('vermei')
+                    cep_usuario.focus()
+                    cep_usuario.placeholder = cep_usuario.value
+                    cep_usuario.value = ''
+                    return
+                    
+                } else {
+                    document.getElementById('endereco_usuario').innerHTML = resposta.logradouro + ', ' + resposta.bairro + ', ' + resposta.localidade + ', ' + resposta.uf
+                    document.getElementById('numero_usuario_input').focus()
+                }
+            }
+        })
+    }
+}
+
+
+
 
 let timeout;
 let password = document.getElementById('senha_nova')
@@ -409,6 +443,14 @@ function alternar_edicao(){
     $("#add_tel").toggle();
     $("#del_tel").toggle();
     $("#email_input").toggle();
+    $("#cep_usuario_input").toggle();
+    $("#cep_usuario").toggle();
+    $("#numero_usuario_input").toggle();
+    $("#numero_usuario").toggle();
+    document.getElementById('cep_row').style.display = 'flex'
+    document.getElementById('numero_row').style.display = 'flex'
+    $("#hrn_row").toggle();
+    $("#hr_row").toggle();
 
     document.getElementsByClassName('phone-list')[0].style.display = 'inline'
 
@@ -464,6 +506,8 @@ function editar_usuario(){
     alternar_edicao()
 
     document.getElementById('email_input').placeholder = conteudo_email
+    document.getElementById('cep_usuario_input').placeholder = conteudo_cep_usuario.trim()
+    document.getElementById('numero_usuario_input').placeholder = conteudo_numero_usuario.trim()
 
 }
 
@@ -474,10 +518,14 @@ function cancelar_usuario(){
     document.getElementById("editarsenha").disabled = false;
 
     alternar_edicao()
+    
     document.getElementsByClassName('phone-list')[0].style.display = 'none'
     if(document.getElementById('add_tel').style.display != 'none'){
         document.getElementById('add_tel').style.display = 'none'
     }
+
+    document.getElementById('cep_row').style.display = 'none'
+    document.getElementById('numero_row').style.display = 'none'
 
     document.getElementById('pass').style.display = 'none'
     document.getElementById('pass2').style.display = 'none'
@@ -524,7 +572,7 @@ function editar_empresa(){
     document.getElementById('nome_fantasia_input').placeholder = conteudo_nome_fantasia
     $('#ramo_input').val(conteudo_ramo); 
     $('#ramo_input').change();
-    document.getElementById('cep_empresa_input').placeholder = conteudo_cep
+    document.getElementById('cep_empresa_input').placeholder = conteudo_cep_empresa
     document.getElementById('numero_empresa_input').placeholder = conteudo_numero
 }
 
