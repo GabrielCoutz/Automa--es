@@ -294,6 +294,40 @@ $.ajax({
 });
 });
 
+let timeout;
+let password = document.getElementById('senha_nova')
+let strengthBadge = document.getElementById('StrengthDisp')
+let strongPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})')
+let mediumPassword = new RegExp('((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))')
+
+password.addEventListener("input", () => {
+    strengthBadge.style.display = 'none'
+    clearTimeout(timeout);
+    timeout = setTimeout(() => StrengthChecker(password.value), 500);
+    if(password.value.length !== 0){
+        strengthBadge.style.display = 'flex'
+    } else{
+        strengthBadge.style.display = 'none'
+    }
+});
+
+function StrengthChecker(PasswordParameter){
+    if(PasswordParameter.length < 10){
+        strengthBadge.style.color="red"
+        strengthBadge.textContent = 'Senha muito curta'
+    }else if(strongPassword.test(PasswordParameter)) {
+        strengthBadge.style.color="green"
+        strengthBadge.textContent = 'Senha Forte'
+    } else if(mediumPassword.test(PasswordParameter)){
+        
+        strengthBadge.style.color="#b6bf31";
+        strengthBadge.textContent = 'Senha Mediana'
+    } else{
+        strengthBadge.style.color="red"
+        strengthBadge.textContent = 'Senha Fraca'
+    }
+}
+
 function vazio_senha(){
     let senha_antiga = document.getElementById('senha_antiga').value
     let senha_nova = document.getElementById('senha_nova').value

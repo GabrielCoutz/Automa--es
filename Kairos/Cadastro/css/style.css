@@ -14,6 +14,28 @@
     text-decoration: none;
 }
 
+#endereco_hide{
+  text-align: center;
+  color: #4E6EF1;
+  cursor: pointer;
+}
+
+#endereco{
+  text-align: center;
+  margin-bottom: 10px;
+  cursor: default;
+}
+
+#edit{
+  margin-right: 10px;
+  color: #4E6EF1;
+  cursor: pointer;
+}
+
+.none{
+  display: none;
+}
+
 a:hover {
     color:#00A0C6; 
     text-decoration:none; 
@@ -204,6 +226,7 @@ input, textarea, select, button {
   font-family: "Muli-Regular"; }
 
 input{
+  transition: all 0.5s ease-in-out;
   display: inline !important;
 }
 

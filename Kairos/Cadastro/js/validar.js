@@ -111,6 +111,7 @@ const numero = document.getElementById("numero")
 const bairro = document.getElementById("bairro")
 const cidade = document.getElementById("cidade")
 const estado = document.getElementById("estado")
+const endereco = document.getElementById("endereco")
 
 var alerta = ''
 
@@ -255,6 +256,15 @@ function ler(cep){
                         $("#cidade").val(resposta.localidade);
                         $("#estado").val(resposta.uf);
                         $("#estado").css('opacity', '1').change();
+
+                        let endereco_full = resposta.logradouro + ', ' + resposta.bairro + ', ' + resposta.localidade + ', ' + resposta.uf
+
+                        endereco.innerHTML = '<span title="Editar" class="lnr lnr-pencil none" id="edit" onclick="editar_manualmente()"></span>'
+
+                        $('#edit').toggle()
+
+                        endereco.innerHTML += endereco_full
+
                         numero.focus();
                 }}
             });
@@ -274,6 +284,23 @@ cpf.addEventListener('keyup',function(){
     }
 })
 
+
+function editar_manualmente(){
+    $('#form_rua').toggle()
+    $('#form_bairro').toggle()
+    $('#form_estado').toggle()
+    $('#form_cidade').toggle()
+    $('#endereco').toggle()
+
+    $('#endereco_hide').toggle()
+    document.getElementById('endereco_hide').innerHTML = 'Esconder endereço'
+
+    endereco.innerHTML = '<span title="Editar" class="lnr lnr-pencil none" id="edit" onclick="editar_manualmente()"></span>'
+
+    $('#edit').toggle()
+
+    endereco.innerHTML  += rua.value + ', ' + bairro.value + ', ' + cidade.value + ', ' + estado.value
+}
 
 function validar(){
     nome.classList.remove("vermei")
@@ -339,9 +366,9 @@ function validar(){
         senha.value=""
         confirm_senha.value=""
 
-    } else if (grecaptcha.getResponse() == ""){
-        alert('Por favor, preencha o CAPTCHA!')
-    } else {
+    } // else if (grecaptcha.getResponse() == ""){
+        // alert('Por favor, preencha o CAPTCHA!')} 
+    else {
         localStorage.setItem(nome.id,nome.value)
         localStorage.setItem(tel.id,tel.value)
         localStorage.setItem(cep.id,cep.value)

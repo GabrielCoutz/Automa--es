@@ -83,8 +83,16 @@ input:last-child{
 
 
 #cpf_input, #tel_input, #email_input, #senha_antiga, #senha_nova, #senha_nova_dup, #nome_empresa_input, #nome_fantasia_input, #cnpj_input, #ramo_input, #cep_empresa_input, #rua_input, #numero_empresa_input, #bairro_input, #cidade_input, #estado_input{
+  transition: all 0.5s ease-in-out;
   border-radius:6px;
   border: 1px solid #ced6e0;
+}
+
+#StrengthDisp{
+  display: none;
+  margin-left: 16%;
+  margin-top: -14px;
+  width: 50%;
 }
 
 .vermei, .vermei:focus, vermei:hover{
@@ -131,7 +139,6 @@ form{
   border-radius:6px !important;
   border-color: #3d9cff;
   display: inline !important;
-  transition: all 0.5s ease-in-out;
   outline: none;
 }
 
@@ -405,6 +412,12 @@ i {
   }
   #senha_antiga, #senha_nova, #senha_nova_dup{
     width: 80%;
+  }
+
+  #StrengthDisp{
+    width: 100%;
+    text-align: center;
+    margin-top: -14px;
   }
 }
 

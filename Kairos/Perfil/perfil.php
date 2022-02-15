@@ -16,10 +16,10 @@
       session_start();
 
 
-    $dbHost = 'sql210.epizy.com';
-    $dbUname = 'epiz_30663895';
-    $dbPass = 'ndLdcOqYk0K';
-    $dbName = 'epiz_30663895_Banco_Kairos';
+      $dbHost     = 'localhost';
+      $dbUname = 'root';
+      $dbPass = '';
+      $dbName     = 'kairos';
       error_reporting(E_ERROR | E_PARSE);
       
 
@@ -179,6 +179,7 @@
                                 <input type="password" id='senha_nova' name='senha_nova_input' onchange="vazio_senha()">
                                 <i class="bi bi-eye-slash" id="togglePassword_novo"></i>
                               </p>
+                              <span id="StrengthDisp" class="badge displayBadge">Validando senha...</span>
                             <br>
                           </div>
                           

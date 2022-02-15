@@ -64,21 +64,25 @@
 					</div>
 					<div class="form-holder">
 						<span class="lnr lnr-map-marker"></span>
-						<input type="text" class="form-control" placeholder="Rua"  id="rua" name='rua'>
-					</div>
-					<div class="form-holder">
-						<span class="lnr lnr-map-marker"></span>
 						<input type="tel" class="form-control" placeholder="Número"  id="numero" name='numero'>
 					</div>
-					<div class="form-holder">
+
+					<div id='endereco'></div>
+					
+
+					<div class="form-holder none" id='form_rua'>
+						<span class="lnr lnr-map-marker"></span>
+						<input type="text" class="form-control" placeholder="Rua"  id="rua" name='rua'>
+					</div>
+					<div class="form-holder none" id='form_bairro'>
 						<span class="lnr lnr-map-marker"></span>
 						<input type="text" class="form-control" placeholder="Bairro"  id="bairro" name='bairro'>
 					</div>
-					<div class="form-holder">
+					<div class="form-holder none" id='form_cidade'>
 						<span class="lnr lnr-map-marker"></span>
 						<input type="text" class="form-control" placeholder="Cidade"  id="cidade" name='cidade'>
 					</div>
-					<div class="form-holder">
+					<div class="form-holder none" id='form_estado'>
 						<span class="lnr lnr-map-marker"></span>
 						<div class="input-group">
 						<select class="form-control selectpicker none select" id="estado" name='estado'>
@@ -114,6 +118,8 @@
 					  </div>
 					</div>
 
+					<div id='endereco_hide' class='none' onclick="editar_manualmente()"></div>
+
 					<div class="form-holder">
 						<span class="lnr lnr-lock"></span>
 						<p>
@@ -129,7 +135,7 @@
 							<i class="bi bi-eye-slash" id="togglePassword_confirm"></i>
 						</p>
 					</div>
-                    <div class="g-recaptcha" data-sitekey="6Ld5L3oeAAAAAAH8CgndVZBek5uasbGl5mroKjP5" id="captcha"></div>
+                    
 					<button class="btn btn-warning" type="submit" onclick="validar()" id='butao' name='butao'>
 						<span >Registrar</span>
 					</button>
