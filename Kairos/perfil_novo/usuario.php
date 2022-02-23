@@ -5,6 +5,7 @@
     <meta charset="utf-8" />
     <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="assets/img/favicon.ico">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
     <title>Perfil</title>
@@ -14,6 +15,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
     <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
     <!-- CSS Files -->
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="assets/css/light-bootstrap-dashboard.css?v=2.0.0 " rel="stylesheet" />
@@ -41,6 +43,7 @@
       $id=$result['id'];
       $cpf=$result['cpf'];
       $_SESSION['email_padrao']=$result['email'];
+      $_SESSION['nome_padrao']=$result['nome'];
       $_SESSION['cpf']=$result['cpf'];
 
       $select_telefone=mysqli_query($conec, "SELECT * FROM telefone WHERE cpf_usuario = '$cpf'");
@@ -136,7 +139,7 @@
                                             <div class="col-md-5 pr-1">
                                                 <div class="form-group">
                                                     <label>Nome</label>
-                                                    <input type="text" class="form-control none" id='nome_input'>
+                                                    <input type="text" class="form-control none" id='nome_input' name='nome'>
                                                     <div id='nome' class='text-secondary'>
                                                         <a><?= ucwords($result['nome']) ?></a>
                                                     </div>
@@ -151,7 +154,7 @@
                                             <div class="col-md-4 pl-1">
                                                 <div class="form-group">
                                                     <label>Email</label>
-                                                    <input type="email" class="form-control none" id='email_input'>
+                                                    <input type="email" class="form-control none" id='email_input' name='email'>
                                                     <div id='email' class='text-secondary'><a><?= $result['email'] ?></a></div>
                                                 </div>
                                             </div>
@@ -177,14 +180,14 @@
                                             <div class="col-md-4 pr-1">
                                                 <div class="form-group">
                                                     <label>CEP</label>
-                                                    <input type="tel" class="form-control none" id='cep_input' onkeypress="$(this).mask('00.000-000')" onkeyup="ler_cep(this)">
+                                                    <input type="tel" class="form-control none" id='cep_input' onkeypress="$(this).mask('00.000-000')" onkeyup="ler_cep(this)" name='cep'>
                                                     <div id='cep' class='text-secondary' ><a><?= $result_endereco['cep'] ?></a></div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 px-1">
                                                 <div class="form-group">
                                                     <label>Número</label>
-                                                    <input type="number" class="form-control none small-input" id='numero_input' pattern="[0-9]">
+                                                    <input type="number" class="form-control none small-input" id='numero_input' pattern="[0-9]" name='numero'>
                                                     <div id='numero' class='text-secondary'><a><?= $result_endereco['numero'] ?></a></div>
                                                 </div>
                                             </div>
@@ -195,7 +198,11 @@
                                                 <div class="form-group">
                                                     <label>Endereço</label>
                                                     <div class='text-secondary'>
-                                                        <p id='endereco'><a><?= ucwords($result_endereco['bairro']) ?>, <?= ucwords($result_endereco['cidade']) ?>, <?= $result_endereco['estado'] ?></a></p>
+                                                        <input type="text" name='rua' class='none' value='<a><?= ucwords($result_endereco['rua']) ?></a>'>
+                                                        <input type="text" name='bairro' class='none' value='<a><?= ucwords($result_endereco['bairro']) ?></a>'>
+                                                        <input type="text" name='cidade' class='none' value='<a><?= ucwords($result_endereco['cidade']) ?></a>'>
+                                                        <input type="text" name='estado' class='none' value='<a><?= ucwords($result_endereco['estado']) ?></a>'>
+                                                        <p id='endereco'><a><?= ucwords($result_endereco['rua']) ?>, <?= ucwords($result_endereco['bairro']) ?>, <?= ucwords($result_endereco['cidade']) ?>, <?= $result_endereco['estado'] ?></a></p>
                                                     </div>
                                                     
                                                 </div>
@@ -210,9 +217,51 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <button class="btn btn-info btn-fill pull-right" id='editarbtn' onclick="editar()">Editar</button>
-                                        <button class="btn btn-info btn-fill pull-right none" id='salvarbtn' onclick="salvar()">Salvar</button>
-                                        <button class="btn btn-info btn-fill pull-right none" id='cancelarbtn' onclick="cancelar()">Cancelar</button>
+                                        <div class="row" id='senha'>
+                                            <div class="form-group">
+                                                <div class='col-md-12'>
+                                                <label class='senha'>Senha</label>
+                                                <br>
+                                                <button class="btn btn-info btn-fill pull-left" onclick="editar(this)" type="submit" id="editarsenha"><div class='circle'></div>Editar Senha</button>
+                                            <div class='row' style="margin-left: 0; margin-right: 0;">
+
+                                                <div class="none" id='pass'>
+                                                    <div class='texto'>Senha antiga</div>
+                                                    <p>
+                                                    <input type="password" id='senha_antiga' name='senha_antiga'>
+                                                    <i class="bi bi-eye-slash" id="togglePassword_antigo"></i>
+                                                    </p>
+                                                </div>
+                                                
+                                                <div class="none" id='pass2'>
+                                                    <div class='texto'>Senha nova</div>
+                                                    <p>
+                                                        <input type="password" id='senha_nova' name='senha_nova'>
+                                                        <i class="bi bi-eye-slash" id="togglePassword_novo"></i>
+                                                    </p>
+                                                    <span id="StrengthDisp" class="badge displayBadge">Validando senha...</span>
+                                                    <br>
+                                                </div>
+                                                
+                                                <div class="none" id='pass3'>
+                                                    <div class='texto'>Digite Novamente</div>
+                                                    <p>
+                                                    <input type="password" id='senha_nova_dup' name='senha_nova_dup'>
+                                                    <i class="bi bi-eye-slash" id="togglePassword_novo_dup"></i>
+                                                    </p>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                                </div>
+                                            </div>
+                        
+                                        </div>
+                                        <button class="btn btn-info btn-fill pull-right" id='editarbtn' onclick="editar(this)">Editar</button>
+                                        <button class="btn btn-info btn-fill pull-right none" id='salvarbtn' onclick="salvar(this)">Salvar</button>
+                                        <button class="btn btn-info btn-fill pull-right none" id='cancelarbtn' onclick="cancelar(this)">Cancelar</button>
+
+                                        <button class="btn btn-info btn-fill pull-right none" id='salvar_senhabtn' onclick="salvar(this)">Salvar Alteração</button>
+                                        <button class="btn btn-info btn-fill pull-right none" id='cancelar_senhabtn' onclick="cancelar(this)">Cancelar</button>
                                     </form>
                                 </div>
                             </div>
@@ -270,5 +319,6 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js'></script>
 
 </html>

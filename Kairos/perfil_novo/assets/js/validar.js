@@ -105,7 +105,7 @@ function nada(){
 }
 // -------------------- fim código popup --------------------
 
-function validarEmail(email){
+function validarEmail(email){ // auto-explicativo
     if (email != ''){
         return email.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)
     } else {
@@ -128,19 +128,25 @@ function ler_cep(cep){ // preenche o endereço automaticamente do usuario usando
                     return
                     
                 } else {
+                    document.getElementsByName('rua')[0].value = resposta.logradouro
+                    document.getElementsByName('bairro')[0].value = resposta.bairro
+                    document.getElementsByName('cidade')[0].value = resposta.localidade
+                    document.getElementsByName('estado')[0].value = resposta.uf
                     document.getElementById('endereco').innerHTML = resposta.logradouro + ', ' + resposta.bairro + ', ' + resposta.localidade + ', ' + resposta.uf
                     numero_input.focus()
+                    Cookies.set('endereco',1)
                 }
             }
         })
     }
 }
 
-function vazio(item){
+function vazio(item){ // verifica se o valor passado está vazio
     return item == ''
 }
 
-//telefone
+
+// código para adicionar/remover números de telefone
 $(function(){
     $(document.body).on('click', '.changeType' ,function(){
         $(this).closest('.phone-input').find('.type-text').text($(this).text());
@@ -198,6 +204,88 @@ $(function(){
 
 });
 
+// -------------------- início validador de senha --------------------
+function mudar_senha(botao,elemento){
+    let togglePassword = document.querySelector('#'+botao);
+    let password = document.querySelector('#'+elemento);
+
+  togglePassword.addEventListener('click', function (e) {
+    let type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+    password.setAttribute('type', type);
+    this.classList.toggle('bi-eye');
+});
+}
+
+mudar_senha('togglePassword_antigo','senha_antiga')
+mudar_senha('togglePassword_novo','senha_nova')
+mudar_senha('togglePassword_novo_dup','senha_nova_dup')
+let timeout;
+let password = document.getElementById('senha_nova')
+let strengthBadge = document.getElementById('StrengthDisp')
+let strongPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})')
+let mediumPassword = new RegExp('((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))')
+
+password.addEventListener("input", () => {
+    strengthBadge.style.display = 'none'
+    clearTimeout(timeout);
+    timeout = setTimeout(() => StrengthChecker(password.value), 500);
+    if(password.value.length !== 0){
+        strengthBadge.style.display = 'flex'
+    } else{
+        strengthBadge.style.display = 'none'
+    }
+});
+
+function alteracao(evento){ 
+    document.addEventListener(evento, function(){
+        let input = false
+        let tel_input = document.getElementById('tel_input')
+        if (tel_input != null){
+            if(!vazio(tel_input.value)){
+                input = true
+            }
+        }
+
+        let deletar = false
+        let ranks = document.getElementsByClassName('del_num')
+
+        if(document.getElementsByClassName('exclusao_tel')[0]){
+            for(let i = 0; i < ranks.length; i++) {
+                if (ranks[i].style.opacity == '0.5'){
+                    deletar = true
+                }
+            };
+        }
+
+        if (vazio(nome_input.value) && vazio(email_input.value) && vazio(cep_input.value) && vazio(numero_input.value) && !deletar && !input){
+            document.getElementById('salvarbtn').disabled = true
+        } else {
+            document.getElementById('salvarbtn').disabled = false
+        }
+    })
+}
+
+alteracao('click')
+alteracao('keyup')
+
+function StrengthChecker(PasswordParameter){
+    if(PasswordParameter.length < 10){
+        strengthBadge.style.color="red"
+        strengthBadge.textContent = 'Senha muito curta'
+    }else if(strongPassword.test(PasswordParameter)) {
+        strengthBadge.style.color="green"
+        strengthBadge.textContent = 'Senha Forte'
+    } else if(mediumPassword.test(PasswordParameter)){
+        
+        strengthBadge.style.color="#b6bf31";
+        strengthBadge.textContent = 'Senha Mediana'
+    } else{
+        strengthBadge.style.color="red"
+        strengthBadge.textContent = 'Senha Fraca'
+    }
+}
+// -------------------- fim validador de senha --------------------
+
 function deletar_tel(tel){
     let elemento = document.getElementById(tel.id.replace('btn',''))
     if(elemento.style.opacity != '0.5'){
@@ -208,7 +296,35 @@ function deletar_tel(tel){
 
 }
 
-function alterar_edicao(){
+function alterar_edicao(chave){
+    if(chave == 'senha'){
+        document.getElementById("editarsenha").classList.toggle("none");
+        document.getElementById("editarbtn").classList.toggle("none");
+        document.getElementById("salvar_senhabtn").classList.toggle("none");
+        document.getElementById("cancelar_senhabtn").classList.toggle("none");
+    
+        document.getElementById("pass").classList.toggle("none");
+        document.getElementById("pass2").classList.toggle("none");
+        document.getElementById("pass3").classList.toggle("none");
+    
+        document.getElementsByClassName('senha')[0].innerText = 'Senha'
+    
+        document.getElementById('senha_antiga').value = ''
+        document.getElementById('senha_nova').value = ''
+        document.getElementById('senha_nova_dup').value = ''
+
+        senha_antiga.classList.remove('vermei')
+        senha_nova.classList.remove('vermei')
+        senha_nova_dup.classList.remove('vermei')
+        return
+    }
+
+    //remove sinalização de erros
+    nome_input.classList.remove('vermei')
+    email_input.classList.remove('vermei')
+    cep_input.classList.remove('vermei')
+    numero_input.classList.remove('vermei')
+
     // esconde divs de conteúdo
     nome.classList.toggle("none")
     email.classList.toggle("none")
@@ -236,7 +352,26 @@ function alterar_edicao(){
     };
 }
 
-function editar(){
+function editar(item){
+    if(item.id == 'editarsenha'){
+        document.getElementById("pass").classList.toggle("none");
+        document.getElementById("editarsenha").classList.toggle("none");
+        document.getElementById("pass2").classList.toggle("none");
+        document.getElementById("pass3").classList.toggle("none");
+
+        document.getElementById('pass').style.display = 'block'
+        document.getElementById('pass2').style.display = 'block'
+        document.getElementById('pass3').style.display = 'block'
+
+        document.getElementById("editarbtn").classList.toggle("none");
+        document.getElementById("salvar_senhabtn").classList.toggle("none");
+        document.getElementById("cancelar_senhabtn").classList.toggle("none");
+
+        //document.getElementById("salvar_senhabtn").disabled = true;
+        document.getElementsByClassName('senha')[0].innerText = 'Alterar Senha'
+        return
+    }
+    document.getElementById('editarsenha').disabled = true
     alterar_edicao()
 
     // coloca o conteúdo em placeholder
@@ -246,7 +381,12 @@ function editar(){
     numero_input.placeholder = conteudo_numero
 }
 
-function cancelar(){
+function cancelar(item){
+    if(item.id == 'cancelar_senhabtn'){
+        alterar_edicao('senha')
+        return
+    }
+    document.getElementById('editarsenha').disabled = false
     alterar_edicao()
 
     document.getElementById('editarbtn').classList.remove('none')
@@ -264,13 +404,96 @@ function cancelar(){
     numero_input.value = ''
 }
 
-function salvar(){
+function salvar(item){
+    if (item.id == 'salvar_senhabtn'){
+        let senha_antiga = document.getElementById("senha_antiga")
+        let senha_nova = document.getElementById("senha_nova")
+        let senha_nova_dup = document.getElementById("senha_nova_dup")
+
+        senha_antiga.classList.remove('vermei')
+        senha_nova.classList.remove('vermei')
+        senha_nova_dup.classList.remove('vermei')
+
+        if(vazio(senha_antiga.value) || vazio(senha_nova.value) || vazio(senha_nova_dup.value) || senha_nova.value != senha_nova_dup.value){
+            senha_antiga.classList.add('vermei')
+            senha_nova.classList.add('vermei')
+            senha_nova_dup.classList.add('vermei')
+            alert('Por favor, verifique os campos e tente novamente!')
+
+        } else {
+            abrirjanela('blue','Verificando dados...','Validando Alteração')
+            Cookies.set('senha',1)
+            document.getElementById('asdf_cancelar').style.display = 'none'
+            setTimeout(nada , 3000)
+        }
+        return
+    }
     nome_input.classList.remove('vermei')
     email_input.classList.remove('vermei')
     cep_input.classList.remove('vermei')
     numero_input.classList.remove('vermei')
 
-    if(!vazio(nome_input.value) && nome_input.value.match(/\d+/g)){
+    let numeros = []
+    let adicional = false
+    let valido = false
+    let excluir = false
+    
+    
+    if (document.getElementsByClassName('exclusao_tel')[0] != undefined){
+        let pos = 1
+        while(document.getElementById('del_tel'+pos) != undefined){
+            if (document.getElementById('del_tel'+pos).style.opacity == '0.5'){
+                numeros.push(document.getElementById('del_tel'+pos).innerText)
+            }
+        pos ++
+        }
+    Cookies.set('excluir_num',1)
+    Cookies.set('excluir_nums',numeros.length)
+    excluir = true
+
+    let a = 1
+    numeros.forEach((item)=>{
+        Cookies.set('del_num'+a,item)
+        a++
+    })}
+
+    document.querySelectorAll('.adicional').forEach((item)=>{
+        item.classList.remove('vermei')
+    })
+
+    var tels = 0
+    document.querySelectorAll('.adicional').forEach((item)=>{
+        tels ++
+        Cookies.set(item.getAttribute('name'), item.value)
+        Cookies.set('usuario',1)
+
+        if (item){
+            adicional = true
+        }
+    });
+
+
+    if(adicional){
+        document.querySelectorAll('.adicional').forEach((item)=>{
+            if (item.value.length == 15){
+                valido = true
+            } else {
+                valido = false
+                item.classList.add('vermei')
+                return
+            }
+    })}
+
+
+    if(valido){
+        Cookies.set('usuario',1)
+        Cookies.set('tels',tels)
+    } else if (!excluir){
+        abrirjanela('red','Telefone adicional incompleto<br> Por favor verifique-o ou exclua-o!','Dados incompletos')
+        return
+    }
+
+    if(!vazio(nome_input.value) && !nome_input.value.replace(' ','').match(/^[A-Za-zÀ-ÖØ-öø-ÿ]+$/)){
         alert('Por favor, insira um nome válido!')
         nome_input.classList.add('vermei')
         nome_input.focus()
@@ -288,6 +511,7 @@ function salvar(){
         numero_input.focus()
 
     } else {
+        Cookies.set('usuario',1)
         abrirjanela('blue','Verificando dados...','Validando Alteração')
         document.getElementById('asdf_cancelar').style.display = 'none'
         setTimeout(nada , 3000)
