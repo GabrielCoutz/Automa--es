@@ -142,7 +142,7 @@
                                             <div class="col-md-3 px-1">
                                                 <div class="form-group">
                                                     <label>CPF</label>
-                                                    <div id='cpf' class='text-secondary'><a><?= $result['cpf'] ?></a></div>
+                                                    <div class='text-secondary'><a><?= $result['cpf'] ?></a></div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 pl-1">

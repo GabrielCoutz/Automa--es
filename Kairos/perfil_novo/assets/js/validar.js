@@ -136,3 +136,20 @@ function cancelar(){
     cep_input.value = ''
     numero_input.value = ''
 }
+var lista = {}
+
+
+$('input').focusout(function(){
+    let valor = $(this).val()
+    let id = $(this).attr("id")
+
+    if(!lista.hasOwnProperty(id)){
+        lista[id]=valor
+    }
+})
+
+function salvar(){
+    for(const [chave,valor] of Object.entries(lista)){
+        alert('teste '+chave+', '+valor)
+    }
+}
