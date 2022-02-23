@@ -109,6 +109,43 @@ function nada(){
 }
 // -------------------- fim código popup --------------------
 
+$('select').on('change', function() {
+    if (this.value == "") {
+      $(this).css('opacity', '0.7');
+    } else {
+      $(this).css('opacity', '1');
+    }
+}).change();
+
+function ler_cep(cep){ // preenche o endereço automaticamente da empresa usando o cep
+    if(cep.value.length == 10){
+        $.ajax({
+            url: 'https://viacep.com.br/ws/'+cep.value.replace(/-/, '').replace('.', '')+'/json/unicode/',
+            dataType: 'json',
+            success: function(resposta){
+                if(resposta.logradouro == undefined || resposta.bairro == undefined || resposta.localidade == undefined || resposta.uf == undefined){
+                    abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','| Alteração Inválida |')
+                    cep_empresa_input.classList.add('vermei')
+                    cep_empresa_input.focus()
+                    document.getElementById('cep_empresa_input').placeholder = cep_empresa_input.value
+                    document.getElementById('cep_empresa_input').value = ''
+                    return
+                    
+                } else {
+                    cep_empresa_input.classList.remove('vermei')
+                    document.getElementsByName('rua_empresa_input')[0].value = resposta.logradouro
+                    document.getElementsByName('bairro_empresa_input')[0].value = resposta.bairro
+                    document.getElementsByName('cidade_empresa_input')[0].value = resposta.localidade
+                    document.getElementsByName('estado_empresa_input')[0].value = resposta.uf
+                    document.getElementById('endereco_empresa').innerHTML = resposta.logradouro + ', ' + resposta.bairro + ', ' + resposta.localidade + ', ' + resposta.uf
+                    document.getElementById('numero_empresa_input').focus()
+                }
+            }
+        })
+    }
+}
+
+
 function alterar_edicao(){
 
     //remove sinalização de erros
@@ -149,4 +186,17 @@ function editar(){
     nome_fantasia_input.placeholder = conteudo_nome_fantasia
     cep_empresa_input.placeholder = conteudo_cep_empresa
     numero_empresa_input.placeholder = conteudo_numero_empresa
+}
+
+function cancelar(){
+
+    alterar_edicao()
+
+    document.getElementById('editarbtn').classList.remove('none')
+
+    nome_empresa_input.value = ''
+    nome_fantasia_input.value = ''
+    cep_empresa_input.value = ''
+    numero_empresa_input.value = ''
+    ramo_input.value = conteudo_ramo
 }

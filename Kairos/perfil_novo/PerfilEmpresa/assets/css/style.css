@@ -76,17 +76,7 @@ input::-webkit-input-placeholder {
     color: #6c757d!important;
 
 }
-.btn-remove-phone {
-    margin-top: 4px;
-    padding: 5px !important;
-    height: 29px;
-    border-radius: 0.25rem !important;
-}
-.btn-danger {
-    color: #fff;
-    background-color: #dc3545;
-    border-color: #dc3545;
-}
+
 input, select{
     transition: all 0.5s ease-in-out !important;
     border-radius:6px !important;

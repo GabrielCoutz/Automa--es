@@ -215,6 +215,7 @@ function mudar_senha(botao,elemento){
     this.classList.toggle('bi-eye');
 });
 }
+
 mudar_senha('togglePassword_antigo','senha_antiga')
 mudar_senha('togglePassword_novo','senha_nova')
 mudar_senha('togglePassword_novo_dup','senha_nova_dup')
