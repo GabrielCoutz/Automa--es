@@ -3,6 +3,7 @@ const nome_fantasia = document.getElementById('nome_fantasia')
 const ramo_empresa = document.getElementById('ramo')
 const cep_empresa = document.getElementById('cep_empresa')
 const numero_empresa = document.getElementById('numero_empresa')
+const endereco_empresa = document.getElementById('endereco_empresa')
 
 const nome_empresa_input = document.getElementById('nome_empresa_input')
 const nome_fantasia_input = document.getElementById('nome_fantasia_input')
@@ -15,6 +16,7 @@ const conteudo_ramo = document.getElementById('ramo').innerText.trim()
 const conteudo_nome_fantasia = document.getElementById('nome_fantasia').innerText.trim()
 const conteudo_cep_empresa = document.getElementById('cep_empresa').innerText.trim()
 const conteudo_numero_empresa = document.getElementById('numero_empresa').innerText.trim()
+const conteudo_endereco = document.getElementById('endereco_empresa').innerText.trim()
 
 
 // -------------------- início código popup --------------------
@@ -107,6 +109,11 @@ function nada(){
     })
     document.getElementById('asdf_cancelar').click()
 }
+
+function vazio(item){ // verifica se o valor passado está vazio
+    return item == ''
+}
+
 // -------------------- fim código popup --------------------
 
 $('select').on('change', function() {
@@ -145,6 +152,19 @@ function ler_cep(cep){ // preenche o endereço automaticamente da empresa usando
     }
 }
 
+function alteracao(evento){ 
+    document.addEventListener(evento, function(){
+
+        if (vazio(nome_empresa_input.value) && vazio(nome_fantasia_input.value) && vazio(cep_empresa_input.value) && vazio(numero_empresa_input.value) && ramo_input.value == conteudo_ramo){
+            document.getElementById('salvarbtn').disabled = true
+        } else {
+            document.getElementById('salvarbtn').disabled = false
+        }
+    })
+}
+
+alteracao('click')
+alteracao('keyup')
 
 function alterar_edicao(){
 
@@ -186,6 +206,7 @@ function editar(){
     nome_fantasia_input.placeholder = conteudo_nome_fantasia
     cep_empresa_input.placeholder = conteudo_cep_empresa
     numero_empresa_input.placeholder = conteudo_numero_empresa
+    ramo_input.value = conteudo_ramo
 }
 
 function cancelar(){
@@ -199,4 +220,5 @@ function cancelar(){
     cep_empresa_input.value = ''
     numero_empresa_input.value = ''
     ramo_input.value = conteudo_ramo
+    endereco_empresa.innerHTML = conteudo_endereco
 }
