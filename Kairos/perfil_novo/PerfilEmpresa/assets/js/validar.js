@@ -103,9 +103,11 @@ function abrirjanela(cor, texto, titulo){
     janelaPopUp.abre( "asdf", tamanho + " "  + cor + ' ' + modo,  titulo ,  texto)
 }
 
+// -------------------- fim código popup --------------------
+
 function nada(){
     document.getElementById('asdf_cancelar').addEventListener('click', function(){
-        document.getElementById("dados").submit();
+        document.getElementById("dados_empresa").submit();
     })
     document.getElementById('asdf_cancelar').click()
 }
@@ -113,8 +115,6 @@ function nada(){
 function vazio(item){ // verifica se o valor passado está vazio
     return item == ''
 }
-
-// -------------------- fim código popup --------------------
 
 $('select').on('change', function() {
     if (this.value == "") {
@@ -141,21 +141,25 @@ function ler_cep(cep){ // preenche o endereço automaticamente da empresa usando
                     
                 } else {
                     cep_empresa_input.classList.remove('vermei')
+                    numero_empresa_input.classList.remove('vermei')
                     document.getElementsByName('rua_empresa_input')[0].value = resposta.logradouro
                     document.getElementsByName('bairro_empresa_input')[0].value = resposta.bairro
                     document.getElementsByName('cidade_empresa_input')[0].value = resposta.localidade
                     document.getElementsByName('estado_empresa_input')[0].value = resposta.uf
                     endereco_empresa.innerHTML = resposta.logradouro + ', ' + resposta.bairro + ', ' + resposta.localidade + ', ' + resposta.uf
                     numero_empresa_input.focus()
+                    Cookies.set('endereco_empresa',1)
                 }
             }
         })
     }
 }
 
-function alteracao(evento){ 
+function alteracao(evento){
     document.addEventListener(evento, function(){
-
+        if (ramo_input.value != conteudo_ramo){
+            Cookies.set('ramo',ramo_input.value)
+        }
         if (vazio(nome_empresa_input.value) && vazio(nome_fantasia_input.value) && vazio(cep_empresa_input.value) && vazio(numero_empresa_input.value) && ramo_input.value == conteudo_ramo){
             document.getElementById('salvarbtn').disabled = true
         } else {
@@ -222,4 +226,17 @@ function cancelar(){
     numero_empresa_input.value = ''
     ramo_input.value = conteudo_ramo
     endereco_empresa.innerHTML = conteudo_endereco
+}
+
+function salvar(){
+    if(!vazio(cep_empresa_input.value) && vazio(numero_empresa_input.value)){
+        cep_empresa_input.classList.add('vermei')
+        numero_empresa_input.classList.add('vermei')
+
+    } else {
+        Cookies.set('empresa',1)
+        abrirjanela('blue','Verificando dados...','Validando Alteração')
+        document.getElementById('asdf_cancelar').style.display = 'none'
+        setTimeout(nada , 3000)
+    }
 }

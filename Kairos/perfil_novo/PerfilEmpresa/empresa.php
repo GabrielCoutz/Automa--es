@@ -43,6 +43,7 @@
     $cpf=$select['cpf'];
 
     $select_empresa=mysqli_query($conec, "SELECT * FROM empresa WHERE cpf_usuario = '$cpf'")->fetch_assoc();
+    $_SESSION['ramo_padrao']=$select_empresa['ramo'];
     
     $cnpj=$select_empresa['cnpj'];
 
@@ -119,7 +120,7 @@
                                      <h4 class="card-title">Sua Empresa</h4>
                                  </div>
                                  <div class="card-body">
-                                     <form action="" id='dados_empresa' onsubmit="return false" method="POST">
+                                     <form action="assets/php/enviar_empresa.php" id='dados_empresa' onsubmit="return false" method="POST">
                                          <div class="row">
                                              <div class="col-md-5 pr-1">
                                                  <div class="form-group">
@@ -205,9 +206,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button class="btn btn-info btn-fill pull-right" id='editarbtn' onclick="editar(this)">Editar</button>
-                                            <button class="btn btn-info btn-fill pull-right none" id='salvarbtn' onclick="salvar(this)">Salvar</button>
-                                            <button class="btn btn-info btn-fill pull-right none" id='cancelarbtn' onclick="cancelar(this)">Cancelar</button>
+                                            <button class="btn btn-info btn-fill pull-right" id='editarbtn' onclick="editar()">Editar</button>
+                                            <button class="btn btn-info btn-fill pull-right none" id='salvarbtn' onclick="salvar()">Salvar</button>
+                                            <button class="btn btn-info btn-fill pull-right none" id='cancelarbtn' onclick="cancelar()">Cancelar</button>
                                      </form>
                                  </div>
                              </div>
