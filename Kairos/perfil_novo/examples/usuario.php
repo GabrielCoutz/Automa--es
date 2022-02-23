@@ -6,16 +6,17 @@
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Light Bootstrap Dashboard - Free Bootstrap 4 Admin Dashboard by Creative Tim</title>
+    <title>Perfil</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
     <!-- CSS Files -->
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="../assets/css/light-bootstrap-dashboard.css?v=2.0.0 " rel="stylesheet" />
-    <!-- CSS Just for demo purpose, don't include it in your project -->
-    <link href="../assets/css/demo.css" rel="stylesheet" />
+    
+    <link href="../assets/css/style.css" rel="stylesheet" />
     <?php
       session_start();
 
@@ -133,7 +134,7 @@
                                                 <div class="form-group">
                                                     <label>Nome</label>
                                                     <input type="text" class="form-control none" id='nome_input'>
-                                                    <div id='nome'>
+                                                    <div id='nome' class='text-secondary'>
                                                         <a><?= ucwords($result['nome']) ?></a>
                                                     </div>
                                                 </div>
@@ -141,14 +142,14 @@
                                             <div class="col-md-3 px-1">
                                                 <div class="form-group">
                                                     <label>CPF</label>
-                                                    <div id='cpf'><a><?= $result['cpf'] ?></a></div>
+                                                    <div id='cpf' class='text-secondary'><a><?= $result['cpf'] ?></a></div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 pl-1">
                                                 <div class="form-group">
                                                     <label>Email</label>
                                                     <input type="email" class="form-control none" id='email_input'>
-                                                    <div id='email'><a><?= $result['email'] ?></a></div>
+                                                    <div id='email' class='text-secondary'><a><?= $result['email'] ?></a></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -156,24 +157,32 @@
                                             <div class="col-md-6 pr-1">
                                                 <div class="form-group">
                                                     <label>Telefone</label>
-                                                    <input type="text" class="form-control" placeholder="Company" value="Mike">
+                                                    <div class="phone-list">
+                                                            <div class="input-group phone-input none" id='botoes_tel'>
+                                                                <button class="btn btn-success btn-sm btn-add-phone" id='add_tel'><div class='circle'></div>Adicionar telefone</button>
+                                                                <button class="btn btn-sm btn-del-phone" id='del_tel'><div class='circle'></div>Excluir telefone</button>
+                                                            </div>
+                                                    </div>
+                                                        <div id='tel' class='text-secondary'>
+                                                            <a><?= $result_telefone['tel']?></a>
+                                                            <a><?= '<br>'.$teste ?></a>
+                                                        </div>
                                                 </div>
                                             </div>
-                                            
                                         </div>
                                         <div class="row">
                                             <div class="col-md-4 pr-1">
                                                 <div class="form-group">
                                                     <label>CEP</label>
                                                     <input type="tel" class="form-control none" id='cep_input'>
-                                                    <div id='cep'><a><?= $result_endereco['cep'] ?></a></div>
+                                                    <div id='cep' class='text-secondary' ><a><?= $result_endereco['cep'] ?></a></div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 px-1">
                                                 <div class="form-group">
                                                     <label>Número</label>
                                                     <input type="tel" class="form-control none" id='numero_input'>
-                                                    <div id='numero'><a><?= $result_endereco['numero'] ?></a></div>
+                                                    <div id='numero' class='text-secondary'><a><?= $result_endereco['numero'] ?></a></div>
                                                 </div>
                                             </div>
                                             
@@ -181,8 +190,11 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <label>Address</label>
-                                                    <input type="text" class="form-control">
+                                                    <label>Endereço</label>
+                                                    <div class='text-secondary'>
+                                                        <a><?= ucwords($result_endereco['bairro']) ?>, <?= ucwords($result_endereco['cidade']) ?>, <?= $result_endereco['estado'] ?></a>
+                                                    </div>
+                                                    
                                                 </div>
                                             </div>
 
@@ -191,7 +203,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>Assinatura</label>
-                                                    <div id='plano'><a><?= ucwords($result_cartao['assinatura']) ?></a></div>
+                                                    <div id='plano' class='text-secondary'><a><?= ucwords($result_cartao['assinatura']) ?></a></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -244,8 +256,9 @@
         </div>
     </div>
 </body>
-<script src="../assets/js/validar.js" type="text/javascript"></script>
+
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="../assets/js/validar.js" type="text/javascript"></script>
 
 <script src="../assets/js/core/popper.min.js" type="text/javascript"></script>
 <script src="../assets/js/core/bootstrap.min.js" type="text/javascript"></script>
