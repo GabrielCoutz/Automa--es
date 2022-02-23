@@ -126,6 +126,7 @@ $('select').on('change', function() {
 
 function ler_cep(cep){ // preenche o endereço automaticamente da empresa usando o cep
     if(cep.value.length == 10){
+        let temp = cep.value
         $.ajax({
             url: 'https://viacep.com.br/ws/'+cep.value.replace(/-/, '').replace('.', '')+'/json/unicode/',
             dataType: 'json',
@@ -134,8 +135,8 @@ function ler_cep(cep){ // preenche o endereço automaticamente da empresa usando
                     abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','| Alteração Inválida |')
                     cep_empresa_input.classList.add('vermei')
                     cep_empresa_input.focus()
-                    document.getElementById('cep_empresa_input').placeholder = cep_empresa_input.value
-                    document.getElementById('cep_empresa_input').value = ''
+                    cep_empresa_input.placeholder = temp
+                    cep_empresa_input.value = ''
                     return
                     
                 } else {
@@ -144,8 +145,8 @@ function ler_cep(cep){ // preenche o endereço automaticamente da empresa usando
                     document.getElementsByName('bairro_empresa_input')[0].value = resposta.bairro
                     document.getElementsByName('cidade_empresa_input')[0].value = resposta.localidade
                     document.getElementsByName('estado_empresa_input')[0].value = resposta.uf
-                    document.getElementById('endereco_empresa').innerHTML = resposta.logradouro + ', ' + resposta.bairro + ', ' + resposta.localidade + ', ' + resposta.uf
-                    document.getElementById('numero_empresa_input').focus()
+                    endereco_empresa.innerHTML = resposta.logradouro + ', ' + resposta.bairro + ', ' + resposta.localidade + ', ' + resposta.uf
+                    numero_empresa_input.focus()
                 }
             }
         })

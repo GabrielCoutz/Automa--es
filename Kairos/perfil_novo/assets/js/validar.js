@@ -115,6 +115,7 @@ function validarEmail(email){ // auto-explicativo
 
 function ler_cep(cep){ // preenche o endereço automaticamente do usuario usando o cep
     if(cep.value.length == 10){
+        let temp = cep.value
         $.ajax({
             url: 'https://viacep.com.br/ws/'+cep.value.replace(/-/, '').replace('.', '')+'/json/unicode/',
             dataType: 'json',
@@ -123,7 +124,7 @@ function ler_cep(cep){ // preenche o endereço automaticamente do usuario usando
                     abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','| Alteração Inválida |')
                     cep_input.classList.add('vermei')
                     cep_input.focus()
-                    cep_input.placeholder = cep.value
+                    cep_input.placeholder = temp
                     cep_input.value = ''
                     return
                     
