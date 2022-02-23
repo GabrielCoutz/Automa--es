@@ -119,7 +119,7 @@
                                      <h4 class="card-title">Sua Empresa</h4>
                                  </div>
                                  <div class="card-body">
-                                     <form>
+                                     <form action="" id='dados_empresa' onsubmit="return false" method="POST">
                                          <div class="row">
                                              <div class="col-md-5 pr-1">
                                                  <div class="form-group">
@@ -152,6 +152,7 @@
                                              <div class="col-md-6 pr-1">
                                                  <div class="form-group">
                                                     <label>Ramo</label>
+                                                    <br>
                                                     <select class="form-group selectpicker select none" id="ramo_input" name="ramo_input"> 
                                                         <option value disabled selected>Selecione o Ramo</option>
                                                         <option>Alimentação</option>
@@ -187,25 +188,26 @@
                                                 </div>
                                             </div>
                                             
-                                        </div>
+                                            </div>
 
-                                         <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>Endereço</label>
-                                                    <div class='text-secondary'>
-                                                        <input type="text" name='rua_empresa_input' class='none' value='<a><?= ucwords($select_empresa_endereco['rua']) ?></a>'>
-                                                        <input type="text" name='bairro_empresa_input' class='none' value='<a><?= ucwords($select_empresa_endereco['bairro']) ?></a>'>
-                                                        <input type="text" name='cidade_empresa_input' class='none' value='<a><?= ucwords($select_empresa_endereco['cidade']) ?></a>'>
-                                                        <input type="text" name='estado_empresa_input' class='none' value='<a><?= ucwords($select_empresa_endereco['estado']) ?></a>'>
-                                                        <p id='endereco_empresa'><a><?= ucwords($select_empresa_endereco['rua']) ?>, <?= ucwords($select_empresa_endereco['bairro']) ?>, <?= ucwords($select_empresa_endereco['cidade']) ?>, <?= $select_empresa_endereco['estado'] ?></a></p>
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label>Endereço</label>
+                                                        <div class='text-secondary'>
+                                                            <input type="text" name='rua_empresa_input' class='none' value='<a><?= ucwords($select_empresa_endereco['rua']) ?></a>'>
+                                                            <input type="text" name='bairro_empresa_input' class='none' value='<a><?= ucwords($select_empresa_endereco['bairro']) ?></a>'>
+                                                            <input type="text" name='cidade_empresa_input' class='none' value='<a><?= ucwords($select_empresa_endereco['cidade']) ?></a>'>
+                                                            <input type="text" name='estado_empresa_input' class='none' value='<a><?= ucwords($select_empresa_endereco['estado']) ?></a>'>
+                                                            <p id='endereco_empresa'><a><?= ucwords($select_empresa_endereco['rua']) ?>, <?= ucwords($select_empresa_endereco['bairro']) ?>, <?= ucwords($select_empresa_endereco['cidade']) ?>, <?= $select_empresa_endereco['estado'] ?></a></p>
+                                                        </div>
+                                                        
                                                     </div>
-                                                    
                                                 </div>
                                             </div>
-                                        </div>
-                                         <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile</button>
-                                         <div class="clearfix"></div>
+                                            <button class="btn btn-info btn-fill pull-right" id='editarbtn' onclick="editar(this)">Editar</button>
+                                            <button class="btn btn-info btn-fill pull-right none" id='salvarbtn' onclick="salvar(this)">Salvar</button>
+                                            <button class="btn btn-info btn-fill pull-right none" id='cancelarbtn' onclick="cancelar(this)">Cancelar</button>
                                      </form>
                                  </div>
                              </div>
