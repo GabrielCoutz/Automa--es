@@ -146,6 +146,52 @@ function vazio(item){ // verifica se o valor passado está vazio
     return item == ''
 }
 
+if (window.location.href.includes(md5('email_duplicado=true'))) {
+    document.getElementById('editarbtn').click()
+    document.getElementById("email_input").classList.add('vermei')
+    abrirjanela('red','Email já cadastrado!', '| Alteração Inválida |')
+    
+    let nextURL = window.location.href.replace(md5('email_duplicado=true'),'').replace('?','');
+    let nextState = { additionalInformation: 'Updated the URL with JS' };
+    window.history.replaceState(nextState, 'Perfil', nextURL);
+}
+
+if (window.location.href.includes(md5('senha=false'))) { // senha erro
+    abrirjanela('red','Não foi possível alterar sua senha!<br>Por favor, verifique os campos e tente novamente.', '| Alteração Inválida |')
+    
+    document.getElementById('editarsenha').click()
+    document.getElementById("senha_antiga").classList.add('vermei')
+    document.getElementById("senha_nova").classList.add('vermei')
+    document.getElementById("senha_nova_dup").classList.add('vermei')
+    
+    let nextURL = window.location.href.replace(md5('senha=false'),'').replace('?','');
+    let nextState = { additionalInformation: 'Updated the URL with JS' };
+    window.history.replaceState(nextState, 'Perfil', nextURL);
+}
+
+if (window.location.href.includes(md5('erro=true'))) { // erro de login
+    abrirjanela('red','Erro inesperado!<br>Por favor, faça login novamente.', 'Conta não sincronizada')
+    document.getElementsByClassName('main-painel')[0].style.display = 'none'
+    document.getElementById('asdf_cancelar').style.display = 'none'
+    setTimeout(nada , 3000)
+    document.getElementById('asdf_cancelar').addEventListener('click',function(){
+            window.location.href = "../login/index.php"
+        })
+    
+    let nextURL = window.location.href.replace(md5('erro=true'),'').replace('?','');
+    let nextState = { additionalInformation: 'Updated the URL with JS' };
+    window.history.replaceState(nextState, 'Perfil', nextURL);
+
+}
+
+if(window.location.href.includes(md5('livre=true'))){
+    abrirjanela('green','Dados alterados com êxito.', '| Alteração realizada com sucesso |')
+
+    let nextURL = window.location.href.replace(md5('livre=true'),'').replace('?','');
+    let nextState = { additionalInformation: 'Updated the URL with JS' };
+    window.history.replaceState(nextState, 'Perfil', nextURL);
+}
+
 
 // código para adicionar/remover números de telefone
 $(function(){
@@ -237,37 +283,6 @@ password.addEventListener("input", () => {
     }
 });
 
-function alteracao(evento){ 
-    document.addEventListener(evento, function(){
-        let input = false
-        let tel_input = document.getElementById('tel_input')
-        if (tel_input != null){
-            if(!vazio(tel_input.value)){
-                input = true
-            }
-        }
-
-        let deletar = false
-        let ranks = document.getElementsByClassName('del_num')
-
-        if(document.getElementsByClassName('exclusao_tel')[0]){
-            for(let i = 0; i < ranks.length; i++) {
-                if (ranks[i].style.opacity == '0.5'){
-                    deletar = true
-                }
-            };
-        }
-
-        if (vazio(nome_input.value) && vazio(email_input.value) && vazio(cep_input.value) && vazio(numero_input.value) && !deletar && !input){
-            document.getElementById('salvarbtn').disabled = true
-        } else {
-            document.getElementById('salvarbtn').disabled = false
-        }
-    })
-}
-
-alteracao('click')
-alteracao('keyup')
 
 function StrengthChecker(PasswordParameter){
     if(PasswordParameter.length < 10){
@@ -286,6 +301,71 @@ function StrengthChecker(PasswordParameter){
     }
 }
 // -------------------- fim validador de senha --------------------
+
+document.getElementById('editarbtn').addEventListener('click',function(){
+    alteracao('click')
+    alteracao('keyup')
+
+})
+
+function validar_nome(nome){
+    if(!vazio(nome.value) && !nome.value.replace(' ','').match(/^[A-Za-zÀ-ÖØ-öø-ÿ]+$/)){
+        nome_input.classList.add('vermei')
+        document.removeEventListener('click',campo_vazio)
+        document.removeEventListener('keyup',campo_vazio)
+        document.getElementById('salvarbtn').disabled = true
+        alert('Por favor, insira um nome válido!')
+
+    } else{
+        nome_input.classList.remove('vermei')
+        document.getElementById('salvarbtn').disabled = false
+    }
+}
+
+function alteracao(evento){
+    let livre = true
+    let lista = document.getElementsByTagName('input')
+
+    for (let index = 0; index < lista.length; index++) {
+        if(lista[index].classList.toString().includes('vermei')){
+            livre = false
+            return
+        } else{
+            livre = true
+        }
+    };
+    if(livre){
+        document.addEventListener(evento, campo_vazio())
+    }
+    
+}
+
+function campo_vazio(){
+    let input = false
+    let tel_input = document.getElementById('tel_input')
+    if (tel_input != null){
+        if(!vazio(tel_input.value)){
+            input = true
+        }
+    }
+
+    let deletar = false
+    let ranks = document.getElementsByClassName('del_num')
+
+    if(document.getElementsByClassName('exclusao_tel')[0]){
+        for(let i = 0; i < ranks.length; i++) {
+            if (ranks[i].style.opacity == '0.5'){
+                deletar = true
+            }
+        };
+    }
+
+    if (vazio(nome_input.value) && vazio(email_input.value) && vazio(cep_input.value) && vazio(numero_input.value) && !deletar && !input){
+        document.getElementById('salvarbtn').disabled = true
+    } else {
+        document.getElementById('salvarbtn').disabled = false
+    }
+}
 
 function deletar_tel(tel){
     let elemento = document.getElementById(tel.id.replace('btn',''))
@@ -477,29 +557,34 @@ function salvar(item){
     if(adicional){
         document.querySelectorAll('.adicional').forEach((item)=>{
             if (item.value.length == 15){
-                valido = true
             } else {
-                valido = false
                 item.classList.add('vermei')
                 return
             }
-    })}
-
-
-    if(valido){
-        Cookies.set('usuario',1)
-        Cookies.set('tels',tels)
-    } else if (!excluir){
-        abrirjanela('red','Telefone adicional incompleto<br> Por favor verifique-o ou exclua-o!','Dados incompletos')
-        return
+        });
+        
+        document.querySelectorAll('.adicional').forEach((element) => {
+            alert(element.classList.includes('vermei'))
+            if(element.classList.includes('vermei')){
+                valido = false
+                return
+            } else {
+                valido = true
+            }
+            
+        });
     }
 
-    if(!vazio(nome_input.value) && !nome_input.value.replace(' ','').match(/^[A-Za-zÀ-ÖØ-öø-ÿ]+$/)){
-        alert('Por favor, insira um nome válido!')
-        nome_input.classList.add('vermei')
-        nome_input.focus()
 
-    } else if (!validarEmail(email_input.value)){
+    if(!valido && adicional){
+        abrirjanela('red','Telefone adicional incompleto<br> Por favor verifique-o ou exclua-o!','Dados incompletos')
+        return
+    } else {
+        Cookies.set('usuario',1)
+        Cookies.set('tels',tels)
+    }
+
+     if (!validarEmail(email_input.value)){
         alert('Por favor, insira um email válido!')
         email_input.classList.add('vermei')
         email_input.focus()

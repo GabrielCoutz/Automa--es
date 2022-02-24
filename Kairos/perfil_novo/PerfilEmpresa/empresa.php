@@ -44,8 +44,11 @@
 
     $select_empresa=mysqli_query($conec, "SELECT * FROM empresa WHERE cpf_usuario = '$cpf'")->fetch_assoc();
     $_SESSION['ramo_padrao']=$select_empresa['ramo'];
+    $_SESSION['nome_empresa_padrao']=$select_empresa['nome'];
+    $_SESSION['nome_fantasia_padrao']=$select_empresa['nome_fantasia'];
     
     $cnpj=$select_empresa['cnpj'];
+    $_SESSION['cnpj_padrao']=$cnpj;
 
     $select_empresa_endereco=mysqli_query($conec, "SELECT * FROM endereco_empresa WHERE cnpj_empresa = '$cnpj'")->fetch_assoc();
 
@@ -125,7 +128,7 @@
                                              <div class="col-md-5 pr-1">
                                                  <div class="form-group">
                                                      <label>Nome da Empresa</label>
-                                                     <input type="text" class="form-control none" id='nome_empresa_input' name='nome_empresa'>
+                                                     <input type="text" class="form-control none" id='nome_empresa_input' name='nome_empresa_input'>
                                                      <div id='nome_empresa' class='text-secondary'>
                                                         <a><?= ucwords($select_empresa['nome']) ?></a>
                                                     </div>
@@ -134,7 +137,7 @@
                                              <div class="col-md-3 px-1">
                                                  <div class="form-group">
                                                      <label>Nome Fantasia</label>
-                                                     <input type="text" class="form-control none" id='nome_fantasia_input' name='nome_fantasia'>
+                                                     <input type="text" class="form-control none" id='nome_fantasia_input' name='nome_fantasia_input'>
                                                      <div id='nome_fantasia' class='text-secondary'>
                                                         <a><?= ucwords($select_empresa['nome_fantasia']) ?></a>
                                                     </div>
@@ -184,7 +187,7 @@
                                             <div class="col-md-4 px-1">
                                                 <div class="form-group">
                                                     <label>Número</label>
-                                                    <input type="number" class="form-control none small-input" id='numero_empresa_input' pattern="[0-9]" name='numero'>
+                                                    <input type="number" class="form-control none small-input" id='numero_empresa_input' pattern="[0-9]" name='numero_empresa_input'>
                                                     <div id='numero_empresa' class='text-secondary'><a><?= $select_empresa_endereco['numero'] ?></a></div>
                                                 </div>
                                             </div>
