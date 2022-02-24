@@ -104,7 +104,41 @@ function abrirjanela(cor, texto, titulo){
 }
 
 // -------------------- fim código popup --------------------
+$(document).keypress(
+    function(event){
+      if (event.which == '13') {
+        event.preventDefault();
+      }
+  });
+var alerta = ''
 
+if (window.location.href.includes(md5('nome_empresa_duplicado=true'))) { // nome_empresa
+    alerta+='Nome para Empresa já cadastrado!<br>'
+    document.getElementById("nome_empresa_input").classList.add('vermei')
+    
+    let nextURL = window.location.href.replace(md5('nome_empresa_duplicado=true'),'').replace('?','');
+    let nextState = { additionalInformation: 'Updated the URL with JS' };
+    window.history.replaceState(nextState, 'Perfil', nextURL);
+}
+if (window.location.href.includes(md5('nome_fantasia_duplicado=true'))) { //nome_fantasia
+    alerta+='Nome Fantasia já cadastrado!<br>'
+    document.getElementById("nome_fantasia_input").classList.add('vermei')
+    
+    let nextURL = window.location.href.replace(md5('nome_fantasia_duplicado=true'),'').replace('?','');
+    let nextState = { additionalInformation: 'Updated the URL with JS' };
+    window.history.replaceState(nextState, 'Perfil', nextURL);
+}
+if(alerta != ""){
+    abrirjanela('red',alerta, '| Alteração Inválida |')
+    document.getElementById('editarbtn').click()
+
+} else if(window.location.href.includes(md5('livre=true'))){
+    abrirjanela('green','Dados alterados com êxito.', '| Alteração realizada com sucesso |')
+
+    let nextURL = window.location.href.replace(md5('livre=true'),'').replace('?','');
+    let nextState = { additionalInformation: 'Updated the URL with JS' };
+    window.history.replaceState(nextState, 'Perfil', nextURL);
+}
 function nada(){
     document.getElementById('asdf_cancelar').addEventListener('click', function(){
         document.getElementById("dados_empresa").submit();

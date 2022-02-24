@@ -15,10 +15,6 @@ if(isset($_COOKIE['ramo'])){ // alteração de ramo
     $ramo_padrao=$_SESSION['ramo_padrao'];
 
     $result_ramo=mysqli_query($conec,"UPDATE empresa SET ramo='$ramo' WHERE ramo='$ramo_padrao'");
-
-    setcookie('ramo', '', time() - 3600, '/');
-    header('Location:'.$local.'?'.md5('livre=true'));
-    exit;
 }
 
 if(isset($_COOKIE['endereco_empresa'])){ // alteração do endereco da empresa
@@ -39,13 +35,9 @@ if(isset($_COOKIE['endereco_empresa'])){ // alteração do endereco da empresa
     UPDATE endereco_empresa SET estado='$estado_empresa' WHERE cnpj_empresa='$cnpj_padrao';");
 
     setcookie('endereco_empresa', '', time() - 3600, '/');
-
-    header('Location:'.$local.'?'.md5('livre=true'));
-    exit;
 }
 
 if(isset($_COOKIE['empresa'])) { // alteração de dados empresa
-    
     if($_POST['nome_empresa_input'] != ''){ // verificação se o nome digitado já existe
         $nome_empresa = $_POST['nome_empresa_input'];
         $select_nome_empresa=mysqli_query($conec, "SELECT * FROM empresa WHERE nome ='$nome_empresa'")->fetch_assoc()['nome'];

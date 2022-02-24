@@ -146,6 +146,56 @@ function vazio(item){ // verifica se o valor passado está vazio
     return item == ''
 }
 
+function alteracao(evento){
+    let livre = true
+    let lista = document.getElementsByTagName('input')
+    for (let index = 0; index < lista.length; index++) {
+        if(lista[index].classList.toString().includes('vermei')){
+            livre = false
+            return
+        } else{
+            livre = true
+        }
+    };
+    if(livre){
+        document.addEventListener(evento, function(){
+            let input = false
+            let tel_input = document.getElementById('tel_input')
+            if (tel_input != null){
+                if(!vazio(tel_input.value)){
+                    input = true
+                }
+            }
+    
+            let deletar = false
+            let ranks = document.getElementsByClassName('del_num')
+    
+            if(document.getElementsByClassName('exclusao_tel')[0]){
+                for(let i = 0; i < ranks.length; i++) {
+                    if (ranks[i].style.opacity == '0.5'){
+                        deletar = true
+                    }
+                };
+            }
+    
+            if (vazio(nome_input.value) && vazio(email_input.value) && vazio(cep_input.value) && vazio(numero_input.value) && !deletar && !input){
+                document.getElementById('salvarbtn').disabled = true
+            } else {
+                document.getElementById('salvarbtn').disabled = false
+            }
+        })
+    }
+    
+}
+
+$(document).keypress(
+    function(event){
+      if (event.which == '13') {
+        event.preventDefault();
+      }
+  });
+
+
 if (window.location.href.includes(md5('email_duplicado=true'))) {
     document.getElementById('editarbtn').click()
     document.getElementById("email_input").classList.add('vermei')
@@ -191,7 +241,10 @@ if(window.location.href.includes(md5('livre=true'))){
     let nextState = { additionalInformation: 'Updated the URL with JS' };
     window.history.replaceState(nextState, 'Perfil', nextURL);
 }
-
+if(document.getElementById('editarbtn').addEventListener('click',function(){
+    alteracao('click')
+    alteracao('keyup')
+}))
 
 // código para adicionar/remover números de telefone
 $(function(){
@@ -301,72 +354,6 @@ function StrengthChecker(PasswordParameter){
     }
 }
 // -------------------- fim validador de senha --------------------
-
-document.getElementById('editarbtn').addEventListener('click',function(){
-    alteracao('click')
-    alteracao('keyup')
-
-})
-
-function validar_nome(nome){
-    if(!vazio(nome.value) && !nome.value.replace(' ','').match(/^[A-Za-zÀ-ÖØ-öø-ÿ]+$/)){
-        nome_input.classList.add('vermei')
-        document.removeEventListener('click',campo_vazio)
-        document.removeEventListener('keyup',campo_vazio)
-        document.getElementById('salvarbtn').disabled = true
-        alert('Por favor, insira um nome válido!')
-
-    } else{
-        nome_input.classList.remove('vermei')
-        document.getElementById('salvarbtn').disabled = false
-    }
-}
-
-function alteracao(evento){
-    let livre = true
-    let lista = document.getElementsByTagName('input')
-
-    for (let index = 0; index < lista.length; index++) {
-        if(lista[index].classList.toString().includes('vermei')){
-            livre = false
-            return
-        } else{
-            livre = true
-        }
-    };
-    if(livre){
-        document.addEventListener(evento, campo_vazio())
-    }
-    
-}
-
-function campo_vazio(){
-    let input = false
-    let tel_input = document.getElementById('tel_input')
-    if (tel_input != null){
-        if(!vazio(tel_input.value)){
-            input = true
-        }
-    }
-
-    let deletar = false
-    let ranks = document.getElementsByClassName('del_num')
-
-    if(document.getElementsByClassName('exclusao_tel')[0]){
-        for(let i = 0; i < ranks.length; i++) {
-            if (ranks[i].style.opacity == '0.5'){
-                deletar = true
-            }
-        };
-    }
-
-    if (vazio(nome_input.value) && vazio(email_input.value) && vazio(cep_input.value) && vazio(numero_input.value) && !deletar && !input){
-        document.getElementById('salvarbtn').disabled = true
-    } else {
-        document.getElementById('salvarbtn').disabled = false
-    }
-}
-
 function deletar_tel(tel){
     let elemento = document.getElementById(tel.id.replace('btn',''))
     if(elemento.style.opacity != '0.5'){
@@ -374,7 +361,6 @@ function deletar_tel(tel){
     } else {
         elemento.style.opacity = '1'
     }
-
 }
 
 function alterar_edicao(chave){
@@ -448,7 +434,6 @@ function editar(item){
         document.getElementById("salvar_senhabtn").classList.toggle("none");
         document.getElementById("cancelar_senhabtn").classList.toggle("none");
 
-        //document.getElementById("salvar_senhabtn").disabled = true;
         document.getElementsByClassName('senha')[0].innerText = 'Alterar Senha'
         return
     }
@@ -564,8 +549,7 @@ function salvar(item){
         });
         
         document.querySelectorAll('.adicional').forEach((element) => {
-            alert(element.classList.includes('vermei'))
-            if(element.classList.includes('vermei')){
+            if(element.classList.toString().includes('vermei')){
                 valido = false
                 return
             } else {
@@ -584,7 +568,12 @@ function salvar(item){
         Cookies.set('tels',tels)
     }
 
-     if (!validarEmail(email_input.value)){
+    if(!vazio(nome_input.value) && !nome_input.value.replace(' ','').match(/^[A-Za-zÀ-ÖØ-öø-ÿ]+$/)){
+        nome_input.classList.add('vermei')
+        document.getElementById('salvarbtn').disabled = true
+        alert('Por favor, insira um nome válido!')
+
+    } else if (!validarEmail(email_input.value)){
         alert('Por favor, insira um email válido!')
         email_input.classList.add('vermei')
         email_input.focus()

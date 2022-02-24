@@ -134,12 +134,12 @@
                                     <h4 class="card-title">Seus dados</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form action="assets/php/enviar.php" method="POST" id='dados' onsubmit="return false">
+                                    <form action="assets/php/enviar_usuario.php" method="POST" id='dados' onsubmit="return false">
                                         <div class="row">
                                             <div class="col-md-5 pr-1">
                                                 <div class="form-group">
                                                     <label>Nome</label>
-                                                    <input type="text" class="form-control none" id='nome_input' name='nome' onkeyup="validar_nome(this)">
+                                                    <input type="text" class="form-control none" id='nome_input' name='nome'>
                                                     <div id='nome' class='text-secondary'>
                                                         <a><?= ucwords($result['nome']) ?></a>
                                                     </div>
