@@ -1,0 +1,117 @@
+#del_tel, #cancelarbtn, #cancelar_senhabtn{
+    position: relative;
+    color: #fff;
+    margin-left: 10px;
+    background-color: #a82020;
+    border-color: #a82020;
+  }
+
+#btnsair{
+    cursor: pointer !important ;
+}
+#btnsair:hover{
+    color: red !important;
+}
+
+.btn {
+    display: inline-block;
+    font-weight: 400;
+    color: #212529;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+button:disabled{
+    cursor: default;
+}
+
+#add_tel, #salvarbtn, #salvar_senhabtn{
+    color: white;
+    background: #20a837;
+}
+.vermei, .vermei:focus, .vermei:hover{
+    border: 1px solid red !important;
+}
+input{
+    max-width: 250px;
+    font-family: muli, sans-serif !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+}
+
+.small-input {
+    -moz-appearance: textfield;
+}
+.small-input::-webkit-inner-spin-button {
+        display: none;
+    }
+
+.small-input::-webkit-outer-spin-button,
+.small-input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+#pass2{
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+
+label{
+    color: #000000 !important;
+    font-weight: bold !important;
+}
+.content{
+    cursor: default;
+}
+input::-webkit-input-placeholder {
+    color: black !important;
+    opacity: 0.5 !important;
+}
+.text-secondary{
+    color: #6c757d!important;
+
+}
+.btn-remove-phone {
+    margin-top: 4px;
+    padding: 5px !important;
+    height: 29px;
+    border-radius: 0.25rem !important;
+}
+.btn-danger {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+input{
+    transition: all 0.5s ease-in-out !important;
+    border-radius:6px !important;
+    border: 1px solid #ced6e0 !important;
+}
+input:focus, input:hover{
+    box-shadow: 0px 10px 20px -13px rgba(32, 56, 117, 0.35);
+    text-align: left !important;
+    border-radius:6px !important;
+    border-color: #3d9cff !important;
+    outline: none !important;
+}
+
+#tel{
+    margin-top: 10xp;
+}
+
+#salvarbtn{
+    margin-left: 10px;
+}
