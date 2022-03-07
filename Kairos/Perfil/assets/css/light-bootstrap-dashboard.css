@@ -1651,15 +1651,6 @@ fieldset[disabled] .btn-info.active {
     filter: alpha(opacity=100);
 }
 
-.btn-info.btn-fill:hover,
-.btn-info.btn-fill:focus,
-.btn-info.btn-fill:active,
-.btn-info.btn-fill.active,
-.open>.btn-info.btn-fill.dropdown-toggle {
-    background-color: #42d0ed;
-    color: #FFFFFF;
-}
-
 .btn-info.btn-fill .caret {
     border-top-color: #FFFFFF;
 }

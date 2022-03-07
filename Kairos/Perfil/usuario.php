@@ -271,12 +271,12 @@
                                             </div>
                         
                                         </div>
-                                        <button class="btn btn-info btn-fill pull-right" id='editarbtn' onclick="editar(this)">Editar</button>
-                                        <button class="btn btn-info btn-fill pull-right none" id='salvarbtn' onclick="salvar(this)">Salvar</button>
-                                        <button class="btn btn-info btn-fill pull-right none" id='cancelarbtn' onclick="cancelar(this)">Cancelar</button>
+                                        <button class="btn btn-info btn-fill pull-right" id='editarbtn' onclick="editar(this)"><div class='circle'></div>Editar</button>
+                                        <button class="btn btn-info btn-fill pull-right none" id='salvarbtn' onclick="salvar(this)"><div class='circle'></div>Salvar</button>
+                                        <button class="btn btn-info btn-fill pull-right none" id='cancelarbtn' onclick="cancelar(this)"><div class='circle'></div>Cancelar</button>
 
-                                        <button class="btn btn-info btn-fill pull-right none" id='salvar_senhabtn' onclick="salvar(this)">Salvar Alteração</button>
-                                        <button class="btn btn-info btn-fill pull-right none" id='cancelar_senhabtn' onclick="cancelar(this)">Cancelar</button>
+                                        <button class="btn btn-info btn-fill pull-right none" id='salvar_senhabtn' onclick="salvar(this)"><div class='circle'></div>Salvar Alteração</button>
+                                        <button class="btn btn-info btn-fill pull-right none" id='cancelar_senhabtn' onclick="cancelar(this)"><div class='circle'></div>Cancelar</button>
                                     </form>
                                 </div>
                             </div>

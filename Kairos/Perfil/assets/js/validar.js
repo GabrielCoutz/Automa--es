@@ -318,7 +318,7 @@ function mudar_senha(botao,elemento){
     let togglePassword = document.querySelector('#'+botao);
     let password = document.querySelector('#'+elemento);
 
-  togglePassword.addEventListener('click', function (e) {
+  togglePassword.addEventListener('click', function () {
     let type = password.getAttribute('type') === 'password' ? 'text' : 'password';
     password.setAttribute('type', type);
     this.classList.toggle('bi-eye');

@@ -2,8 +2,8 @@
     position: relative;
     color: #fff;
     margin-left: 10px;
-    background-color: #a82020;
-    border-color: #a82020;
+    background-color: #a82020 !important;
+    border-color: #a82020 !important;
   }
 
 #btnsair{
@@ -13,8 +13,30 @@
     color: red !important;
 }
 
+.circle{
+  border-radius:50%;
+  transition: all 0.4s cubic-bezier(.86,.31,.55,.99);
+  width:4px;
+  top:calc(50% - 1px);
+  left:calc(50% - 1px);
+  height:2px;
+  position:absolute;
+  display:inline-block;
+  background:#ffffff23;
+}
+
+button:hover >.circle{
+  transform:scale(90);
+}
+
+button{
+  position: relative;
+  overflow: hidden;
+}
+
 .btn {
     display: inline-block;
+    overflow: hidden;
     font-weight: 400;
     color: #212529;
     text-align: center;
@@ -32,14 +54,19 @@
     border-radius: 0.25rem;
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
+#add_tel, #salvarbtn, #salvar_senhabtn{
+    color: white;
+    background: #20a837 !important;
+}
+#editarsenha, #editarbtn{
+  background: #4E6EF1 !important;
+}
+
 button:disabled{
     cursor: default;
 }
 
-#add_tel, #salvarbtn, #salvar_senhabtn{
-    color: white;
-    background: #20a837;
-}
+
 .vermei, .vermei:focus, .vermei:hover{
     border: 1px solid red !important;
 }
