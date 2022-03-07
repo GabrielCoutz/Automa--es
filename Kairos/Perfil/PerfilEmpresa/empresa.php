@@ -4,7 +4,7 @@
  <head>
     <meta charset="utf-8" />
     <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../assets/img/favicon/favicon.ico">
+    <link rel="shortcut icon" href="../../assets/img/favicon/favicon.ico" type="image/x-icon">
 
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -66,6 +66,23 @@
  </head>
  
  <body>
+    <div class="preloader">
+      <div class="loader">
+        <div class="spinner">
+          <div class="spinner-container">
+            <div class="spinner-rotator">
+              <div class="spinner-left">
+                <div class="spinner-circle"></div>
+              </div>
+              <div class="spinner-right">
+                <div class="spinner-circle"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+		<!-- preloader end -->
      <div class="wrapper">
          <div class="sidebar" data-image="assets/img/sidebar-6.jpg">
              <div class="sidebar-wrapper">
@@ -97,7 +114,6 @@
              <!-- Navbar -->
              <nav class="navbar navbar-expand-lg " color-on-scroll="500">
                  <div class="container-fluid">
-                     <a class="navbar-brand" href="#pablo"> Empresa </a>
                      <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                          <span class="navbar-toggler-bar burger-lines"></span>
                          <span class="navbar-toggler-bar burger-lines"></span>
@@ -106,13 +122,7 @@
                      <div class="collapse navbar-collapse justify-content-end" id="navigation">
                         <ul class="nav navbar-nav mr-auto">
                             <li class="nav-item">
-                                <a href="#" class="nav-link" data-toggle="dropdown">
-                                    <i class="nc-icon nc-palette"></i>
-                                    <span class="d-lg-none">Dashboard</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link">
+                                <a class="nav-link" onclick="sair()">
                                     <span class="no-icon" id='btnsair'>Sair</span>
                                 </a>
                             </li>
@@ -166,14 +176,10 @@
                                                     <select class="form-group selectpicker select none" id="ramo_input" name="ramo_input"> 
                                                         <option value disabled selected>Selecione o Ramo</option>
                                                         <option>Alimentação</option>
-                                                        <option>Construção</option>
-                                                        <option>Educação</option>
-                                                        <option>Entretenimento</option>
                                                         <option>Saúde</option>
-                                                        <option>Serviços Pessoais</option>
+                                                        <option>Serviços</option>
                                                         <option>Tecnologia</option>
-                                                        <option>Vendas</option>
-                                                        <option>Vestuário</option>
+                                                        <option>Moda</option>
                                                     </select> 
                                                     <div class='text-secondary' id='ramo'>
                                                         <a><?= ucwords($select_empresa['ramo']) ?></a>
@@ -226,40 +232,18 @@
                  </div>
              </div>
              <footer class="footer">
-                 <div class="container-fluid">
-                     <nav>
-                         <ul class="footer-menu">
-                             <li>
-                                 <a href="#">
-                                     Home
-                                 </a>
-                             </li>
-                             <li>
-                                 <a href="#">
-                                     Company
-                                 </a>
-                             </li>
-                             <li>
-                                 <a href="#">
-                                     Portfolio
-                                 </a>
-                             </li>
-                             <li>
-                                 <a href="#">
-                                     Blog
-                                 </a>
-                             </li>
-                         </ul>
-                         <p class="copyright text-center">
-                             ©
-                             <script>
-                                 document.write(new Date().getFullYear())
-                             </script>
-                             <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
-                         </p>
-                     </nav>
-                 </div>
-             </footer>
+                <div class="container-fluid">
+                    <nav>
+                        <ul class="footer-menu">
+                            <li>
+                                <a href="../index.php">
+                                    Página Inicial
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </footer>
          </div>
      </div>
  </body>

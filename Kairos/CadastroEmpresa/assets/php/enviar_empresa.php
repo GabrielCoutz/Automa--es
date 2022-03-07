@@ -7,7 +7,7 @@ $dbPass = '';
 $dbName     = 'kairos';
 
 $duplicado=false;
-$local='cadastro_empresa.php';
+$local='../../cadastro_empresa.php';
 
 $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 

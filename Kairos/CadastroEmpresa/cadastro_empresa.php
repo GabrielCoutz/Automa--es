@@ -62,14 +62,10 @@
 							<select class="form-control selectpicker" id="ramo" name="ramo"> 
 							  <option value disabled selected>Selecione o Ramo</option>
 							  <option>Alimentação</option>
-							  <option>Construção</option>
-							  <option>Educação</option>
-							  <option>Entretenimento</option>
 							  <option>Saúde</option>
-							  <option>Serviços Pessoais</option>
+							  <option>Serviços</option>
 							  <option>Tecnologia</option>
-							  <option>Vendas</option>
-							  <option>Vestuário</option>
+							  <option>Moda</option>
 							</select>
 						  </div>
 						</div>
@@ -80,21 +76,24 @@
 					</div>
 					<div class="form-holder">
 						<span class="lnr lnr-map-marker"></span>
-						<input type="text" class="form-control" placeholder="Rua"  id="rua_empresa" name="rua_empresa">
-					</div>
-					<div class="form-holder">
-						<span class="lnr lnr-map-marker"></span>
 						<input type="tel" class="form-control" placeholder="Número"  id="numero_empresa" name="numero_empresa">
 					</div>
-					<div class="form-holder">
+
+					<div id='endereco'></div>
+
+					<div class="form-holder none" id='form_rua'>
+						<span class="lnr lnr-map-marker"></span>
+						<input type="text" class="form-control" placeholder="Rua"  id="rua_empresa" name="rua_empresa">
+					</div>
+					<div class="form-holder none" id='form_bairro'>
 						<span class="lnr lnr-map-marker"></span>
 						<input type="text" class="form-control" placeholder="Bairro"  id="bairro_empresa" name="bairro_empresa">
 					</div>
-					<div class="form-holder">
+					<div class="form-holder none" id='form_cidade'>
 						<span class="lnr lnr-map-marker"></span>
 						<input type="text" class="form-control" placeholder="Cidade"  id="cidade_empresa" name="cidade_empresa">
 					</div>
-					<div class="form-holder">
+					<div class="form-holder none" id='form_estado'>
 						<span class="lnr lnr-map-marker"></span>
 						<div class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
@@ -131,11 +130,14 @@
 						</select>
 					  </div>
 					</div>
+
+					<div id='endereco_hide' class='none' onclick="editar_manualmente()"></div>
+
 					<button class="btn btn-warning" type="submit" onclick="validar()" id='butao'>
 						<span >Registrar</span>
 					</button>
 				</form>
-				<img src="images/image-2.png" alt="" class="image-2">
+				<img src="assets/images/image-2.png" alt="" class="image-2">
 			</div>
 		
 		</div>

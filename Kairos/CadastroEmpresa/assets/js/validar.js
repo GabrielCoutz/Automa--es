@@ -56,6 +56,10 @@ $('select[name="ramo"]').on('change', function() {
 
   }).change();
 
+var elementos = document.getElementsByTagName('input')
+for(let i = 0; i < elementos.length ; i++){
+    elementos[i].classList.remove('vermei')
+}
 
 
 // -------------------- início código popup --------------------
@@ -396,7 +400,9 @@ function validarCNPJ(cnpj) {
 
 }
 
-
+function vazio(item){ // verifica se o valor passado está vazio
+    return item == ''
+}
 
 cnpj.addEventListener('keyup',function(){
 
@@ -460,6 +466,14 @@ function ler(cep){
 
                         $("#estado_empresa").css('opacity', '1').change();
 
+                        let endereco_full = resposta.logradouro + ', ' + resposta.bairro + ', ' + resposta.localidade + ', ' + resposta.uf
+
+                        endereco.innerHTML = '<span title="Editar" class="lnr lnr-pencil none" id="edit" onclick="editar_manualmente()"></span>'
+
+                        $('#edit').toggle()
+
+                        endereco.innerHTML += endereco_full
+
                         numero_empresa.focus()
 
                 }}
@@ -470,31 +484,33 @@ function ler(cep){
 
 }
 
+function editar_manualmente(){
+    $('#form_rua').toggle()
+    $('#form_bairro').toggle()
+    $('#form_estado').toggle()
+    $('#form_cidade').toggle()
+    $('#endereco').toggle()
+
+    $('#endereco_hide').toggle()
+    document.getElementById('endereco_hide').innerHTML = 'Esconder endereço'
+
+    endereco.innerHTML = '<span title="Editar" class="lnr lnr-pencil none" id="edit" onclick="editar_manualmente()"></span>'
+
+    $('#edit').toggle()
+
+    endereco.innerHTML  += rua_empresa.value + ', ' + bairro_empresa.value + ', ' + cidade_empresa.value + ', ' + estado_empresa.value
+}
 
 
 function validar(){
-
-    rua_empresa.classList.remove("vermei")
-
-    numero_empresa.classList.remove("vermei")
-
-    bairro_empresa.classList.remove("vermei")
-
-    cidade_empresa.classList.remove("vermei")
-
     estado_empresa.classList.remove("vermei")
-
-    nome_empresa.classList.remove("vermei")
-
-    nome_fantasia.classList.remove("vermei")
-
     ramo.classList.remove("vermei")
 
 
 
-    if(nome_empresa.value == ""){
+    if(vazio(nome_empresa.value)){
 
-        alert("Por favor, preencha o Nome em Empresa!");
+        alert("Por favor, preencha o da Empresa!");
 
         nome_empresa.focus()
 
@@ -502,7 +518,7 @@ function validar(){
 
 
 
-    } else if (nome_fantasia.value == "") {
+    } else if (vazio(nome_fantasia.value)) {
 
         alert("Por favor, preencha o Nome Fantasia!");
 
@@ -512,7 +528,7 @@ function validar(){
 
 
 
-    } else if (ramo == ""){
+    } else if (vazio(ramo)){
 
         alert("Por favor, preencha o ramo!")
 
@@ -522,9 +538,9 @@ function validar(){
 
 
 
-    } else if (rua_empresa.value == ""){
+    } else if (vazio(rua_empresa.value)){
 
-        alert("Por favor, preencha o Rua!")
+        alert("Por favor, preencha a Rua!")
 
         rua_empresa.focus()
 
@@ -532,7 +548,7 @@ function validar(){
 
 
 
-    } else if (numero_empresa.value == ""){
+    } else if (vazio(numero_empresa.value)){
 
         alert("Por favor, preencha o Número!")
 
@@ -542,7 +558,7 @@ function validar(){
 
 
 
-    } else if (bairro_empresa.value == ""){
+    } else if (vazio(bairro_empresa.value)){
 
         alert("Por favor, preencha o Bairro!")
 
@@ -552,7 +568,7 @@ function validar(){
 
 
 
-    } else if (cidade_empresa.value == ""){
+    } else if (vazio(cidade_empresa.value)){
 
         alert("Por favor, preencha a Cidade!")
 
@@ -562,7 +578,7 @@ function validar(){
 
 
 
-    } else if (estado_empresa == ""){
+    } else if (vazio(estado_empresa)){
 
         alert("Por favor, preencha o Estado!")
 

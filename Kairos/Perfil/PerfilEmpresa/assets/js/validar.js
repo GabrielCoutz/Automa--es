@@ -1,3 +1,12 @@
+window.onload = function () {
+    window.setTimeout(fadeout, 500);
+}
+
+function fadeout() {
+    document.querySelector('.preloader').style.opacity = '0';
+    document.querySelector('.preloader').style.display = 'none';
+}
+
 const nome_empresa = document.getElementById('nome_empresa')
 const nome_fantasia = document.getElementById('nome_fantasia')
 const ramo_empresa = document.getElementById('ramo')
@@ -129,6 +138,7 @@ $(document).keypress(
         event.preventDefault();
       }
   });
+
 var alerta = ''
 
 if (window.location.href.includes(md5('nome_empresa_duplicado=true'))) { // nome_empresa
@@ -147,6 +157,7 @@ if (window.location.href.includes(md5('nome_fantasia_duplicado=true'))) { //nome
     let nextState = { additionalInformation: 'Updated the URL with JS' };
     window.history.replaceState(nextState, 'Perfil', nextURL);
 }
+
 if(alerta != ""){
     abrirjanela('red',alerta, '| Alteração Inválida |')
     document.getElementById('editarbtn').click()
@@ -158,6 +169,7 @@ if(alerta != ""){
     let nextState = { additionalInformation: 'Updated the URL with JS' };
     window.history.replaceState(nextState, 'Perfil', nextURL);
 }
+
 function nada(){
     document.getElementById('asdf_cancelar').addEventListener('click', function(){
         document.getElementById("dados_empresa").submit();
@@ -208,24 +220,24 @@ function ler_cep(cep){ // preenche o endereço automaticamente da empresa usando
     }
 }
 
-function alteracao(evento){
-    document.addEventListener(evento, function(){
-        if (ramo_input.value != conteudo_ramo){
-            Cookies.set('ramo',ramo_input.value)
-        }
-        if (vazio(nome_empresa_input.value) && vazio(nome_fantasia_input.value) && vazio(cep_empresa_input.value) && vazio(numero_empresa_input.value) && ramo_input.value == conteudo_ramo){
-            document.getElementById('salvarbtn').disabled = true
-        } else {
-            document.getElementById('salvarbtn').disabled = false
-        }
-    })
+function verificar_input(){
+    if (ramo_input.value != conteudo_ramo){
+        Cookies.set('ramo',ramo_input.value)
+    }
+    if (vazio(nome_empresa_input.value) && vazio(nome_fantasia_input.value) && vazio(cep_empresa_input.value) && vazio(numero_empresa_input.value) && ramo_input.value == conteudo_ramo){
+        document.getElementById('salvarbtn').disabled = true
+    } else {
+        document.getElementById('salvarbtn').disabled = false
+    }
 }
 
-alteracao('click')
-alteracao('keyup')
+document.getElementById('editarbtn').addEventListener('click',function(){ // libera eventelistener para ver alterações de inputs
+
+    document.addEventListener('click', verificar_input)
+    document.addEventListener('keyup', verificar_input)
+})
 
 function alterar_edicao(){
-
     //remove sinalização de erros
     nome_empresa_input.classList.remove('vermei')
     nome_fantasia_input.classList.remove('vermei')
@@ -241,9 +253,9 @@ function alterar_edicao(){
     //torna visível botões de edição
     document.getElementById('editarbtn').classList.add('none')
     document.getElementById('salvarbtn').classList.toggle('none')
+    document.getElementById('salvarbtn').disabled = true
     document.getElementById('cancelarbtn').classList.toggle('none')
 
-    
     // torna visível input para edição
     nome_empresa_input.classList.toggle("none")
     ramo.classList.toggle("none")
@@ -251,12 +263,9 @@ function alterar_edicao(){
     nome_fantasia_input.classList.toggle("none")
     cep_empresa_input.classList.toggle("none")
     numero_empresa_input.classList.toggle("none")
-
-
 }
 
 function editar(){
-
     alterar_edicao()
 
     // coloca o conteúdo em placeholder
@@ -268,8 +277,10 @@ function editar(){
 }
 
 function cancelar(){
-
     alterar_edicao()
+
+    document.removeEventListener('click', verificar_input)
+    document.removeEventListener('keyup', verificar_input)
 
     document.getElementById('editarbtn').classList.remove('none')
 
@@ -292,4 +303,8 @@ function salvar(){
         document.getElementById('asdf_cancelar').style.display = 'none'
         setTimeout(nada , 3000)
     }
+}
+function sair(){
+    window.location.href= '../../index.php'
+    localStorage.clear()
 }

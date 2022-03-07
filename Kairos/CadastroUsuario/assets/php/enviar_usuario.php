@@ -22,28 +22,28 @@ $senha=md5($_POST['senha']);
 $email=$_POST['email'];
 
 $duplicado=false;
-$local='cadastro_usuario.php';
+$local='../../cadastro_usuario.php';
 
-if(isset($_POST['g-recaptcha-response']) && $_POST['g-recaptcha-response'] != ""){
-        $url='https://www.google.com/recaptcha/api/siteverify';
-        $secret = '6Ld5L3oeAAAAAF7ExJjjJbY9EnWGQSyjCin5aGRL';
-        $response = $_POST['g-recaptcha-response'];
-        $variaveis = "secret=".$secret."&response=".$response;
-
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $variaveis);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-        curl_setopt($ch, CURLOPT_HEADER, 0);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        $resp = json_decode(curl_exec($ch));
-
-        if ($resp->success != 1){
-            $local=$local.'?'.md5('erro=true');
-            header("Refresh:0; url=".$local);
-            exit;
-        }
-    }
+//if(isset($_POST['g-recaptcha-response']) && $_POST//['g-recaptcha-response'] != ""){
+//        $url='https://www.google.com/recaptcha/api/siteverify';
+//        $secret = '6Ld5L3oeAAAAAF7ExJjjJbY9EnWGQSyjCin5aGRL';
+//        $response = $_POST['g-recaptcha-response'];
+//        $variaveis = "secret=".$secret."&response=".$response;
+//
+//        $ch = curl_init($url);
+//        curl_setopt($ch, CURLOPT_POST, 1);
+//        curl_setopt($ch, CURLOPT_POSTFIELDS, $variaveis);
+//        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+//        curl_setopt($ch, CURLOPT_HEADER, 0);
+//        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+//        $resp = json_decode(curl_exec($ch));
+//
+//        if ($resp->success != 1){
+//            $local=$local.'?'.md5('erro=true');
+//            header("Refresh:0; url=".$local);
+//            exit;
+//        }
+//    }
 
 $select=mysqli_query($conec, "SELECT cpf FROM usuario WHERE cpf = '$cpf'")->fetch_assoc();
 

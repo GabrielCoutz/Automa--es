@@ -1,3 +1,12 @@
+window.onload = function () { // animação de loader inicial
+    window.setTimeout(fadeout, 500);
+}
+
+function fadeout() { // animação de loader inicial/2
+    document.querySelector('.preloader').style.opacity = '0';
+    document.querySelector('.preloader').style.display = 'none';
+}
+
 const nome = document.getElementById('nome')
 const email = document.getElementById('email')
 const cep = document.getElementById('cep')
@@ -112,6 +121,17 @@ function erro(){
 }
 // -------------------- fim código popup --------------------
 
+function vazio(item){ // verifica se o valor passado está vazio
+    return item == ''
+}
+
+$(document).keypress( // desativa a tecla Enter
+    function(event){
+      if (event.which == '13') {
+        event.preventDefault();
+      }
+  });
+
 if (window.location.href.includes(md5('erro=true'))) { // erro de login
     abrirjanela('red','Erro inesperado!<br>Por favor, faça login novamente.', 'Conta não sincronizada')
     document.getElementsByClassName('content')[0].style.display = 'none'
@@ -124,12 +144,87 @@ if (window.location.href.includes(md5('erro=true'))) { // erro de login
 
 }
 
+if (window.location.href.includes(md5('email_duplicado=true'))) { // email erro
+    document.getElementById('editarbtn').click()
+    document.getElementById("email_input").classList.add('vermei')
+    abrirjanela('red','Email já cadastrado!', '| Alteração Inválida |')
+    
+    let nextURL = window.location.href.replace(md5('email_duplicado=true'),'').replace('?','');
+    let nextState = { additionalInformation: 'Updated the URL with JS' };
+    window.history.replaceState(nextState, 'Perfil', nextURL);
+}
+
+if (window.location.href.includes(md5('senha=false'))) { // senha erro
+    abrirjanela('red','Não foi possível alterar sua senha!<br>Por favor, verifique os campos e tente novamente.', '| Alteração Inválida |')
+    
+    document.getElementById('editarsenha').click()
+    document.getElementById("senha_antiga").classList.add('vermei')
+    document.getElementById("senha_nova").classList.add('vermei')
+    document.getElementById("senha_nova_dup").classList.add('vermei')
+    
+    let nextURL = window.location.href.replace(md5('senha=false'),'').replace('?','');
+    let nextState = { additionalInformation: 'Updated the URL with JS' };
+    window.history.replaceState(nextState, 'Perfil', nextURL);
+}
+
+if(window.location.href.includes(md5('livre=true'))){
+    abrirjanela('green','Dados alterados com êxito.', '| Alteração realizada com sucesso |')
+
+    let nextURL = window.location.href.replace(md5('livre=true'),'').replace('?','');
+    let nextState = { additionalInformation: 'Updated the URL with JS' };
+    window.history.replaceState(nextState, 'Perfil', nextURL);
+}
+
 function validarEmail(email){ // auto-explicativo
     if (email != ''){
         return email.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)
     } else {
         return true
     }
+}
+
+function verificar_input(){ // se ouver entrada nos inputs, o botão de salvar é liberado
+    let input = false
+    let tel_input = document.getElementById('tel_input')
+    if (tel_input != null){
+        if(!vazio(tel_input.value)){
+            input = true
+        }
+    }
+
+    let deletar = false
+    let ranks = document.getElementsByClassName('del_num')
+
+    if(document.getElementsByClassName('exclusao_tel')[0]){
+        for(let i = 0; i < ranks.length; i++) {
+            if (ranks[i].style.opacity == '0.5'){
+                deletar = true
+            }
+        };
+    }
+
+    if (vazio(nome_input.value) && vazio(email_input.value) && vazio(cep_input.value) && vazio(numero_input.value) && !deletar && !input){
+        document.getElementById('salvarbtn').disabled = true
+    } else {
+        document.getElementById('salvarbtn').disabled = false
+    }
+}
+
+function alteracao(evento){ // se houver erros no input o botão de salvar é desabilitado até que sejam resolvidos
+    let livre = true
+    let lista = document.getElementsByTagName('input')
+    for (let index = 0; index < lista.length; index++) {
+        if(lista[index].classList.toString().includes('vermei')){
+            livre = false
+            return
+        } else{
+            livre = true
+        }
+    };
+    if(livre){
+        document.addEventListener(evento, verificar_input)
+    }
+    
 }
 
 function ler_cep(cep){ // preenche o endereço automaticamente do usuario usando o cep
@@ -161,124 +256,11 @@ function ler_cep(cep){ // preenche o endereço automaticamente do usuario usando
     }
 }
 
-function vazio(item){ // verifica se o valor passado está vazio
-    return item == ''
-}
-
-function alteracao(evento){
-    let livre = true
-    let lista = document.getElementsByTagName('input')
-    for (let index = 0; index < lista.length; index++) {
-        if(lista[index].classList.toString().includes('vermei')){
-            livre = false
-            return
-        } else{
-            livre = true
-        }
-    };
-    if(livre){
-        document.addEventListener(evento, function(){
-            let input = false
-            let tel_input = document.getElementById('tel_input')
-            if (tel_input != null){
-                if(!vazio(tel_input.value)){
-                    input = true
-                }
-            }
-    
-            let deletar = false
-            let ranks = document.getElementsByClassName('del_num')
-    
-            if(document.getElementsByClassName('exclusao_tel')[0]){
-                for(let i = 0; i < ranks.length; i++) {
-                    if (ranks[i].style.opacity == '0.5'){
-                        deletar = true
-                    }
-                };
-            }
-    
-            if (vazio(nome_input.value) && vazio(email_input.value) && vazio(cep_input.value) && vazio(numero_input.value) && !deletar && !input){
-                document.getElementById('salvarbtn').disabled = true
-            } else {
-                document.getElementById('salvarbtn').disabled = false
-            }
-        })
-    }
-    
-}
-
-$(document).keypress(
-    function(event){
-      if (event.which == '13') {
-        event.preventDefault();
-      }
-  });
-
-
-
-if (window.location.href.includes(md5('email_duplicado=true'))) {
-    document.getElementById('editarbtn').click()
-    document.getElementById("email_input").classList.add('vermei')
-    abrirjanela('red','Email já cadastrado!', '| Alteração Inválida |')
-    
-    let nextURL = window.location.href.replace(md5('email_duplicado=true'),'').replace('?','');
-    let nextState = { additionalInformation: 'Updated the URL with JS' };
-    window.history.replaceState(nextState, 'Perfil', nextURL);
-}
-
-if (window.location.href.includes(md5('senha=false'))) { // senha erro
-    abrirjanela('red','Não foi possível alterar sua senha!<br>Por favor, verifique os campos e tente novamente.', '| Alteração Inválida |')
-    
-    document.getElementById('editarsenha').click()
-    document.getElementById("senha_antiga").classList.add('vermei')
-    document.getElementById("senha_nova").classList.add('vermei')
-    document.getElementById("senha_nova_dup").classList.add('vermei')
-    
-    let nextURL = window.location.href.replace(md5('senha=false'),'').replace('?','');
-    let nextState = { additionalInformation: 'Updated the URL with JS' };
-    window.history.replaceState(nextState, 'Perfil', nextURL);
-}
-
-if (window.location.href.includes(md5('erro=true'))) { // erro de login
-    abrirjanela('red','Erro inesperado!<br>Por favor, faça login novamente.', 'Conta não sincronizada')
-    document.getElementsByClassName('main-painel')[0].style.display = 'none'
-    document.getElementById('asdf_cancelar').style.display = 'none'
-    setTimeout(nada , 3000)
-    document.getElementById('asdf_cancelar').addEventListener('click',function(){
-            window.location.href = "../login/index.php"
-        })
-    
-    let nextURL = window.location.href.replace(md5('erro=true'),'').replace('?','');
-    let nextState = { additionalInformation: 'Updated the URL with JS' };
-    window.history.replaceState(nextState, 'Perfil', nextURL);
-
-}
-
-if(window.location.href.includes(md5('livre=true'))){
-    abrirjanela('green','Dados alterados com êxito.', '| Alteração realizada com sucesso |')
-
-    let nextURL = window.location.href.replace(md5('livre=true'),'').replace('?','');
-    let nextState = { additionalInformation: 'Updated the URL with JS' };
-    window.history.replaceState(nextState, 'Perfil', nextURL);
-}
-if(document.getElementById('editarbtn').addEventListener('click',function(){
-    alteracao('click')
-    alteracao('keyup')
-}))
-
-// código para adicionar/remover números de telefone
-$(function(){
-    $(document.body).on('click', '.changeType' ,function(){
-        $(this).closest('.phone-input').find('.type-text').text($(this).text());
-        $(this).closest('.phone-input').find('.type-input').val($(this).data('type-value'));
-    });
-    
-    $(document.body).on('click', '.btn-remove-phone' ,function(){
+$(function(){ // código para adicionar/remover números de telefone
+    $('.btn-remove-phone').on('click', function(){
         $(this).closest('.phone-input').remove();
     });
 
-    
-    
     $('.btn-add-phone').click(function(){
         if(document.getElementById('del_tel').style.display != 'none'){
             $('#del_tel').toggle();
@@ -324,6 +306,13 @@ $(function(){
 
 });
 
+if(document.getElementById('editarbtn').addEventListener('click',function(){ // libera eventelistener para ver alterações de inputs
+    document.getElementById('salvarbtn').disabled = true
+    alteracao('click')
+    alteracao('keyup')
+}))
+
+
 // -------------------- início validador de senha --------------------
 function mudar_senha(botao,elemento){
     let togglePassword = document.querySelector('#'+botao);
@@ -336,9 +325,7 @@ function mudar_senha(botao,elemento){
 });
 }
 
-mudar_senha('togglePassword_antigo','senha_antiga')
-mudar_senha('togglePassword_novo','senha_nova')
-mudar_senha('togglePassword_novo_dup','senha_nova_dup')
+
 let timeout;
 let password = document.getElementById('senha_nova')
 let strengthBadge = document.getElementById('StrengthDisp')
@@ -383,20 +370,19 @@ function deletar_tel(tel){
     }
 }
 
-
 function alterar_edicao(chave){
     if(chave == 'senha'){
         document.getElementById("editarsenha").classList.toggle("none");
         document.getElementById("editarbtn").classList.toggle("none");
         document.getElementById("salvar_senhabtn").classList.toggle("none");
         document.getElementById("cancelar_senhabtn").classList.toggle("none");
-    
+
         document.getElementById("pass").classList.toggle("none");
         document.getElementById("pass2").classList.toggle("none");
         document.getElementById("pass3").classList.toggle("none");
-    
+
         document.getElementsByClassName('senha')[0].innerText = 'Senha'
-    
+
         document.getElementById('senha_antiga').value = ''
         document.getElementById('senha_nova').value = ''
         document.getElementById('senha_nova_dup').value = ''
@@ -442,6 +428,11 @@ function alterar_edicao(chave){
 
 function editar(item){
     if(item.id == 'editarsenha'){
+
+        mudar_senha('togglePassword_antigo','senha_antiga')
+        mudar_senha('togglePassword_novo','senha_nova')
+        mudar_senha('togglePassword_novo_dup','senha_nova_dup')
+
         document.getElementById("pass").classList.toggle("none");
         document.getElementById("editarsenha").classList.toggle("none");
         document.getElementById("pass2").classList.toggle("none");
@@ -458,6 +449,7 @@ function editar(item){
         document.getElementsByClassName('senha')[0].innerText = 'Alterar Senha'
         return
     }
+
     document.getElementById('editarsenha').disabled = true
     alterar_edicao()
 
@@ -473,6 +465,10 @@ function cancelar(item){
         alterar_edicao('senha')
         return
     }
+
+    document.removeEventListener('click', verificar_input)
+    document.removeEventListener('keyup', verificar_input)
+
     document.getElementById('editarsenha').disabled = false
     alterar_edicao()
 

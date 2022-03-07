@@ -10,6 +10,28 @@
 
   src: url("../fonts/muli/Muli-SemiBold.ttf"); }
 
+.none{
+  display: none;
+}
+
+#endereco_hide{
+  text-align: center;
+  color: #4E6EF1;
+  cursor: pointer;
+}
+
+#endereco{
+  text-align: center;
+  margin-bottom: 10px;
+  cursor: default;
+}
+
+#edit{
+  margin-right: 10px;
+  color: #4E6EF1;
+  cursor: pointer;
+}
+
 * {
 
   -webkit-box-sizing: border-box;

@@ -19,6 +19,11 @@ $('select').on('change', function() {
     }
   }).change();
 
+var elementos = document.getElementsByTagName('input')
+for(let i = 0; i < elementos.length ; i++){
+    elementos[i].classList.remove('vermei')
+}
+
 // -------------------- início código popup --------------------
 var janelaPopUp = new Object();
 
@@ -158,6 +163,10 @@ if (alerta != ''){
     })
 }
 
+function vazio(item){ // verifica se o valor passado está vazio
+    return item == ''
+}
+
 let timeout;
 let password = document.getElementById('senha')
 let strengthBadge = document.getElementById('StrengthDisp')
@@ -238,6 +247,14 @@ function validar_cpf(cpf) {
     return 0
 }
 
+function validarEmail(email){ // auto-explicativo
+    if (!vazio(email)){
+        return email.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)
+    } else {
+        return true
+    }
+}
+
 function ler(cep){
     if(cep.value.length == 10){
             $.ajax({
@@ -302,58 +319,50 @@ function editar_manualmente(){
     endereco.innerHTML  += rua.value + ', ' + bairro.value + ', ' + cidade.value + ', ' + estado.value
 }
 
+
 function validar(){
-    nome.classList.remove("vermei")
-    email.classList.remove("vermei")
-    tel.classList.remove("vermei")
-    senha.classList.remove("vermei")
-    confirm_senha.classList.remove("vermei")
-    rua.classList.remove("vermei")
-    numero.classList.remove("vermei")
-    bairro.classList.remove("vermei")
-    cidade.classList.remove("vermei")
     document.getElementById("estado").classList.remove("vermei")
 
-    if (nome.value == ''){
-        alert("Por favor, preencha o nome!");
+    if (!vazio(nome.value) && !nome.value.trim().match(/^[A-Za-zÀ-ÖØ-öø-ÿ]+$/)){
+        alert("Por favor, insira um nome válido!");
         nome.focus()
         nome.classList.add("vermei")
-    } else if (tel.value.replace('(','').replace(')','').replace('-','').replace(' ','') == "") {
+    } else if (vazio(tel.value.replace('(','').replace(')','').replace('-','').replace(' ',''))) {
         alert("Por favor, preencha o telefone!");
         tel.focus()
         tel.classList.add("vermei")
 
-    } else if (email.value == "" ||  !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email.value)){
+    } else if (vazio(email.value) && !validarEmail(email.value)){
         alert("Por favor, insira um email válido!");
         email.focus()
         email.classList.add("vermei")
 
-    } else if (rua.value == ""){
-        alert("Por favor, preencha o Rua!")
+    } else if (vazio(rua.value)){
+        alert("Por favor, preencha a Rua!")
         rua.focus()
         rua.classList.add("vermei")
 
-    } else if (numero.value == ""){
+    } else if (vazio(rua.value)){
         alert("Por favor, preencha o Número!")
         numero.focus()
         numero.classList.add("vermei")
 
-    } else if (bairro.value == ""){
+    } else if (vazio(bairro.value)){
         alert("Por favor, preencha o Bairro!")
         bairro.focus()
         bairro.classList.add("vermei")
 
-    } else if (cidade.value == ""){
+    } else if (vazio(cidade.value)){
         alert("Por favor, preencha a Cidade!")
         cidade.focus()
         cidade.classList.add("vermei")
 
-    } else if (estado == ""){
+    } else if (vazio(estado)){
         alert("Por favor, preencha o Estado!")
         estado.focus()
         estado.classList.add("vermei")
 
-    } else if (senha.value == "" || confirm_senha.value == ""){
+    } else if (vazio(senha.value) || vazio(confirm_senha.value)){
         alert("Por favor, preencha a senha!");
         document.getElementById("senha").focus()
         senha.classList.add("vermei")
@@ -366,9 +375,7 @@ function validar(){
         senha.value=""
         confirm_senha.value=""
 
-    } else if (grecaptcha.getResponse() == ""){
-        alert('Por favor, preencha o CAPTCHA!')
-    } else {
+    } else  {
         localStorage.setItem(nome.id,nome.value)
         localStorage.setItem(tel.id,tel.value)
         localStorage.setItem(cep.id,cep.value)

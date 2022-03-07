@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="../assets/img/favicon/favicon.ico">
+    <link rel="shortcut icon" href="../assets/img/favicon/favicon.ico" type="image/x-icon">
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
@@ -24,13 +24,14 @@
     <link href="assets/css/popup.css" rel="stylesheet"/>
     <?php
       session_start();
+      error_reporting(E_ERROR | E_PARSE);
 
 
       $dbHost     = 'localhost';
       $dbUname = 'root';
       $dbPass = '';
       $dbName     = 'kairos';
-      error_reporting(E_ERROR | E_PARSE);
+      
 
       if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
         header("Refresh:0; url=usuario.php".'?'.md5('erro=true'));
@@ -42,39 +43,54 @@
 
       $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 
-      $select=mysqli_query($conec, "SELECT * FROM usuario WHERE email = '$email'");
-      $result=$select->fetch_assoc();
+      $select=mysqli_query($conec, "SELECT * FROM usuario WHERE email = '$email'")->fetch_assoc();
+      
 
-      $id=$result['id'];
-      $cpf=$result['cpf'];
-      $_SESSION['email_padrao']=$result['email'];
-      $_SESSION['nome_padrao']=$result['nome'];
-      $_SESSION['cpf']=$result['cpf'];
+      $id=$select['id'];
+      $cpf=$select['cpf'];
+      $_SESSION['email_padrao']=$select['email'];
+      $_SESSION['nome_padrao']=$select['nome'];
+      $_SESSION['cpf']=$select['cpf'];
 
       $select_telefone=mysqli_query($conec, "SELECT * FROM telefone WHERE cpf_usuario = '$cpf'");
 
       $result_telefone=$select_telefone->fetch_assoc();
-      $teste = '';
+      $numeros = '';
 
       while ($row = mysqli_fetch_assoc($select_telefone)) {
         if($row['tel'] != ""){
-            $teste=$teste.$row["tel"].'<br>';
+            $numeros .= $row["tel"].'<br>';
         }
       }
 
       $_SESSION['tel_padrao']=$result_telefone['tel'];
 
 
-      $select_endereco=mysqli_query($conec, "SELECT * FROM endereco WHERE cpf_usuario = '$cpf'");
-      $result_endereco=$select_endereco->fetch_assoc();
+      $select_endereco=mysqli_query($conec, "SELECT * FROM endereco WHERE cpf_usuario = '$cpf'")->fetch_assoc();
 
-      $select_cartao=mysqli_query($conec, "SELECT * FROM cartao WHERE cpf_usuario = '$cpf'");
-      $result_cartao=$select_cartao->fetch_assoc();
+      $select_cartao=mysqli_query($conec, "SELECT * FROM cartao WHERE cpf_usuario = '$cpf'")->fetch_assoc();
 
   ?>
 </head>
 
 <body>
+    <div class="preloader">
+      <div class="loader">
+        <div class="spinner">
+          <div class="spinner-container">
+            <div class="spinner-rotator">
+              <div class="spinner-left">
+                <div class="spinner-circle"></div>
+              </div>
+              <div class="spinner-right">
+                <div class="spinner-circle"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+		<!-- preloader end -->
     <div class="wrapper">
         <div class="sidebar" data-image="assets/img/sidebar-6.jpg">
             <div class="sidebar-wrapper">
@@ -106,7 +122,7 @@
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg " color-on-scroll="500">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#pablo"> Usuario </a>
+                    
                     <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar burger-lines"></span>
                         <span class="navbar-toggler-bar burger-lines"></span>
@@ -114,12 +130,6 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-end" id="navigation">
                         <ul class="nav navbar-nav mr-auto">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link" data-toggle="dropdown">
-                                    <i class="nc-icon nc-palette"></i>
-                                    <span class="d-lg-none">Dashboard</span>
-                                </a>
-                            </li>
                             <li class="nav-item">
                                 <a class="nav-link" onclick="sair()" >
                                     <span class="no-icon" id='btnsair'>Sair</span>
@@ -146,21 +156,21 @@
                                                     <label>Nome</label>
                                                     <input type="text" class="form-control none" id='nome_input' name='nome'>
                                                     <div id='nome' class='text-secondary'>
-                                                        <a><?= ucwords($result['nome']) ?></a>
+                                                        <a><?= ucwords($select['nome']) ?></a>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-3 px-1">
                                                 <div class="form-group">
                                                     <label>CPF</label>
-                                                    <div class='text-secondary'><a><?= $result['cpf'] ?></a></div>
+                                                    <div class='text-secondary'><a><?= $select['cpf'] ?></a></div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 pl-1">
                                                 <div class="form-group">
                                                     <label>Email</label>
                                                     <input type="email" class="form-control none" id='email_input' name='email'>
-                                                    <div id='email' class='text-secondary'><a><?= $result['email'] ?></a></div>
+                                                    <div id='email' class='text-secondary'><a><?= $select['email'] ?></a></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -176,7 +186,7 @@
                                                     </div>
                                                         <div id='tel' class='text-secondary'>
                                                             <a><?= $result_telefone['tel']?></a>
-                                                            <a><?= '<br>'.$teste ?></a>
+                                                            <a><?= '<br>'.$numeros ?></a>
                                                         </div>
                                                 </div>
                                             </div>
@@ -186,14 +196,14 @@
                                                 <div class="form-group">
                                                     <label>CEP</label>
                                                     <input type="tel" class="form-control none" id='cep_input' onkeypress="$(this).mask('00.000-000')" onkeyup="ler_cep(this)" name='cep'>
-                                                    <div id='cep' class='text-secondary' ><a><?= $result_endereco['cep'] ?></a></div>
+                                                    <div id='cep' class='text-secondary' ><a><?= $select_endereco['cep'] ?></a></div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 px-1">
                                                 <div class="form-group">
                                                     <label>Número</label>
                                                     <input type="number" class="form-control none small-input" id='numero_input' pattern="[0-9]" name='numero'>
-                                                    <div id='numero' class='text-secondary'><a><?= $result_endereco['numero'] ?></a></div>
+                                                    <div id='numero' class='text-secondary'><a><?= $select_endereco['numero'] ?></a></div>
                                                 </div>
                                             </div>
                                             
@@ -203,11 +213,11 @@
                                                 <div class="form-group">
                                                     <label>Endereço</label>
                                                     <div class='text-secondary'>
-                                                        <input type="text" name='rua' class='none' value='<a><?= ucwords($result_endereco['rua']) ?></a>'>
-                                                        <input type="text" name='bairro' class='none' value='<a><?= ucwords($result_endereco['bairro']) ?></a>'>
-                                                        <input type="text" name='cidade' class='none' value='<a><?= ucwords($result_endereco['cidade']) ?></a>'>
-                                                        <input type="text" name='estado' class='none' value='<a><?= ucwords($result_endereco['estado']) ?></a>'>
-                                                        <p id='endereco'><a><?= ucwords($result_endereco['rua']) ?>, <?= ucwords($result_endereco['bairro']) ?>, <?= ucwords($result_endereco['cidade']) ?>, <?= $result_endereco['estado'] ?></a></p>
+                                                        <input type="text" name='rua' class='none' value='<a><?= ucwords($select_endereco['rua']) ?></a>'>
+                                                        <input type="text" name='bairro' class='none' value='<a><?= ucwords($select_endereco['bairro']) ?></a>'>
+                                                        <input type="text" name='cidade' class='none' value='<a><?= ucwords($select_endereco['cidade']) ?></a>'>
+                                                        <input type="text" name='estado' class='none' value='<a><?= ucwords($select_endereco['estado']) ?></a>'>
+                                                        <p id='endereco'><a><?= ucwords($select_endereco['rua']) ?>, <?= ucwords($select_endereco['bairro']) ?>, <?= ucwords($select_endereco['cidade']) ?>, <?= $select_endereco['estado'] ?></a></p>
                                                     </div>
                                                     
                                                 </div>
@@ -218,7 +228,7 @@
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>Assinatura</label>
-                                                    <div id='plano' class='text-secondary'><a><?= ucwords($result_cartao['assinatura']) ?></a></div>
+                                                    <div id='plano' class='text-secondary'><a><?= ucwords($select_cartao['assinatura']) ?></a></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -280,33 +290,11 @@
                     <nav>
                         <ul class="footer-menu">
                             <li>
-                                <a href="#">
-                                    Home
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    Company
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    Portfolio
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    Blog
+                                <a href="../index.php">
+                                    Página Inicial
                                 </a>
                             </li>
                         </ul>
-                        <p class="copyright text-center">
-                            ©
-                            <script>
-                                document.write(new Date().getFullYear())
-                            </script>
-                            <a href="http://www.creative-tim.com">Creative Tim</a>, made with love for a better web
-                        </p>
                     </nav>
                 </div>
             </footer>
