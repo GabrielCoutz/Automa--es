@@ -26,7 +26,7 @@ $local='../../cadastro_usuario.php';
 
 //if(isset($_POST['g-recaptcha-response']) && $_POST//['g-recaptcha-response'] != ""){
 //        $url='https://www.google.com/recaptcha/api/siteverify';
-//        $secret = '6Ld5L3oeAAAAAF7ExJjjJbY9EnWGQSyjCin5aGRL';
+//        $secret = '';
 //        $response = $_POST['g-recaptcha-response'];
 //        $variaveis = "secret=".$secret."&response=".$response;
 //
