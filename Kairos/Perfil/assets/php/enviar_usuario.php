@@ -105,14 +105,12 @@ if(isset($_COOKIE['usuario'])){ // alteração de dados usuário
         header('Location: '.$local);
         exit;
     } else {
-        $tel=$_POST['tel_input'];
+        
         if($email != ''){
             $result=mysqli_query($conec,"UPDATE usuario SET email='$email' WHERE email='$email_padrao'");
             $_SESSION['email']=$email;
         }
-        if($tel != ''){
-            $result=mysqli_query($conec,"UPDATE telefone SET tel='$tel' WHERE tel='$tel_padrao'");
-        }
+
         if ($tels != 0){
             for($i= 0 ; $i < $tels ; $i++){
                 $tel_add = $_COOKIE['phone'.$num.'number'];

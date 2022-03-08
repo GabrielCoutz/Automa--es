@@ -185,7 +185,7 @@ function validarEmail(email){ // auto-explicativo
 
 function verificar_input(){ // se ouver entrada nos inputs, o botão de salvar é liberado
     let input = false
-    let tel_input = document.getElementById('tel_input')
+    let tel_input = document.getElementsByClassName('adicional')
     if (tel_input != null){
         if(!vazio(tel_input.value)){
             input = true
@@ -256,8 +256,9 @@ function ler_cep(cep){ // preenche o endereço automaticamente do usuario usando
     }
 }
 
+
 $(function(){ // código para adicionar/remover números de telefone
-    $('.btn-remove-phone').on('click', function(){
+    $('.btn-remove-phone').click(function(){
         $(this).closest('.phone-input').remove();
     });
 
@@ -272,7 +273,7 @@ $(function(){ // código para adicionar/remover números de telefone
         var num = "'(00) 0000-00009'"
         $('.phone-list').append(''+
                 '<div class="input-group phone-input">'+
-                    '<input type="tel" name="phone'+index+'number" placeholder="(00) 0000-00000" id="tel_input" class="adicional" onkeypress="$(this).mask('+num+')"/>'+
+                    '<input type="tel" name="phone'+index+'number" placeholder="(00) 0000-00000" class="adicional" onkeypress="$(this).mask('+num+')"/>'+
                     '<input type="hidden" name="phone['+index+'][type]" class="type-input"/>'+
                     '<span class="input-group-btn">'+
                         '<button class="btn btn-danger btn-remove-phone btn-info" type="button"><span class="lnr lnr-cross"></span></button>'+
@@ -613,4 +614,8 @@ function salvar(item){
 function sair(){
     window.location.href= '../index.php'
     localStorage.clear()
+}
+
+function fechar_menu(){
+    document.getElementsByTagName('html')[0].classList.remove('nav-open')
 }

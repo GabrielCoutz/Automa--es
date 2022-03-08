@@ -44,6 +44,11 @@ $(document).ready(function() {
     });
 });
 
+window.addEventListener('resize',function(){
+    if ((window.screen.width) > 991){
+        document.getElementsByClassName('nav-mobile-menu')[0].classList.add('none')
+}})
+
 // activate collapse right menu when the windows is resized
 $(window).resize(function() {
     if ($(window).width() <= 991) {

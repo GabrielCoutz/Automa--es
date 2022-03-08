@@ -2491,9 +2491,11 @@ fieldset[disabled] .form-control {
 
 .navbar .navbar-toggler.navbar-toggler-right {
     padding-right: 0;
-    top: 18px;
 }
-
+html, body {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+}
 .navbar .navbar-toggler .navbar-toggler-bar {
     width: 3px;
     height: 3px;
