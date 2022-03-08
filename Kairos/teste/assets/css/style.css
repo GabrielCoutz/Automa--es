@@ -1,0 +1,18 @@
+.col{
+    border: 1px solid #000000;
+}
+.text-primary{
+    text-align: center;
+}
+body{
+    background-color: #accffe;
+}
+.container{
+    border-radius: 10px;
+    min-height: 100vh;
+    display: inline;
+    align-items: center;
+    justify-content: center;
+}
+
+
