@@ -308,3 +308,11 @@ function sair(){
     window.location.href= '../../index.php'
     localStorage.clear()
 }
+function fechar_menu(){
+    document.getElementsByTagName('html')[0].classList.remove('nav-open')
+}
+function abrir_menu(){
+    if(!document.getElementsByTagName('html')[0].classList.contains('nav-open')){
+        document.getElementsByTagName('html')[0].classList.add('nav-open')
+    }
+}

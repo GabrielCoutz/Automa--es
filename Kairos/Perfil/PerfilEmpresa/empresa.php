@@ -35,13 +35,13 @@
     $dbName     = 'kairos';
     error_reporting(E_ERROR | E_PARSE);
 
-    if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
-        header("Refresh:0; url=empresa.php".'?'.md5('erro=true'));
-        exit;
-      } else {
-        $email=$_SESSION['email'];
-      }
-
+    //if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER//['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
+    //    header("Refresh:0; url=empresa.php".'?'.md5('erro=true'));
+    //    exit;
+    //  } else {
+    //    $email=$_SESSION['email'];
+    //  }
+    $email= 'gabriel@gmail.com';
     $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 
     $select=mysqli_query($conec, "SELECT cpf FROM usuario WHERE email = '$email'")->fetch_assoc();
@@ -114,19 +114,27 @@
              <!-- Navbar -->
              <nav class="navbar navbar-expand-lg " color-on-scroll="500">
                  <div class="container-fluid">
-                     <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                     <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" onclick="abrir_menu()">
                          <span class="navbar-toggler-bar burger-lines"></span>
                          <span class="navbar-toggler-bar burger-lines"></span>
                          <span class="navbar-toggler-bar burger-lines"></span>
                      </button>
                      <div class="collapse navbar-collapse justify-content-end" id="navigation">
                         <ul class="nav navbar-nav mr-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" onclick="sair()">
-                                    <span class="no-icon" id='btnsair'>Sair</span>
-                                </a>
-                            </li>
-                        </ul>
+                                <li class='nav-item' id='btnfechar'>
+                                    <a class="nav-link" onclick="fechar_menu()">
+                                        <i class="nc-icon nc-stre-left"></i>
+                                        <span >Fechar Menu</span>
+                                    </a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" onclick="sair()" id='btnsair'>
+                                    <i class="nc-icon nc-simple-remove"></i>
+                                        <span >Sair</span>
+                                    </a>
+                                </li>
+                            </ul>
                     </div>
              </nav>
              <!-- End Navbar -->
@@ -221,9 +229,9 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <button class="btn btn-info btn-fill pull-right" id='editarbtn' onclick="editar()">Editar</button>
-                                            <button class="btn btn-info btn-fill pull-right none" id='salvarbtn' onclick="salvar()">Salvar</button>
-                                            <button class="btn btn-info btn-fill pull-right none" id='cancelarbtn' onclick="cancelar()">Cancelar</button>
+                                            <button class="btn btn-info btn-fill pull-right" id='editarbtn' onclick="editar()"><div class='circle'></div>Editar</button>
+                                            <button class="btn btn-info btn-fill pull-right none" id='salvarbtn' onclick="salvar()"><div class='circle'></div>Salvar</button>
+                                            <button class="btn btn-info btn-fill pull-right none" id='cancelarbtn' onclick="cancelar()"><div class='circle'></div>Cancelar</button>
                                      </form>
                                  </div>
                              </div>

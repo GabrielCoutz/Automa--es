@@ -225,7 +225,7 @@ function verificar_input(){ // se ouver entrada nos inputs, o bot√£o de salvar √
             }
         };
     }
-
+    
     if (vazio(nome_input.value) && vazio(email_input.value) && vazio(cep_input.value) && vazio(numero_input.value) && !deletar && tel_input != 15){
 
         document.getElementById('salvarbtn').disabled = true

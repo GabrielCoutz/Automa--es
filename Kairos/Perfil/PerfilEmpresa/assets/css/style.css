@@ -1,16 +1,24 @@
-#del_tel, #cancelarbtn{
+#cancelarbtn{
     position: relative;
     color: #fff;
     margin-left: 10px;
     background-color: #a82020;
     border-color: #a82020;
-  }
-
+}
+#editarbtn{
+    background: #4E6EF1 !important;
+}
 #btnsair{
     cursor: pointer !important ;
 }
 #btnsair:hover{
     color: red !important;
+}
+.close-layer{
+  display: none !important;
+}
+#btnfechar{
+  cursor: pointer !important;
 }
 
 .small-input {
@@ -27,8 +35,30 @@
         margin: 0;
 }
 
+.circle{
+  border-radius:50%;
+  transition: all 0.4s cubic-bezier(.86,.31,.55,.99);
+  width:4px;
+  top:calc(50% - 1px);
+  left:calc(50% - 1px);
+  height:2px;
+  position:absolute;
+  display:inline-block;
+  background:#ffffff23;
+}
+
+button:hover >.circle{
+  transform:scale(90);
+}
+
+button{
+  position: relative;
+  overflow: hidden;
+}
+
 .btn {
     display: inline-block;
+    overflow: hidden;
     font-weight: 400;
     color: #212529;
     text-align: center;
@@ -66,6 +96,11 @@ input, select{
 
 select{
     height: 35px;
+}
+
+html, body{
+  max-width: 100% !important;
+  overflow-x: hidden !important;
 }
 
 label{

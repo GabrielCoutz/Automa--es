@@ -15,6 +15,9 @@
 #salvar_senhabtn{
   margin-left: 10px;
 }
+.close-layer{
+  display: none !important;
+}
 .circle{
   border-radius:50%;
   transition: all 0.4s cubic-bezier(.86,.31,.55,.99);
@@ -138,7 +141,7 @@ input:focus, input:hover{
 }
 
 #tel{
-    margin-top: 10xp;
+    margin-top: 10px;
 }
 
 #salvarbtn{
