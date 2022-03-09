@@ -6,13 +6,15 @@
     border-color: #a82020 !important;
   }
 
-#btnsair{
+#btnsair, #btnfechar{
     cursor: pointer !important ;
 }
 #btnsair:hover{
     color: red !important;
 }
-
+#salvar_senhabtn{
+  margin-left: 10px;
+}
 .circle{
   border-radius:50%;
   transition: all 0.4s cubic-bezier(.86,.31,.55,.99);
@@ -147,6 +149,38 @@ input:focus, input:hover{
 @media(min-width: 991px){
   #btnfechar{
     display: none;
+  }
+}
+
+@media(max-width: 500px){
+  button{
+    width: 100%;
+  }
+  #add_tel, #del_tel{
+    width: 97% !important;
+  }
+  #senha{
+    display: grid;
+  }
+  #salvar_senhabtn, #add_tel, #del_tel, #salvarbtn, .adicional{
+    margin-bottom: 10px;
+  }
+  .adicional{
+    height: 35px;
+  }
+  .btn-remove-phone{
+    width: auto;
+  }
+  #pass2 {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 15px;
+}
+  #botoes_tel, #add_tel, #del_tel{
+    display: grid;
+  }
+  #del_tel{
+    margin-left: 0;
   }
 }
 

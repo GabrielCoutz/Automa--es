@@ -37,6 +37,7 @@ const verSenhaAntigaNovo = function () {
     elemento.previousElementSibling.setAttribute('type', type)
     elemento.classList.toggle('bi-eye')
 }
+
 const verSenhaAntigaNovoDup = function () {
     let elemento = document.getElementById('togglePassword_novo_dup')
     let type = elemento.previousElementSibling.getAttribute('type') === 'password' ? 'text' : 'password';
@@ -207,14 +208,13 @@ function validarEmail(email){ // auto-explicativo
 }
 
 function verificar_input(){ // se ouver entrada nos inputs, o botão de salvar é liberado
-    let input = false
-    let tel_input = document.getElementsByClassName('adicional')
-    if (tel_input != null){
-        if(!vazio(tel_input.value)){
-            input = true
-        }
-    }
 
+    let tel_input = document.getElementsByClassName('adicional')
+    if (tel_input.length == 0){
+        tel_input = 0
+    } else {
+        tel_input = tel_input[0].value.length
+    }
     let deletar = false
     let ranks = document.getElementsByClassName('del_num')
 
@@ -226,9 +226,11 @@ function verificar_input(){ // se ouver entrada nos inputs, o botão de salvar �
         };
     }
 
-    if (vazio(nome_input.value) && vazio(email_input.value) && vazio(cep_input.value) && vazio(numero_input.value) && !deletar && !input){
+    if (vazio(nome_input.value) && vazio(email_input.value) && vazio(cep_input.value) && vazio(numero_input.value) && !deletar && tel_input != 15){
+
         document.getElementById('salvarbtn').disabled = true
     } else {
+
         document.getElementById('salvarbtn').disabled = false
     }
 }
@@ -468,7 +470,7 @@ function editar(item){
         return
     }
 
-    document.getElementById('editarsenha').disabled = true
+    document.getElementById('senha').classList.toggle('none')
     alterar_edicao()
 
     // coloca o conteúdo em placeholder
@@ -489,6 +491,7 @@ function cancelar(item){
         return
     }
 
+
     document.removeEventListener('click', verificar_input)
     document.removeEventListener('keyup', verificar_input)
 
@@ -496,6 +499,7 @@ function cancelar(item){
     alterar_edicao()
 
     document.getElementById('editarbtn').classList.remove('none')
+    document.getElementById('senha').classList.toggle('none')
 
     $('.adicional').closest('.phone-input').remove();
     $('.exclusao_tel').remove();

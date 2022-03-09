@@ -131,16 +131,16 @@
                     <div class="collapse navbar-collapse justify-content-end" id="navigation">
                         <ul class="nav navbar-nav mr-auto">
                             <li class='nav-item' id='btnfechar'>
-                                <a class="nav-link" onclick="fechar_menu()" >
+                                <a class="nav-link" onclick="fechar_menu()">
                                     <i class="nc-icon nc-stre-left"></i>
-                                    <span id='btnsair'>Fechar Menu</span>
+                                    <span >Fechar Menu</span>
                                 </a>
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" onclick="sair()" >
+                                <a class="nav-link" onclick="sair()" id='btnsair'>
                                 <i class="nc-icon nc-simple-remove"></i>
-                                    <span id='btnsair'>Sair</span>
+                                    <span >Sair</span>
                                 </a>
                             </li>
                         </ul>
