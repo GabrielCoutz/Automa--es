@@ -33,14 +33,13 @@
       $dbName     = 'kairos';
       
 
-      //if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER//['REQUEST_URI'],md5('erro=true'))){
-      //  header("Refresh:0; url=usuario.php".'?'.md5('erro=true'));
-      //  exit;
-      //} else {
-      //  $email=$_SESSION['email'];
-      //}
+      if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
+        header("Refresh:0; url=usuario.php".'?'.md5('erro=true'));
+        exit;
+      } else {
+        $email=$_SESSION['email'];
+      }
 
-        $email= 'gabriel@gmail.com';
       $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 
       $select=mysqli_query($conec, "SELECT * FROM usuario WHERE email = '$email'")->fetch_assoc();
@@ -298,7 +297,7 @@
                     <nav>
                         <ul class="footer-menu">
                             <li>
-                                <a href="../index.php">
+                                <a href="../index.php" id='paginaInicial'>
                                     Página Inicial
                                 </a>
                             </li>

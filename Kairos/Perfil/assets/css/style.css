@@ -187,7 +187,9 @@ input:focus, input:hover{
   }
 }
 
-
+#paginaInicial:hover{
+  color: #3d9cff;
+}
 /*===== All Preloader Style =====*/
 .preloader {
     /* Body Overlay */

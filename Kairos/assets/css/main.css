@@ -949,6 +949,12 @@ p {
   margin-bottom: 15px;
 }
 
+@media (max-width: 500px){
+  a.main-btn{
+    width: 100%;
+  }
+}
+
 /* ============= counter-up css =========== */
 @media only screen and (min-width: 1400px) {
   .counter-up-section .counter-up-content {

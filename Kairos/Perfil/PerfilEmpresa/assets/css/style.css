@@ -135,6 +135,15 @@ input:focus, input:hover, select:focus, select:hover{
 #salvarbtn{
     margin-left: 10px;
 }
+
+#ramo_input{
+  width: 100%;
+}
+
+#paginaInicial:hover{
+  color: #3d9cff;
+}
+
 /*===== All Preloader Style =====*/
 .preloader {
     /* Body Overlay */
