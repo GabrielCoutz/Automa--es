@@ -4,26 +4,9 @@ html{
 .wrapper, body, .inner{
     background-color: transparent !important;
 }
-.wrapper {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #accffe;
-}
-.inner {
-	position: relative;
-	width: 1247px;
-}
-form {
-	max-width: 1460px;
-    margin: auto;
-	position: relative;
-}
-
-.wrapper {
-	min-height: 100vh;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+iframe {
+    position: fixed;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%, -50%); 
 }

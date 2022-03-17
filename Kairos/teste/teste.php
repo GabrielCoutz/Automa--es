@@ -10,9 +10,8 @@
     <title>Teste</title>
 </head>
 <body>
-    <div class="wrapper">
-      <div class="inner">
-            <form>
+    <div class="conteudo">
+      <div class="janela">
               <iframe
                   id="JotFormIFrame-220553064751047"
                   title="Formulário"
@@ -108,7 +107,6 @@
                   window.attachEvent("onmessage", handleIFrameMessage);
                 }
               </script>
-            </form>
 			</div>
 		</div>
 </body>

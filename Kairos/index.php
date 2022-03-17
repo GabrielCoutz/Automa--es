@@ -486,10 +486,6 @@
 					</div>
 				</div>
 
-				<div class="copy-right">
-					<p>Design and Developed by <a href="https://uideck.com" rel="nofollow" target="_blank"> UIdeck </a></p>
-				</div>
-
 			</div>
 		</footer>
     <!-- ========================= footer end ========================= -->
