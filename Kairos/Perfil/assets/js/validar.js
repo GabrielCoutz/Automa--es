@@ -139,7 +139,7 @@ function nada(){
 
 function erro(){
     document.getElementById('asdf_cancelar').addEventListener('click', function(){
-        window.location.href = "../Login/login.php"
+        window.location.href = "../Login/login"
     })
     document.getElementById('asdf_cancelar').click()
 }
@@ -639,7 +639,7 @@ function salvar(item){
 
 function sair(){
     localStorage.clear()
-    window.location.href= '../index.php'
+    window.location.href= '../index'
 }
 
 function fechar_menu(){

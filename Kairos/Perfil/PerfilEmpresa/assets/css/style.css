@@ -144,6 +144,16 @@ input:focus, input:hover, select:focus, select:hover{
   color: #3d9cff;
 }
 
+@media(min-width: 991px){
+  #btnfechar{
+    display: none;
+  }
+}
+
+#asdf{
+  cursor: default;
+}
+
 /*===== All Preloader Style =====*/
 .preloader {
     /* Body Overlay */

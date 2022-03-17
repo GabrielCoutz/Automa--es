@@ -5,7 +5,7 @@ $dbUname = 'root';
 $dbPass = '';
 $dbName     = 'kairos';
 
-$local='../../empresa.php';
+$local='../../empresa';
 $duplicado = false;
 
 $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");

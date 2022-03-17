@@ -4,7 +4,7 @@
 	session_start();
 	error_reporting(E_ERROR | E_PARSE);
 	if(!isset($_SESSION['cadastro']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
-		header("Refresh:0; url=cadastro_empresa.php".'?'.md5('erro=true'));
+		header("Refresh:0; url=cadastro_empresa".'?'.md5('erro=true'));
         exit;
 	}
 	?>
@@ -40,7 +40,7 @@
     </div>
 		<div class="wrapper">
 			<div class="inner">
-				<form action="assets/php/enviar_empresa.php" method="POST" name="cadastro" onsubmit="return false" id="cadastro_empresa">
+				<form action="assets/php/enviar_empresa" method="POST" name="cadastro" onsubmit="return false" id="cadastro_empresa">
 					<h3>Cadastro Empresa</h3>
 					<div class="form-holder">
 						<span class="lnr lnr-apartment"></span>

@@ -69,7 +69,7 @@
                       <a class="page-scroll" href="#pricing">Planos</a>
                     </li>
                     <li class="nav-item">
-                      <a href="Login/login.php">Login</a>
+                      <a href="Login/login">Login</a>
                     </li>
                     <li class="nav-item">
                     </li>
@@ -101,7 +101,7 @@
               <p class="wow fadeInUp mouseoff" data-wow-delay=".6s">
                 Mais que uma ferramenta, um meio para alcançar seu sucesso no mercado. (ih ala o corno tbm é coach KKKK)
               </p>
-							<a href="CadastroUsuario/cadastro_usuario.php" class="main-btn btn-hover wow fadeInUp" data-wow-delay=".6s">Começar Agora</a>
+							<a href="CadastroUsuario/cadastro_usuario" class="main-btn btn-hover wow fadeInUp" data-wow-delay=".6s">Começar Agora</a>
             </div>
 					</div>
 					<div class="col-lg-6">
@@ -161,7 +161,7 @@
 									</div>
 								</div>
 							</div>
-							<a href="CadastroUsuario/cadastro_usuario.php" class="main-btn btn-hover">Incrível né? =D</a>
+							<a href="CadastroUsuario/cadastro_usuario" class="main-btn btn-hover">Incrível né? =D</a>
 						</div>
 					</div>
 				</div>
@@ -229,7 +229,7 @@
 				</div>
 
 				<div class="view-all-btn text-center pt-30">
-					<a href="CadastroUsuario/cadastro_usuario.php" class="main-btn btn-hover">Porque não começar hoje?</a>
+					<a href="CadastroUsuario/cadastro_usuario" class="main-btn btn-hover">Porque não começar hoje?</a>
 				</div>
 
 			</div>
@@ -286,7 +286,7 @@
                                         Análise de Resultados
                                     </li>
                                 </ul>
-                                <div class="d-grid"><a class="btn btn-outline-primary" href="CadastroUsuario/cadastro_usuario.php">Escolher Plano</a></div>
+                                <div class="d-grid"><a class="btn btn-outline-primary" href="CadastroUsuario/cadastro_usuario">Escolher Plano</a></div>
                             </div>
                         </div>
                     </div>
@@ -336,7 +336,7 @@
                                         Análise de Resultados
                                     </li>
                                 </ul>
-                                <div class="d-grid"><a class="btn btn-primary" href="CadastroUsuario/cadastro_usuario.php">Escolher Plano</a></div>
+                                <div class="d-grid"><a class="btn btn-primary" href="CadastroUsuario/cadastro_usuario">Escolher Plano</a></div>
                             </div>
                         </div>
                     </div>
@@ -383,7 +383,7 @@
                                         Análise de Resultados
                                     </li>
                                 </ul>
-                                <div class="d-grid"><a class="btn btn-outline-primary" href="CadastroUsuario/cadastro_usuario.php">Escolher Plano</a></div>
+                                <div class="d-grid"><a class="btn btn-outline-primary" href="CadastroUsuario/cadastro_usuario">Escolher Plano</a></div>
                             </div>
                         </div>
                     </div>
@@ -403,7 +403,7 @@
 					</div>
 					<div class="col-xl-6 col-lg-5">
 						<div class="cta-btn text-lg-end mb-50">
-							<a href="CadastroUsuario/cadastro_usuario.php" class="main-btn btn-hover text-uppercase">Basta nos contatar!</a>
+							<a href="CadastroUsuario/cadastro_usuario" class="main-btn btn-hover text-uppercase">Basta nos contatar!</a>
 						</div>
 					</div>
 				</div>

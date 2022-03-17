@@ -48,7 +48,7 @@
 
 	if(!isset($_SESSION['cadastro']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
 
-		header("Refresh:0; url=assinatura.php".'?'.md5('erro=true'));
+		header("Refresh:0; url=assinatura".'?'.md5('erro=true'));
 
         exit;
 
@@ -198,7 +198,7 @@
 
                                     </ul>
 
-                                    <div class="d-grid"><a href="../CadastroCartao/cadastro_cartao.php?plano=básico"class="btn btn-outline-primary">Escolher Plano</a></div>
+                                    <div class="d-grid"><a href="../CadastroCartao/cadastro_cartao?plano=básico"class="btn btn-outline-primary">Escolher Plano</a></div>
 
                                 </div>
 
@@ -298,7 +298,7 @@
 
                                     </ul>
 
-                                    <div class="d-grid"><a class="btn btn-primary" href="../CadastroCartao/cadastro_cartao.php?plano=intermediário">Escolher Plano</a></div>
+                                    <div class="d-grid"><a class="btn btn-primary" href="../CadastroCartao/cadastro_cartao?plano=intermediário">Escolher Plano</a></div>
 
                                 </div>
 
@@ -392,7 +392,7 @@
 
                                     </ul>
 
-                                    <div class="d-grid"><a class="btn btn-outline-primary" href="../CadastroCartao/cadastro_cartao.php?plano=premium">Escolher Plano</a></div>
+                                    <div class="d-grid"><a class="btn btn-outline-primary" href="../CadastroCartao/cadastro_cartao?plano=premium">Escolher Plano</a></div>
 
                                 </div>
 

@@ -21,15 +21,15 @@ if (isset($_GET['validar'])){
     if(mysqli_num_rows($select)){
         
         if($result['email'] == $email && $result['senha'] == $senha){
-            header('Location: ../../login.php?'.md5('login=true'));
+            header('Location: ../../login?'.md5('login=true'));
             exit;
         } else {
-            header('Location: ../../login.php?'.md5('login=false'));
+            header('Location: ../../login?'.md5('login=false'));
             exit;
             
         }
     }else{
-        header('Location: ../../login.php?'.md5('login=false'));
+        header('Location: ../../login?'.md5('login=false'));
         exit;
         
     }

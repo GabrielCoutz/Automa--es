@@ -2612,6 +2612,7 @@ html, body {
 .navbar .nc-icon {
     font-weight: 700;
     margin-top: 10px;
+    margin-right: 10px;
 }
 
 .navbar-transparent .navbar-brand,

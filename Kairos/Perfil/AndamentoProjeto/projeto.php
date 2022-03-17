@@ -24,7 +24,7 @@
      session_start();
 
      if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
-       header("Refresh:0; url=projeto.php".'?'.md5('erro=true'));
+       header("Refresh:0; url=projeto".'?'.md5('erro=true'));
        exit;
      } else {
        $email=$_SESSION['email'];
@@ -58,13 +58,13 @@
                  <ul class="nav">
                      
                      <li>
-                         <a class="nav-link" href="../usuario.php">
+                         <a class="nav-link" href="../usuario">
                              <i class="nc-icon nc-circle-09"></i>
                              <p>Perfil do Usuário</p>
                          </a>
                      </li>
                      <li>
-                         <a class="nav-link" href="../PerfilEmpresa/empresa.php">
+                         <a class="nav-link" href="../PerfilEmpresa/empresa">
                              <i class="nc-icon nc-chart-bar-32"></i>
                              <p>Perfil da Empresa</p>
                          </a>
@@ -193,7 +193,7 @@
                     <nav>
                         <ul class="footer-menu">
                             <li>
-                                <a href="../index.php">
+                                <a href="../index">
                                     Página Inicial
                                 </a>
                             </li>

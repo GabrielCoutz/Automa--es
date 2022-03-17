@@ -5,7 +5,7 @@ $dbUname = 'root';
 $dbPass = '';
 $dbName     = 'kairos';
 
-$local='../../usuario.php';
+$local='../../usuario';
 $duplicado=false;
 $email_padrao=$_SESSION['email_padrao'];
 $tel_padrao=$_SESSION['tel_padrao'];

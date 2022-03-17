@@ -242,6 +242,10 @@ ul {
   padding-left: 0;
   margin-bottom: 0; }
 
+input:hover{
+
+}
+
 a {
   text-decoration: none; }
 
@@ -358,28 +362,28 @@ h3 {
   color: #666;
   font-family: "Muli-SemiBold";
   font-size: 16px; }
-  .form-control::-webkit-input-placeholder {
-    font-size: 14px;
-    font-family: "Muli-Regular";
-    color: #999;
-    transform: translateY(1px); }
-  .form-control::-moz-placeholder {
-    font-size: 14px;
-    font-family: "Muli-Regular";
-    color: #999;
-    transform: translateY(1px); }
-  .form-control:-ms-input-placeholder {
-    font-size: 14px;
-    font-family: "Muli-Regular";
-    color: #999;
-    transform: translateY(1px); }
-  .form-control:-moz-placeholder {
-    font-size: 14px;
-    font-family: "Muli-Regular";
-    color: #999;
-    transform: translateY(1px); }
-  .form-control:focus {
-    border-bottom: 1px solid #accffe; }
+.form-control::-webkit-input-placeholder {
+  font-size: 14px;
+  font-family: "Muli-Regular";
+  color: #999;
+  transform: translateY(1px); }
+.form-control::-moz-placeholder {
+  font-size: 14px;
+  font-family: "Muli-Regular";
+  color: #999;
+  transform: translateY(1px); }
+.form-control:-ms-input-placeholder {
+  font-size: 14px;
+  font-family: "Muli-Regular";
+  color: #999;
+  transform: translateY(1px); }
+.form-control:-moz-placeholder {
+  font-size: 14px;
+  font-family: "Muli-Regular";
+  color: #999;
+  transform: translateY(1px); }
+.form-control:focus, .form-control:hover {
+  border-bottom: 1px solid #accffe; }
 
   #butao {
   border: none;

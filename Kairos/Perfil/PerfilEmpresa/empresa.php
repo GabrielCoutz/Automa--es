@@ -36,7 +36,7 @@
     error_reporting(E_ERROR | E_PARSE);
 
     if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
-        header("Refresh:0; url=empresa.php".'?'.md5('erro=true'));
+        header("Refresh:0; url=empresa".'?'.md5('erro=true'));
         exit;
       } else {
         $email=$_SESSION['email'];
@@ -90,7 +90,7 @@
                  <ul class="nav">
                      
                      <li>
-                         <a class="nav-link" href="../usuario.php">
+                         <a class="nav-link" href="../usuario">
                              <i class="nc-icon nc-circle-09"></i>
                              <p>Perfil do Usuário</p>
                          </a>
@@ -102,7 +102,7 @@
                          </a>
                      </li>
                      <li>
-                         <a class="nav-link" href="../AndamentoProjeto/projeto.php">
+                         <a class="nav-link" href="../AndamentoProjeto/projeto">
                              <i class="nc-icon nc-bulb-63"></i>
                              <p>Andamento do Projeto</p>
                          </a>
@@ -147,7 +147,7 @@
                                      <h4 class="card-title">Sua Empresa</h4>
                                  </div>
                                  <div class="card-body">
-                                     <form action="assets/php/enviar_empresa.php" id='dados_empresa' onsubmit="return false" method="POST">
+                                     <form action="assets/php/enviar_empresa" id='dados_empresa' onsubmit="return false" method="POST">
                                          <div class="row">
                                              <div class="col-md-5 pr-1">
                                                  <div class="form-group">
@@ -244,7 +244,7 @@
                     <nav>
                         <ul class="footer-menu">
                             <li>
-                                <a href="../index.php" id='paginaInicial'>
+                                <a href="../index" id='paginaInicial'>
                                     Página Inicial
                                 </a>
                             </li>

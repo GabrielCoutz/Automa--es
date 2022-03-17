@@ -268,7 +268,7 @@ if (window.location.href.includes(md5('erro=true'))) { // erro de cadastro
 
     document.getElementById('asdf_cancelar').addEventListener('click',function(){
 
-            window.location.href = "../index.php"
+            window.location.href = "../index"
 
         })
 

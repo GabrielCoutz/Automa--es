@@ -34,7 +34,7 @@
       
 
       if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
-        header("Refresh:0; url=usuario.php".'?'.md5('erro=true'));
+        header("Refresh:0; url=usuario".'?'.md5('erro=true'));
         exit;
       } else {
         $email=$_SESSION['email'];
@@ -103,13 +103,13 @@
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" href="PerfilEmpresa/empresa.php">
+                        <a class="nav-link" href="PerfilEmpresa/empresa">
                             <i class="nc-icon nc-chart-bar-32"></i>
                             <p>Perfil da Empresa</p>
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" href="AndamentoProjeto/projeto.php">
+                        <a class="nav-link" href="AndamentoProjeto/projeto">
                             <i class="nc-icon nc-bulb-63"></i>
                             <p>Andamento do Projeto</p>
                         </a>
@@ -156,7 +156,7 @@
                                     <h4 class="card-title">Seus dados</h4>
                                 </div>
                                 <div class="card-body">
-                                    <form action="assets/php/enviar_usuario.php" method="POST" id='dados' onsubmit="return false">
+                                    <form action="assets/php/enviar_usuario" method="POST" id='dados' onsubmit="return false">
                                         <div class="row">
                                             <div class="col-md-5 pr-1">
                                                 <div class="form-group">
@@ -297,7 +297,7 @@
                     <nav>
                         <ul class="footer-menu">
                             <li>
-                                <a href="../index.php" id='paginaInicial'>
+                                <a href="../index" id='paginaInicial'>
                                     Página Inicial
                                 </a>
                             </li>

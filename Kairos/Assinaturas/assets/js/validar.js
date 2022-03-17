@@ -26,6 +26,6 @@ var MD5 = function(d){var r = M(V(Y(X(d),8*d.length)));return r.toLowerCase()};f
 
 if (window.location.href.includes(MD5('erro=true'))) { // erro de cadastro
 
-    window.location.href = "../index.php"
+    window.location.href = "../index"
 
 }

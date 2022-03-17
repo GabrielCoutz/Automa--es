@@ -34,7 +34,7 @@
 
 			if(isset($_GET[md5('login=true')])){
 
-				header('Location: ../Perfil/usuario.php');
+				header('Location: ../Perfil/usuario');
 
 			}
 
@@ -60,7 +60,9 @@
     </div>
 		<div class="wrapper">
 			<div class="inner">
-				<form method="POST" id="login" action="assets/php/config.php?validar=true">
+				
+				<form method="POST" id="login" action="assets/php/config?validar=true">
+
 					<h3>Login</h3>
 					<div class="form-holder">
 						<span class="lnr lnr-user"></span>
@@ -79,7 +81,7 @@
 						<span>Entrar</span>
 					</button>
 					<div id='signup'>
-						<a href="../CadastroUsuario/cadastro_usuario.php">Não possui possui conta? Então cadastre-se</a>
+						<a href="../CadastroUsuario/cadastro_usuario">Não possui possui conta? Então cadastre-se</a>
 					</div>
 				</form>
 				<img src="assets/images/image-2.png" alt="" class="image-2">

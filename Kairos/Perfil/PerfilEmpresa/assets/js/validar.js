@@ -116,7 +116,7 @@ function abrirjanela(cor, texto, titulo){
 
 function erro(){
     document.getElementById('asdf_cancelar').addEventListener('click', function(){
-        window.location.href = "../../Login/login.php"
+        window.location.href = "../../Login/login"
     })
     document.getElementById('asdf_cancelar').click()
 }
@@ -305,7 +305,7 @@ function salvar(){
     }
 }
 function sair(){
-    window.location.href= '../../index.php'
+    window.location.href= '../../index'
     localStorage.clear()
 }
 function fechar_menu(){

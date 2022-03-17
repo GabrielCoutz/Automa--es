@@ -648,7 +648,7 @@ h3 {
 
     transform: translateY(1px); }
 
-  .form-control:focus {
+  .form-control:focus, .form-control:hover {
 
     border-bottom: 1px solid #accffe; }
 

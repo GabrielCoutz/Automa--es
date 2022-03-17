@@ -40,7 +40,7 @@
 
 		<div class="wrapper">
 			<div class="inner">
-				<form action="assets/php/enviar_usuario.php" method="POST" class="gridado" name="cadastro" onsubmit="return false" id="cadastro">
+				<form action="assets/php/enviar_usuario" method="POST" class="gridado" name="cadastro" onsubmit="return false" id="cadastro">
 					<h3>Cadastro</h3>
 					<div class="form-holder">
 						<span class="lnr lnr-user"></span>
@@ -140,7 +140,7 @@
 						<span >Registrar</span>
 					</button>
 					<div id='signin'>
-						<a href="../Login/login.php">Já possui conta? Então faça login</a>
+						<a href="../Login/login">Já possui conta? Então faça login</a>
 					</div>
 				</form>
 				<img src="assets/images/image-2.png" alt="" class="image-2">

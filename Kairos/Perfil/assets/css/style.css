@@ -148,6 +148,9 @@ input:focus, input:hover{
     margin-left: 10px;
 }
 
+#asdf{
+  cursor: default;
+}
 
 @media(min-width: 991px){
   #btnfechar{

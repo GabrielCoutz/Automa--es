@@ -22,7 +22,7 @@ $senha=md5($_POST['senha']);
 $email=$_POST['email'];
 
 $duplicado=false;
-$local='../../cadastro_usuario.php';
+$local='../../cadastro_usuario';
 
 if(isset($_POST['g-recaptcha-response']) && $_POST['g-recaptcha-response'] != ""){
         $url='https://www.google.com/recaptcha/api/siteverify';
@@ -68,7 +68,7 @@ if($duplicado){
     $_SESSION['edr_data'] = "INSERT INTO endereco(cpf_usuario,cep,rua,numero,bairro,cidade,estado) VALUES((SELECT cpf FROM usuario WHERE cpf = '$cpf'),'$cep', '$rua', '$numero', '$bairro', '$cidade', '$estado')";
     
     $_SESSION['cell_data'] = "INSERT INTO telefone(cpf_usuario, tel) VALUES((SELECT cpf FROM usuario WHERE cpf = '$cpf'), '$tel')";
-    header('Location: ../../../CadastroEmpresa/cadastro_empresa.php');
+    header('Location: ../../../CadastroEmpresa/cadastro_empresa');
     exit;
 }
 
