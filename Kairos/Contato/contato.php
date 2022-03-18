@@ -38,6 +38,23 @@
     ?>
   </head>
   <body>
+  <div class="preloader">
+      <div class="loader">
+        <div class="spinner">
+          <div class="spinner-container">
+            <div class="spinner-rotator">
+              <div class="spinner-left">
+                <div class="spinner-circle"></div>
+              </div>
+              <div class="spinner-right">
+                <div class="spinner-circle"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+		<!-- preloader end -->
   
 
   <div class="content">
@@ -50,7 +67,7 @@
           <div class="row justify-content-center">
             <div class="col-md-6">
               
-              <h3 class="heading mb-4">No que podemos ajudar?</h3>
+              <h3 class="heading mb-4">Como podemos ajudar?</h3>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas debitis, fugit natus?</p>
 
               <p><img src="assets/images/imagem.png" alt="Image" class="img-fluid"></p>
@@ -64,7 +81,7 @@
                     <a><?= $nome; ?></a>
                   </div>
                   <div class="col-md-12 form-group">
-                    <input type="text" class="form-control" name="nome" id="nome" placeholder="Nome">
+                    <input type="text" class="form-control" name="nome" id="nome" placeholder="Nome" autocomplete="off">
                   </div>
                 </div>
                 <div class="row">
@@ -77,18 +94,18 @@
                 </div>
                 <div class="row">
                   <div class="col-md-12 form-group">
-                    <input type="text" class="form-control" name="assunto" id="assunto" placeholder="Assunto">
+                    <input type="text" class="form-control" name="assunto" id="assunto" placeholder="Assunto" autocomplete="off">
                   </div>
                 </div>
                 <div class="row">
                   <div class="col-md-12 form-group">
-                    <textarea class="form-control" name="mensagem" id="mensagem" cols="30" rows="7" placeholder="Escreva sua mensagem"></textarea>
+                    <textarea class="form-control" name="mensagem" id="mensagem" cols="30" rows="7" placeholder="Escreva sua mensagem" autocomplete="off"></textarea>
                   </div>
                 </div>  
                 <div class="row">
                   <div class="col-12">
-                    <button class="btn btn-primary rounded-0 py-2 px-4" onclick="validar()">
-                      enviar
+                    <button class="btn btn-primary rounded-0 py-2 px-4" onclick="validar()"><div class='circle'></div>
+                      Enviar
                     </button>
                   </div>
                 </div>

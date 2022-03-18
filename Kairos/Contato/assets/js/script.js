@@ -1,5 +1,17 @@
+window.onload = function () {
+    window.setTimeout(fadeout, 500);
+}
+
+function fadeout() {
+    document.querySelector('.preloader').style.opacity = '0';
+    document.querySelector('.preloader').style.display = 'none';
+}
+
 function vazio(item){ // verifica se o valor passado está vazio
     return item == ''
+}
+function nada(){
+    document.getElementById('asdf_cancelar').click()
 }
 // -------------------- início código popup --------------------
 var janelaPopUp = new Object();
@@ -102,7 +114,8 @@ $(document).ready(function() {
 });
 function validarEmail(email){ // auto-explicativo
     if (!vazio(email)){
-        return email.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)
+        var re = /\S+@\S+\.\S+/
+        return re.test(email)
     } else {
         return true
     }
@@ -120,7 +133,7 @@ function validar(){
         nome.classList.add('vermei')
         nome.focus()
 
-    } else if (vazio(email.value) && validarEmail(email.value)){
+    } else if (vazio(email.value) || !validarEmail(email.value)){
         alert('Por favor, preencha o email!')
         email.classList.add('vermei')
         email.focus()
@@ -137,6 +150,11 @@ function validar(){
 
     } else {
         abrirjanela('green','deu certo','Formulário enviado')
+        document.getElementById('asdf_cancelar').style.display = 'none'
+                setTimeout(nada , 4000)
+        document.getElementById('asdf_cancelar').addEventListener('click',function(){
+            document.getElementById('formContato').submit()
+        })
     }
 
 }
