@@ -11,18 +11,30 @@
     
     <!-- Style -->
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/popup.css">
 
     <title>Contato</title>
 
     <?php
     session_start();
+    error_reporting(E_ERROR | E_PARSE);
+
+
+    $dbHost     = 'localhost';
+    $dbUname = 'root';
+    $dbPass = '';
+    $dbName     = 'kairos';
+    
+    $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 
     if(isset($_SESSION['email'])){
-      $nome = $select=mysqli_query($conec, "SELECT nome FROM usuario WHERE email = '$email'")->fetch_assoc();
+      $cpf = $_SESSION['cpf'];
+    
+
+      $nome = $select=mysqli_query($conec, "SELECT nome FROM usuario WHERE cpf = '$cpf'")->fetch_assoc()['nome'];
 
       $email = $_SESSION['email'];
     }
-    $nome = 'teste';
     ?>
   </head>
   <body>
@@ -49,15 +61,18 @@
               <form class="mb-5" action="assets/php/enviar" method="POST" id="formContato" onsubmit="return false">
                 <div class="row">
                   <div class='none' id='nomeSalvo'>
-                    <a><?= ucwords($nome) ?></a>
+                    <a><?= $nome; ?></a>
                   </div>
                   <div class="col-md-12 form-group">
                     <input type="text" class="form-control" name="nome" id="nome" placeholder="Nome">
                   </div>
                 </div>
                 <div class="row">
+                  <div class='none' id='emailSalvo'>
+                    <a><?= $email; ?></a>
+                  </div>
                   <div class="col-md-12 form-group">
-                    <input type="text" class="form-control" name="email" id="email" placeholder="Email">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="Email">
                   </div>
                 </div>
                 <div class="row">

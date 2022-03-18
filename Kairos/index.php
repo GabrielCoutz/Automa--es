@@ -15,6 +15,15 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"/>
 
     <link rel="shortcut icon" href="assets/img/favicon/favicon.ico" type="image/x-icon"/>
+
+    <?php
+      session_start();
+      session_unset();
+      session_destroy();
+      session_write_close();
+      setcookie(session_name(),'',0,'/');
+      session_regenerate_id(true);
+    ?>
     
 
   </head>
