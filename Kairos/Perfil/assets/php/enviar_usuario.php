@@ -13,6 +13,12 @@ $nome_padrao=$_SESSION['nome_padrao'];
 
 $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 
+if(isset($_GET['assinar'])){
+    $_SESSION['cadastro']=md5('valido');
+    header('Location: ../../../Assinaturas/assinatura?'.md5('cadastro=true'));
+    exit;
+}
+
 
 if(isset($_COOKIE['excluir_num'])){ // deletar numeros de telefone
     $limite = $_COOKIE['excluir_nums'];

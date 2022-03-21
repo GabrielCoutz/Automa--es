@@ -2,7 +2,6 @@
 <html>
 	<?php
 	session_start();
-	$_SESSION['cadastro']=md5('valido')
 	?>
 	<head>
 		<meta charset="utf-8">

@@ -145,6 +145,14 @@ function erro(){
 }
 // -------------------- fim código popup --------------------
 
+if(vazio(document.getElementById('plano').innerText)){ // sem plano contratado
+    document.getElementById('assinarbtn').classList.toggle('none')
+}
+
+function assinar(){
+    window.location.href = "assets/php/enviar_usuario?assinar=true"
+}
+
 function vazio(item){ // verifica se o valor passado está vazio
     return item == ''
 }

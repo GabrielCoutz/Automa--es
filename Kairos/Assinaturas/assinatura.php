@@ -37,7 +37,7 @@
 
 
     <link rel="shortcut icon" href="../assets/img/favicon/favicon.ico" type="image/x-icon">
-    
+
     <title>Assinaturas</title>
 
     <?php

@@ -13,6 +13,7 @@ function vazio(item){ // verifica se o valor passado está vazio
 function nada(){
     document.getElementById('asdf_cancelar').click()
 }
+
 // -------------------- início código popup --------------------
 var janelaPopUp = new Object();
 

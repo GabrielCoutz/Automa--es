@@ -63,12 +63,12 @@ if($duplicado){
     exit;
 
 } else {
-    $_SESSION['usr_data'] = "INSERT INTO usuario(nome,email,cpf,senha) VALUES('$nome','$email','$cpf','$senha')";
 
-    $_SESSION['edr_data'] = "INSERT INTO endereco(cpf_usuario,cep,rua,numero,bairro,cidade,estado) VALUES((SELECT cpf FROM usuario WHERE cpf = '$cpf'),'$cep', '$rua', '$numero', '$bairro', '$cidade', '$estado')";
-    
-    $_SESSION['cell_data'] = "INSERT INTO telefone(cpf_usuario, tel) VALUES((SELECT cpf FROM usuario WHERE cpf = '$cpf'), '$tel')";
-    header('Location: ../../../CadastroEmpresa/cadastro_empresa');
+    $result=mysqli_multi_query($conec, "INSERT INTO usuario(nome,email,cpf,senha) VALUES('$nome','$email','$cpf','$senha');
+                                        INSERT INTO endereco(cpf_usuario,cep,rua,numero,bairro,cidade,estado) VALUES((SELECT cpf FROM usuario WHERE cpf = '$cpf'),'$cep', '$rua', '$numero', '$bairro', '$cidade', '$estado');
+                                        INSERT INTO telefone(cpf_usuario, tel) VALUES((SELECT cpf FROM usuario WHERE cpf = '$cpf'), '$tel')");
+
+    header('Location: ../../../Login/login');
     exit;
 }
 

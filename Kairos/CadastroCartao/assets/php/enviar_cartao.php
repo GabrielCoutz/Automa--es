@@ -16,9 +16,6 @@ $cvv_cartao = $_POST['cvv_cartao'];
 $cpf=$_SESSION['cpf'];
 $validade = $_POST['mes_cartao'].'/'.$_POST['ano_cartao'];
 
-$result=mysqli_query($conec, $_SESSION['usr_data']);
-$result=mysqli_query($conec, $_SESSION['edr_data']);
-$result=mysqli_query($conec, $_SESSION['cell_data']);
 $result=mysqli_query($conec, $_SESSION['cmpny_data']);
 $result=mysqli_query($conec, $_SESSION['cmpny_edr_data']);
 
