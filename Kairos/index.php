@@ -17,6 +17,7 @@
     <link rel="shortcut icon" href="assets/img/favicon/favicon.ico" type="image/x-icon"/>
 
     <?php
+      error_reporting(E_ERROR | E_PARSE);
       session_start();
       session_unset();
       session_destroy();

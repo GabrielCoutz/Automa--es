@@ -26,6 +26,9 @@
     <link href="assets/css/style.css" rel="stylesheet"/>
 
     <?php
+
+use function PHPSTORM_META\type;
+
     session_start();
 
 
@@ -33,15 +36,18 @@
     $dbUname = 'root';
     $dbPass = '';
     $dbName     = 'kairos';
+    
     error_reporting(E_ERROR | E_PARSE);
 
-    if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
-        header("Refresh:0; url=empresa".'?'.md5('erro=true'));
-        exit;
-      } else {
-        $email=$_SESSION['email'];
-      }
+    //if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER//['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
+    //    header("Refresh:0; url=empresa".'?'.md5('erro=true'));
+    //    exit;
+    //  } else {
+    //    $email=$_SESSION['email'];
+    //  }
 
+      $email='aaaa@gmail.com';
+      
     $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 
     $select=mysqli_query($conec, "SELECT cpf FROM usuario WHERE email = '$email'")->fetch_assoc();
@@ -49,6 +55,13 @@
     $cpf=$select['cpf'];
 
     $select_empresa=mysqli_query($conec, "SELECT * FROM empresa WHERE cpf_usuario = '$cpf'")->fetch_assoc();
+    echo $select_empresa['ramo'];
+    
+    if ( empty($select_empresa['ramo']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('dados_empresa=false'),empty($select_empresa['ramo']))){
+        header("Refresh:0; url=empresa".'?'.md5('dados_empresa=false'));
+        exit;
+    }
+
     $_SESSION['ramo_padrao']=$select_empresa['ramo'];
     $_SESSION['nome_empresa_padrao']=$select_empresa['nome'];
     $_SESSION['nome_fantasia_padrao']=$select_empresa['nome_fantasia'];
@@ -57,10 +70,6 @@
     $_SESSION['cnpj_padrao']=$cnpj;
 
     $select_empresa_endereco=mysqli_query($conec, "SELECT * FROM endereco_empresa WHERE cnpj_empresa = '$cnpj'")->fetch_assoc();
-
-
-
-
     ?>
 
  </head>

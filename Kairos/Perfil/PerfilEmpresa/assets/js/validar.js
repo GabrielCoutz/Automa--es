@@ -111,6 +111,9 @@ function abrirjanela(cor, texto, titulo){
     var modo = 'alert';
     janelaPopUp.abre( "asdf", tamanho + " "  + cor + ' ' + modo,  titulo ,  texto)
 }
+function abrirEmpresa(){
+    janelaPopUp.abre( "asdf", "p" + " "  + 'Blue' + ' ' + 'confirm',  'Empresa Não cadastrada' ,  'Parece que vc n tem uma empresa cadastrada<br>Gostaria de cadastrá-la agora?')
+}
 
 // -------------------- fim código popup --------------------
 
@@ -127,6 +130,15 @@ if (window.location.href.includes(md5('erro=true'))) { // erro de login
     setTimeout(erro , 3000)
     
     let nextURL = window.location.href.replace(md5('erro=true'),'').replace('?','');
+    let nextState = { additionalInformation: 'Updated the URL with JS' };
+    window.history.replaceState(nextState, 'Perfil', nextURL);
+
+}
+
+if (window.location.href.includes(md5('dados_empresa=false'))) { // erro de login
+    abrirEmpresa()
+    
+    let nextURL = window.location.href.replace(md5('dados_empresa=false'),'').replace('?','');
     let nextState = { additionalInformation: 'Updated the URL with JS' };
     window.history.replaceState(nextState, 'Perfil', nextURL);
 

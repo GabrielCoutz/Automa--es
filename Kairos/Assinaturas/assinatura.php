@@ -49,11 +49,8 @@
 	if(!isset($_SESSION['cadastro']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
 
 		header("Refresh:0; url=assinatura".'?'.md5('erro=true'));
-
         exit;
-
 	}
-
     ?>
 
 
