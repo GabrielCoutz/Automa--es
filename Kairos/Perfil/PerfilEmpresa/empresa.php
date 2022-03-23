@@ -39,14 +39,12 @@ use function PHPSTORM_META\type;
     
     error_reporting(E_ERROR | E_PARSE);
 
-    //if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER//['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
-    //    header("Refresh:0; url=empresa".'?'.md5('erro=true'));
-    //    exit;
-    //  } else {
-    //    $email=$_SESSION['email'];
-    //  }
-
-      $email='aaaa@gmail.com';
+    if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
+        header("Refresh:0; url=empresa".'?'.md5('erro=true'));
+        exit;
+      } else {
+        $email=$_SESSION['email'];
+      }
       
     $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 

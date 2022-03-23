@@ -83,7 +83,7 @@ if(isset($_COOKIE['empresa'])) { // alteração de dados empresa
 
         setcookie('empresa', '', time() - 3600, '/');
 
-        header('Location:'.$local.'?'.md5('livre=true'));
+        header('Location:'.$local.'?'.md5('sucesso=true'));
         exit;
 
     }

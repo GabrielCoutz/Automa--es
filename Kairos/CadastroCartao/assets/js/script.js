@@ -146,7 +146,7 @@ function validar(){
     cvv.focus()
     cvv.classList.add('vermei')
   } else {
-    abrirjanela('green','Cartão cadastrado com sucesso!','| Cadastro Finalizado |')
+    abrirjanela('green','Cartão cadastrado com sucesso!','Sucesso')
     document.getElementById('asdf_cancelar').addEventListener('click',function(){
       document.getElementById('cadastro_cartao').submit()
       localStorage.clear();

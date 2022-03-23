@@ -382,7 +382,7 @@ function validar(){
         localStorage.setItem(tel.id,tel.value)
         localStorage.setItem(cep.id,cep.value)
         localStorage.setItem(numero.id,numero.value)
-        abrirjanela('blue','Verificando Banco de Dados, caso tudo certo prosseguiremos.','| Andamento Cadastro | 1/3')
+        abrirjanela('blue','Verificando Banco de Dados, caso tudo certo prosseguiremos.','Andamento Cadastro')
         document.getElementById('asdf_cancelar').style.display = 'none'
         setTimeout(nada , 4000)
         document.getElementById('asdf_cancelar').addEventListener('click',function(){

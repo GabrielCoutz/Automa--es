@@ -38,10 +38,10 @@ if($duplicado){
                                         INSERT INTO endereco_empresa(cnpj_empresa,cep,rua,numero,bairro,cidade,estado) VALUES((SELECT cnpj FROM empresa WHERE cnpj = '$cnpj'),'$cep_empresa','$rua_empresa','$numero_empresa','$bairro_empresa','$cidade_empresa','$estado_empresa')" );
 
     if(isset($_COOKIE['cadastro_empresa'])){
-        header('Location: ../../../Perfil/usuario?'.md5('livre=true'));
+        header('Location: ../../../Perfil/PerfilEmpresa/empresa?'.md5('sucesso=true'));
         exit;
     } else {
-        header('Location: ../../../Assinaturas/assinatura');
+        header('Location: ../../../Login/login?'.md5('sucesso=true'));
         exit;
     }
     

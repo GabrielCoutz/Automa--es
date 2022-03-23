@@ -68,7 +68,7 @@ if($duplicado){
                                         INSERT INTO endereco(cpf_usuario,cep,rua,numero,bairro,cidade,estado) VALUES((SELECT cpf FROM usuario WHERE cpf = '$cpf'),'$cep', '$rua', '$numero', '$bairro', '$cidade', '$estado');
                                         INSERT INTO telefone(cpf_usuario, tel) VALUES((SELECT cpf FROM usuario WHERE cpf = '$cpf'), '$tel')");
 
-    header('Location: ../../../Login/login');
+    header('Location: ../../../Login/login?'.md5('sucesso=true'));
     exit;
 }
 

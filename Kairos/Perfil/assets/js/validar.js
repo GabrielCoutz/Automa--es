@@ -199,10 +199,10 @@ if (window.location.href.includes(md5('senha=false'))) { // senha erro
     window.history.replaceState(nextState, 'Perfil', nextURL);
 }
 
-if(window.location.href.includes(md5('livre=true'))){
+if(window.location.href.includes(md5('sucesso=true'))){
     abrirjanela('green','Dados alterados com êxito.', '| Alteração realizada com sucesso |')
 
-    let nextURL = window.location.href.replace(md5('livre=true'),'').replace('?','');
+    let nextURL = window.location.href.replace(md5('sucesso=true'),'').replace('?','');
     let nextState = { additionalInformation: 'Updated the URL with JS' };
     window.history.replaceState(nextState, 'Perfil', nextURL);
 }
