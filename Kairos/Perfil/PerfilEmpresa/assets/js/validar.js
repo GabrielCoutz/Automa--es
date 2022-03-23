@@ -27,6 +27,34 @@ const conteudo_cep_empresa = document.getElementById('cep_empresa').innerText.tr
 const conteudo_numero_empresa = document.getElementById('numero_empresa').innerText.trim()
 const conteudo_endereco = document.getElementById('endereco_empresa').innerText.trim()
 
+const IniciarCadastroEmpresa = function(){
+    let popup = function(){
+        abrirjanela('blue','Tudo bem, redirecionando para página de cadastro...','Empresa não encontrada')
+        document.getElementById('asdf_cancelar').style.display = 'none'
+    }
+    let redirecionar = function(){
+        window.location.href = "assets/php/enviar_empresa?cadastrar=true"
+    }
+
+    setTimeout(popup, 1500)
+
+    setTimeout(redirecionar, 6000)
+}
+
+const cancelarCadastroEmpresa = function(){
+    let popup = function(){
+        abrirjanela('blue','Tudo bem, redirecionando para página do usuário...','Empresa não encontrada')
+        document.getElementById('asdf_cancelar').style.display = 'none'
+    }
+    let redirecionar = function(){
+        window.location.href = "../usuario"
+    }
+
+    setTimeout(popup, 1500)
+
+    setTimeout(redirecionar, 6000)
+}
+
 
 // -------------------- início código popup --------------------
 var janelaPopUp = new Object();
@@ -111,8 +139,23 @@ function abrirjanela(cor, texto, titulo){
     var modo = 'alert';
     janelaPopUp.abre( "asdf", tamanho + " "  + cor + ' ' + modo,  titulo ,  texto)
 }
+
 function abrirEmpresa(){
-    janelaPopUp.abre( "asdf", "p" + " "  + 'Blue' + ' ' + 'confirm',  'Empresa Não cadastrada' ,  'Parece que vc n tem uma empresa cadastrada<br>Gostaria de cadastrá-la agora?')
+    janelaPopUp.abre( "asdf", "p" + " "  + 'blue' + ' ' + 'confirm',  'Empresa Não encontrada' , 'Parece que você não tem uma empresa cadastrada.<br>Gostaria de cadastrá-la agora?')
+    document.getElementById('asdf_cancelar').style.marginLeft = '10px'
+    document.getElementById('asdf_cancelar').innerHTML = 'Não'
+    document.getElementById('asdf_cancelar').style.width = '40%'
+
+    document.getElementById('asdf_enviar').innerHTML = 'Sim'
+    document.getElementById('asdf_enviar').style.marginRight = '10px'
+    document.getElementById('asdf_enviar').style.width = '40%'
+
+    document.getElementById('asdf_cancelar').addEventListener('click',cancelarCadastroEmpresa)
+
+    document.getElementById('asdf_enviar').addEventListener('click', IniciarCadastroEmpresa)
+
+   
+
 }
 
 // -------------------- fim código popup --------------------

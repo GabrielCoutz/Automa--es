@@ -64,7 +64,6 @@
 
       $_SESSION['tel_padrao']=$result_telefone['tel'];
 
-
       $select_endereco=mysqli_query($conec, "SELECT * FROM endereco WHERE cpf_usuario = '$cpf'")->fetch_assoc();
 
       $select_cartao=mysqli_query($conec, "SELECT * FROM cartao WHERE cpf_usuario = '$cpf'")->fetch_assoc();

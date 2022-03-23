@@ -3,6 +3,8 @@
 	<?php
 	session_start();
 	error_reporting(E_ERROR | E_PARSE);
+
+
 	if(!isset($_SESSION['cadastro']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
 		header("Refresh:0; url=cadastro_empresa".'?'.md5('erro=true'));
         exit;
@@ -146,6 +148,7 @@
 		<script src="assets/js/jquery-3.3.1.min.js"></script>
 
 		<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js'></script>
+		<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 
 		<script src="assets/js/validar.js"></script>
 

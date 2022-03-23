@@ -55,7 +55,6 @@ use function PHPSTORM_META\type;
     $cpf=$select['cpf'];
 
     $select_empresa=mysqli_query($conec, "SELECT * FROM empresa WHERE cpf_usuario = '$cpf'")->fetch_assoc();
-    echo $select_empresa['ramo'];
     
     if ( empty($select_empresa['ramo']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('dados_empresa=false'),empty($select_empresa['ramo']))){
         header("Refresh:0; url=empresa".'?'.md5('dados_empresa=false'));
@@ -274,6 +273,7 @@ use function PHPSTORM_META\type;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js'></script>
+<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 <script src="assets/js/validar.js" type="text/javascript"></script>
  
  </html>

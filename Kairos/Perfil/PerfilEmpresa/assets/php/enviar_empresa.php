@@ -10,6 +10,12 @@ $duplicado = false;
 
 $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 
+if(isset($_GET['cadastrar'])){
+    $_SESSION['cadastro']=md5('valido');
+    header('Location: ../../../../CadastroEmpresa/cadastro_empresa?'.md5('cadastro=true'));
+    exit;
+}
+
 if(isset($_COOKIE['ramo'])){ // alteração de ramo
     $ramo=$_COOKIE['ramo'];
     $ramo_padrao=$_SESSION['ramo_padrao'];

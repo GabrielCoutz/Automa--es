@@ -34,12 +34,17 @@ if($duplicado){
     header("Refresh:0; url="."$local");
     exit;
 } else {
-    $_SESSION['cmpny_data'] = "INSERT INTO empresa(cpf_usuario,nome,nome_fantasia,cnpj,ramo) VALUES((SELECT cpf FROM usuario WHERE cpf = '$cpf'),'$nome_empresa','$nome_fantasia','$cnpj','$ramo')";
+    $result = mysqli_multi_query($conec,"INSERT INTO empresa(cpf_usuario,nome,nome_fantasia,cnpj,ramo) VALUES((SELECT cpf FROM usuario WHERE cpf = '$cpf'),'$nome_empresa','$nome_fantasia','$cnpj','$ramo');
+                                        INSERT INTO endereco_empresa(cnpj_empresa,cep,rua,numero,bairro,cidade,estado) VALUES((SELECT cnpj FROM empresa WHERE cnpj = '$cnpj'),'$cep_empresa','$rua_empresa','$numero_empresa','$bairro_empresa','$cidade_empresa','$estado_empresa')" );
 
-    $_SESSION['cmpny_edr_data'] = "INSERT INTO endereco_empresa(cnpj_empresa,cep,rua,numero,bairro,cidade,estado) VALUES((SELECT cnpj FROM empresa WHERE cnpj = '$cnpj'),'$cep_empresa','$rua_empresa','$numero_empresa','$bairro_empresa','$cidade_empresa','$estado_empresa')";
-
-    header('Location: ../../../Assinaturas/assinatura');
-    exit;
+    if(isset($_COOKIE['cadastro_empresa'])){
+        header('Location: ../../../Perfil/usuario?'.md5('livre=true'));
+        exit;
+    } else {
+        header('Location: ../../../Assinaturas/assinatura');
+        exit;
+    }
+    
 }
 
 
