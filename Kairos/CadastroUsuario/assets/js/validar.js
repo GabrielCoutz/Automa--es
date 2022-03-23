@@ -164,7 +164,7 @@ if (alerta != ''){
 }
 
 function vazio(item){ // verifica se o valor passado está vazio
-    return item == ''
+    return item.trim() == ''
 }
 
 let timeout;
@@ -321,9 +321,20 @@ function editar_manualmente(){
 
 
 function validar(){
+    if (vazio(nome.value) || /[^a-z-A-Za-zÀ-ÖØ-öø-ÿ]/i.test(nome.value.replace(/ /g, ''))){
+        alert("Por favor, insira um nome válido!");
+        nome.focus()
+        nome.classList.add("vermei")
+    } else {
+        nome.classList.remove("vermei")
+        alert('nome ok')
+    }
+}
+
+function validar2(){
     document.getElementById("estado").classList.remove("vermei")
 
-    if (!vazio(nome.value) && !nome.value.trim().match(/^[A-Za-zÀ-ÖØ-öø-ÿ]+$/)){
+    if (vazio(nome.value) || /[^a-z-A-Za-zÀ-ÖØ-öø-ÿ]/i.test(nome.value.replace(/ /g, ''))){
         alert("Por favor, insira um nome válido!");
         nome.focus()
         nome.classList.add("vermei")
