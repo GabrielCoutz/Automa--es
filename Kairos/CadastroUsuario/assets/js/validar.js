@@ -19,11 +19,6 @@ $('select').on('change', function() {
     }
   }).change();
 
-var elementos = document.getElementsByTagName('input')
-for(let i = 0; i < elementos.length ; i++){
-    elementos[i].classList.remove('vermei')
-}
-
 // -------------------- início código popup --------------------
 var janelaPopUp = new Object();
 
@@ -104,6 +99,8 @@ janelaPopUp.fecha = function(id){
 }
 // -------------------- fim código popup --------------------
 
+var alerta = ''
+var validar_manualmente = false
 const nome = document.getElementById("nome")
 const tel = document.getElementById("tel")
 const email = document.getElementById("email")
@@ -117,8 +114,52 @@ const bairro = document.getElementById("bairro")
 const cidade = document.getElementById("cidade")
 const estado = document.getElementById("estado")
 const endereco = document.getElementById("endereco")
+const limpar_inputs = function(){
+    let elementos = document.getElementsByTagName('input')
+    for(let i = 0; i < elementos.length ; i++){
+        elementos[i].classList.remove('vermei')
+    }
+}
 
-var alerta = ''
+limpar_inputs()
+
+function ler(cep){
+
+    if(localStorage.getItem('erro') == 1){
+        cep = document.getElementById('cep')
+    }
+
+    if(cep.value.length == 10){
+            $.ajax({
+                url: 'https://viacep.com.br/ws/'+cep.value.replace(/-/, '').replace('.', '')+'/json/unicode/',
+                dataType: 'json',
+                success: function(resposta){
+                    if(resposta.logradouro == undefined || resposta.bairro == undefined || resposta.localidade == undefined || resposta.uf == undefined){
+                        abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','| Dados Inválidos |')
+                        cep.classList.add('vermei')
+                        cep.focus()
+                        return
+                    } else {
+                        cep.classList.remove('vermei')
+                        $("#rua").val(resposta.logradouro);
+                        $("#bairro").val(resposta.bairro);
+                        $("#cidade").val(resposta.localidade);
+                        $("#estado").val(resposta.uf);
+                        $("#estado").css('opacity', '1').change();
+
+                        let endereco_full = resposta.logradouro + ', ' + resposta.bairro + ', ' + resposta.localidade + ', ' + resposta.uf
+
+                        endereco.innerHTML = '<span title="Editar" class="lnr lnr-pencil none" id="edit" onclick="editar_manualmente()"></span>'
+
+                        $('#edit').toggle()
+
+                        endereco.innerHTML += endereco_full
+
+                        numero.focus();
+                }}
+            });
+    }
+}
 
 function abrirjanela(cor, texto, titulo){
     let tamanho = 'p';
@@ -151,16 +192,16 @@ if (window.location.href.includes(md5('cpf=false'))){ //cpf já cadastrado
 }
 
 if (alerta != ''){
-    abrirjanela('red',alerta,'| Andamento Cadastro | 1/3')
-    nome.value=localStorage.getItem('nome')
-    tel.value=localStorage.getItem('tel')
-    cep.value=localStorage.getItem('cep')
-    numero.value=localStorage.getItem('numero')
-    document.getElementById('asdf_cancelar').addEventListener('click',function(){
-        if (localStorage.getItem('numero')){
-            cep.focus()
-        }
-    })
+    localStorage.setItem('erro',1)
+    cep.value = localStorage.getItem('cep')
+    nome.value = localStorage.getItem('nome')
+    tel.value = localStorage.getItem('tel')
+    numero.value = localStorage.getItem('numero')
+
+    ler(localStorage.getItem('cep'))
+    document.getElementById('cadastro').focus()
+
+    abrirjanela('red',alerta,'Andamento Cadastro')
 }
 
 function vazio(item){ // verifica se o valor passado está vazio
@@ -249,42 +290,9 @@ function validar_cpf(cpf) {
 
 function validarEmail(email){ // auto-explicativo
     if (!vazio(email)){
-        return email.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)
+        return /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi.test(email)
     } else {
-        return true
-    }
-}
-
-function ler(cep){
-    if(cep.value.length == 10){
-            $.ajax({
-                url: 'https://viacep.com.br/ws/'+cep.value.replace(/-/, '').replace('.', '')+'/json/unicode/',
-                dataType: 'json',
-                success: function(resposta){
-                    if(resposta.logradouro == undefined || resposta.bairro == undefined || resposta.localidade == undefined || resposta.uf == undefined){
-                        abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','| Dados Inválidos |')
-                        cep.classList.add('vermei')
-                        cep.focus()
-                        return
-                    } else {
-                        cep.classList.remove('vermei')
-                        $("#rua").val(resposta.logradouro);
-                        $("#bairro").val(resposta.bairro);
-                        $("#cidade").val(resposta.localidade);
-                        $("#estado").val(resposta.uf);
-                        $("#estado").css('opacity', '1').change();
-
-                        let endereco_full = resposta.logradouro + ', ' + resposta.bairro + ', ' + resposta.localidade + ', ' + resposta.uf
-
-                        endereco.innerHTML = '<span title="Editar" class="lnr lnr-pencil none" id="edit" onclick="editar_manualmente()"></span>'
-
-                        $('#edit').toggle()
-
-                        endereco.innerHTML += endereco_full
-
-                        numero.focus();
-                }}
-            });
+        return false
     }
 }
 
@@ -317,61 +325,86 @@ function editar_manualmente(){
     $('#edit').toggle()
 
     endereco.innerHTML  += rua.value + ', ' + bairro.value + ', ' + cidade.value + ', ' + estado.value
-}
 
-
-function validar(){
-    if (vazio(nome.value) || /[^a-z-A-Za-zÀ-ÖØ-öø-ÿ]/i.test(nome.value.replace(/ /g, ''))){
-        alert("Por favor, insira um nome válido!");
-        nome.focus()
-        nome.classList.add("vermei")
-    } else {
-        nome.classList.remove("vermei")
-        alert('nome ok')
+    if(document.getElementById('form_rua').style.display){
+        validar_manualmente = true
     }
 }
 
+
 function validar2(){
+    if (!validarEmail(email.value)){
+        alert("Por favor, insira um email válido!");
+        email.focus()
+        email.classList.add("vermei")
+    } else {
+        email.classList.remove("vermei")
+        alert('email ok')
+    }
+}
+
+function apenasLetras(event) { // deixa apenas letras com ou sem acento serem digitadas
+    let limpo = event.value.replace(/[^\w\s-zÀ-ÖØ-öø-ÿ]/gi, '').replace(/[0-9]/g,'')
+    event.value = limpo.replace('-','').replace('_','')
+}
+
+function validar(){
+    limpar_inputs()
     document.getElementById("estado").classList.remove("vermei")
 
-    if (vazio(nome.value) || /[^a-z-A-Za-zÀ-ÖØ-öø-ÿ]/i.test(nome.value.replace(/ /g, ''))){
+    if (vazio(nome.value)){
         alert("Por favor, insira um nome válido!");
         nome.focus()
         nome.classList.add("vermei")
+
     } else if (vazio(tel.value.replace('(','').replace(')','').replace('-','').replace(' ',''))) {
         alert("Por favor, preencha o telefone!");
         tel.focus()
         tel.classList.add("vermei")
 
-    } else if (vazio(email.value) && !validarEmail(email.value)){
+    } else if (!validarEmail(email.value)){
         alert("Por favor, insira um email válido!");
         email.focus()
         email.classList.add("vermei")
 
-    } else if (vazio(rua.value)){
-        alert("Por favor, preencha a Rua!")
-        rua.focus()
-        rua.classList.add("vermei")
+    } else if(validar_manualmente){
+        alert('validando manualmente')
 
-    } else if (vazio(rua.value)){
-        alert("Por favor, preencha o Número!")
-        numero.focus()
-        numero.classList.add("vermei")
+        let alterar = function(){
+            if(document.getElementById('form_rua').style.display == 'none'){
+                document.getElementById('edit').click()
+            }
+        }
+        if (vazio(rua.value)){
+            alterar()
+            alert("Por favor, preencha a Rua!")
+            rua.focus()
+            rua.classList.add("vermei")
 
-    } else if (vazio(bairro.value)){
-        alert("Por favor, preencha o Bairro!")
-        bairro.focus()
-        bairro.classList.add("vermei")
+        } else if (vazio(numero.value)){
+            alterar()
+            alert("Por favor, preencha o Número!")
+            numero.focus()
+            numero.classList.add("vermei")
 
-    } else if (vazio(cidade.value)){
-        alert("Por favor, preencha a Cidade!")
-        cidade.focus()
-        cidade.classList.add("vermei")
+        } else if (vazio(bairro.value)){
+            alterar()
+            alert("Por favor, preencha o Bairro!")
+            bairro.focus()
+            bairro.classList.add("vermei")
 
-    } else if (vazio(estado)){
-        alert("Por favor, preencha o Estado!")
-        estado.focus()
-        estado.classList.add("vermei")
+        } else if (vazio(cidade.value)){
+            alterar()
+            alert("Por favor, preencha a Cidade!")
+            cidade.focus()
+            cidade.classList.add("vermei")
+
+        } else if (vazio(estado.value)){
+            alterar()
+            alert("Por favor, preencha o Estado!")
+            estado.focus()
+            estado.classList.add("vermei")
+        }
 
     } else if (vazio(senha.value) || vazio(confirm_senha.value)){
         alert("Por favor, preencha a senha!");
@@ -386,14 +419,12 @@ function validar2(){
         senha.value=""
         confirm_senha.value=""
 
-    } else if (grecaptcha.getResponse() == ""){
-        alert('Por favor, preencha o CAPTCHA!')
     } else {
         localStorage.setItem(nome.id,nome.value)
         localStorage.setItem(tel.id,tel.value)
         localStorage.setItem(cep.id,cep.value)
         localStorage.setItem(numero.id,numero.value)
-        abrirjanela('blue','Verificando Banco de Dados, caso tudo certo prosseguiremos.','Andamento Cadastro')
+        abrirjanela('blue','Validando Dados ... ','Andamento Cadastro')
         document.getElementById('asdf_cancelar').style.display = 'none'
         setTimeout(nada , 4000)
         document.getElementById('asdf_cancelar').addEventListener('click',function(){

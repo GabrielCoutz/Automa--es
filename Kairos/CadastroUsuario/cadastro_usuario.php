@@ -43,7 +43,7 @@
 					<h3>Cadastro</h3>
 					<div class="form-holder">
 						<span class="lnr lnr-user"></span>
-						<input type="text" class="form-control" placeholder="Nome Completo"  id='nome' name='nome'>
+						<input type="text" class="form-control" placeholder="Nome Completo"  id='nome' name='nome' onkeydown="return !/[^a-z-A-Za-zÀ-ÖØ-öø-ÿ]+$/.test(event.key.replace(/ /g, ''))" onkeyup="apenasLetras(this)">
 					</div>
 					<div class="form-holder">
 						<span class="lnr lnr-phone-handset"></span>
