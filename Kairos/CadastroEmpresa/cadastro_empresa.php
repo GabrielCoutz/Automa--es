@@ -5,10 +5,10 @@
 	error_reporting(E_ERROR | E_PARSE);
 
 
-	if(!isset($_SESSION['cadastro']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
-		header("Refresh:0; url=cadastro_empresa".'?'.md5('erro=true'));
-        exit;
-	}
+	//if(!isset($_SESSION['cadastro']) && !strpos($protocol . $_SERVER//['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
+	//	header("Refresh:0; url=cadastro_empresa".'?'.md5('erro=true'));
+    //    exit;
+	//}
 	?>
 	<head>
 		<meta charset="utf-8">
@@ -46,16 +46,22 @@
 					<h3>Cadastro Empresa</h3>
 					<div class="form-holder">
 						<span class="lnr lnr-apartment"></span>
-						<input type="text" class="form-control" placeholder="Nome da Empresa"  id='nome_empresa' name='nome_empresa'>
+						<input type="text" class="form-control" placeholder="Nome da Empresa"  id='nome_empresa' name='nome_empresa' maxlength="50">
 					</div>
+					<div class='none alerta' id='nome_empresaAlert'></div>
+
 					<div class="form-holder">
 						<span class="lnr lnr-apartment"></span>
-						<input type="text" class="form-control" placeholder="Nome Fantasia"  id="nome_fantasia" name="nome_fantasia">
+						<input type="text" class="form-control" placeholder="Nome Fantasia"  id="nome_fantasia" name="nome_fantasia" maxlength="50">
 					</div>
+					<div class='none alerta' id='nome_fantasiaAlert'></div>
+
 					<div class="form-holder">
 						<span class="lnr lnr-apartment"></span>
 						<input type="tel" class="form-control" placeholder="CNPJ"  id="cnpj" name="cnpj" onkeypress="$(this).mask('00.000.000/0000-00')">
 					</div>
+					<div class='none alerta' id='cnpjAlert'></div>
+
 					<div class="form-holder">
 						<span class="lnr lnr-apartment"></span>
 						<div class="col-md-4 selectContainer">
@@ -72,14 +78,19 @@
 						  </div>
 						</div>
 					</div>
+					<div class='none alerta' id='ramoAlert'></div>
+
 					<div class="form-holder">
 						<span class="lnr lnr-map-marker"></span>
 						<input type="tel" class="form-control" placeholder="CEP"  id="cep_empresa" name="cep_empresa" onkeypress="$(this).mask('00.000-000')" onkeyup="ler(this)">
 					</div>
+					<div class='none alerta' id='cep_empresaAlert'></div>
+
 					<div class="form-holder">
 						<span class="lnr lnr-map-marker"></span>
 						<input type="tel" class="form-control" placeholder="Número"  id="numero_empresa" name="numero_empresa">
 					</div>
+					<div class='none alerta' id='numero_empresaAlert'></div>
 
 					<div id='endereco'></div>
 
@@ -133,8 +144,7 @@
 					  </div>
 					</div>
 
-					<div id='endereco_hide' class='none' onclick="editar_manualmente()"></div>
-
+					<div class='none alerta' id='butaoAlert'>Apenas CNPJ's válidos são aceitos, por favor verifique e tente novamente!</div>
 					<button class="btn btn-warning" type="submit" onclick="validar()" id='butao'>
 						<span >Registrar</span>
 					</button>

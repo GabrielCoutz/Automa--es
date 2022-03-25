@@ -35,22 +35,10 @@ button:disabled{
   cursor: default !important;
 }
 
-#endereco_hide{
-  text-align: center;
-  color: #4E6EF1;
-  cursor: pointer;
-}
-
 #endereco{
   text-align: center;
   margin-bottom: 10px;
   cursor: default;
-}
-
-#edit{
-  margin-right: 10px;
-  color: #4E6EF1;
-  cursor: pointer;
 }
 
 .none{

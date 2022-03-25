@@ -11,13 +11,6 @@ function nada(){
     document.getElementById('asdf_cancelar').click()
 }
 
-$('select[name="estado_empresa"]').on('change', function() {
-if (this.value == "") {
-    $(this).css('opacity', '0.7');
-} else {
-    $(this).css('opacity', '1');
-    }
-  }).change();
 
 $('select[name="ramo"]').on('change', function() {
     if (this.value == "") {
@@ -28,10 +21,25 @@ $('select[name="ramo"]').on('change', function() {
   }).change();
 
 
-var elementos = document.getElementsByTagName('input')
-for(let i = 0; i < elementos.length ; i++){
-    elementos[i].classList.remove('vermei')
+  const limpar_inputs = function(){
+    let elementos = document.getElementsByTagName('input')
+    for(let i = 0; i < elementos.length ; i++){
+        elementos[i].classList.remove('vermei')
+    }
+
+    limpar_alertas()
 }
+
+const limpar_alertas = function(){
+    let alerta = document.getElementsByClassName('alerta')
+    for(let i = 0; i < alerta.length ; i++){
+        if (!alerta[i].classList.contains('none')){
+            alerta[i].classList.toggle('none')
+        }
+    }
+}
+
+limpar_inputs()
 
 // -------------------- início código popup --------------------
 var janelaPopUp = new Object();
@@ -143,19 +151,27 @@ if (window.location.href.includes(md5('erro=true'))) { // erro de cadastro
 }
 
 if (window.location.href.includes(md5('cnpj=false'))){
-    abrirjanela('red','CNPJ já cadastrado!','| Andamento Cadastro | 2/3')
+    localStorage.setItem('erro',1)
+    
+    ler(localStorage.getItem('cep_empresa'))
+    
+    document.getElementById('cadastro_empresa').focus()
+    abrirjanela('red','CNPJ já cadastrado!','Andamento Cadastro')
     cnpj.classList.add('vermei')
     cnpj.focus()
+
+    console.log(localStorage.getItem('erro'))
+    console.log(localStorage.getItem('cep_empresa'))
+    
     nome_empresa.value=localStorage.getItem('nome_empresa')
     nome_fantasia.value=localStorage.getItem('nome_fantasia')
     cep_empresa.value=localStorage.getItem('cep_empresa')
     numero_empresa.value=localStorage.getItem('numero_empresa')
     ramo.value=localStorage.getItem('ramo')
     
-    
     let nextURL = window.location.href.replace(md5('cnpj=false'),'').replace('?','');
     let nextState = { additionalInformation: 'Updated the URL with JS' };
-    window.history.replaceState(nextState, 'Perfil', nextURL);
+    window.history.replaceState(nextState, 'CadastroEmpresa', nextURL);
 }
 
 function validarCNPJ(cnpj) {
@@ -170,7 +186,6 @@ function validarCNPJ(cnpj) {
         cnpj == "88888888888888" || 
         cnpj == "99999999999999") return 1;
          
-    // Valida DVs
     tamanho = cnpj.length - 2
     numeros = cnpj.substring(0,tamanho);
     digitos = cnpj.substring(tamanho);
@@ -206,23 +221,33 @@ function vazio(item){ // verifica se o valor passado está vazio
 cnpj.addEventListener('keyup',function(){
     if(cnpj.value.length == 18){
         if (cnpj.value == "" || validarCNPJ(cnpj.value.replace(/[^\d]+/g,'')) == 1){
-            alert("Por favor, insira um CNPJ válido!")
+            alertaDeErro(cnpj.id, 'Por favor, insira um cnpj válido!')
             cnpj.focus()
             cnpj.classList.add("vermei")
+            document.getElementById('butao').disabled = true
+            document.getElementById('butaoAlert').classList.remove('none')
         } else {
+            document.getElementById(cnpj.id+'Alert').classList.add('none')
             cnpj.classList.remove("vermei")
+            document.getElementById('butao').disabled = false
+            document.getElementById('butaoAlert').classList.add('none')
         }
     }
 })
 
 function ler(cep){
+
+    if(localStorage.getItem('erro') == 1){
+        cep = document.getElementById('cep_empresa')
+    }
+
     if(cep.value.length == 10){
             $.ajax({
                 url: 'https://viacep.com.br/ws/'+cep.value.replace(/-/, '').replace('.', '')+'/json/unicode/',
                 dataType: 'json',
                 success: function(resposta){
                     if(resposta.logradouro == undefined || resposta.bairro == undefined || resposta.localidade == undefined || resposta.uf == undefined){
-                        abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','| Dados Inválidos |')
+                        abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','Dados Inválidos')
                         cep_empresa.classList.add('vermei')
                         cep_empresa.focus()
                         return
@@ -234,63 +259,82 @@ function ler(cep){
                         $("#estado_empresa").val(resposta.uf);
                         $("#estado_empresa").css('opacity', '1').change();
                         let endereco_full = resposta.logradouro + ', ' + resposta.bairro + ', ' + resposta.localidade + ', ' + resposta.uf
-                        endereco.innerHTML = '<span title="Editar" class="lnr lnr-pencil none" id="edit" onclick="editar_manualmente()"></span>'
+
                         $('#edit').toggle()
-                        endereco.innerHTML += endereco_full
+                        endereco.innerHTML = endereco_full
                         numero_empresa.focus()
                 }}
             });
     }
 }
 
-function editar_manualmente(){
-    $('#form_rua').toggle()
-    $('#form_bairro').toggle()
-    $('#form_estado').toggle()
-    $('#form_cidade').toggle()
-    $('#endereco').toggle()
-    $('#endereco_hide').toggle()
-    document.getElementById('endereco_hide').innerHTML = 'Esconder endereço'
-    endereco.innerHTML = '<span title="Editar" class="lnr lnr-pencil none" id="edit" onclick="editar_manualmente()"></span>'
-    $('#edit').toggle()
-    endereco.innerHTML  += rua_empresa.value + ', ' + bairro_empresa.value + ', ' + cidade_empresa.value + ', ' + estado_empresa.value
+function alertaDeErro(elemento, mensagem){
+    document.getElementById(elemento+'Alert').innerHTML = mensagem
+    document.getElementById(elemento+'Alert').classList.toggle('none')
 }
 
+const dispararEvento = function(elemento, evento, stringCondicao){  //dispara um evento de confirmação para o input no qual o valor inserido é inválido ou insatisfatório
+
+    var condicao // função usada para validação
+
+    switch(stringCondicao){ // seta a função de acordo com a stringCondicao, usada para saber qual validação será usada para tratar o erro
+        case 'condicaoCNPJ': var condicao = function(){return validarCNPJ(cnpj.value) == 1}; break;
+        case 'condicaoCep': var condicao = function(){ return cep.value.length != 10}; break;
+        case 'condicaoNumero': var condicao = function(){ return vazio(numero.value)}; break;
+    }
+
+    let funcao = function(){ // verifica se a validação é satisfeita, assim retira o eventListener, remove os avisos e libera o usuario para registrar-se
+        if(!condicao()){
+            elemento.classList.remove('vermei')
+            document.getElementById(elemento.id+'Alert').classList.add('none')
+            elemento.removeEventListener(evento,funcao)
+            document.getElementById('butao').disabled = false
+        }
+    }
+
+    // Já sabendo qual condição deve ser utilizada, é adicionado ao elemento seu evento (keydown ou keyup) e chamada da função, no qual fará uso da condicao setada pelo switch
+    document.getElementById('butao').disabled = true
+    elemento.addEventListener(evento,funcao)
+
+}
+
+
+
 function validar(){
-    estado_empresa.classList.remove("vermei")
+    limpar_inputs()
     ramo.classList.remove("vermei")
+
     if(vazio(nome_empresa.value)){
-        alert("Por favor, preencha o da Empresa!");
+        alertaDeErro(nome_empresa.id, "Por favor, preencha o da Empresa!")
         nome_empresa.focus()
         nome_empresa.classList.add("vermei")
+
     } else if (vazio(nome_fantasia.value)) {
-        alert("Por favor, preencha o Nome Fantasia!");
+        alertaDeErro(nome_fantasia.id, "Por favor, preencha o Nome Fantasia!")
         nome_fantasia.focus()
         nome_fantasia.classList.add("vermei")
-    } else if (vazio(ramo)){
-        alert("Por favor, preencha o ramo!")
+
+    } else if(vazio(cnpj.value) || cnpj.value.length != 18){
+        dispararEvento(cnpj, 'keyup', 'condicaoCNPJ')
+        alertaDeErro(cnpj.id, "Por favor, preencha o CNPJ!")
+        cnpj.focus()
+        cnpj.classList.add("vermei")
+
+    }else if (vazio(ramo.value)){
+        alertaDeErro(ramo.id, "Por favor, preencha o ramo!")
         ramo.focus()
         ramo.classList.add("vermei")
-    } else if (vazio(rua_empresa.value)){
-        alert("Por favor, preencha a Rua!")
-        rua_empresa.focus()
-        rua_empresa.classList.add("vermei")
-    } else if (vazio(numero_empresa.value)){
-        alert("Por favor, preencha o Número!")
+
+    } else if(vazio(cep_empresa.value)){
+        alertaDeErro(cep_empresa.id, "Por favor, preencha o CEP!")
+        cep_empresa.focus()
+        cep_empresa.classList.add("vermei")
+
+    }else if (vazio(numero_empresa.value)){
+        alertaDeErro(numero_empresa.id, "Por favor, preencha o Número!")
         numero_empresa.focus()
         numero_empresa.classList.add("vermei")
-    } else if (vazio(bairro_empresa.value)){
-        alert("Por favor, preencha o Bairro!")
-        bairro_empresa.focus()
-        bairro_empresa.classList.add("vermei")
-    } else if (vazio(cidade_empresa.value)){
-        alert("Por favor, preencha a Cidade!")
-        cidade_empresa.focus()
-        cidade_empresa.classList.add("vermei")
-    } else if (vazio(estado_empresa)){
-        alert("Por favor, preencha o Estado!")
-        estado_empresa.focus()
-        estado_empresa.classList.add("vermei")
+
     } else {
         localStorage.setItem(nome_empresa.id,nome_empresa.value)
         localStorage.setItem(nome_fantasia.id,nome_fantasia.value)
@@ -302,7 +346,7 @@ function validar(){
             Cookies.set('cadastro_empresa',1)
         }
 
-        abrirjanela('blue','Verificando Banco de Dados, caso tudo certo prosseguiremos.','| Andamento Cadastro |')
+        abrirjanela('blue','Verificando Banco de Dados, caso tudo certo prosseguiremos.','Andamento Cadastro')
         document.getElementById('asdf_cancelar').style.display = 'none'
         setTimeout(nada , 1500)
 

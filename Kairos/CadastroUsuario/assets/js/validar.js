@@ -138,7 +138,7 @@ function ler(cep){
                 dataType: 'json',
                 success: function(resposta){
                     if(resposta.logradouro == undefined || resposta.bairro == undefined || resposta.localidade == undefined || resposta.uf == undefined){
-                        abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','| Dados Inválidos |')
+                        abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','Dados Inválidos')
                         cep.classList.add('vermei')
                         cep.focus()
                         return
@@ -354,6 +354,7 @@ const dispararEvento = function(elemento, evento, stringCondicao){  //dispara um
     elemento.addEventListener(evento,funcao)
 
 }
+
 function validar2(){
     if (tel.value.length != 15) {
         dispararEvento(tel, 'keyup', 'condicaoTel')
@@ -364,6 +365,7 @@ function validar2(){
 
     }
 }
+
 function validar(){
     limpar_inputs()
 
