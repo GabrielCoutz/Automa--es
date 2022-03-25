@@ -11,14 +11,6 @@ function nada(){
     document.getElementById('asdf_cancelar').click()
 }
 
-$('select').on('change', function() {
-    if (this.value == "") {
-      $(this).css('opacity', '0.7');
-    } else {
-      $(this).css('opacity', '1');
-    }
-  }).change();
-
 // -------------------- início código popup --------------------
 var janelaPopUp = new Object();
 
@@ -119,6 +111,17 @@ const limpar_inputs = function(){
     for(let i = 0; i < elementos.length ; i++){
         elementos[i].classList.remove('vermei')
     }
+
+    limpar_alertas()
+}
+
+const limpar_alertas = function(){
+    let alerta = document.getElementsByClassName('alerta')
+    for(let i = 0; i < alerta.length ; i++){
+        if (!alerta[i].classList.contains('none')){
+            alerta[i].classList.toggle('none')
+        }
+    }
 }
 
 limpar_inputs()
@@ -149,11 +152,9 @@ function ler(cep){
 
                         let endereco_full = resposta.logradouro + ', ' + resposta.bairro + ', ' + resposta.localidade + ', ' + resposta.uf
 
-                        endereco.innerHTML = '<span title="Editar" class="lnr lnr-pencil none" id="edit" onclick="editar_manualmente()"></span>'
-
                         $('#edit').toggle()
 
-                        endereco.innerHTML += endereco_full
+                        endereco.innerHTML = endereco_full
 
                         numero.focus();
                 }}
@@ -299,120 +300,118 @@ function validarEmail(email){ // auto-explicativo
 cpf.addEventListener('keyup',function(){
     if(cpf.value.length == 14){
         if (cpf.value.replace('.','').replace('-','') == "" || validar_cpf(cpf.value) == 1){
-            alert("Por favor, insira um CPF válido!")
+            alertaDeErro(cpf.id, 'Por favor, insira um CPF válido!')
             cpf.focus()
             cpf.classList.add("vermei")
+            document.getElementById('butao').disabled = true
+            document.getElementById('butaoAlert').classList.remove('none')
         } else {
+            document.getElementById(cpf.id+'Alert').classList.add('none')
             cpf.classList.remove("vermei")
+            document.getElementById('butao').disabled = false
+            document.getElementById('butaoAlert').classList.add('none')
         }
-
     }
 })
 
-
-function editar_manualmente(){
-    $('#form_rua').toggle()
-    $('#form_bairro').toggle()
-    $('#form_estado').toggle()
-    $('#form_cidade').toggle()
-    $('#endereco').toggle()
-
-    $('#endereco_hide').toggle()
-    document.getElementById('endereco_hide').innerHTML = 'Esconder endereço'
-
-    endereco.innerHTML = '<span title="Editar" class="lnr lnr-pencil none" id="edit" onclick="editar_manualmente()"></span>'
-
-    $('#edit').toggle()
-
-    endereco.innerHTML  += rua.value + ', ' + bairro.value + ', ' + cidade.value + ', ' + estado.value
-
-    if(document.getElementById('form_rua').style.display){
-        validar_manualmente = true
-    }
-}
-
-
-function validar2(){
-    if (!validarEmail(email.value)){
-        alert("Por favor, insira um email válido!");
-        email.focus()
-        email.classList.add("vermei")
-    } else {
-        email.classList.remove("vermei")
-        alert('email ok')
-    }
-}
-
 function apenasLetras(event) { // deixa apenas letras com ou sem acento serem digitadas
-    let limpo = event.value.replace(/[^\w\s-zÀ-ÖØ-öø-ÿ]/gi, '').replace(/[0-9]/g,'')
-    event.value = limpo.replace('-','').replace('_','')
+    if(event.value != undefined){
+        let limpo = event.value.replace(/[^\w\s-zÀ-ÖØ-öø-ÿ]/gi, '').replace(/[0-9]/g,'')
+        event.value = limpo.replace('-','').replace('_','')
+    }
 }
 
+function alertaDeErro(elemento, mensagem){
+    document.getElementById(elemento+'Alert').innerHTML = mensagem
+    document.getElementById(elemento+'Alert').classList.toggle('none')
+}
+
+
+const dispararEvento = function(elemento, evento, stringCondicao){  //dispara um evento de confirmação para o input no qual o valor inserido é inválido ou insatisfatório
+
+    var condicao // função usada para validação
+
+    switch(stringCondicao){ // seta a função de acordo com a stringCondicao, usada para saber qual validação será usada para tratar o erro
+        case 'condicaoTel': var condicao = function(){ return tel.value.length != 15}; break;
+        case 'condicaoEmail': var condicao = function(){ return !validarEmail(email.value)}; break;
+        case 'condicaoCPF': var condicao = function(){ return validar_cpf(cpf.value) == 1}; break;
+        case 'condicaoCep': var condicao = function(){ return cep.value.length != 10}; break;
+        case 'condicaoNumero': var condicao = function(){ return vazio(numero.value)}; break;
+        case 'condicaoSenha': var condicao = function(){ return vazio(senha.value) || vazio(confirm_senha.value)}; break;
+    }
+
+    let funcao = function(){ // verifica se a validação é satisfeita, assim retira o eventListener, remove os avisos e libera o usuario para registrar-se
+        if(!condicao()){
+            elemento.classList.remove('vermei')
+            document.getElementById(elemento.id+'Alert').classList.add('none')
+            elemento.removeEventListener(evento,funcao)
+            document.getElementById('butao').disabled = false
+        }
+    }
+
+    // Já sabendo qual condição deve ser utilizada, é adicionado ao elemento seu evento (keydown ou keyup) e chamada da função, no qual fará uso da condicao setada pelo switch
+    document.getElementById('butao').disabled = true
+    elemento.addEventListener(evento,funcao)
+
+}
+function validar2(){
+    if (tel.value.length != 15) {
+        dispararEvento(tel, 'keyup', 'condicaoTel')
+
+        alertaDeErro(tel.id, "Por favor, preencha o telefone!")
+        tel.focus()
+        tel.classList.add("vermei")
+
+    }
+}
 function validar(){
     limpar_inputs()
-    document.getElementById("estado").classList.remove("vermei")
 
     if (vazio(nome.value)){
-        alert("Por favor, insira um nome válido!");
+        alertaDeErro(nome.id, "Por favor, insira um nome válido!")
         nome.focus()
         nome.classList.add("vermei")
 
-    } else if (vazio(tel.value.replace('(','').replace(')','').replace('-','').replace(' ',''))) {
-        alert("Por favor, preencha o telefone!");
+    } else if (tel.value.length != 15) {
+        dispararEvento(tel, 'keyup', 'condicaoTel')
+
+        alertaDeErro(tel.id, "Por favor, preencha o telefone!")
         tel.focus()
         tel.classList.add("vermei")
 
     } else if (!validarEmail(email.value)){
-        alert("Por favor, insira um email válido!");
+        dispararEvento(email, 'keyup', 'condicaoEmail')
+        alertaDeErro(email.id, "Por favor, insira um email válido!")
         email.focus()
         email.classList.add("vermei")
 
-    } else if(validar_manualmente){
-        alert('validando manualmente')
+    } else if(vazio(cpf.value)){
+        dispararEvento(cpf, 'keyup', 'condicaoCPF')
+        alertaDeErro(cpf.id, 'Por favor, preencha o CPF!')
+        cpf.focus()
+        cpf.classList.add('vermei')
 
-        let alterar = function(){
-            if(document.getElementById('form_rua').style.display == 'none'){
-                document.getElementById('edit').click()
-            }
-        }
-        if (vazio(rua.value)){
-            alterar()
-            alert("Por favor, preencha a Rua!")
-            rua.focus()
-            rua.classList.add("vermei")
+    } else if(vazio(cep.value)){
+        dispararEvento(cep, 'keyup', 'condicaoCep')
+        alertaDeErro(cep.id, 'Por favor, preencha o CEP!')
+        cep.focus()
+        cep.classList.add('vermei')
 
-        } else if (vazio(numero.value)){
-            alterar()
-            alert("Por favor, preencha o Número!")
-            numero.focus()
-            numero.classList.add("vermei")
-
-        } else if (vazio(bairro.value)){
-            alterar()
-            alert("Por favor, preencha o Bairro!")
-            bairro.focus()
-            bairro.classList.add("vermei")
-
-        } else if (vazio(cidade.value)){
-            alterar()
-            alert("Por favor, preencha a Cidade!")
-            cidade.focus()
-            cidade.classList.add("vermei")
-
-        } else if (vazio(estado.value)){
-            alterar()
-            alert("Por favor, preencha o Estado!")
-            estado.focus()
-            estado.classList.add("vermei")
-        }
+    } else if (vazio(numero.value)){
+        dispararEvento(numero, 'keyup', 'condicaoNumero')
+        alertaDeErro(numero.id, "Por favor, preencha o Número!")
+        numero.focus()
+        numero.classList.add("vermei")
 
     } else if (vazio(senha.value) || vazio(confirm_senha.value)){
-        alert("Por favor, preencha a senha!");
-        document.getElementById("senha").focus()
+        dispararEvento(senha, 'keyup', 'condicaoSenha')
+        alertaDeErro(senha.id, "Por favor, preencha a senha!")
+        senha.focus()
         senha.classList.add("vermei")
+        confirm_senha.classList.add("vermei")
 
     } else if (senha.value != confirm_senha.value){
-        alert("Senhas não coincidem! Por favor, verifique-as!")
+        alertaDeErro(senha.id, "Senhas não coincidem! Por favor, verifique-as!")
         senha.focus()
         senha.classList.add("vermei")
         confirm_senha.classList.add("vermei")

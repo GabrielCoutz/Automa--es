@@ -80,7 +80,7 @@ if(isset($_COOKIE['senha'])){ // alterar senha
     } else {
         $result_senha=mysqli_query($conec,"UPDATE usuario SET senha = '$senha_nova' WHERE cpf = '$cpf'");
         setcookie('senha', '', time() - 3600, '/');
-        header('Location:'.$local.'?'.md5('livre=true'));
+        header('Location:'.$local.'?'.md5('sucesso=true'));
         exit;
     }
 
@@ -138,7 +138,7 @@ if(isset($_COOKIE['usuario'])){ // alteração de dados usuário
             setcookie('tels', '', time() - 3600, '/');
         }
         setcookie('usuario', '', time() - 3600, '/');
-        header('Location:'.$local.'?'.md5('livre=true'));
+        header('Location:'.$local.'?'.md5('sucesso=true'));
         exit;
     }
 }

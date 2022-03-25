@@ -179,7 +179,7 @@ if (window.location.href.includes(md5('erro=true'))) { // erro de login
 if (window.location.href.includes(md5('email_duplicado=true'))) { // email erro
     document.getElementById('editarbtn').click()
     document.getElementById("email_input").classList.add('vermei')
-    abrirjanela('red','Email já cadastrado!', '| Alteração Inválida |')
+    abrirjanela('red','Email já cadastrado!', 'Alteração Inválida')
     
     let nextURL = window.location.href.replace(md5('email_duplicado=true'),'').replace('?','');
     let nextState = { additionalInformation: 'Updated the URL with JS' };
@@ -187,7 +187,7 @@ if (window.location.href.includes(md5('email_duplicado=true'))) { // email erro
 }
 
 if (window.location.href.includes(md5('senha=false'))) { // senha erro
-    abrirjanela('red','Não foi possível alterar sua senha!<br>Por favor, verifique os campos e tente novamente.', '| Alteração Inválida |')
+    abrirjanela('red','Não foi possível alterar sua senha!<br>Por favor, verifique os campos e tente novamente.', 'Alteração Inválida')
     
     document.getElementById('editarsenha').click()
     document.getElementById("senha_antiga").classList.add('vermei')
@@ -200,7 +200,7 @@ if (window.location.href.includes(md5('senha=false'))) { // senha erro
 }
 
 if(window.location.href.includes(md5('sucesso=true'))){
-    abrirjanela('green','Dados alterados com êxito.', '| Alteração realizada com sucesso |')
+    abrirjanela('green','Dados alterados com êxito.', 'Alteração realizada com sucesso')
 
     let nextURL = window.location.href.replace(md5('sucesso=true'),'').replace('?','');
     let nextState = { additionalInformation: 'Updated the URL with JS' };

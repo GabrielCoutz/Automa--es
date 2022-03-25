@@ -13,6 +13,27 @@
     color: #0060B6;
     text-decoration: none;
 }
+#asdf:hover{
+  cursor: default;
+}
+.alerta{
+  margin-top: -21px;
+  margin-bottom: 3px;
+  text-align: center;
+  color: #ff0000;
+  cursor: default;
+}
+
+#butaoAlert{
+    position: relative;
+    margin-bottom: -44px;
+    margin-top: 15px;
+}
+
+button:disabled{
+  opacity: 0.3;
+  cursor: default !important;
+}
 
 #endereco_hide{
   text-align: center;
