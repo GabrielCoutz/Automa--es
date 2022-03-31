@@ -13,6 +13,11 @@ html, body{
   background: #accffe;
 }
 
+i:hover{
+  cursor: pointer;
+  color: blue;
+}
+
 .none{
   display: none;
 }

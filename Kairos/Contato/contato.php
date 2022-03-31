@@ -11,8 +11,8 @@
     
     <!-- Style -->
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/popup.css">
     <link rel="shortcut icon" href="../assets/img/favicon/favicon.ico" type="image/x-icon"/>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
 
     <title>Contato</title>
 
@@ -76,41 +76,22 @@
             </div>
             <div class="col-md-6">
               
-              <form class="mb-5" action="assets/php/enviar" method="POST" id="formContato" onsubmit="return false">
                 <div class="row">
-                  <div class='none' id='nomeSalvo'>
-                    <a><?= $nome; ?></a>
+                  <div class="col-md-12 form-group text-center" id='email'>
+                  kairozprojeto@gmail.com <i title='Copiar'class='fa fa-copy' id='copiar' onclick='copiaremail()'></i>
+                  <div class='none' id='mensagem'>Email Copiado!</div>
                   </div>
-                  <div class="col-md-12 form-group">
-                    <input type="text" class="form-control" name="nome" id="nome" placeholder="Nome" autocomplete="off">
-                  </div>
+                  <input type="text" class='none' value='kairozprojeto@gmail.com' id='texto'>
+                  
+                  
                 </div>
-                <div class="row">
-                  <div class='none' id='emailSalvo'>
-                    <a><?= $email; ?></a>
-                  </div>
-                  <div class="col-md-12 form-group">
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Email">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12 form-group">
-                    <input type="text" class="form-control" name="assunto" id="assunto" placeholder="Assunto" autocomplete="off">
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-md-12 form-group">
-                    <textarea class="form-control" name="mensagem" id="mensagem" cols="30" rows="7" placeholder="Escreva sua mensagem" autocomplete="off"></textarea>
-                  </div>
-                </div>  
                 <div class="row">
                   <div class="col-12">
-                    <button class="btn btn-primary rounded-0 py-2 px-4" onclick="validar()"><div class='circle'></div>
+                    <button class="btn btn-primary rounded-0 py-2 px-4" onclick=""><div class='circle'></div>
                       Enviar
                     </button>
                   </div>
                 </div>
-              </form>
 
             </div>
           </div>

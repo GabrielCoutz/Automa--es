@@ -5,10 +5,10 @@
 	error_reporting(E_ERROR | E_PARSE);
 
 
-	//if(!isset($_SESSION['cadastro']) && !strpos($protocol . $_SERVER//['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
-	//	header("Refresh:0; url=cadastro_empresa".'?'.md5('erro=true'));
-    //    exit;
-	//}
+	if(!isset($_SESSION['cadastro']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
+		header("Refresh:0; url=cadastro_empresa".'?'.md5('erro=true'));
+        exit;
+	}
 	?>
 	<head>
 		<meta charset="utf-8">
@@ -110,7 +110,6 @@
 						<span class="lnr lnr-map-marker"></span>
 						<div class="input-group">
 							<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-					
 							<select class="form-control selectpicker" id="estado_empresa" name="estado_empresa">
 							<option value disabled selected>Estado</option>
 							<option value="AC">Acre</option>

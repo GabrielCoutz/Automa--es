@@ -150,10 +150,46 @@ if (window.location.href.includes(md5('erro=true'))) { // erro de cadastro
     window.history.replaceState(nextState, 'CadastroEmpresa', nextURL);
 }
 
+function ler(cep){
+    console.log('lendo'+cep.value)
+
+    if(localStorage.getItem('erro') == 1){
+        cep = document.getElementById('cep_empresa')
+    }
+    console.log('tratado :'+cep.value)
+
+    if(cep.value.length == 10){
+            $.ajax({
+                url: 'https://viacep.com.br/ws/'+cep.value.replace(/-/, '').replace('.', '')+'/json/unicode/',
+                dataType: 'json',
+                success: function(resposta){
+                    if(resposta.logradouro == undefined || resposta.bairro == undefined || resposta.localidade == undefined || resposta.uf == undefined){
+                        abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','Dados Inválidos')
+                        cep_empresa.classList.add('vermei')
+                        cep_empresa.focus()
+                        return
+                    } else {
+                        cep_empresa.classList.remove('vermei')
+                        $("#rua_empresa").val(resposta.logradouro);
+                        $("#bairro_empresa").val(resposta.bairro);
+                        $("#cidade_empresa").val(resposta.localidade);
+                        $("#estado_empresa").val(resposta.uf);
+                        $("#estado_empresa").css('opacity', '1').change();
+                        let endereco_full = resposta.logradouro + ', ' + resposta.bairro + ', ' + resposta.localidade + ', ' + resposta.uf
+
+                        $('#edit').toggle()
+                        endereco.innerHTML = endereco_full
+                        numero_empresa.focus()
+                }}
+            });
+    }
+}
+
 if (window.location.href.includes(md5('cnpj=false'))){
     localStorage.setItem('erro',1)
-    
-    ler(localStorage.getItem('cep_empresa'))
+
+    cep_empresa.value=localStorage.getItem('cep_empresa')
+    ler(localStorage.getItem('erro'))
     
     document.getElementById('cadastro_empresa').focus()
     abrirjanela('red','CNPJ já cadastrado!','Andamento Cadastro')
@@ -165,10 +201,9 @@ if (window.location.href.includes(md5('cnpj=false'))){
     
     nome_empresa.value=localStorage.getItem('nome_empresa')
     nome_fantasia.value=localStorage.getItem('nome_fantasia')
-    cep_empresa.value=localStorage.getItem('cep_empresa')
-    numero_empresa.value=localStorage.getItem('numero_empresa')
     ramo.value=localStorage.getItem('ramo')
-    
+    numero_empresa.value=localStorage.getItem('numero_empresa')
+
     let nextURL = window.location.href.replace(md5('cnpj=false'),'').replace('?','');
     let nextState = { additionalInformation: 'Updated the URL with JS' };
     window.history.replaceState(nextState, 'CadastroEmpresa', nextURL);
@@ -234,39 +269,6 @@ cnpj.addEventListener('keyup',function(){
         }
     }
 })
-
-function ler(cep){
-
-    if(localStorage.getItem('erro') == 1){
-        cep = document.getElementById('cep_empresa')
-    }
-
-    if(cep.value.length == 10){
-            $.ajax({
-                url: 'https://viacep.com.br/ws/'+cep.value.replace(/-/, '').replace('.', '')+'/json/unicode/',
-                dataType: 'json',
-                success: function(resposta){
-                    if(resposta.logradouro == undefined || resposta.bairro == undefined || resposta.localidade == undefined || resposta.uf == undefined){
-                        abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','Dados Inválidos')
-                        cep_empresa.classList.add('vermei')
-                        cep_empresa.focus()
-                        return
-                    } else {
-                        cep_empresa.classList.remove('vermei')
-                        $("#rua_empresa").val(resposta.logradouro);
-                        $("#bairro_empresa").val(resposta.bairro);
-                        $("#cidade_empresa").val(resposta.localidade);
-                        $("#estado_empresa").val(resposta.uf);
-                        $("#estado_empresa").css('opacity', '1').change();
-                        let endereco_full = resposta.logradouro + ', ' + resposta.bairro + ', ' + resposta.localidade + ', ' + resposta.uf
-
-                        $('#edit').toggle()
-                        endereco.innerHTML = endereco_full
-                        numero_empresa.focus()
-                }}
-            });
-    }
-}
 
 function alertaDeErro(elemento, mensagem){
     document.getElementById(elemento+'Alert').innerHTML = mensagem
@@ -346,7 +348,7 @@ function validar(){
             Cookies.set('cadastro_empresa',1)
         }
 
-        abrirjanela('blue','Verificando Banco de Dados, caso tudo certo prosseguiremos.','Andamento Cadastro')
+        abrirjanela('blue','Verificando Dados ...','Andamento Cadastro')
         document.getElementById('asdf_cancelar').style.display = 'none'
         setTimeout(nada , 1500)
 

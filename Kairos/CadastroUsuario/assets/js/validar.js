@@ -124,8 +124,6 @@ const limpar_alertas = function(){
     }
 }
 
-limpar_inputs()
-
 function ler(cep){
 
     if(localStorage.getItem('erro') == 1){
