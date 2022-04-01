@@ -451,13 +451,13 @@
 
 						<div class="col-xl-2 offset-xl-1 col-md-5 offset-md-1 col-sm-6">
 							<div class="footer-widget">
-								<h3>Link</h3>
+								<h3>Links</h3>
 								<ul class="links">
 									<li> <a href="#home">Início</a> </li>
 									<li> <a href="#service">Sobre</a> </li>
 									<li> <a href="#service">Métodos</a> </li>
 									<li> <a href="#pricing">Planos</a> </li>
-									<li> <a href="javascript:void(0)">Contato</a> </li>
+									<li> <a href="Contato/contato">Contato</a> </li>
 								</ul>
 							</div>
 						</div>
@@ -479,11 +479,9 @@
 
 						<div class="col-xl-3 col-md-6">
 							<div class="footer-widget">
-								<h3>Contact</h3>
+								<h3>Contato</h3>
 								<ul>
-									<li>+003894372632</li>
-									<li>helldesigner@gmail.ccom</li>
-									<li>United state of America</li>
+									<li>kairozprojeto@gmail.com</li>
 								</ul>
 							</div>
 						</div>

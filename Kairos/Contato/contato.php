@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,700,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
   
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
@@ -12,7 +13,6 @@
     <!-- Style -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="shortcut icon" href="../assets/img/favicon/favicon.ico" type="image/x-icon"/>
-    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'>
 
     <title>Contato</title>
 
@@ -68,30 +68,25 @@
           <div class="row justify-content-center">
             <div class="col-md-6">
               
-              <h3 class="heading mb-4">Como podemos ajudar?</h3>
+              <h3 class="heading mb-4">Estamos sempre à disposição</h3>
               <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas debitis, fugit natus?</p>
 
               <p><img src="assets/images/imagem.png" alt="Image" class="img-fluid"></p>
 
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6" id='itens'>
               
                 <div class="row">
-                  <div class="col-md-12 form-group text-center" id='email'>
-                  kairozprojeto@gmail.com <i title='Copiar'class='fa fa-copy' id='copiar' onclick='copiaremail()'></i>
-                  <div class='none' id='mensagem'>Email Copiado!</div>
-                  </div>
-                  <input type="text" class='none' value='kairozprojeto@gmail.com' id='texto'>
-                  
-                  
-                </div>
-                <div class="row">
+                  <div class="col-md-12 form-group text-center">
+                  <h6>Email de contato</h6> kairozprojeto@gmail.com</div>
+
                   <div class="col-12">
-                    <button class="btn btn-primary rounded-0 py-2 px-4" onclick=""><div class='circle'></div>
-                      Enviar
+                    <button class="btn btn-primary rounded-0 py-2 px-4" onclick="voltar()"><div class='circle'></div>
+                      Voltar à Página Inicial
                     </button>
                   </div>
                 </div>
+
 
             </div>
           </div>
