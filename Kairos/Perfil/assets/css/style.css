@@ -190,7 +190,7 @@ input:focus, input:hover{
   }
 }
 
-#paginaInicial:hover{
+#paginaInicial:hover, #suporte:hover{
   color: #3d9cff;
 }
 /*===== All Preloader Style =====*/

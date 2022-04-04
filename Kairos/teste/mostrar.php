@@ -26,34 +26,16 @@
         $praca = '';
         $promocao = '';
 
-        function validar($valor, $chave){ // valida se o valor passado é fraqueza ou força
-
-            if(is_int(strpos($valor, 'Nada'))){
-                return 'Ponto fraco: '.$chave.'<br>Motivo = '.$valor.'<br><br>';
-
-            } else if (is_int(strpos($valor, 'Pouco'))){
-                return 'Pode melhorar: '.$chave.'<br>Motivo = '.$valor.'<br><br>';
-
-            } else if(is_int(strpos($valor, 'Muito'))){
-                return 'Ponto forte: '.$chave.'<br>Motivo = '.$valor.'<br><br>';
-
-            } else {
-                return 'Ponto forte: '.$chave.'<br>Motivo = '.$valor.'<br><br>';
-
-            }
-        }
-
         foreach ($_GET as $chave => $valor) { 
             $limpo = '';
-
             if(is_int(strpos($valor, '%3c'))){
                 $valor = str_replace('%3c','',$valor);
                 $valor = str_replace('%3e','',$valor);
             }
-            if (is_int(strpos($chave, 'visão')) && is_int(strpos($valor, 'Sim'))){
-                echo 'tem';
-            }
 
+            echo $chave.' = '.$valor.'<br>';
+
+            if (is_int(strpos($chave, 'SWOT'))){ // análise SWOT
             switch (true) {
                 case is_int(strpos($chave,'forças')):
                     $fortes .= $valor.'<br>';
@@ -73,7 +55,28 @@
                 case is_int(strpos($chave, 'custos')) && is_int(strpos($valor, 'Sim')):
                     $ameacas .= 'Altos custos de matéria prima'.'<br>';
                     break;
+                }
+            } else if (is_int(strpos($chave, '4PS'))){ // metodologia 4P's
+                switch (true) {
+                    case is_int(strpos($chave,'produto')):
+                        $produto .= $valor.'<br>';
+                        break;
+                    case is_int(strpos($chave,'preço')) && !is_int(strpos($valor, 'Sim')):
+                        $preco .= $valor.'<br>';
+                        break;
+                    case is_int(strpos($chave,'praça')):
+                        $praca .= $valor.'<br>';
+                        break;
+                    case is_int(strpos($chave,'promoção')):
+                        $promocao .=$valor.'<br>';
+                        break;
+                    case is_int(strpos($chave, '4PSpreçosensivel')) && is_int(strpos($valor, 'Sim')):
+                        $ameacas .= 'Cliente Sensíveis ao Preço'.'<br>';
+                        break;
+                    }
             }
+
+
             //if(is_int(strpos($chave, 'oferecido'))){ // o que é //oferecido ao cliente
             //    $oferecido = $valor;
             //}
@@ -83,8 +86,7 @@
             //    $praca .= $limpo;
 //
             //}
-//
-            //echo validar($valor,$chave);
+
         }
 
         ?>
@@ -124,7 +126,6 @@
             <div class="row bg-white">
                 <div class="col text-primary">Produto
                     <div class="text-secondary">
-                        <a><?= $oferecido; ?></a>
                         <a><?= $produto; ?></a>
                     </div>
                 </div>

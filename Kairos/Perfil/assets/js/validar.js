@@ -274,7 +274,6 @@ function ler_cep(cep){ // preenche o endereço automaticamente do usuario usando
                     cep_input.placeholder = temp
                     cep_input.value = ''
                     return
-                    
                 } else {
                     document.getElementsByName('rua')[0].value = resposta.logradouro
                     document.getElementsByName('bairro')[0].value = resposta.bairro
@@ -391,6 +390,13 @@ function deletar_tel(tel){
         elemento.style.opacity = '0.5'
     } else {
         elemento.style.opacity = '1'
+    }
+}
+
+function apenasLetras(event) { // deixa apenas letras com ou sem acento serem digitadas
+    if(event.value != undefined){
+        let limpo = event.value.replace(/[^\w\s-zÀ-ÖØ-öø-ÿ]/gi, '').replace(/[0-9]/g,'')
+        event.value = limpo.replace('-','').replace('_','')
     }
 }
 

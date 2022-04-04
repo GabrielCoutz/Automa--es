@@ -159,7 +159,7 @@
                                             <div class="col-md-5 pr-1">
                                                 <div class="form-group">
                                                     <label>Nome</label>
-                                                    <input type="text" class="form-control none" id='nome_input' name='nome'>
+                                                    <input type="text" class="form-control none" id='nome_input' name='nome' onkeyup="apenasLetras(this)" maxlength="50">
                                                     <div id='nome' class='text-secondary'>
                                                         <a><?= ucwords($select['nome']) ?></a>
                                                     </div>
@@ -300,6 +300,9 @@
                                 <a href="../index" id='paginaInicial'>
                                     Página Inicial
                                 </a>
+                            </li>
+                            <li>
+                                <a href="../Contato/contato" id='suporte'>Suporte</a>
                             </li>
                         </ul>
                     </nav>

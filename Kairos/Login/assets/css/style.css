@@ -14,6 +14,19 @@
   cursor: default;
 }
 
+#ajuda{
+  margin-top: 2px;
+  text-align: right;
+  margin-bottom: 1px;
+  cursor: pointer;
+  display: block;
+}
+
+#divAjuda{
+  display: grid;
+  justify-items: end;
+}
+
 * {
 
   -webkit-box-sizing: border-box;
