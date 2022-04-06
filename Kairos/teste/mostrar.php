@@ -8,9 +8,21 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css">
     <?php
+    session_start();
+
         //ini_set('display_errors', '1');
         //ini_set('display_startup_errors', '1');
         //error_reporting(E_ALL);
+
+        $dbHost     = 'localhost';
+        $dbUname = 'root';
+        $dbPass = '';
+        $dbName     = 'kairos';
+        $cpf = '185.311.040-09';
+
+        $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
+
+        
 
         // SWOT
         $fortes = '';
@@ -18,7 +30,6 @@
         $oportunidades = '';
         $ameacas = '';
 
-        $oferecido = '';
 
         // 4Ps
         $produto = '';
@@ -33,7 +44,7 @@
                 $valor = str_replace('%3e','',$valor);
             }
 
-            echo $chave.' = '.$valor.'<br>';
+            //echo $chave.' = '.$valor.'<br>';
 
             if (is_int(strpos($chave, 'SWOT'))){ // análise SWOT
             switch (true) {
@@ -71,23 +82,17 @@
                         $promocao .=$valor.'<br>';
                         break;
                     case is_int(strpos($chave, '4PSpreçosensivel')) && is_int(strpos($valor, 'Sim')):
-                        $ameacas .= 'Cliente Sensíveis ao Preço'.'<br>';
+                        $ameacas .= 'Clientes Sensíveis ao Preço'.'<br>';
                         break;
                     }
             }
 
-
-            //if(is_int(strpos($chave, 'oferecido'))){ // o que é //oferecido ao cliente
-            //    $oferecido = $valor;
-            //}
-//
-            //if(is_int(strpos($chave, 'local'))){ // praça
-            //    $limpo =ucwords(str_replace('_', ' ', $valor));
-            //    $praca .= $limpo;
-//
-            //}
-
         }
+
+
+        $result_swot=mysqli_query($conec, "INSERT INTO analise_swot(cpf_usuario, forcas, fraquezas, oportunidades, ameacas) VALUES('$cpf', '".str_replace('<br>',', ',$fortes)."', '".str_replace('<br>',', ',$fracos)."', '".str_replace('<br>',', ',$oportunidades)."', '".str_replace('<br>',', ',$ameacas)."')");
+
+        $result_4ps=mysqli_query($conec, "INSERT INTO analise_4ps(cpf_usuario, produto, preço, praça, promoção) VALUES('$cpf', '".str_replace('<br>',', ',$produto)."', '".str_replace('<br>',', ',$preco)."', '".str_replace('<br>',', ',$praca)."', '".str_replace('<br>',', ',$promocao)."')");
 
         ?>
 </head>

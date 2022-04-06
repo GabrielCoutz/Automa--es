@@ -418,6 +418,8 @@ function validar(){
         senha.value=""
         confirm_senha.value=""
 
+    } else if (grecaptcha.getResponse() == ""){
+        alert('Por favor, preencha o CAPTCHA!')
     } else {
         localStorage.setItem(nome.id,nome.value)
         localStorage.setItem(tel.id,tel.value)
