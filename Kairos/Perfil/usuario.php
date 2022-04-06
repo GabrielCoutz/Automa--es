@@ -3,7 +3,6 @@
 
 <head>
     <meta charset="utf-8" />
-    <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png">
     <link rel="shortcut icon" href="../assets/img/favicon/favicon.ico" type="image/x-icon">
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -93,13 +92,6 @@
             <div class="sidebar-wrapper">
                 
                 <ul class="nav">
-                    
-                    <li>
-                        <a class="nav-link" href="">
-                            <i class="nc-icon nc-circle-09"></i>
-                            <p>Perfil do Usuário</p>
-                        </a>
-                    </li>
                     <li>
                         <a class="nav-link" href="PerfilEmpresa/empresa">
                             <i class="nc-icon nc-chart-bar-32"></i>
@@ -107,7 +99,7 @@
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" href="AndamentoProjeto/projeto">
+                        <a class="nav-link" href="AnaliseMarketing/resultado.php">
                             <i class="nc-icon nc-bulb-63"></i>
                             <p>Andamento do Projeto</p>
                         </a>

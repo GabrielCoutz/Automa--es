@@ -4,12 +4,45 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/style.scss">
+    <link rel="stylesheet" href="assets/css/popup.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../../../assets/img/favicon/favicon.ico" type="image/x-icon">
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Teste</title>
+    <title>Realizando Análise</title>
+    <?php
+      ini_set('display_errors', '1');
+      ini_set('display_startup_errors', '1');
+      error_reporting(E_ALL);
+      
+      session_start();
+
+      if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
+        header("Refresh:0; url=ColetadeDados".'?'.md5('erro=true'));
+        exit;
+      }
+
+      
+    ?>
 </head>
 <body>
+  <div class="preloader">
+        <div class="loader">
+          <div class="spinner">
+            <div class="spinner-container">
+              <div class="spinner-rotator">
+                <div class="spinner-left">
+                  <div class="spinner-circle"></div>
+                </div>
+                <div class="spinner-right">
+                  <div class="spinner-circle"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- preloader end -->
     <div class="conteudo">
       <div class="janela">
 
@@ -112,5 +145,7 @@
 			</div>
 		</div>
 </body>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js'></script>
+<script src="assets/js/script.js"></script>
 </html>

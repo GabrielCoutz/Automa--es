@@ -154,8 +154,6 @@ function abrirEmpresa(){
 
     document.getElementById('asdf_enviar').addEventListener('click', IniciarCadastroEmpresa)
 
-   
-
 }
 
 // -------------------- fim código popup --------------------

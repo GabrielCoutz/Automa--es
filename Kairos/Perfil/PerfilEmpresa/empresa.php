@@ -102,13 +102,7 @@ use function PHPSTORM_META\type;
                          </a>
                      </li>
                      <li>
-                         <a class="nav-link" href="">
-                             <i class="nc-icon nc-chart-bar-32"></i>
-                             <p>Perfil da Empresa</p>
-                         </a>
-                     </li>
-                     <li>
-                         <a class="nav-link" href="../AndamentoProjeto/projeto">
+                         <a class="nav-link" href="../AnaliseMarketing/resultado.php">
                              <i class="nc-icon nc-bulb-63"></i>
                              <p>Andamento do Projeto</p>
                          </a>
