@@ -123,8 +123,24 @@ if (window.location.href.includes(md5('erro=true'))) { // erro de login
     
     let nextURL = window.location.href.replace(md5('erro=true'),'').replace('?','');
     let nextState = { additionalInformation: 'Updated the URL with JS' };
-    window.history.replaceState(nextState, 'Perfil', nextURL);
+    window.history.replaceState(nextState, 'Analise', nextURL);
 
+}
+
+if(window.location.href.includes(md5('sucesso=true'))){
+    abrirjanela('green','Dados alterados com êxito.', 'Alteração realizada com sucesso')
+
+    let nextURL = window.location.href.replace(md5('sucesso=true'),'').replace('?','');
+    let nextState = { additionalInformation: 'Updated the URL with JS' };
+    window.history.replaceState(nextState, 'Analise', nextURL);
+}
+
+if(window.location.href.includes(md5('sucesso=false'))){
+    abrirjanela('green','Parece que houve um erro durante o processamento de dados.<br>Por favor, tente novamente mais tarde ou entre em contato conosco.', 'Análise não concluída')
+
+    let nextURL = window.location.href.replace(md5('sucesso=false'),'').replace('?','');
+    let nextState = { additionalInformation: 'Updated the URL with JS' };
+    window.history.replaceState(nextState, 'Analise', nextURL);
 }
 
 const IniciarAnalise = function(){

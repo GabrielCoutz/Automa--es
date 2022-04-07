@@ -25,8 +25,9 @@
      session_start();
 
      if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
-       header("Refresh:0; url=resultado".'?'.md5('erro=true'));
-       exit;
+        $erro = true;
+        header("Refresh:0; url=resultado".'?'.md5('erro=true'));
+        exit;
      } else {
        $email=$_SESSION['email'];
      }
@@ -39,7 +40,8 @@
 
     $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 
-    $cpf = $_SESSION['cpf'];
+    //$cpf = $_SESSION['cpf'];
+    $cpf = '451.523.111-23';
 
     
 
@@ -47,8 +49,11 @@
 
     $select_4ps=mysqli_query($conec, "SELECT * FROM analise_4ps WHERE cpf_usuario = '$cpf'")->fetch_assoc();
 
-    if(!$select_swot && !$select_4ps && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('analise=false'))){
+    echo $erro;
+
+    if(!strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true')) && !$select_swot && !$select_4ps && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('analise=false'))){
         header("Refresh:0; url=resultado".'?'.md5('analise=false'));
+        exit;
     }
 
 
@@ -129,27 +134,26 @@
                                             <div class="row bg-white">
                                                 <div class="col text-primary" >Forças
                                                     <div class="text-secondary" id='forças'>
-                                                        <a><?= $fortes; ?></a>
-                                                        teste
+                                                        <a><?= str_replace(', ','<br>',$select_swot['forcas']); ?></a>
                                                     </div>
                                                 </div>
 
                                                 <div class="col text-primary">Fraquezas
                                                     <div class="text-secondary">
-                                                        <a><?= $fracos; ?></a>
+                                                        <a><?= str_replace(', ','<br>',$select_swot['fraquezas']); ?></a>
                                                     </div>
 
                                                 </div>
                                                 <div class="w-100"></div>
                                                 <div class="col text-primary">Oportunidades
                                                     <div class="text-secondary">
-                                                        <a><?= $oportunidades; ?></a>
+                                                        <a><?= str_replace(', ','<br>',$select_swot['oportunidades']); ?></a>
                                                     </div>
                                                 </div>
 
                                                 <div class="col text-primary">Ameaças
                                                     <div class="text-secondary">
-                                                        <a><?= $ameacas; ?></a>
+                                                        <a><?= str_replace(', ','<br>',$select_swot['ameacas']); ?></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -159,25 +163,25 @@
                                             <div class="row bg-white">
                                                 <div class="col text-primary">Produto
                                                     <div class="text-secondary">
-                                                        <a><?= $produto; ?></a>
+                                                        <a><?= str_replace(', ','<br>',$select_4ps['produto']); ?></a>
                                                     </div>
                                                 </div>
 
                                                 <div class="col text-primary">Preço
                                                     <div class="text-secondary">
-                                                        <a><?= $preco; ?></a>
+                                                        <a><?= str_replace(', ','<br>',$select_4ps['preço']); ?></a>
                                                     </div>
                                                 </div>
 
                                                 <div class="col text-primary">Praça
                                                     <div class="text-secondary">
-                                                        <a><?= $praca; ?></a>
+                                                        <a><?= str_replace(', ','<br>',$select_4ps['praça']); ?></a>
                                                     </div>
                                                 </div>
 
                                                 <div class="col text-primary">Promoção
                                                     <div class="text-secondary">
-                                                        <a><?= $promocao; ?></a>
+                                                        <a><?= str_replace(', ','<br>',$select_4ps['promoção']); ?></a>
                                                     </div>
                                                 </div>
                                             </div>
