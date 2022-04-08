@@ -25,16 +25,11 @@
     $dbUname = 'root';
     $dbPass = '';
     $dbName     = 'kairos';
-    
+    $logado = 'false';
     $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 
     if(isset($_SESSION['email'])){
-      $cpf = $_SESSION['cpf'];
-    
-
-      $nome = $select=mysqli_query($conec, "SELECT nome FROM usuario WHERE cpf = '$cpf'")->fetch_assoc()['nome'];
-
-      $email = $_SESSION['email'];
+      $logado = 'true';
     }
     ?>
   </head>
@@ -61,6 +56,7 @@
   <div class="content">
     
     <div class="container caixa">
+      <div class='none' id='logado'><a><?= $logado?></a></div>
       <div class="row justify-content-center">
         <div class="col-md-10">
           
@@ -82,7 +78,7 @@
 
                   <div class="col-12">
                     <button class="btn btn-primary rounded-0 py-2 px-4" onclick="voltar()"><div class='circle'></div>
-                      Voltar à Página Inicial
+                      <div id="texto">Voltar à Página Inicial</div>
                     </button>
                   </div>
                 </div>

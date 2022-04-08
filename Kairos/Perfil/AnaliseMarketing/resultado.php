@@ -32,7 +32,6 @@
             $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
     
         $cpf = $_SESSION['cpf'];
-        //$cpf = '451.523.111-23';
     
         $select_swot=mysqli_query($conec, "SELECT * FROM analise_swot WHERE cpf_usuario = '$cpf'")->fetch_assoc();
     
@@ -106,10 +105,17 @@
                      </button>
                      <div class="collapse navbar-collapse justify-content-end" id="navigation">
                         <ul class="nav navbar-nav mr-auto">
+                            <li class='nav-item' id='btnfechar'>
+                                <a class="nav-link" onclick="fechar_menu()">
+                                    <i class="nc-icon nc-stre-left"></i>
+                                    <span >Fechar Menu</span>
+                                </a>
+                            </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" onclick="sair()">
-                                    <span class="no-icon" id='btnsair'>Sair</span>
+                                <a class="nav-link" onclick="sair()"id='btnsair'>
+                                <i class="nc-icon nc-simple-remove"></i>
+                                    <span class="no-icon" >Sair</span>
                                 </a>
                             </li>
                         </ul>
@@ -194,9 +200,12 @@
                     <nav>
                         <ul class="footer-menu">
                             <li>
-                                <a href="../index">
+                                <a href="../index" id='paginaInicial'>
                                     Página Inicial
                                 </a>
+                            </li>
+                            <li>
+                                <a href="../../Contato/contato" id='suporte'>Suporte</a>
                             </li>
                         </ul>
                     </nav>

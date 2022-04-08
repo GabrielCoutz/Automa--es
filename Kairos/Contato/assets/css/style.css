@@ -79,7 +79,7 @@ button{
 .circle{
   border-radius:50%;
   transition: all 0.4s cubic-bezier(.86,.31,.55,.99);
-  width:4px;
+  width:6px;
   top:calc(50% - 1px);
   left:calc(50% - 1px);
   height:2px;

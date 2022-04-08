@@ -11,6 +11,7 @@
 ===========================*/
 html {
   scroll-behavior: smooth;
+  cursor: default;
 }
 ::-webkit-scrollbar{
   width: 10px;

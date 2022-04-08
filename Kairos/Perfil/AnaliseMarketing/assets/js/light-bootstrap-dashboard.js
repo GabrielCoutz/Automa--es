@@ -51,6 +51,11 @@ $(window).resize(function() {
     }
 });
 
+window.addEventListener('resize',function(){
+    if ((window.screen.width) > 991){
+        document.getElementsByClassName('nav-mobile-menu')[0].classList.add('none')
+}})
+
 lbd = {
     misc: {
         navbar_menu_visible: 0

@@ -102,7 +102,7 @@ use function PHPSTORM_META\type;
                          </a>
                      </li>
                      <li>
-                         <a class="nav-link" href="../AnaliseMarketing/resultado.php">
+                         <a class="nav-link" href="../AnaliseMarketing/resultado">
                              <i class="nc-icon nc-bulb-63"></i>
                              <p>Andamento do Projeto</p>
                          </a>
@@ -248,6 +248,9 @@ use function PHPSTORM_META\type;
                                     Página Inicial
                                 </a>
                             </li>
+                            <li>
+                                <a href="../../Contato/contato" id='suporte'>Suporte</a>
+                            </li>
                         </ul>
                     </nav>
                 </div>
@@ -267,6 +270,5 @@ use function PHPSTORM_META\type;
 <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js'></script>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 <script src="assets/js/validar.js" type="text/javascript"></script>
- 
- </html>
- 
+
+</html>

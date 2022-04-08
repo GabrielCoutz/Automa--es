@@ -140,7 +140,7 @@ input:focus, input:hover, select:focus, select:hover{
   width: 100%;
 }
 
-#paginaInicial:hover{
+#paginaInicial:hover, #suporte:hover {
   color: #3d9cff;
 }
 

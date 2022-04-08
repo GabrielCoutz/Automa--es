@@ -85,16 +85,11 @@
                     </li>
                   </ul>
                 </div>
-                <!-- navbar collapse -->
               </nav>
-              <!-- navbar -->
             </div>
           </div>
-          <!-- row -->
         </div>
-        <!-- container -->
       </div>
-      <!-- navbar area -->
     </header>
     <!-- ========================= header end ========================= -->
 
@@ -109,7 +104,7 @@
 								Uma plataforma pensada e desenvolvida para Você.
 							</h1>
               <p class="wow fadeInUp mouseoff" data-wow-delay=".6s">
-                Mais que uma ferramenta, um meio para alcançar seu sucesso no mercado. (ih ala o corno tbm é coach KKKK)
+                Mais que uma ferramenta, um meio para alcançar seu sucesso no mercado.
               </p>
 							<a href="CadastroUsuario/cadastro_usuario" class="main-btn btn-hover wow fadeInUp" data-wow-delay=".6s">Começar Agora</a>
             </div>
@@ -136,7 +131,7 @@
 						<div class="about-content mb-50">
 							<div class="section-title mb-50 fadeInLeft mouseoff">
 								<h1 class="mb-25">Conheça um pouco sobre nós</h1>
-								<p>Utilizamos táticas de marketing para axuliar na criação e desenvolimento de marcas, apoiando startups, micro e pequenas empresas a entenderem seu público alvo e personas, bem como criar serviços e produtos, que não só atendam mas superem as expectativas de seus clientes.</p>
+								<p>Utilizamos táticas de marketing para axuliar na criação e desenvolimento de empresas, apoiando startups, micro e pequenas empresas a entenderem seu público alvo e personas, bem como posicionar serviços e produtos, que não só atendam mas superem as expectativas de seus clientes.</p>
 							</div>
 							<div class="accordion pb-15" id="accordionExample">
 								<div class="single-faq">
@@ -146,7 +141,7 @@
 							
 									<div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
 										<div class="faq-content mouseoff">
-											Ofertamos serviços de pesquisa de campo, análise de mercado e entendimento amplo sobre a àrea de atuação da empresa contratada.
+											Ofertamos serviços análise de mercado e entendimento amplo sobre a àrea de atuação da empresa contratada, por meio de estratégias e conceitos do Marketing.
 										</div>
 									</div>
 								</div>
@@ -156,7 +151,7 @@
 									</button>
 									<div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
 										<div class="faq-content mouseoff">
-											É claro, tu é burré? Como vai começar um bagui q nem tu sabe oq é? '-'
+											Apenas uma ideia ou noção de o que deseja, o resto pode deixar com a gente.
 										</div>
 									</div>
 								</div>
@@ -166,7 +161,7 @@
 									</button>
 									<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
 										<div class="faq-content mouseoff">
-											Com nossas equipes especialisadas em Marketing, Business e Branding, nos certificamos que cada projeto seja único, pontual, consistente e principalmente, personalizado para cada cliente.
+											Com nossas análises de Marketing e tratamento de dados, nos certificamos que cada projeto seja único, pontual, consistente e principalmente, personalizado para cada cliente.
 										</div>
 									</div>
 								</div>
@@ -195,7 +190,7 @@
 					<div class="col-xl-3 col-md-6">
 						<div class="single-service">
 							<div class="icon color-1">
-								<i class="lni lni-layers"></i>
+								<i class="lni lni-grid-alt"></i>
 							</div>
 							<div class="content">
 								<h3>Análise SWOT/FOFA</h3>
@@ -206,33 +201,22 @@
 					<div class="col-xl-3 col-md-6">
 						<div class="single-service">
 							<div class="icon color-2">
-								<i class="lni lni-code-alt"></i>
+								<i class="lni lni-target-revenue"></i>
 							</div>
 							<div class="content">
-								<h3>4 Ps</h3>
-								<p>Profunda análise sobre Preço, Produto, Praça e Promoção.</p>
+								<h3>4'Ps do Marketing</h3>
+								<p>Análise sobre Preço, Produto, Praça e Promoção.</p>
 							</div>
 						</div>
 					</div>
 					<div class="col-xl-3 col-md-6">
 						<div class="single-service">
 							<div class="icon color-3">
-								<i class="lni lni-pallet"></i>
+								<i class="lni lni-graph"></i>
 							</div>
 							<div class="content">
 								<h3>Marketing Digital</h3>
-								<p>Lorem ipsum dolor sitsdw consetsad pscing eliewtr, diam nonumy.</p>
-							</div>
-						</div>
-					</div>
-					<div class="col-xl-3 col-md-6">
-						<div class="single-service">
-							<div class="icon color-4">
-								<i class="lni lni-vector"></i>
-							</div>
-							<div class="content">
-								<h3>Xampson</h3>
-								<p>Lorem ipsum dolor sitsdw consetsad pscing eliewtr, diam nonumy.</p>
+								<p>Aplicação e Validação das informações obtidas.</p>
 							</div>
 						</div>
 					</div>
@@ -426,28 +410,7 @@
 			<div class="container">
 				<div class="widget-wrapper">
 					<div class="row">
-						<div class="col-xl-3 col-md-6">
-							<div class="footer-widget">
-								<div class="logo mb-35">
-									<a href="index.html"> <img src="assets/img/logo/logo.svg" alt=""> </a>
-								</div>
-								<p class="desc mb-35">We are expert designer team, There have a lot of designer and developer If you have any project you can hire Create a website.</p>
-								<ul class="socials">
-									<li>
-										<a href="jvascript:void(0)"> <i class="lni lni-facebook-filled"></i> </a>
-									</li>
-									<li>
-										<a href="jvascript:void(0)"> <i class="lni lni-twitter-filled"></i> </a>
-									</li>
-									<li>
-										<a href="jvascript:void(0)"> <i class="lni lni-instagram-filled"></i> </a>
-									</li>
-									<li>
-										<a href="jvascript:void(0)"> <i class="lni lni-linkedin-original"></i> </a>
-									</li>
-								</ul>
-							</div>
-						</div>
+
 
 						<div class="col-xl-2 offset-xl-1 col-md-5 offset-md-1 col-sm-6">
 							<div class="footer-widget">
@@ -464,15 +427,11 @@
 
 						<div class="col-xl-3 col-md-6 col-sm-6">
 							<div class="footer-widget">
-								<h3>Services</h3>
+								<h3>Serviços</h3>
 								<ul class="links">
-									<li> <a href="javascript:void(0)">Graphic design</a> </li>
-									<li> <a href="javascript:void(0)">Web design</a> </li>
-									<li> <a href="javascript:void(0)">Visual design</a> </li>
-									<li> <a href="javascript:void(0)">Product design</a> </li>
-									<li> <a href="javascript:void(0)">UI/UX design</a> </li>
-									<li> <a href="javascript:void(0)">Web development</a> </li>
-									<li> <a href="javascript:void(0)">Startup business</a> </li>
+									<li> Análise SWOT </li>
+									<li> 4P's do Marketing </li>
+									<li> Marketing Digital </li>
 								</ul>
 							</div>
 						</div>

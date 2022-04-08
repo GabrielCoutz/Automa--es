@@ -179,3 +179,13 @@ if (window.location.href.includes(md5('analise=false'))) { // pergunta ao usuár
     window.history.replaceState(nextState, 'Analise', nextURL);
 
 }
+
+function sair(){
+    localStorage.clear()
+    window.location.href= '../../index'
+}
+
+function fechar_menu(){
+    document.getElementsByTagName('html')[0].classList.remove('nav-open')
+    document.getElementsByClassName('close-layer')[0].classList.add('none')
+}

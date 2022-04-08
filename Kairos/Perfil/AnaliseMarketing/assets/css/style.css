@@ -6,11 +6,22 @@
     border-color: #a82020;
   }
 
-#btnsair{
+#btnsair, #btnfechar{
     cursor: pointer !important ;
 }
+
 #btnsair:hover{
     color: red !important;
+}
+
+.close-layer{
+  display: none !important;
+}
+
+.navbar .nc-icon {
+  font-weight: 700;
+  margin-top: 10px;
+  margin-right: 10px !important;
 }
 
 .btn {
@@ -87,6 +98,11 @@ input::-webkit-input-placeholder {
     background-color: #dc3545;
     border-color: #dc3545;
 }
+
+#paginaInicial:hover, #suporte:hover {
+  color: #3d9cff;
+}
+
 input{
     transition: all 0.5s ease-in-out !important;
     border-radius:6px !important;
@@ -99,6 +115,24 @@ input:focus, input:hover{
     border-color: #3d9cff !important;
     outline: none !important;
 }
+
+@media(min-width: 991px){
+  #btnfechar{
+    display: none;
+  }
+}
+
+@media (max-width: 540px){
+  .col{
+    flex-basis: auto;
+    margin: 10px;
+    flex-grow: 1;
+  }
+  #btnsairmobile{
+    display: none;
+  }
+}
+
 /*===== All Preloader Style =====*/
 .preloader {
     /* Body Overlay */
