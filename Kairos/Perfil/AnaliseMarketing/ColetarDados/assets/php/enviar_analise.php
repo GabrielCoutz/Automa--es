@@ -30,6 +30,8 @@
         if(is_int(strpos($valor, '%3c'))){
             $valor = str_replace('%3c','',$valor);
             $valor = str_replace('%3e','',$valor);
+        }
+        if(is_int(strpos($valor, '<br>'))){
             $valor = str_replace('<br>',', ',$valor);
         }
 
@@ -77,15 +79,12 @@
                     break;
                 }
         }
-        
-
     }
-    
 
 
-    $result_swot=mysqli_query($conec, "INSERT INTO aanalise_swot(cpf_usuario, forcas, fraquezas, oportunidades, ameacas) VALUES('$cpf', '$fortes', '$fracos', '$oportunidades', '$ameacas')");
+    $result_swot=mysqli_query($conec, "INSERT INTO analise_swot(cpf_usuario, forcas, fraquezas, oportunidades, ameacas) VALUES('$cpf', '$fortes', '$fracos', '$oportunidades', '$ameacas')");
 
-    $result_4ps=mysqli_query($conec, "INSERT INTO aanalise_4ps(cpf_usuario, produto, preço, praça, promoção) VALUES('$cpf', '$produto', '$preco', '$praca', '$promocao')");
+    $result_4ps=mysqli_query($conec, "INSERT INTO analise_4ps(cpf_usuario, produto, preço, praça, promoção) VALUES('$cpf', '$produto', '$preco', '$praca', '$promocao')");
 
     if($result_4ps && $result_swot){
         header('Location: ../../../resultado?'.md5('sucesso=true'));

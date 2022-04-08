@@ -1,9 +1,9 @@
 <?php
-session_start();
+    session_start();
 
-if(isset($_GET['analise'])){
-    header('Location: ../../ColetarDados/ColetadeDados');
-    exit;
-}
+    if(isset($_GET['analise'])){
+        header('Location: ../../ColetarDados/ColetadeDados');
+        exit;
+    }
 
 ?>

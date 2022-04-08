@@ -91,7 +91,7 @@ function abrirjanela(cor, texto, titulo){
     janelaPopUp.abre( "asdf", tamanho + " "  + cor + ' ' + modo,  titulo ,  texto)
 }
 
-function CriarAnalise(){
+function CriarAnalise(){ // captura a resposta do usuario sobre a realização da análise e responde de acordo
     janelaPopUp.abre( "asdf", "p" + " "  + 'blue' + ' ' + 'confirm',  'Análise não realizada' , 'Parece que você não fez nenhuma análise ainda<br>Gostaria de iniciá-la agora?')
     document.getElementById('asdf_cancelar').style.marginLeft = '10px'
     document.getElementById('asdf_cancelar').innerHTML = 'Não'
@@ -108,42 +108,7 @@ function CriarAnalise(){
 }
 
 // -------------------- fim código popup --------------------
-
-function erro(){
-    document.getElementById('asdf_cancelar').addEventListener('click', function(){
-        window.location.href = "../../Login/login"
-    })
-    document.getElementById('asdf_cancelar').click()
-}
-if (window.location.href.includes(md5('erro=true'))) { // erro de login
-    abrirjanela('red','Erro inesperado!<br>Por favor, faça login novamente.', 'Conta não sincronizada')
-    document.getElementsByClassName('content')[0].style.display = 'none'
-    document.getElementById('asdf_cancelar').style.display = 'none'
-    setTimeout(erro , 3000)
-    
-    let nextURL = window.location.href.replace(md5('erro=true'),'').replace('?','');
-    let nextState = { additionalInformation: 'Updated the URL with JS' };
-    window.history.replaceState(nextState, 'Analise', nextURL);
-
-}
-
-if(window.location.href.includes(md5('sucesso=true'))){
-    abrirjanela('green','Dados alterados com êxito.', 'Alteração realizada com sucesso')
-
-    let nextURL = window.location.href.replace(md5('sucesso=true'),'').replace('?','');
-    let nextState = { additionalInformation: 'Updated the URL with JS' };
-    window.history.replaceState(nextState, 'Analise', nextURL);
-}
-
-if(window.location.href.includes(md5('sucesso=false'))){
-    abrirjanela('green','Parece que houve um erro durante o processamento de dados.<br>Por favor, tente novamente mais tarde ou entre em contato conosco.', 'Análise não concluída')
-
-    let nextURL = window.location.href.replace(md5('sucesso=false'),'').replace('?','');
-    let nextState = { additionalInformation: 'Updated the URL with JS' };
-    window.history.replaceState(nextState, 'Analise', nextURL);
-}
-
-const IniciarAnalise = function(){
+const IniciarAnalise = function(){ // redireciona o usuario para página de analise
     let popup = function(){
         abrirjanela('blue','Tudo bem, redirecionando para página de análise...','Análise não realizada')
         document.getElementById('asdf_cancelar').style.display = 'none'
@@ -157,9 +122,9 @@ const IniciarAnalise = function(){
     setTimeout(redirecionar, 6000)
 }
 
-const CancelarAnalise = function(){
+const CancelarAnalise = function(){ // redireciona o usuario para página inicial
     let popup = function(){
-        abrirjanela('blue','Tudo bem, redirecionando para página do usuário...','Análise não realizada')
+        abrirjanela('blue','Redirecionando para página do usuário...','Análise não realizada')
         document.getElementById('asdf_cancelar').style.display = 'none'
     }
     let redirecionar = function(){
@@ -170,10 +135,45 @@ const CancelarAnalise = function(){
     setTimeout(redirecionar, 6000)
 }
 
+function erro(){ // leva o usuario para página de login devido ao erro de sincronização
+    document.getElementById('asdf_cancelar').addEventListener('click', function(){
+        window.location.href = "../../Login/login"
+    })
+    document.getElementById('asdf_cancelar').click()
+}
 
-if (window.location.href.includes(md5('analise=false'))) { // erro de login
-    CriarAnalise()
+if (window.location.href.includes(md5('erro=true'))) { // erro de login
+    abrirjanela('red','Erro inesperado!<br>Por favor, faça login novamente.', 'Conta não sincronizada')
+    document.getElementsByClassName('content')[0].style.display = 'none'
+    document.getElementById('asdf_cancelar').style.display = 'none'
+    setTimeout(erro , 3000)
     
+    let nextURL = window.location.href.replace(md5('erro=true'),'').replace('?','');
+    let nextState = { additionalInformation: 'Updated the URL with JS' };
+    window.history.replaceState(nextState, 'Analise', nextURL);
+
+}
+
+if(window.location.href.includes(md5('sucesso=true'))){ // janela de êxito em alteração
+    abrirjanela('green','Dados alterados com êxito.', 'Alteração realizada com sucesso')
+
+    let nextURL = window.location.href.replace(md5('sucesso=true'),'').replace('?','');
+    let nextState = { additionalInformation: 'Updated the URL with JS' };
+    window.history.replaceState(nextState, 'Analise', nextURL);
+}
+
+if(window.location.href.includes(md5('sucesso=false'))){ // janela de erro na realização da análise
+    abrirjanela('red','Parece que houve um erro durante o processamento de dados.<br>Por favor, tente novamente mais tarde ou entre em contato conosco.', 'Análise não concluída')
+
+    document.getElementById('asdf_cancelar').addEventListener('click',CancelarAnalise)
+
+    let nextURL = window.location.href.replace(md5('sucesso=false'),'').replace('?','');
+    let nextState = { additionalInformation: 'Updated the URL with JS' };
+    window.history.replaceState(nextState, 'Analise', nextURL);
+}
+
+if (window.location.href.includes(md5('analise=false'))) { // pergunta ao usuário se deseja iniciar a análise ou se prefere fazer depois
+    CriarAnalise()
     let nextURL = window.location.href.replace(md5('analise=false'),'').replace('?','');
     let nextState = { additionalInformation: 'Updated the URL with JS' };
     window.history.replaceState(nextState, 'Analise', nextURL);

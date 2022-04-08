@@ -20,44 +20,40 @@
      <link href="assets/css/style.css" rel="stylesheet" />
      <link href="assets/css/popup.css" rel="stylesheet" />
 
-     <?php
-     error_reporting(E_ERROR | E_PARSE);
-     session_start();
+    <?php
+        error_reporting(E_ERROR | E_PARSE);
+        session_start();
 
-     if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
-        $erro = true;
-        header("Refresh:0; url=resultado".'?'.md5('erro=true'));
-        exit;
-     } else {
-       $email=$_SESSION['email'];
-     }
-
-
-    $dbHost     = 'localhost';
-    $dbUname = 'root';
-    $dbPass = '';
-    $dbName     = 'kairos';
-
-    $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
-
-    //$cpf = $_SESSION['cpf'];
-    $cpf = '451.523.111-23';
-
+        $dbHost     = 'localhost';
+        $dbUname = 'root';
+        $dbPass = '';
+        $dbName     = 'kairos';
     
+            $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
+    
+        $cpf = $_SESSION['cpf'];
+        //$cpf = '451.523.111-23';
+    
+        $select_swot=mysqli_query($conec, "SELECT * FROM analise_swot WHERE cpf_usuario = '$cpf'")->fetch_assoc();
+    
+        $select_4ps=mysqli_query($conec, "SELECT * FROM analise_4ps WHERE cpf_usuario = '$cpf'")->fetch_assoc();
 
-    $select_swot=mysqli_query($conec, "SELECT * FROM analise_swot WHERE cpf_usuario = '$cpf'")->fetch_assoc();
+        switch (true) {
+            case !isset($_SESSION['email']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true')):
+                header("Refresh:0; url=resultado".'?'.md5('erro=true'));
+                exit;
+                break;
+            
+            case !$select_swot && !$select_4ps && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('analise=false')) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('sucesso=false')) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true')):
+                header("Refresh:0; url=resultado".'?'.md5('analise=false'));
+                exit;
+                break;
+            default:
+                $email=$_SESSION['email'];
+                break;
+        }
 
-    $select_4ps=mysqli_query($conec, "SELECT * FROM analise_4ps WHERE cpf_usuario = '$cpf'")->fetch_assoc();
-
-    echo $erro;
-
-    if(!strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true')) && !$select_swot && !$select_4ps && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('analise=false'))){
-        header("Refresh:0; url=resultado".'?'.md5('analise=false'));
-        exit;
-    }
-
-
-     ?>
+    ?>
  </head>
  
  <body>
@@ -133,7 +129,7 @@
                                         <div class="container">
                                             <div class="row bg-white">
                                                 <div class="col text-primary" >Forças
-                                                    <div class="text-secondary" id='forças'>
+                                                    <div class="text-secondary">
                                                         <a><?= str_replace(', ','<br>',$select_swot['forcas']); ?></a>
                                                     </div>
                                                 </div>

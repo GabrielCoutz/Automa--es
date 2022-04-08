@@ -36,6 +36,11 @@ body, html, root, document{
     opacity: 0.8;
     z-index: 50;
 }
+
+#asdf:hover{
+    cursor: default;
+  }
+
 .popUp{
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
