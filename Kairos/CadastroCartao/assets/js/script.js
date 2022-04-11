@@ -140,11 +140,7 @@ function alertaDeErro(elemento, mensagem){
   document.getElementById(elemento+'Alert').innerHTML = mensagem
   document.getElementById(elemento+'Alert').classList.toggle('none')
 }
-let num = document.getElementById('cardNumber')
-let nome = document.getElementById('cardName')
-let mes = document.getElementById('cardMonth')
-let ano = document.getElementById('cardYear')
-let cvv = document.getElementById('cardCvv')
+
 function vazio(item){ // verifica se o valor passado está vazio
   return item.trim() == ''
 }
@@ -154,11 +150,11 @@ const dispararEvento = function(elemento, evento, stringCondicao){  //dispara um
   var condicao // função usada para validação
 
   switch(stringCondicao){ // seta a função de acordo com a stringCondicao, usada para saber qual validação será usada para tratar o erro
-      case 'condicaoNum': var condicao = function(){ return tel.value.length != 15}; break;
-      case 'condicaoNome': var condicao = function(){ return !validarEmail(email.value)}; break;
-      case 'condicaoMes': var condicao = function(){ return validar_cpf(cpf.value) == 1}; break;
-      case 'condicaoAno': var condicao = function(){ return cep.value.length != 10}; break;
-      case 'condicaoCvv': var condicao = function(){ return vazio(numero.value)}; break;
+      case 'condicaoNum': var condicao = function(){ return !num.value.length != 19}; break;
+      case 'condicaoNome': var condicao = function(){ return !vazio(nome.value)}; break;
+      case 'condicaoMes': var condicao = function(){ return !vazio(mes.value)}; break;
+      case 'condicaoAno': var condicao = function(){ return !vazio(ano.value)}; break;
+      case 'condicaoCvv': var condicao = function(){ return !vazio(cvv.value)}; break;
   }
 
   let funcao = function(){ // verifica se a validação é satisfeita, assim retira o eventListener, remove os avisos e libera o usuario para registrar-se
@@ -183,6 +179,7 @@ function validar(){
 
   if (vazio(num.value) || num.value.length != 19){
     alertaDeErro(num.id, 'Por favor, preencha o número do cartão!')
+    dispararEvento(num, 'keyup', 'condicaoNum')
     num.focus()
     num.classList.add('vermei')
 
