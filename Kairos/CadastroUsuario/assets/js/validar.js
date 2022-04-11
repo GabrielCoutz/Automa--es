@@ -92,7 +92,6 @@ janelaPopUp.fecha = function(id){
 // -------------------- fim código popup --------------------
 
 var alerta = ''
-var validar_manualmente = false
 const nome = document.getElementById("nome")
 const tel = document.getElementById("tel")
 const email = document.getElementById("email")
@@ -106,6 +105,7 @@ const bairro = document.getElementById("bairro")
 const cidade = document.getElementById("cidade")
 const estado = document.getElementById("estado")
 const endereco = document.getElementById("endereco")
+const captcha = document.getElementById("captcha")
 const limpar_inputs = function(){
     let elementos = document.getElementsByTagName('input')
     for(let i = 0; i < elementos.length ; i++){
@@ -324,6 +324,24 @@ function alertaDeErro(elemento, mensagem){
     document.getElementById(elemento+'Alert').classList.toggle('none')
 }
 
+$(document).ready(function(){ // desabilita CTRL+V por motivos de incompatibilidade de máscara
+    $('#tel').on("cut copy paste",function(e) {
+       e.preventDefault();
+    });
+    $('#cpf').on("cut copy paste",function(e) {
+        e.preventDefault();
+     });
+     $('#numero').on("cut copy paste",function(e) {
+        e.preventDefault();
+     });
+});
+
+$(document).keypress( // desativa tecla ENTER
+    function(event){
+      if (event.which == '13') {
+        event.preventDefault();
+      }
+});
 
 const dispararEvento = function(elemento, evento, stringCondicao){  //dispara um evento de confirmação para o input no qual o valor inserido é inválido ou insatisfatório
 
@@ -351,17 +369,6 @@ const dispararEvento = function(elemento, evento, stringCondicao){  //dispara um
     document.getElementById('butao').disabled = true
     elemento.addEventListener(evento,funcao)
 
-}
-
-function validar2(){
-    if (tel.value.length != 15) {
-        dispararEvento(tel, 'keyup', 'condicaoTel')
-
-        alertaDeErro(tel.id, "Por favor, preencha o telefone!")
-        tel.focus()
-        tel.classList.add("vermei")
-
-    }
 }
 
 function validar(){
@@ -419,7 +426,7 @@ function validar(){
         confirm_senha.value=""
 
     } else if (grecaptcha.getResponse() == ""){
-        alert('Por favor, preencha o CAPTCHA!')
+        alertaDeErro(captcha.id, 'Por favor, preencha o CAPTCHA!')
     } else {
         localStorage.setItem(nome.id,nome.value)
         localStorage.setItem(tel.id,tel.value)

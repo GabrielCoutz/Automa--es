@@ -41,8 +41,10 @@
 					<h3>Login</h3>
 					<div class="form-holder">
 						<span class="lnr lnr-user"></span>
-						<input type="email" class="form-control" placeholder="Email" id="email" name='email' >
+						<input type="email" class="form-control" placeholder="Email" id="email" name='email' maxlength="50">
 					</div>
+					<div class='none alerta' id='emailAlert'></div>
+
 					<div class="form-holder">
 						<span class="lnr lnr-lock"></span>
 						<p>
@@ -50,7 +52,9 @@
 							<i class="bi bi-eye-slash" id="togglePassword"></i>
 						</p>
 					</div>
-					<button type='submit' id='butao' name="butao" onclick="validar()">
+					<div class='none alerta' id='senhaAlert'></div>
+
+					<button type='submit' class="btn btn-warning" id='butao' name="butao" onclick="validar()">
 						<span>Entrar</span>
 					</button>
 					<div id='divAjuda'>

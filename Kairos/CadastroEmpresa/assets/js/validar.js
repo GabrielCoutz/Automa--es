@@ -151,12 +151,9 @@ if (window.location.href.includes(md5('erro=true'))) { // erro de cadastro
 }
 
 function ler(cep){
-    console.log('lendo'+cep.value)
-
     if(localStorage.getItem('erro') == 1){
         cep = document.getElementById('cep_empresa')
     }
-    console.log('tratado :'+cep.value)
 
     if(cep.value.length == 10){
             $.ajax({
@@ -307,7 +304,7 @@ function validar(){
     ramo.classList.remove("vermei")
 
     if(vazio(nome_empresa.value)){
-        alertaDeErro(nome_empresa.id, "Por favor, preencha o da Empresa!")
+        alertaDeErro(nome_empresa.id, "Por favor, preencha o nome da Empresa!")
         nome_empresa.focus()
         nome_empresa.classList.add("vermei")
 
@@ -323,7 +320,7 @@ function validar(){
         cnpj.classList.add("vermei")
 
     }else if (vazio(ramo.value)){
-        alertaDeErro(ramo.id, "Por favor, preencha o ramo!")
+        alertaDeErro(ramo.id, "Por favor, selecione o ramo!")
         ramo.focus()
         ramo.classList.add("vermei")
 

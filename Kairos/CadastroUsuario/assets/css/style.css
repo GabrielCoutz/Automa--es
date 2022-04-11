@@ -16,6 +16,11 @@
 #asdf:hover{
   cursor: default;
 }
+
+#captchaAlert{
+  margin-top: 5px;
+}
+
 .alerta{
   margin-top: -21px;
   margin-bottom: 3px;
@@ -50,13 +55,13 @@ a:hover {
     text-decoration:none; 
     cursor:pointer;  
 }
-  #signin{
-    color: #6486a9;
-    text-align: center;
-    padding-top: 10px;
-    font-weight: bold;
-    font-size: 1.0em;
-  }
+#signin{
+  color: #6486a9;
+  text-align: center;
+  padding-top: 10px;
+  font-weight: bold;
+  font-size: 1.0em;
+}
 
 i {
   margin-left: -30px;

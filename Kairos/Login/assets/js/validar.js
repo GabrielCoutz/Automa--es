@@ -5,6 +5,23 @@ function fadeout() {
     document.querySelector('.preloader').style.opacity = '0';
     document.querySelector('.preloader').style.display = 'none';
 }
+const limpar_inputs = function(){
+    let elementos = document.getElementsByTagName('input')
+    for(let i = 0; i < elementos.length ; i++){
+        elementos[i].classList.remove('vermei')
+    }
+
+    limpar_alertas()
+}
+
+const limpar_alertas = function(){
+    let alerta = document.getElementsByClassName('alerta')
+    for(let i = 0; i < alerta.length ; i++){
+        if (!alerta[i].classList.contains('none')){
+            alerta[i].classList.toggle('none')
+        }
+    }
+}
 // -------------------- início código popup --------------------
 var janelaPopUp = new Object();
 janelaPopUp.abre = function(id, classes, titulo, corpo, functionCancelar, functionEnviar, textoCancelar, textoEnviar){
@@ -97,7 +114,7 @@ function abrirjanela(cor, texto, titulo){
     janelaPopUp.abre( "asdf", tamanho + " "  + cor + ' ' + modo,  titulo ,  texto)
 }
 if (window.location.href.includes(md5('login=false'))) {
-    abrirjanela('red','Credenciais incorretas!<br>Por favor, verifique os dados inseridos!', '| Falha no login |')
+    abrirjanela('red','Credenciais incorretas!<br>Por favor, verifique os dados inseridos!', 'Falha no login')
     
     let nextURL = window.location.href.replace(md5('login=false'),'').replace('?','');
     let nextState = { additionalInformation: 'Updated the URL with JS' };
@@ -114,29 +131,40 @@ if (window.location.href.includes(md5('sucesso=true'))) {
     window.history.replaceState(nextState, 'Login', nextURL);
 }
 
+function alertaDeErro(elemento, mensagem){
+    document.getElementById(elemento+'Alert').innerHTML = mensagem
+    document.getElementById(elemento+'Alert').classList.toggle('none')
+}
+
+$(document).keypress( // desativa tecla ENTER
+    function(event){
+      if (event.which == '13') {
+        event.preventDefault();
+      }
+});
+
 function validar(){
-    document.getElementById('butao').setAttribute('name', 'butao');
-    var email = document.getElementById("email")
-    var senha = document.getElementById("senha")
+    limpar_inputs()
+    let email = document.getElementById("email")
+    let senha = document.getElementById("senha")
+
     $("#login").submit(function(e) {
         e.preventDefault();
     });
+
     email.classList.remove("vermei")
     senha.classList.remove("vermei")
-    if (email.value == "" ||  !/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email.value)){
-        alert("Por favor, insira um email válido!");
-        $(document).ready(function () {
-            $("#email").focus();
-            document.getElementById("email").focus();
-          });
+
+    if (email.value == "" ||  !/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi.test(email.value)){
+        alertaDeErro(email.id, "Por favor, insira um email válido!")
+        email.focus()
         email.classList.add("vermei")
+
     } else if (senha.value == ""){
-        alert("Por favor, preencha a senha!");
-        $(document).ready(function () {
-            $("#senha").focus();
-            document.getElementById("senha").focus();
-          });
+        alertaDeErro(senha.id, "Por favor, preencha a senha!")
+        senha.focus()
         senha.classList.add("vermei")
+
     } else{
         document.getElementById('login').submit();
         localStorage.clear();

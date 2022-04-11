@@ -12,10 +12,10 @@
   <?php
     session_start();
     error_reporting(E_ERROR | E_PARSE);
-    if(!isset($_SESSION['cadastro']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
-      header("Refresh:0; url=cadastro_cartao".'?'.md5('erro=true'));
-      exit;
-	}
+    //if(!isset($_SESSION['cadastro']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
+    //  header("Refresh:0; url=cadastro_cartao".'?'.md5('erro=true'));
+    //  exit;
+    //}
 
     $_SESSION['assinatura'] = $_GET['plano'];
   ?>
@@ -162,10 +162,14 @@
           <label for="cardNumber" class="card-input__label"></label>Numero do Cartão
           <input type="tel" id="cardNumber" class="card-input__input" v-mask="generateCardNumberMask" v-model="cardNumber" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardNumber" autocomplete="cc-csc" name='num_cartao'>
         </div>
+        <div class='none alerta' id='cardNumberAlert'></div>
+
         <div class="card-input">
           <label for="cardName" class="card-input__label">Nome Impresso no Cartão</label>
-          <input type="text" id="cardName" class="card-input__input" v-model="cardName" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardName" autocomplete="cc-csc" name='nome_cartao'>
+          <input type="text" id="cardName" class="card-input__input" v-model="cardName" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardName" autocomplete="cc-csc" name='nome_cartao' maxlength="30">
         </div>
+        <div class='none alerta' id='cardNameAlert'></div>
+
         <div class="card-form__row">
           <div class="card-form__col">
             <div class="card-form__group">
@@ -176,12 +180,16 @@
                     {{n < 10 ? '0' + n : n}}
                 </option>
               </select>
+              <div class='none alerta' id='cardMonthAlert'></div>
+
               <select class="card-input__input -select" id="cardYear" v-model="cardYear" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardDate" name='ano_cartao'>
                 <option value="" disabled selected>Ano</option>
                 <option v-bind:value="$index + minCardYear" v-for="(n, $index) in 12" v-bind:key="n">
                     {{$index + minCardYear}}
                 </option>
               </select>
+              <div class='none alerta' id='cardYearAlert'></div>
+
             </div>
           </div>
           <div class="card-form__col -cvv">
@@ -190,6 +198,8 @@
               <input type="tel" class="card-input__input" id="cardCvv" v-mask="'###'" maxlength="3" v-model="cardCvv" v-on:focus="flipCard(true)" v-on:blur="flipCard(false)" autocomplete="cc-csc" name='cvv_cartao'>
             </div>
           </div>
+          <div class='none alerta' id='cardCvvAlert'></div>
+
         </div>
 
         <button class="card-form__button" onclick="validar()" id='butao'>

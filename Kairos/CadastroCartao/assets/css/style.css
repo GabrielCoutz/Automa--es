@@ -7,6 +7,17 @@ body {
 #asdf:hover{
   cursor: default;
 }
+.alerta{
+  margin-top: -17px;
+  margin-bottom: 8px;
+  text-align: center;
+  color: #ff0000;
+  cursor: default;
+}
+
+.none{
+  display: none;
+}
 
 * {
   box-sizing: border-box;

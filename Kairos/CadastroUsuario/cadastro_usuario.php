@@ -54,13 +54,13 @@
                 <div class="form-holder">
                     <span class="lnr lnr-phone-handset"></span>
                     <input type="tel" class="form-control" placeholder="Telefone" id="tel" name='tel'
-                        onkeypress="$(this).mask('(00) 0000-00009')">
+                        onkeypress="$(this).mask('(00) 0000-00009')"  maxlength="15">
                 </div>
                 <div class='none alerta' id='telAlert'></div>
 
                 <div class="form-holder">
                     <span class="lnr lnr-envelope"></span>
-                    <input type="email" class="form-control" placeholder="Email" id="email" name='email'>
+                    <input type="email" class="form-control" placeholder="Email" id="email" name='email' maxlength="50">
                 </div>
                 <div class='none alerta' id='emailAlert'></div>
 

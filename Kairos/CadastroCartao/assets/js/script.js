@@ -89,13 +89,38 @@ janelaPopUp.fecha = function(id){
        
     }
 }
-// -------------------- fim código popup --------------------
 
 function abrirjanela(cor, texto, titulo){
   var tamanho = 'p';
   var modo = 'alert';
   janelaPopUp.abre( "asdf", tamanho + " "  + cor + ' ' + modo,  titulo ,  texto)
 }
+// -------------------- fim código popup --------------------
+
+const num = document.getElementById('cardNumber')
+const nome = document.getElementById('cardName')
+const mes = document.getElementById('cardMonth')
+const ano = document.getElementById('cardYear')
+const cvv = document.getElementById('cardCvv')
+
+const limpar_inputs = function(){
+  let elementos = document.getElementsByTagName('input')
+  for(let i = 0; i < elementos.length ; i++){
+      elementos[i].classList.remove('vermei')
+  }
+
+  limpar_alertas()
+}
+
+const limpar_alertas = function(){
+  let alerta = document.getElementsByClassName('alerta')
+  for(let i = 0; i < alerta.length ; i++){
+      if (!alerta[i].classList.contains('none')){
+          alerta[i].classList.toggle('none')
+      }
+  }
+}
+
 
 if (window.location.href.includes(md5('erro=true'))) { // erro de cadastro
   abrirjanela('red','<br>Não foi possível realizar o cadastro!', 'Conta não sincronizada')
@@ -111,48 +136,82 @@ if (window.location.href.includes(md5('erro=true'))) { // erro de cadastro
   window.history.replaceState(nextState, 'CadastroCartao', nextURL);
 }
 
+function alertaDeErro(elemento, mensagem){
+  document.getElementById(elemento+'Alert').innerHTML = mensagem
+  document.getElementById(elemento+'Alert').classList.toggle('none')
+}
+let num = document.getElementById('cardNumber')
+let nome = document.getElementById('cardName')
+let mes = document.getElementById('cardMonth')
+let ano = document.getElementById('cardYear')
+let cvv = document.getElementById('cardCvv')
+function vazio(item){ // verifica se o valor passado está vazio
+  return item.trim() == ''
+}
+
+const dispararEvento = function(elemento, evento, stringCondicao){  //dispara um evento de confirmação para o input no qual o valor inserido é inválido ou insatisfatório
+
+  var condicao // função usada para validação
+
+  switch(stringCondicao){ // seta a função de acordo com a stringCondicao, usada para saber qual validação será usada para tratar o erro
+      case 'condicaoNum': var condicao = function(){ return tel.value.length != 15}; break;
+      case 'condicaoNome': var condicao = function(){ return !validarEmail(email.value)}; break;
+      case 'condicaoMes': var condicao = function(){ return validar_cpf(cpf.value) == 1}; break;
+      case 'condicaoAno': var condicao = function(){ return cep.value.length != 10}; break;
+      case 'condicaoCvv': var condicao = function(){ return vazio(numero.value)}; break;
+  }
+
+  let funcao = function(){ // verifica se a validação é satisfeita, assim retira o eventListener, remove os avisos e libera o usuario para registrar-se
+      if(!condicao()){
+          elemento.classList.remove('vermei')
+          document.getElementById(elemento.id+'Alert').classList.add('none')
+          elemento.removeEventListener(evento,funcao)
+          document.getElementById('butao').disabled = false
+      }
+  }
+
+  // Já sabendo qual condição deve ser utilizada, é adicionado ao elemento seu evento (keydown ou keyup) e chamada da função, no qual fará uso da condicao setada pelo switch
+  document.getElementById('butao').disabled = true
+  elemento.addEventListener(evento,funcao)
+
+}
+
+
 function validar(){
-  var num = document.getElementById('cardNumber')
-  var nome = document.getElementById('cardName')
-  var mes = document.getElementById('cardMonth')
-  var ano = document.getElementById('cardYear')
-  var cvv = document.getElementById('cardCvv')
+  limpar_inputs()
 
 
-  nome.classList.remove("vermei")
-  num.classList.remove("vermei")
-  mes.classList.remove("vermei")
-  ano.classList.remove("vermei")
-  cvv.classList.remove("vermei")
-
-  if (num.value == "" || num.value.length != 19){
-    alert('Por favor, preencha o número do cartão!')
+  if (vazio(num.value) || num.value.length != 19){
+    alertaDeErro(num.id, 'Por favor, preencha o número do cartão!')
     num.focus()
     num.classList.add('vermei')
-  } else if (nome.value == ""){
-    alert('Por favor, preencha o nome do titular!')
+
+  } else if (vazio(nome.value) || nome.value.length < 10){
+    alertaDeErro(nome.id, 'Por favor, preencha o nome do titular!')
     nome.focus()
     nome.classList.add('vermei')
-  } else if (mes.value == ""){
-    alert('Por favor, selecione o mês!')
+
+  } else if (vazio(mes.value)){
+    alertaDeErro(mes.id, 'Por favor, selecione o mês!')
     mes.focus()
     mes.classList.add('vermei')
-  } else if (ano.value == ""){
-    alert('Por favor, selecione o ano!')
+
+  } else if (vazio(ano.value)){
+    alertaDeErro(ano.id, 'Por favor, selecione o ano!')
     ano.focus()
     ano.classList.add('vermei')
-  } else if (cvv.value == "" || cvv.value.length != 3){
-    alert('Por favor, preencha o CVV do cartão!')
+
+  } else if (vazio(cvv.value) || cvv.value.length != 3){
+    alertaDeErro(cvv.id, 'Por favor, preencha o CVV do cartão!')
     cvv.focus()
     cvv.classList.add('vermei')
+
   } else {
     abrirjanela('green','Cartão cadastrado com sucesso!','Sucesso')
     document.getElementById('asdf_cancelar').addEventListener('click',function(){
       document.getElementById('cadastro_cartao').submit()
       localStorage.clear();
-      
   })
-    
   }
 }
 
