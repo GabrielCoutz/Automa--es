@@ -15,6 +15,10 @@ body {
   cursor: default;
 }
 
+.seletor{
+  margin-top: 6px !important;
+}
+
 button:disabled{
   opacity: 0.3;
   cursor: default !important;

@@ -12,10 +12,10 @@
   <?php
     session_start();
     error_reporting(E_ERROR | E_PARSE);
-    //if(!isset($_SESSION['cadastro']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
-    //  header("Refresh:0; url=cadastro_cartao".'?'.md5('erro=true'));
-    //  exit;
-    //}
+    if(!isset($_SESSION['cadastro']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
+      header("Refresh:0; url=cadastro_cartao".'?'.md5('erro=true'));
+      exit;
+    }
 
     $_SESSION['assinatura'] = $_GET['plano'];
   ?>
@@ -180,7 +180,7 @@
                     {{n < 10 ? '0' + n : n}}
                 </option>
               </select>
-              <div class='none alerta' id='cardMonthAlert'></div>
+              
 
               <select class="card-input__input -select" id="cardYear" v-model="cardYear" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardDate" name='ano_cartao'>
                 <option value="" disabled selected>Ano</option>
@@ -188,9 +188,9 @@
                     {{$index + minCardYear}}
                 </option>
               </select>
-              <div class='none alerta' id='cardYearAlert'></div>
-
             </div>
+              <div class='none alerta seletor' id='cardYearAlert'></div>
+              <div class='none alerta seletor' id='cardMonthAlert'></div>
           </div>
           <div class="card-form__col -cvv">
             <div class="card-input">
@@ -198,9 +198,8 @@
               <input type="tel" class="card-input__input" id="cardCvv" v-mask="'###'" maxlength="3" v-model="cardCvv" v-on:focus="flipCard(true)" v-on:blur="flipCard(false)" autocomplete="cc-csc" name='cvv_cartao'>
             </div>
           </div>
-          <div class='none alerta' id='cardCvvAlert'></div>
-
         </div>
+        <div class='none alerta' id='cardCvvAlert'></div>
 
         <button class="card-form__button" onclick="validar()" id='butao'>
           Validar

@@ -84,52 +84,52 @@ janelaPopUp.fecha = function(id){
                 $(".popUpFundo").remove();
                 $(".popUp").remove();
                 $("window, body").css('overflow', 'auto');
-            });
-            
-       
+              });
+              
+              
+            }
+          }
+          
+    function abrirjanela(cor, texto, titulo){
+      var tamanho = 'p';
+      var modo = 'alert';
+      janelaPopUp.abre( "asdf", tamanho + " "  + cor + ' ' + modo,  titulo ,  texto)
     }
-}
-
-function abrirjanela(cor, texto, titulo){
-  var tamanho = 'p';
-  var modo = 'alert';
-  janelaPopUp.abre( "asdf", tamanho + " "  + cor + ' ' + modo,  titulo ,  texto)
-}
 // -------------------- fim código popup --------------------
 
-const num = document.getElementById('cardNumber')
-const nome = document.getElementById('cardName')
-const mes = document.getElementById('cardMonth')
-const ano = document.getElementById('cardYear')
-const cvv = document.getElementById('cardCvv')
+const num = function(){return document.getElementById("cardNumber")}
+const nome = function (){ return document.getElementById('cardName')}
+const mes = function (){ return document.getElementById('cardMonth')}
+const ano = function (){ return document.getElementById('cardYear')}
+const cvv = function (){ return document.getElementById('cardCvv')}
 
 const limpar_inputs = function(){
   let elementos = document.getElementsByTagName('input')
   for(let i = 0; i < elementos.length ; i++){
-      elementos[i].classList.remove('vermei')
+    elementos[i].classList.remove('vermei')
   }
-
+  
   limpar_alertas()
 }
 
 const limpar_alertas = function(){
   let alerta = document.getElementsByClassName('alerta')
   for(let i = 0; i < alerta.length ; i++){
-      if (!alerta[i].classList.contains('none')){
-          alerta[i].classList.toggle('none')
-      }
+    if (!alerta[i].classList.contains('none')){
+      alerta[i].classList.toggle('none')
+    }
   }
 }
 
 
 if (window.location.href.includes(md5('erro=true'))) { // erro de cadastro
   abrirjanela('red','<br>Não foi possível realizar o cadastro!', 'Conta não sincronizada')
-
+  
   document.getElementById('asdf_cancelar').style.display = 'none'
   setTimeout(nada , 4000)
   document.getElementById('asdf_cancelar').addEventListener('click',function(){
-          window.location.href = "../index"
-      })
+    window.location.href = "../index"
+  })
   
   let nextURL = window.location.href.replace(md5('erro=true'),'').replace('?','');
   let nextState = { additionalInformation: 'Updated the URL with JS' };
@@ -150,15 +150,15 @@ const dispararEvento = function(elemento, evento, stringCondicao){  //dispara um
   var condicao // função usada para validação
 
   switch(stringCondicao){ // seta a função de acordo com a stringCondicao, usada para saber qual validação será usada para tratar o erro
-      case 'condicaoNum': var condicao = function(){ return !num.value.length != 19}; break;
-      case 'condicaoNome': var condicao = function(){ return !vazio(nome.value)}; break;
-      case 'condicaoMes': var condicao = function(){ return !vazio(mes.value)}; break;
-      case 'condicaoAno': var condicao = function(){ return !vazio(ano.value)}; break;
-      case 'condicaoCvv': var condicao = function(){ return !vazio(cvv.value)}; break;
+      case 'condicaoNum': var condicao = function(){ return num().value.length == 19}; break;
+      case 'condicaoNome': var condicao = function(){ return nome().value.length == 5}; break;
+      case 'condicaoMes': var condicao = function(){ return !vazio(mes().value)}; break;
+      case 'condicaoAno': var condicao = function(){ return !vazio(ano().value)}; break;
+      case 'condicaoCvv': var condicao = function(){ return cvv().value.length == 3}; break;
   }
-
+  console.log(condicao())
   let funcao = function(){ // verifica se a validação é satisfeita, assim retira o eventListener, remove os avisos e libera o usuario para registrar-se
-      if(!condicao()){
+      if(condicao()){
           elemento.classList.remove('vermei')
           document.getElementById(elemento.id+'Alert').classList.add('none')
           elemento.removeEventListener(evento,funcao)
@@ -173,35 +173,40 @@ const dispararEvento = function(elemento, evento, stringCondicao){  //dispara um
 }
 
 
+
 function validar(){
   limpar_inputs()
+  
+  
+  if (num().value.length != 19){
+    alertaDeErro(num().id, 'Por favor, preencha o número do cartão!')
+    dispararEvento(num(), 'keyup', 'condicaoNum')
+    num().focus()
+    num().classList.add('vermei')
+    
+  } else if (vazio(nome().value)){
+    alertaDeErro(nome().id, 'Por favor, preencha o nome do titular!')
+    dispararEvento(nome(), 'keyup', 'condicaoNome')
+    nome().focus()
+    nome().classList.add('vermei')
 
+  } else if (vazio(mes().value)){
+    alertaDeErro(mes().id, 'Por favor, selecione o mês!')
+    dispararEvento(mes(), 'change', 'condicaoMes')
+    mes().focus()
+    mes().classList.add('vermei')
 
-  if (vazio(num.value) || num.value.length != 19){
-    alertaDeErro(num.id, 'Por favor, preencha o número do cartão!')
-    dispararEvento(num, 'keyup', 'condicaoNum')
-    num.focus()
-    num.classList.add('vermei')
+  } else if (vazio(ano().value)){
+    alertaDeErro(ano().id, 'Por favor, selecione o ano!')
+    dispararEvento(ano(), 'change', 'condicaoAno')
+    ano().focus()
+    ano().classList.add('vermei')
 
-  } else if (vazio(nome.value) || nome.value.length < 10){
-    alertaDeErro(nome.id, 'Por favor, preencha o nome do titular!')
-    nome.focus()
-    nome.classList.add('vermei')
-
-  } else if (vazio(mes.value)){
-    alertaDeErro(mes.id, 'Por favor, selecione o mês!')
-    mes.focus()
-    mes.classList.add('vermei')
-
-  } else if (vazio(ano.value)){
-    alertaDeErro(ano.id, 'Por favor, selecione o ano!')
-    ano.focus()
-    ano.classList.add('vermei')
-
-  } else if (vazio(cvv.value) || cvv.value.length != 3){
-    alertaDeErro(cvv.id, 'Por favor, preencha o CVV do cartão!')
-    cvv.focus()
-    cvv.classList.add('vermei')
+  } else if (cvv().value.length < 3){
+    alertaDeErro(cvv().id, 'Por favor, preencha o CVV do cartão!')
+    dispararEvento(cvv(), 'keyup', 'condicaoCvv')
+    cvv().focus()
+    cvv().classList.add('vermei')
 
   } else {
     abrirjanela('green','Cartão cadastrado com sucesso!','Sucesso')
