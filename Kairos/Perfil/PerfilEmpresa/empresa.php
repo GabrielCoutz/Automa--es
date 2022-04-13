@@ -207,7 +207,7 @@ use function PHPSTORM_META\type;
                                             <div class="col-md-4 px-1">
                                                 <div class="form-group">
                                                     <label>Número</label>
-                                                    <input type="number" class="form-control none small-input" id='numero_empresa_input' pattern="[0-9]" name='numero_empresa_input'>
+                                                    <input type="tel" class="form-control none small-input" id='numero_empresa_input' pattern="[0-9]" name='numero_empresa_input' maxlength="15">
                                                     <div id='numero_empresa' class='text-secondary'><a><?= $select_empresa_endereco['numero'] ?></a></div>
                                                 </div>
                                             </div>

@@ -32,12 +32,13 @@
       $dbName     = 'kairos';
       
 
-      if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
-        header("Refresh:0; url=usuario".'?'.md5('erro=true'));
-        exit;
-      } else {
-        $email=$_SESSION['email'];
-      }
+      //if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER//['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
+      //  header("Refresh:0; url=usuario".'?'.md5('erro=true'));
+      //  exit;
+      //} else {
+      //  $email=$_SESSION['email'];
+      //}
+      $email = 'gabriel@gmail.com';
       $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 
       $select=mysqli_query($conec, "SELECT * FROM usuario WHERE email = '$email'")->fetch_assoc();
@@ -153,10 +154,12 @@
                                                     <label>Nome</label>
                                                     <input type="text" class="form-control none" id='nome_input' name='nome' onkeyup="apenasLetras(this)" maxlength="50">
                                                     <div id='nome' class='text-secondary'>
-                                                        <a><?= ucwords($select['nome']) ?></a>
+                                                        <a><?= $select['nome'] ?></a>
                                                     </div>
                                                 </div>
+                                                <div class='none alerta' id='nome_inputAlert'></div>
                                             </div>
+
                                             <div class="col-md-3 px-1">
                                                 <div class="form-group">
                                                     <label>CPF</label>
@@ -169,17 +172,19 @@
                                                     <input type="email" class="form-control none" id='email_input' name='email'>
                                                     <div id='email' class='text-secondary'><a><?= $select['email'] ?></a></div>
                                                 </div>
+                                                <div class='none alerta' id='email_inputAlert'></div>
                                             </div>
+
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6 pr-1">
                                                 <div class="form-group">
                                                     <label>Telefone</label>
                                                     <div class="phone-list">
-                                                            <div class="input-group phone-input none" id='botoes_tel'>
-                                                                <button class="btn btn-success btn-sm btn-add-phone" id='add_tel'><div class='circle'></div>Adicionar telefone</button>
-                                                                <button class="btn btn-sm btn-del-phone" id='del_tel'><div class='circle'></div>Excluir telefone</button>
-                                                            </div>
+                                                        <div class="input-group phone-input none" id='botoes_tel'>
+                                                            <button class="btn btn-success btn-sm btn-add-phone" id='add_tel'><div class='circle'></div>Adicionar telefone</button>
+                                                            <button class="btn btn-sm btn-del-phone" id='del_tel'><div class='circle'></div>Excluir telefone</button>
+                                                        </div>
                                                     </div>
                                                         <div id='tel' class='text-secondary'>
                                                             <a><?= $result_telefone['tel']?></a>
@@ -192,19 +197,21 @@
                                             <div class="col-md-4 pr-1">
                                                 <div class="form-group">
                                                     <label>CEP</label>
-                                                    <input type="tel" class="form-control none" id='cep_input' onkeypress="$(this).mask('00.000-000')" onkeyup="ler_cep(this)" name='cep'>
+                                                    <input type="tel" class="form-control none" id='cep_input' onkeypress="$(this).mask('00.000-000')" onkeyup="ler_cep(this)" name='cep' maxlength="15">
                                                     <div id='cep' class='text-secondary' ><a><?= $select_endereco['cep'] ?></a></div>
                                                 </div>
+                                                <div class='none alerta' id='cep_inputAlert'></div>
                                             </div>
+
                                             <div class="col-md-4 px-1">
                                                 <div class="form-group">
                                                     <label>Número</label>
-                                                    <input type="number" class="form-control none small-input" id='numero_input' pattern="[0-9]" name='numero'>
+                                                    <input type="tel" class="form-control none small-input" id='numero_input' pattern="[0-9]" name='numero' maxlength="15">
                                                     <div id='numero' class='text-secondary'><a><?= $select_endereco['numero'] ?></a></div>
                                                 </div>
                                             </div>
-                                            
                                         </div>
+
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
@@ -234,40 +241,41 @@
                                         <div class="row" id='senha'>
                                             <div class="form-group">
                                                 <div class='col-md-12'>
-                                                <label class='senha'>Senha</label>
-                                                <br>
-                                                <button class="btn btn-info btn-fill pull-left" onclick="editar(this)" type="submit" id="editarsenha"><div class='circle'></div>Editar Senha</button>
-                                            <div class='row' style="margin-left: 0; margin-right: 0;">
+                                                    <label class='senha'>Senha</label>
+                                                    <br>
+                                                    <button class="btn btn-info btn-fill pull-left" onclick="editar(this)" type="submit" id="editarsenha"><div class='circle'></div>Editar Senha</button>
+                                                    <div class='row' style="margin-left: 0; margin-right: 0;">
 
-                                                <div class="none" id='pass'>
-                                                    <div class='texto'>Senha antiga</div>
-                                                    <p>
-                                                    <input type="password" id='senha_antiga' name='senha_antiga'>
-                                                    <i class="bi bi-eye-slash" id="togglePassword_antigo"></i>
-                                                    </p>
+                                                    <div class="none" id='pass'>
+                                                        <div class='texto'>Senha antiga</div>
+                                                        <p>
+                                                        <input type="password" id='senha_antiga' name='senha_antiga'>
+                                                        <i class="bi bi-eye-slash" id="togglePassword_antigo"></i>
+                                                        </p>
+                                                    </div>
+
+                                                    <div class="none" id='pass2'>
+                                                        <div class='texto'>Senha nova</div>
+                                                        <p>
+                                                            <input type="password" id='senha_nova' name='senha_nova'>
+                                                            <i class="bi bi-eye-slash" id="togglePassword_novo"></i>
+                                                        </p>
+                                                        <span id="StrengthDisp" class="badge displayBadge">Validando senha...</span>
+                                                        <br>
+                                                    </div>
+                                                    
+                                                    <div class="none" id='pass3'>
+                                                        <div class='texto'>Digite Novamente</div>
+                                                        <p>
+                                                        <input type="password" id='senha_nova_dup' name='senha_nova_dup'>
+                                                        <i class="bi bi-eye-slash" id="togglePassword_novo_dup"></i>
+                                                        </p>
+                                                        <br>
+                                                    </div>
                                                 </div>
-                                                
-                                                <div class="none" id='pass2'>
-                                                    <div class='texto'>Senha nova</div>
-                                                    <p>
-                                                        <input type="password" id='senha_nova' name='senha_nova'>
-                                                        <i class="bi bi-eye-slash" id="togglePassword_novo"></i>
-                                                    </p>
-                                                    <span id="StrengthDisp" class="badge displayBadge">Validando senha...</span>
-                                                    <br>
-                                                </div>
-                                                
-                                                <div class="none" id='pass3'>
-                                                    <div class='texto'>Digite Novamente</div>
-                                                    <p>
-                                                    <input type="password" id='senha_nova_dup' name='senha_nova_dup'>
-                                                    <i class="bi bi-eye-slash" id="togglePassword_novo_dup"></i>
-                                                    </p>
-                                                    <br>
-                                                </div>
+                                                <div class='none alerta' id='senha_antigaAlert'></div>
                                             </div>
-                                                </div>
-                                            </div>
+                                        </div>
                         
                                         </div>
                                         <button class="btn btn-info btn-fill pull-right" id='editarbtn' onclick="editar(this)"><div class='circle'></div>Editar</button>

@@ -145,6 +145,24 @@ function erro(){
 }
 // -------------------- fim código popup --------------------
 
+const limpar_inputs = function(){
+    let elementos = document.getElementsByTagName('input')
+    for(let i = 0; i < elementos.length ; i++){
+        elementos[i].classList.remove('vermei')
+    }
+
+    limpar_alertas()
+}
+
+const limpar_alertas = function(){
+    let alerta = document.getElementsByClassName('alerta')
+    for(let i = 0; i < alerta.length ; i++){
+        if (!alerta[i].classList.contains('none')){
+            alerta[i].classList.toggle('none')
+        }
+    }
+}
+
 if(vazio(document.getElementById('plano').innerText)){ // sem plano contratado
     document.getElementById('assinarbtn').classList.toggle('none')
 }
@@ -209,7 +227,7 @@ if(window.location.href.includes(md5('sucesso=true'))){
 
 function validarEmail(email){ // auto-explicativo
     if (email != ''){
-        return email.match(/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/)
+        return /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi.test(email)
     } else {
         return true
     }
@@ -217,12 +235,24 @@ function validarEmail(email){ // auto-explicativo
 
 function verificar_input(){ // se ouver entrada nos inputs, o botão de salvar é liberado
 
-    let tel_input = document.getElementsByClassName('adicional')
-    if (tel_input.length == 0){
-        tel_input = 0
-    } else {
-        tel_input = tel_input[0].value.length
+    let lista = document.getElementsByClassName('adicional')
+    let tel_input = false
+
+    for(let i = 0; i < lista.length; i++){ // impede que o usuário salve o telefone adicionado sem que o mesmo esteja completo, com 15 dígitos
+        console.log(lista[i].value.length)
+        if (lista[i].value.length < 15){
+            tel_input = false
+            lista[i].classList.add('vermei')
+            document.getElementById('salvarbtn').disabled = true
+            break;
+
+        } else {
+            document.getElementById('salvarbtn').disabled = false
+            lista[i].classList.remove('vermei')
+            tel_input = true
+        }
     }
+
     let deletar = false
     let ranks = document.getElementsByClassName('del_num')
 
@@ -233,12 +263,11 @@ function verificar_input(){ // se ouver entrada nos inputs, o botão de salvar �
             }
         };
     }
-    
-    if (vazio(nome_input.value) && vazio(email_input.value) && vazio(cep_input.value) && vazio(numero_input.value) && !deletar && tel_input != 15){
 
+    if (vazio(nome_input.value) && vazio(email_input.value) && vazio(cep_input.value) && vazio(numero_input.value) && !deletar && !tel_input){ // se houver dados alterados, o usuário é liberado para salvá-los
         document.getElementById('salvarbtn').disabled = true
-    } else {
 
+    } else {
         document.getElementById('salvarbtn').disabled = false
     }
 }
@@ -246,6 +275,7 @@ function verificar_input(){ // se ouver entrada nos inputs, o botão de salvar �
 function alteracao(evento){ // se houver erros no input o botão de salvar é desabilitado até que sejam resolvidos
     let livre = true
     let lista = document.getElementsByTagName('input')
+
     for (let index = 0; index < lista.length; index++) {
         if(lista[index].classList.toString().includes('vermei')){
             livre = false
@@ -257,18 +287,18 @@ function alteracao(evento){ // se houver erros no input o botão de salvar é de
     if(livre){
         document.addEventListener(evento, verificar_input)
     }
-    
+
 }
 
 function ler_cep(cep){ // preenche o endereço automaticamente do usuario usando o cep
     if(cep.value.length == 10){
         let temp = cep.value
         $.ajax({
-            url: 'https://viacep.com.br/ws/'+cep.value.replace(/-/, '').replace('.', '')+'/json/unicode/',
+            url: 'https://viacep.com.br/ws/'+cep.value.replace(/-/, '').replace('.', '')+'/json/',
             dataType: 'json',
             success: function(resposta){
                 if(resposta.logradouro == undefined || resposta.bairro == undefined || resposta.localidade == undefined || resposta.uf == undefined){
-                    abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','| Alteração Inválida |')
+                    abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','Alteração Inválida')
                     cep_input.classList.add('vermei')
                     cep_input.focus()
                     cep_input.placeholder = temp
@@ -354,31 +384,36 @@ let password = document.getElementById('senha_nova')
 let strengthBadge = document.getElementById('StrengthDisp')
 let strongPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})')
 let mediumPassword = new RegExp('((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))')
-
-password.addEventListener("input", () => {
-    strengthBadge.style.display = 'none'
+const verificarSenha = function(){
     clearTimeout(timeout);
     timeout = setTimeout(() => StrengthChecker(password.value), 500);
-    if(password.value.length !== 0){
-        strengthBadge.style.display = 'flex'
-    } else{
-        strengthBadge.style.display = 'none'
-    }
-});
+}
 
 
 function StrengthChecker(PasswordParameter){
-    if(PasswordParameter.length < 10){
+    console.log(PasswordParameter)
+    console.log(vazio(PasswordParameter))
+    if (vazio(PasswordParameter)){
+        strengthBadge.classList.add('none')
+        return
+    } else {
+        strengthBadge.classList.remove('none')
+        strengthBadge.style.display = 'flex'
+    }
+
+    if (PasswordParameter.length < 10){
         strengthBadge.style.color="red"
         strengthBadge.textContent = 'Senha muito curta'
-    }else if(strongPassword.test(PasswordParameter)) {
+
+    } else if (strongPassword.test(PasswordParameter)) {
         strengthBadge.style.color="green"
         strengthBadge.textContent = 'Senha Forte'
-    } else if(mediumPassword.test(PasswordParameter)){
-        
+
+    } else if (mediumPassword.test(PasswordParameter)){
         strengthBadge.style.color="#b6bf31";
         strengthBadge.textContent = 'Senha Mediana'
-    } else{
+
+    } else {
         strengthBadge.style.color="red"
         strengthBadge.textContent = 'Senha Fraca'
     }
@@ -391,6 +426,11 @@ function deletar_tel(tel){
     } else {
         elemento.style.opacity = '1'
     }
+}
+
+function alertaDeErro(elemento, mensagem){
+    document.getElementById(elemento+'Alert').innerHTML = mensagem
+    document.getElementById(elemento+'Alert').classList.toggle('none')
 }
 
 function apenasLetras(event) { // deixa apenas letras com ou sem acento serem digitadas
@@ -468,6 +508,7 @@ function editar(item){
         document.getElementById('pass').style.display = 'block'
         document.getElementById('pass2').style.display = 'block'
         document.getElementById('pass3').style.display = 'block'
+        password.value = ''
 
         document.getElementById("editarbtn").classList.toggle("none");
         document.getElementById("salvar_senhabtn").classList.toggle("none");
@@ -475,8 +516,8 @@ function editar(item){
 
         document.getElementsByClassName('senha')[0].innerText = 'Alterar Senha'
 
-        
-        
+        password.addEventListener("keyup", verificarSenha)
+
         document.getElementById('togglePassword_antigo').addEventListener('click', verSenhaAntiga)
         document.getElementById('togglePassword_novo').addEventListener('click', verSenhaAntigaNovo)
         document.getElementById('togglePassword_novo_dup').addEventListener('click', verSenhaAntigaNovoDup)
@@ -495,12 +536,17 @@ function editar(item){
 }
 
 function cancelar(item){
+    limpar_alertas()
     if(item.id == 'cancelar_senhabtn'){
         alterar_edicao('senha')
 
         document.getElementById('togglePassword_antigo').removeEventListener('click', verSenhaAntiga)
         document.getElementById('togglePassword_novo').removeEventListener('click', verSenhaAntigaNovo)
         document.getElementById('togglePassword_novo_dup').removeEventListener('click', verSenhaAntigaNovoDup)
+
+        password.removeEventListener("keyup", verificarSenha)
+        strengthBadge.classList.add('none')
+        console.log('parou')
 
         return
     }
@@ -542,7 +588,8 @@ function salvar(item){
             senha_antiga.classList.add('vermei')
             senha_nova.classList.add('vermei')
             senha_nova_dup.classList.add('vermei')
-            alert('Por favor, verifique os campos e tente novamente!')
+            alertaDeErro(senha_antiga.id, 'Por favor, verifique os campos e tente novamente!')
+            //alert('Por favor, verifique os campos e tente novamente!')
 
         } else {
             abrirjanela('blue','Verificando dados...','Validando Alteração')
@@ -552,18 +599,15 @@ function salvar(item){
         }
         return
     }
-    nome_input.classList.remove('vermei')
-    email_input.classList.remove('vermei')
-    cep_input.classList.remove('vermei')
-    numero_input.classList.remove('vermei')
+
+    limpar_inputs()
 
     let numeros = []
     let adicional = false
     let valido = false
-    let excluir = false
-    
-    
-    if (document.getElementsByClassName('exclusao_tel')[0] != undefined){
+
+    if (document.getElementsByClassName('exclusao_tel')[0] != undefined){ // se existirem números a serem excluídos, cada um selecionado vai para lista de Cookies, usada como lista de exclusão
+
         let pos = 1
         while(document.getElementById('del_tel'+pos) != undefined){
             if (document.getElementById('del_tel'+pos).style.opacity == '0.5'){
@@ -571,22 +615,19 @@ function salvar(item){
             }
         pos ++
         }
-    Cookies.set('excluir_num',1)
-    Cookies.set('excluir_nums',numeros.length)
-    excluir = true
+        Cookies.set('excluir_num',1)
+        Cookies.set('excluir_nums',numeros.length)
 
-    let a = 1
-    numeros.forEach((item)=>{
-        Cookies.set('del_num'+a,item)
-        a++
-    })}
-
-    document.querySelectorAll('.adicional').forEach((item)=>{
-        item.classList.remove('vermei')
-    })
+        let a = 1
+        numeros.forEach((item)=>{
+            Cookies.set('del_num'+a,item)
+            a++
+        })
+    }
 
     var tels = 0
-    document.querySelectorAll('.adicional').forEach((item)=>{
+    document.querySelectorAll('.adicional').forEach((item)=>{ // se existirem números a serem adicionados, são guardados nos Cookies, usados como lista de adição
+        item.classList.remove('vermei')
         tels ++
         Cookies.set(item.getAttribute('name'), item.value)
         Cookies.set('usuario',1)
@@ -597,7 +638,7 @@ function salvar(item){
     });
 
 
-    if(adicional){
+    if(adicional){ // se houver números adicionais é verificado se todos estão preenchidos, senão é sinalizado com bordas vermelhas
         document.querySelectorAll('.adicional').forEach((item)=>{
             if (item.value.length == 15){
             } else {
@@ -606,7 +647,7 @@ function salvar(item){
             }
         });
         
-        document.querySelectorAll('.adicional').forEach((element) => {
+        document.querySelectorAll('.adicional').forEach((element) => {// caso existam bordas vermelhas significa que há algum erro, então o usuário é alertado
             if(element.classList.toString().includes('vermei')){
                 valido = false
                 return
@@ -619,25 +660,20 @@ function salvar(item){
 
 
     if(!valido && adicional){
-        abrirjanela('red','Telefone adicional incompleto<br> Por favor verifique-o ou exclua-o!','Dados incompletos')
+        abrirjanela('red','Telefone adicional incompleto<br> Por favor verifique-o ou remova-o!','Dados incompletos')
         return
     } else {
         Cookies.set('usuario',1)
         Cookies.set('tels',tels)
     }
 
-    if(!vazio(nome_input.value) && !nome_input.value.replace(' ','').match(/^[A-Za-zÀ-ÖØ-öø-ÿ]+$/)){
-        nome_input.classList.add('vermei')
-        document.getElementById('salvarbtn').disabled = true
-        alert('Por favor, insira um nome válido!')
-
-    } else if (!validarEmail(email_input.value)){
-        alert('Por favor, insira um email válido!')
+    if (!validarEmail(email_input.value)){
+        alertaDeErro(email_input.id, 'Por favor, insira um email válido!')
         email_input.classList.add('vermei')
         email_input.focus()
 
     } else if (!vazio(cep_input.value) && cep_input.value.length <= 10 && vazio(numero_input.value)){
-        alert('Por favor, complete o endereço!')
+        alertaDeErro(cep_input.id, 'Por favor, complete o endereço!')
         cep_input.classList.add('vermei')
         cep_input.focus()
         numero_input.classList.add('vermei')

@@ -88,7 +88,7 @@
 
 					<div class="form-holder">
 						<span class="lnr lnr-map-marker"></span>
-						<input type="tel" class="form-control" placeholder="Número"  id="numero_empresa" name="numero_empresa">
+						<input type="tel" class="form-control" placeholder="Número"  id="numero_empresa" name="numero_empresa" maxlength="15">
 					</div>
 					<div class='none alerta' id='numero_empresaAlert'></div>
 

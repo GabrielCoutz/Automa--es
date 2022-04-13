@@ -132,7 +132,7 @@ function ler(cep){
 
     if(cep.value.length == 10){
             $.ajax({
-                url: 'https://viacep.com.br/ws/'+cep.value.replace(/-/, '').replace('.', '')+'/json/unicode/',
+                url: 'https://viacep.com.br/ws/'+cep.value.replace(/-/, '').replace('.', '')+'/json/',
                 dataType: 'json',
                 success: function(resposta){
                     if(resposta.logradouro == undefined || resposta.bairro == undefined || resposta.localidade == undefined || resposta.uf == undefined){

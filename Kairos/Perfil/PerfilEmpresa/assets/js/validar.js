@@ -246,7 +246,7 @@ function ler_cep(cep){ // preenche o endereço automaticamente da empresa usando
     if(cep.value.length == 10){
         let temp = cep.value
         $.ajax({
-            url: 'https://viacep.com.br/ws/'+cep.value.replace(/-/, '').replace('.', '')+'/json/unicode/',
+            url: 'https://viacep.com.br/ws/'+cep.value.replace(/-/, '').replace('.', '')+'/json/',
             dataType: 'json',
             success: function(resposta){
                 if(resposta.logradouro == undefined || resposta.bairro == undefined || resposta.localidade == undefined || resposta.uf == undefined){

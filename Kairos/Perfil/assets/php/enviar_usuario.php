@@ -98,7 +98,7 @@ if(isset($_COOKIE['usuario'])){ // alteração de dados usuário
         $result=mysqli_query($conec,"UPDATE usuario SET nome='$nome' WHERE nome='$nome_padrao'");
     }
     
-    if(isset($email)){
+    if(isset($email) && $email != ''){
         $select_email=mysqli_query($conec, "SELECT email FROM usuario WHERE email ='$email'");
         $result_email=$select_email->fetch_assoc();
     }

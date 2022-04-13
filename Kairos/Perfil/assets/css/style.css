@@ -29,6 +29,13 @@
   display:inline-block;
   background:#ffffff23;
 }
+.alerta{
+  margin-top: -21px;
+  margin-bottom: 3px;
+  text-align: center;
+  color: #ff0000;
+  cursor: default;
+}
 
 button:hover >.circle{
   transform:scale(90);
