@@ -29,7 +29,7 @@
         $dbPass = '';
         $dbName     = 'kairos';
     
-            $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
+        $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
     
         $cpf = $_SESSION['cpf'];
     
@@ -47,6 +47,7 @@
                 header("Refresh:0; url=resultado".'?'.md5('analise=false'));
                 exit;
                 break;
+
             default:
                 $email=$_SESSION['email'];
                 break;

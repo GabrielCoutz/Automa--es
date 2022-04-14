@@ -239,7 +239,6 @@ function verificar_input(){ // se ouver entrada nos inputs, o botão de salvar �
     let tel_input = false
 
     for(let i = 0; i < lista.length; i++){ // impede que o usuário salve o telefone adicionado sem que o mesmo esteja completo, com 15 dígitos
-        console.log(lista[i].value.length)
         if (lista[i].value.length < 15){
             tel_input = false
             lista[i].classList.add('vermei')
@@ -318,13 +317,14 @@ function ler_cep(cep){ // preenche o endereço automaticamente do usuario usando
     }
 }
 
-
 $(function(){ // código para adicionar/remover números de telefone
-    $('.btn-remove-phone').click(function(){
-        $(this).closest('.phone-input').remove();
-    });
 
     $('.btn-add-phone').click(function(){
+
+        $('.btn-remove-phone').click(function(){
+            $(this).closest('.phone-input').remove();
+        });
+
         if(document.getElementById('del_tel').style.display != 'none'){
             $('#del_tel').toggle();
         };
@@ -391,8 +391,7 @@ const verificarSenha = function(){
 
 
 function StrengthChecker(PasswordParameter){
-    console.log(PasswordParameter)
-    console.log(vazio(PasswordParameter))
+
     if (vazio(PasswordParameter)){
         strengthBadge.classList.add('none')
         return
@@ -546,7 +545,6 @@ function cancelar(item){
 
         password.removeEventListener("keyup", verificarSenha)
         strengthBadge.classList.add('none')
-        console.log('parou')
 
         return
     }
@@ -589,7 +587,6 @@ function salvar(item){
             senha_nova.classList.add('vermei')
             senha_nova_dup.classList.add('vermei')
             alertaDeErro(senha_antiga.id, 'Por favor, verifique os campos e tente novamente!')
-            //alert('Por favor, verifique os campos e tente novamente!')
 
         } else {
             abrirjanela('blue','Verificando dados...','Validando Alteração')
@@ -675,9 +672,7 @@ function salvar(item){
     } else if (!vazio(cep_input.value) && cep_input.value.length <= 10 && vazio(numero_input.value)){
         alertaDeErro(cep_input.id, 'Por favor, complete o endereço!')
         cep_input.classList.add('vermei')
-        cep_input.focus()
         numero_input.classList.add('vermei')
-        numero_input.focus()
 
     } else {
         Cookies.set('usuario',1)

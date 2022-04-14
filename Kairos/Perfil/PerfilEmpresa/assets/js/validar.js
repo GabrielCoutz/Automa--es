@@ -41,6 +41,24 @@ const IniciarCadastroEmpresa = function(){
     setTimeout(redirecionar, 6000)
 }
 
+const limpar_inputs = function(){
+    let elementos = document.getElementsByTagName('input')
+    for(let i = 0; i < elementos.length ; i++){
+        elementos[i].classList.remove('vermei')
+    }
+
+    limpar_alertas()
+}
+
+const limpar_alertas = function(){
+    let alerta = document.getElementsByClassName('alerta')
+    for(let i = 0; i < alerta.length ; i++){
+        if (!alerta[i].classList.contains('none')){
+            alerta[i].classList.toggle('none')
+        }
+    }
+}
+
 const cancelarCadastroEmpresa = function(){
     let popup = function(){
         abrirjanela('blue','Tudo bem, redirecionando para página do usuário...','Empresa não encontrada')
@@ -172,16 +190,16 @@ if (window.location.href.includes(md5('erro=true'))) { // erro de login
     
     let nextURL = window.location.href.replace(md5('erro=true'),'').replace('?','');
     let nextState = { additionalInformation: 'Updated the URL with JS' };
-    window.history.replaceState(nextState, 'Perfil', nextURL);
+    window.history.replaceState(nextState, 'Perfil Empresa', nextURL);
 
 }
 
-if (window.location.href.includes(md5('dados_empresa=false'))) { // erro de login
+if (window.location.href.includes(md5('dados_empresa=false'))) { // empresa não cadastrada
     abrirEmpresa()
     
     let nextURL = window.location.href.replace(md5('dados_empresa=false'),'').replace('?','');
     let nextState = { additionalInformation: 'Updated the URL with JS' };
-    window.history.replaceState(nextState, 'Perfil', nextURL);
+    window.history.replaceState(nextState, 'Perfil Empresa', nextURL);
 
 }
 
@@ -194,33 +212,41 @@ $(document).keypress(
 
 var alerta = ''
 
-if (window.location.href.includes(md5('nome_empresa_duplicado=true'))) { // nome_empresa
+if (window.location.href.includes(md5('nome_empresa_duplicado=true'))) { // nome de empresa já cadastrado
     alerta+='Nome para Empresa já cadastrado!<br>'
-    document.getElementById("nome_empresa_input").classList.add('vermei')
     
     let nextURL = window.location.href.replace(md5('nome_empresa_duplicado=true'),'').replace('?','');
     let nextState = { additionalInformation: 'Updated the URL with JS' };
-    window.history.replaceState(nextState, 'Perfil', nextURL);
+    window.history.replaceState(nextState, 'Perfil Empresa', nextURL);
 }
-if (window.location.href.includes(md5('nome_fantasia_duplicado=true'))) { //nome_fantasia
+if (window.location.href.includes(md5('nome_fantasia_duplicado=true'))) { //nome fantasia já cadastrado
     alerta+='Nome Fantasia já cadastrado!<br>'
-    document.getElementById("nome_fantasia_input").classList.add('vermei')
     
     let nextURL = window.location.href.replace(md5('nome_fantasia_duplicado=true'),'').replace('?','');
     let nextState = { additionalInformation: 'Updated the URL with JS' };
-    window.history.replaceState(nextState, 'Perfil', nextURL);
+    window.history.replaceState(nextState, 'Perfil Empresa', nextURL);
 }
 
 if(alerta != ""){
-    abrirjanela('red',alerta, '| Alteração Inválida |')
+    abrirjanela('red',alerta, 'Alteração Inválida')
     document.getElementById('editarbtn').click()
 
+    
+    if(alerta.includes('Empresa')){
+        document.getElementById("nome_empresa_input").classList.add('vermei')
+    }
+
+    if (alerta.includes('Fantasia')){
+        document.getElementById("nome_fantasia_input").classList.add('vermei')
+    }
+
+
 } else if(window.location.href.includes(md5('sucesso=true'))){
-    abrirjanela('green','Dados alterados com êxito.', '| Alteração realizada com sucesso |')
+    abrirjanela('green','Dados alterados com êxito.', 'Alteração realizada com sucesso')
 
     let nextURL = window.location.href.replace(md5('sucesso=true'),'').replace('?','');
     let nextState = { additionalInformation: 'Updated the URL with JS' };
-    window.history.replaceState(nextState, 'Perfil', nextURL);
+    window.history.replaceState(nextState, 'Perfil Empresa', nextURL);
 }
 
 function nada(){
@@ -250,7 +276,7 @@ function ler_cep(cep){ // preenche o endereço automaticamente da empresa usando
             dataType: 'json',
             success: function(resposta){
                 if(resposta.logradouro == undefined || resposta.bairro == undefined || resposta.localidade == undefined || resposta.uf == undefined){
-                    abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','| Alteração Inválida |')
+                    abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','Alteração Inválida')
                     cep_empresa_input.classList.add('vermei')
                     cep_empresa_input.focus()
                     cep_empresa_input.placeholder = temp
@@ -277,11 +303,18 @@ function verificar_input(){
     if (ramo_input.value != conteudo_ramo){
         Cookies.set('ramo',ramo_input.value)
     }
+
     if (vazio(nome_empresa_input.value) && vazio(nome_fantasia_input.value) && vazio(cep_empresa_input.value) && vazio(numero_empresa_input.value) && ramo_input.value == conteudo_ramo){
         document.getElementById('salvarbtn').disabled = true
+
     } else {
         document.getElementById('salvarbtn').disabled = false
     }
+}
+
+function alertaDeErro(elemento, mensagem){
+    document.getElementById(elemento+'Alert').innerHTML = mensagem
+    document.getElementById(elemento+'Alert').classList.toggle('none')
 }
 
 document.getElementById('editarbtn').addEventListener('click',function(){ // libera eventelistener para ver alterações de inputs
@@ -330,6 +363,7 @@ function editar(){
 }
 
 function cancelar(){
+    limpar_alertas()
     alterar_edicao()
 
     document.removeEventListener('click', verificar_input)
@@ -346,7 +380,9 @@ function cancelar(){
 }
 
 function salvar(){
-    if(!vazio(cep_empresa_input.value) && vazio(numero_empresa_input.value)){
+    limpar_inputs()
+    if(!vazio(cep_empresa_input.value) && cep_empresa_input.value.length <= 10 && vazio(numero_empresa_input.value)){
+        alertaDeErro(cep_empresa_input.id, 'Por favor, complete o endereço!')
         cep_empresa_input.classList.add('vermei')
         numero_empresa_input.classList.add('vermei')
 
@@ -357,13 +393,16 @@ function salvar(){
         setTimeout(nada , 3000)
     }
 }
+
 function sair(){
     window.location.href= '../../index'
     localStorage.clear()
 }
+
 function fechar_menu(){
     document.getElementsByTagName('html')[0].classList.remove('nav-open')
 }
+
 function abrir_menu(){
     if(!document.getElementsByTagName('html')[0].classList.contains('nav-open')){
         document.getElementsByTagName('html')[0].classList.add('nav-open')

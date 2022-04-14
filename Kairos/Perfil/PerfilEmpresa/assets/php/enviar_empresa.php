@@ -1,5 +1,6 @@
 <?php
 session_start();
+error_reporting(E_ERROR | E_PARSE);
 $dbHost     = 'localhost';
 $dbUname = 'root';
 $dbPass = '';
@@ -46,26 +47,26 @@ if(isset($_COOKIE['endereco_empresa'])){ // alteração do endereco da empresa
 if(isset($_COOKIE['empresa'])) { // alteração de dados empresa
     if($_POST['nome_empresa_input'] != ''){ // verificação se o nome digitado já existe
         $nome_empresa = $_POST['nome_empresa_input'];
-        $select_nome_empresa=mysqli_query($conec, "SELECT * FROM empresa WHERE nome ='$nome_empresa'")->fetch_assoc()['nome'];
-    }
-    if($_POST['nome_fantasia_input'] != ''){ // verificação se o nome digitado já existe
-        $nome_fantasia = $_POST['nome_fantasia_input'];
-        $select_nome_fantasia=mysqli_query($conec, "SELECT * FROM empresa WHERE nome_fantasia ='$nome_fantasia'")->fetch_assoc()['nome_fantasia'];
+        $select_nome_empresa=mysqli_query($conec, "SELECT * FROM empresa WHERE nome ='$nome_empresa'")->fetch_assoc();
     }
 
-    if(isset($nome_empresa) && $select_nome_empresa == $nome_empresa){ //sinalização de duplicação
+    if($_POST['nome_fantasia_input'] != ''){ // verificação se o nome digitado já existe
+        $nome_fantasia = $_POST['nome_fantasia_input'];
+        $select_nome_fantasia=mysqli_query($conec, "SELECT * FROM empresa WHERE nome_fantasia ='$nome_fantasia'")->fetch_assoc();
+    }
+
+    if(isset($nome_empresa) && $select_nome_empresa['nome'] == $nome_empresa){ //sinalização de duplicação
         $local=$local.'?'.md5(('nome_empresa_duplicado=true'));
         $duplicado=true;
     }
 
-    if(isset($nome_fantasia) && $select_nome_fantasia == $nome_fantasia){ //sinalização de duplicação
+    if(isset($nome_fantasia) && $select_nome_fantasia['nome_fantasia'] == $nome_fantasia){ //sinalização de duplicação
         $local=$local.'?'.md5(('nome_fantasia_duplicado=true'));
         $duplicado=true;
     }
 
     if($duplicado){ //retorno da verificação
         setcookie('empresa', '', time() - 3600, '/');
-        
         header('Location: '.$local);
         exit;
 
@@ -82,7 +83,6 @@ if(isset($_COOKIE['empresa'])) { // alteração de dados empresa
         }
 
         setcookie('empresa', '', time() - 3600, '/');
-
         header('Location:'.$local.'?'.md5('sucesso=true'));
         exit;
 

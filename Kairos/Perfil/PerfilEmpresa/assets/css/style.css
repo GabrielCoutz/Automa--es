@@ -17,6 +17,13 @@
 .close-layer{
   display: none !important;
 }
+.alerta{
+  margin-top: -7px;
+  margin-bottom: 3px;
+  text-align: left;
+  color: #ff0000;
+  cursor: default;
+}
 #btnfechar{
   cursor: pointer !important;
 }
@@ -147,6 +154,16 @@ input:focus, input:hover, select:focus, select:hover{
 @media(min-width: 991px){
   #btnfechar{
     display: none;
+  }
+}
+
+@media (max-width: 500px){
+  .alerta{
+    text-align: center;
+  }
+  button{
+    width: 100%;
+    margin-bottom: 10px;
   }
 }
 
