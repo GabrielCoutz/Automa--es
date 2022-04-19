@@ -1,9 +1,9 @@
 <?php
     session_start();
 
-    ini_set('display_errors', '1');
-    ini_set('display_startup_errors', '1');
-    error_reporting(E_ALL);
+    //ini_set('display_errors', '1');
+    //ini_set('display_startup_errors', '1');
+    //error_reporting(E_ALL);
 
     $dbHost     = 'localhost';
     $dbUname = 'root';
@@ -35,7 +35,7 @@
             $valor = str_replace('<br>',', ',$valor);
         }
 
-        //echo $chave.' = '.$valor.'<br>';
+        echo $chave.' = '.$valor.'<br>';
 
         if (is_int(strpos($chave, 'SWOT'))){ // análise SWOT
         switch (true) {
@@ -59,12 +59,26 @@
                 break;
             }
         } else if (is_int(strpos($chave, '4PS'))){ // metodologia 4P's
+            
             switch (true) {
+                case is_int(strpos($chave,'4PSproduto2')) && is_int(strpos($valor, 'Serviços Agregados (Pós venda, garantia, etc)')):
+                    $produto .= 'Serviços Agregados'.', ';
+                    break;
                 case is_int(strpos($chave,'produto')):
                     $produto .= $valor.', ';
                     break;
+                case is_int(strpos($chave,'4PSpreço1')) && is_int(strpos($valor, 'Alto Custo')):
+                    $preco .= 'Alto Preço de Produção'.', ';
+                    break;
+                case is_int(strpos($chave,'4PSpreço2')) && is_int(strpos($valor, 'Alto Custo')):
+                    $preco .= 'Alto Preço Final'.', ';
+                    break;
                 case is_int(strpos($chave,'preço')) && !is_int(strpos($valor, 'Sim')):
                     $preco .= $valor.', ';
+                    break;
+                case is_int(strpos($chave,'4PSpraça3')): //usar em resultado
+                    break;
+                case is_int(strpos($chave,'4PSpraça2')): //usar em resultado
                     break;
                 case is_int(strpos($chave,'praça')):
                     $praca .= $valor.', ';
@@ -84,7 +98,9 @@
 
     $result_swot=mysqli_query($conec, "INSERT INTO analise_swot(cpf_usuario, forcas, fraquezas, oportunidades, ameacas) VALUES('$cpf', '$fortes', '$fracos', '$oportunidades', '$ameacas')");
 
-    $result_4ps=mysqli_query($conec, "INSERT INTO analise_4ps(cpf_usuario, produto, preço, praça, promoção) VALUES('$cpf', '$produto', '$preco', '$praca', '$promocao')");
+    // ver erro --> or die(mysqli_error($conec) ou printf("Errormessage: %s\n", $conec->error);;
+
+    $result_4ps=mysqli_query($conec, "INSERT INTO analise_4ps(cpf_usuario, produto, preco, praca, promocao) VALUES('$cpf', '$produto', '$preco', '$praca', '$promocao' )");
 
     if($result_4ps && $result_swot){
         header('Location: ../../../resultado?'.md5('sucesso=true'));

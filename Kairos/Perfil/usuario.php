@@ -91,7 +91,6 @@
     <div class="wrapper">
         <div class="sidebar" data-image="assets/img/sidebar-6.jpg">
             <div class="sidebar-wrapper">
-                
                 <ul class="nav">
                     <li>
                         <a class="nav-link" href="PerfilEmpresa/empresa">

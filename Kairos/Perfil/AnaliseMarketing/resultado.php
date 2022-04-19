@@ -129,32 +129,33 @@
                          <div class="col-md-8">
                              <div class="card">
                                  <div class="card-header">
-                                     <h4 class="card-title">Edit Profile</h4>
+                                     <h4 class="card-title">Minha Análise</h4>
                                  </div>
                                  <div class="card-body">
                                     <div class="d-flex justify-content-center align-items-center">
                                         <div class="container">
                                             <div class="row bg-white">
-                                                <div class="col text-primary" >Forças
+                                                <div class="col text-primary" id='forcas'>Forças
                                                     <div class="text-secondary">
                                                         <a><?= str_replace(', ','<br>',$select_swot['forcas']); ?></a>
                                                     </div>
                                                 </div>
 
-                                                <div class="col text-primary">Fraquezas
+                                                <div class="col text-primary" id='fraquezas'>Fraquezas
                                                     <div class="text-secondary">
                                                         <a><?= str_replace(', ','<br>',$select_swot['fraquezas']); ?></a>
                                                     </div>
 
                                                 </div>
                                                 <div class="w-100"></div>
-                                                <div class="col text-primary">Oportunidades
+                                                
+                                                <div class="col text-primary" id='oportunidades'>Oportunidades
                                                     <div class="text-secondary">
                                                         <a><?= str_replace(', ','<br>',$select_swot['oportunidades']); ?></a>
                                                     </div>
                                                 </div>
-
-                                                <div class="col text-primary">Ameaças
+                                                
+                                                <div class="col text-primary" id='ameacas'>Ameaças
                                                     <div class="text-secondary">
                                                         <a><?= str_replace(', ','<br>',$select_swot['ameacas']); ?></a>
                                                     </div>
@@ -162,32 +163,42 @@
                                             </div>
                                             <br>
                                             <hr>
+                                            <div>
+                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi labore animi, nihil inventore corrupti beatae distinctio praesentium laboriosam officia recusandae similique vel magnam illo molestias ipsa dicta incidunt quisquam adipisci?
+                                            </div>
+                                            <hr>
                                             <br>
                                             <div class="row bg-white">
-                                                <div class="col text-primary">Produto
+                                                <div class="col text-primary" id='produto'>Produto
                                                     <div class="text-secondary">
                                                         <a><?= str_replace(', ','<br>',$select_4ps['produto']); ?></a>
                                                     </div>
                                                 </div>
 
-                                                <div class="col text-primary">Preço
+                                                <div class="col text-primary" id='preco'>Preço
                                                     <div class="text-secondary">
-                                                        <a><?= str_replace(', ','<br>',$select_4ps['preço']); ?></a>
+                                                        <a><?= str_replace(', ','<br>',$select_4ps['preco']); ?></a>
                                                     </div>
                                                 </div>
 
-                                                <div class="col text-primary">Praça
+                                                <div class="col text-primary" id='praca'>Praça
                                                     <div class="text-secondary">
-                                                        <a><?= str_replace(', ','<br>',$select_4ps['praça']); ?></a>
+                                                        <a><?= str_replace(', ','<br>',$select_4ps['praca']); ?></a>
                                                     </div>
                                                 </div>
 
-                                                <div class="col text-primary">Promoção
+                                                <div class="col text-primary" id='promocao'>Promoção
                                                     <div class="text-secondary">
-                                                        <a><?= str_replace(', ','<br>',$select_4ps['promoção']); ?></a>
+                                                        <a><?= str_replace(', ','<br>',$select_4ps['promocao']); ?></a>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <br>
+                                            <hr>
+                                            <div>
+                                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam sapiente commodi ipsa maiores. Sint quis distinctio, praesentium vitae consequuntur quam dignissimos asperiores eveniet dolor, officia iure nostrum architecto ducimus voluptatibus.
+                                            </div>
+                                            <hr>
                                         </div>
                                     </div>
                                  </div>
