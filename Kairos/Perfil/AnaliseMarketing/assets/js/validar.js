@@ -118,20 +118,28 @@ const ameacas = document.getElementById('ameacas')
 document.getElementById('orientacao-fxf').addEventListener('mouseenter',function (){
     forcas.style.boxShadow = '0px 0px 7px -1px rgb(0 0 0 / 20%)';
     forcas.style.borderRadius = '10px';
+    forcas.style.transform = 'perspective(1000px) scale(1.02)'
+    forcas.style.marginBottom = '10px'
     fraquezas.style.opacity = '0.4';
     ameacas.style.opacity = '0.4';
 
     oportunidades.style.boxShadow = '0px 0px 7px -1px rgb(0 0 0 / 20%)';
+    oportunidades.style.transform = 'perspective(1000px) scale(1.02)'
+    oportunidades.style.marginTop = '10px'
     oportunidades.style.borderRadius = '10px';
 })
 
 document.getElementById('orientacao-fxf').addEventListener('mouseout',function (){
     forcas.style.boxShadow = 'none';
     forcas.style.borderRadius = '0px';
+    forcas.style.transform = 'perspective(1000px) scale(1)'
+    forcas.style.marginBottom = '0px'
     fraquezas.style.opacity = '1';
     ameacas.style.opacity = '1';
 
     oportunidades.style.boxShadow = 'none';
+    oportunidades.style.marginTop = '0px'
+    oportunidades.style.transform = 'perspective(1000px) scale(1)'
     oportunidades.style.borderRadius = '0px';
 })
 //---------------------------------------------------------------------------------------------------------
