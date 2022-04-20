@@ -99,9 +99,9 @@
                         </a>
                     </li>
                     <li>
-                        <a class="nav-link" href="AnaliseMarketing/resultado.php">
+                        <a class="nav-link" href="AnaliseMarketing/resultado">
                             <i class="nc-icon nc-bulb-63"></i>
-                            <p>Andamento do Projeto</p>
+                            <p>Análise de Marketing</p>
                         </a>
                     </li>
                 </ul>
@@ -111,7 +111,6 @@
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg " color-on-scroll="500">
                 <div class="container-fluid">
-                    
                     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-bar burger-lines"></span>
                         <span class="navbar-toggler-bar burger-lines"></span>
@@ -129,7 +128,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" onclick="sair()" id='btnsair'>
                                 <i class="nc-icon nc-simple-remove"></i>
-                                    <span >Sair</span>
+                                    <span class="no-icon">Sair</span>
                                 </a>
                             </li>
                         </ul>

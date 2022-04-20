@@ -31,27 +31,29 @@
     
         $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
     
-        $cpf = $_SESSION['cpf'];
+        //$cpf = $_SESSION['cpf'];
+        $cpf = '185.311.040-09';
+        $email='gabriel@gmail.com';
     
         $select_swot=mysqli_query($conec, "SELECT * FROM analise_swot WHERE cpf_usuario = '$cpf'")->fetch_assoc();
     
         $select_4ps=mysqli_query($conec, "SELECT * FROM analise_4ps WHERE cpf_usuario = '$cpf'")->fetch_assoc();
 
-        switch (true) {
-            case !isset($_SESSION['email']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true')):
-                header("Refresh:0; url=resultado".'?'.md5('erro=true'));
-                exit;
-                break;
-            
-            case !$select_swot && !$select_4ps && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('analise=false')) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('sucesso=false')) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true')):
-                header("Refresh:0; url=resultado".'?'.md5('analise=false'));
-                exit;
-                break;
-
-            default:
-                $email=$_SESSION['email'];
-                break;
-        }
+        //switch (true) {
+        //    case !isset($_SESSION['email']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true')):
+        //        header("Refresh:0; url=resultado".'?'.md5('erro=true'));
+        //        exit;
+        //        break;
+        //    
+        //    case !$select_swot && !$select_4ps && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('analise=false')) && !strpos//($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('sucesso=false')) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER//['REQUEST_URI'],md5('erro=true')):
+        //        header("Refresh:0; url=resultado".'?'.md5('analise=false'));
+        //        exit;
+        //        break;
+//
+        //    default:
+        //        $email=$_SESSION['email'];
+        //        break;
+        //}
 
     ?>
  </head>
@@ -77,9 +79,7 @@
      <div class="wrapper">
          <div class="sidebar" data-image="assets/img/sidebar-6.jpg">
              <div class="sidebar-wrapper">
-                 
                  <ul class="nav">
-                     
                      <li>
                          <a class="nav-link" href="../usuario">
                              <i class="nc-icon nc-circle-09"></i>
@@ -99,7 +99,7 @@
              <!-- Navbar -->
              <nav class="navbar navbar-expand-lg " color-on-scroll="500">
                  <div class="container-fluid">
-                     <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                          <span class="navbar-toggler-bar burger-lines"></span>
                          <span class="navbar-toggler-bar burger-lines"></span>
                          <span class="navbar-toggler-bar burger-lines"></span>
@@ -114,9 +114,9 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" onclick="sair()"id='btnsair'>
+                                <a class="nav-link" onclick="sair()" id='btnsair'>
                                 <i class="nc-icon nc-simple-remove"></i>
-                                    <span class="no-icon" >Sair</span>
+                                    <span class="no-icon">Sair</span>
                                 </a>
                             </li>
                         </ul>
@@ -164,7 +164,25 @@
                                             <br>
                                             <hr>
                                             <div>
-                                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sequi labore animi, nihil inventore corrupti beatae distinctio praesentium laboriosam officia recusandae similique vel magnam illo molestias ipsa dicta incidunt quisquam adipisci?
+                                            <div class="card-header">
+                                                <h4 class="card-title" id='orientacao'>O que fazer agora?</h4>
+                                            </div>
+                                            <div id='orientacao-texto'>
+                                                Neste momento é necessário fazer o relacionamento entre cada item da matriz SWOT. Para que norteie futuras tomadas de deciões. Utilize as informações acima a fim de basear estratégias benéficas para a administração em sua empresa passando o mouse nas instruções abaixo:
+                                            </div>
+                                                
+                                                <ul>
+                                                    <li id='orientacao-fxf'>Forças + Oportunidades: quais pontos fortes da empresa podem ser potencializados para maximizar as oportunidades identificadas?</li>
+                                                    <li id='orientacao-fxa'>
+                                                    Forças + Ameaças: quais pontos fortes da empresa podem ser potencializados para minimizar o impacto das ameaças?
+                                                    </li>
+                                                    <li id='orientacao-fzxo'>
+                                                    Fraquezas + Oportunidades: quais pontos fracos podem ser corrigidos para aproveitar as oportunidades levantadas?
+                                                    </li>
+                                                    <li id='orientacao-fzxa'>
+                                                    Fraquezas + Ameaças: quais pontos fracos podem ser corrigidos para minimizar o efeito das ameaças?
+                                                    </li>
+                                                </ul>
                                             </div>
                                             <hr>
                                             <br>
@@ -212,7 +230,7 @@
                     <nav>
                         <ul class="footer-menu">
                             <li>
-                                <a href="../index" id='paginaInicial'>
+                                <a href="../../index" id='paginaInicial'>
                                     Página Inicial
                                 </a>
                             </li>

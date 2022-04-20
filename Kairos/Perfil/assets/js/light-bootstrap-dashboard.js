@@ -47,7 +47,10 @@ $(document).ready(function() {
 window.addEventListener('resize',function(){
     if ((window.screen.width) > 991){
         document.getElementsByClassName('nav-mobile-menu')[0].classList.add('none')
-}})
+    } else if (document.getElementsByClassName('nav-mobile-menu')[0]){
+        document.getElementsByClassName('nav-mobile-menu')[0].classList.remove('none')
+    }
+})
 
 // activate collapse right menu when the windows is resized
 $(window).resize(function() {

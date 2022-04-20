@@ -108,6 +108,95 @@ function CriarAnalise(){ // captura a resposta do usuario sobre a realização d
 }
 
 // -------------------- fim código popup --------------------
+
+const forcas = document.getElementById('forcas')
+const fraquezas = document.getElementById('fraquezas')
+const oportunidades = document.getElementById('oportunidades')
+const ameacas = document.getElementById('ameacas')
+
+
+document.getElementById('orientacao-fxf').addEventListener('mouseenter',function (){
+    forcas.style.boxShadow = '0px 0px 7px -1px rgb(0 0 0 / 20%)';
+    forcas.style.borderRadius = '10px';
+    fraquezas.style.opacity = '0.4';
+    ameacas.style.opacity = '0.4';
+
+    oportunidades.style.boxShadow = '0px 0px 7px -1px rgb(0 0 0 / 20%)';
+    oportunidades.style.borderRadius = '10px';
+})
+
+document.getElementById('orientacao-fxf').addEventListener('mouseout',function (){
+    forcas.style.boxShadow = 'none';
+    forcas.style.borderRadius = '0px';
+    fraquezas.style.opacity = '1';
+    ameacas.style.opacity = '1';
+
+    oportunidades.style.boxShadow = 'none';
+    oportunidades.style.borderRadius = '0px';
+})
+//---------------------------------------------------------------------------------------------------------
+document.getElementById('orientacao-fxa').addEventListener('mouseenter',function (){
+    forcas.style.boxShadow = '0px 0px 7px -1px rgb(0 0 0 / 20%)';
+    forcas.style.borderRadius = '10px';
+    fraquezas.style.opacity = '0.4';
+    oportunidades.style.opacity = '0.4';
+
+    ameacas.style.boxShadow = '0px 0px 7px -1px rgb(0 0 0 / 20%)';
+    ameacas.style.borderRadius = '10px';
+})
+
+document.getElementById('orientacao-fxa').addEventListener('mouseout',function (){
+    forcas.style.boxShadow = 'none';
+    forcas.style.borderRadius = '0px';
+    fraquezas.style.opacity = '1';
+    oportunidades.style.opacity = '1';
+
+    ameacas.style.boxShadow = 'none';
+    ameacas.style.borderRadius = '0px';
+})
+//---------------------------------------------------------------------------------------------------------
+document.getElementById('orientacao-fzxo').addEventListener('mouseenter',function (){
+    fraquezas.style.boxShadow = '0px 0px 7px -1px rgb(0 0 0 / 20%)';
+    fraquezas.style.borderRadius = '10px';
+    forcas.style.opacity = '0.4';
+    ameacas.style.opacity = '0.4';
+
+    oportunidades.style.boxShadow = '0px 0px 7px -1px rgb(0 0 0 / 20%)';
+    oportunidades.style.borderRadius = '10px';
+})
+
+document.getElementById('orientacao-fzxo').addEventListener('mouseout',function (){
+    fraquezas.style.boxShadow = 'none';
+    fraquezas.style.borderRadius = '0px';
+    forcas.style.opacity = '1';
+    ameacas.style.opacity = '1';
+
+    oportunidades.style.boxShadow = 'none';
+    oportunidades.style.borderRadius = '0px';
+})
+//---------------------------------------------------------------------------------------------------------
+document.getElementById('orientacao-fzxa').addEventListener('mouseenter',function (){
+    fraquezas.style.boxShadow = '0px 0px 7px -1px rgb(0 0 0 / 20%)';
+    fraquezas.style.borderRadius = '10px';
+    forcas.style.opacity = '0.4';
+    oportunidades.style.opacity = '0.4';
+
+    ameacas.style.boxShadow = '0px 0px 7px -1px rgb(0 0 0 / 20%)';
+    ameacas.style.borderRadius = '10px';
+})
+
+document.getElementById('orientacao-fzxa').addEventListener('mouseout',function (){
+    fraquezas.style.boxShadow = 'none';
+    fraquezas.style.borderRadius = '0px';
+    forcas.style.opacity = '1';
+    oportunidades.style.opacity = '1';
+
+    ameacas.style.boxShadow = 'none';
+    ameacas.style.borderRadius = '0px';
+})
+
+
+
 const IniciarAnalise = function(){ // redireciona o usuario para página de analise
     let popup = function(){
         abrirjanela('blue','Tudo bem, redirecionando para página de análise...','Análise não realizada')

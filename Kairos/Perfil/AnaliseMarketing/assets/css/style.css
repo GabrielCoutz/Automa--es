@@ -10,8 +10,39 @@
     cursor: pointer !important ;
 }
 
+.wrapper{
+  overflow: hidden;
+}
+
+#forcas, #oportunidades, #fraquezas, #ameacas{
+  transition: 0.8s;
+}
+
+#orientacao-fxf, #orientacao-fxa, #orientacao-fzxo, #orientacao-fzxa{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #00000040;
+  display: flex;
+  align-items: center;
+}
+
+#orientacao{
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+#orientacao-texto{
+  margin-bottom: 10px;
+}
+
 #btnsair:hover{
     color: red !important;
+}
+
+#paginaInicial:hover, #suporte:hover{
+  color: #3d9cff;
 }
 
 .close-layer{

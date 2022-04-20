@@ -10,7 +10,7 @@ $_SESSION['email']=$_POST['email'];
 $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 
 if (isset($_GET['validar'])){
-    
+
     $email=$_POST['email'];
     $senha=md5($_POST['senha']);
     
