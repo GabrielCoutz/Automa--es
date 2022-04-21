@@ -164,8 +164,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                            
-                                                <hr>
                                                 <div>
                                                     <div class="card-header">
                                                         <h4 class="card-title" id='orientacao'>Instruções SWOT</h4>
@@ -217,28 +215,29 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <hr>
                                                 <div>
                                                     <div class="card-header">
                                                         <h4 class="card-title" id='orientacao'>Instruções 4P's</h4>
                                                     </div>
                                                     <div id='orientacao-texto'>
-                                                        Neste momento é necessário fazer o relacionamento entre cada item da matriz SWOT. Para que norteie futuras tomadas de deciões. Utilize as informações acima a fim de basear estratégias benéficas para a administração em sua empresa. Interaja com o mouse ou clique nos itens abaixo para auxiliar na visualização:
+                                                        É o alinhamento dessas variáveis que irá compor toda a estratégia de marketing da sua empresa. Pense nelas como peças de um quebra-cabeça que irão se encaixar para formar o todo. Com os 4 Ps encaixados e bem alinhados, você comunicará aos consumidores o posicionamento da sua marca e irá promover o desejo de compra no seu público-alvo.
+                                                        Na definição de público-alvo, você já pode aplicar questionários e entrevistas que investiguem os comportamentos dos consumidores. Mas, para cada P, também é possível pensar em pesquisas específicas. Como:
                                                     </div>
-                                                        <ul>
-                                                            <li>Forças + Oportunidades: quais pontos fortes da empresa podem ser potencializados para maximizar as oportunidades identificadas?</li>
-                                                            <li>
-                                                            Forças + Ameaças: quais pontos fortes da empresa podem ser potencializados para minimizar o impacto das ameaças?
-                                                            </li>
-                                                            <li>
-                                                            Fraquezas + Oportunidades: quais pontos fracos podem ser corrigidos para aproveitar as oportunidades levantadas?
-                                                            </li>
-                                                            <li>
-                                                            Fraquezas + Ameaças: quais pontos fracos podem ser corrigidos para minimizar o efeito das ameaças?
-                                                            </li>
-                                                        </ul>
+                                                    <ul>
+                                                        <li id='orientacao-preco'>
+                                                            Preço: Teste de produto como percepção de valor, pesquisa de elasticidade de preço. Quanto o consumidor se dispõe a pagar?
+                                                        </li>
+                                                        <li id='orientacao-produto'>
+                                                            Produto: Teste de produto como aceitação, pesquisa de satisfação e análise da concorrência.
+                                                        </li>
+                                                        <li id='orientacao-praca'>
+                                                            Praça: Pesquisa de avaliação de ponto de venda.
+                                                        </li>
+                                                        <li id='orientacao-promocao'>
+                                                            Promoção: Pesquisa da persona que compraria seu produto, pesquisa de seus hábitos de consumo.
+                                                        </li>
+                                                    </ul>
                                                 </div>
-                                                <hr>
                                             </div>
 
                                         </div>
