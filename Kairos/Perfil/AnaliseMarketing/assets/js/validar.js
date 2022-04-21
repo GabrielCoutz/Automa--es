@@ -119,13 +119,13 @@ document.getElementById('orientacao-fxf').addEventListener('mouseenter',function
     forcas.style.boxShadow = '0px 0px 7px -1px rgb(0 0 0 / 20%)';
     forcas.style.borderRadius = '10px';
     forcas.style.transform = 'perspective(1000px) scale(1.02)'
-    forcas.style.marginBottom = '10px'
+    forcas.style.marginBottom = '5px'
     fraquezas.style.opacity = '0.4';
     ameacas.style.opacity = '0.4';
 
     oportunidades.style.boxShadow = '0px 0px 7px -1px rgb(0 0 0 / 20%)';
     oportunidades.style.transform = 'perspective(1000px) scale(1.02)'
-    oportunidades.style.marginTop = '10px'
+    oportunidades.style.marginTop = '5px'
     oportunidades.style.borderRadius = '10px';
 })
 
@@ -146,61 +146,85 @@ document.getElementById('orientacao-fxf').addEventListener('mouseout',function (
 document.getElementById('orientacao-fxa').addEventListener('mouseenter',function (){
     forcas.style.boxShadow = '0px 0px 7px -1px rgb(0 0 0 / 20%)';
     forcas.style.borderRadius = '10px';
+    forcas.style.transform = 'perspective(1000px) scale(1.02)'
+    forcas.style.marginBottom = '5px'
     fraquezas.style.opacity = '0.4';
     oportunidades.style.opacity = '0.4';
 
     ameacas.style.boxShadow = '0px 0px 7px -1px rgb(0 0 0 / 20%)';
+    ameacas.style.transform = 'perspective(1000px) scale(1.02)'
+    ameacas.style.marginTop = '5px'
     ameacas.style.borderRadius = '10px';
 })
 
 document.getElementById('orientacao-fxa').addEventListener('mouseout',function (){
     forcas.style.boxShadow = 'none';
     forcas.style.borderRadius = '0px';
+    forcas.style.transform = 'perspective(1000px) scale(1)'
+    forcas.style.marginBottom = '0px'
     fraquezas.style.opacity = '1';
     oportunidades.style.opacity = '1';
 
     ameacas.style.boxShadow = 'none';
+    ameacas.style.transform = 'perspective(1000px) scale(1)'
+    ameacas.style.marginTop = '0px'
     ameacas.style.borderRadius = '0px';
 })
 //---------------------------------------------------------------------------------------------------------
 document.getElementById('orientacao-fzxo').addEventListener('mouseenter',function (){
     fraquezas.style.boxShadow = '0px 0px 7px -1px rgb(0 0 0 / 20%)';
     fraquezas.style.borderRadius = '10px';
+    fraquezas.style.transform = 'perspective(1000px) scale(1.02)'
+    fraquezas.style.marginBottom = '5px'
     forcas.style.opacity = '0.4';
     ameacas.style.opacity = '0.4';
 
     oportunidades.style.boxShadow = '0px 0px 7px -1px rgb(0 0 0 / 20%)';
     oportunidades.style.borderRadius = '10px';
+    oportunidades.style.transform = 'perspective(1000px) scale(1.02)'
+    oportunidades.style.marginTop = '5px'
 })
 
 document.getElementById('orientacao-fzxo').addEventListener('mouseout',function (){
     fraquezas.style.boxShadow = 'none';
     fraquezas.style.borderRadius = '0px';
+    fraquezas.style.transform = 'perspective(1000px) scale(1)'
+    fraquezas.style.marginBottom = '0px'
     forcas.style.opacity = '1';
     ameacas.style.opacity = '1';
 
     oportunidades.style.boxShadow = 'none';
     oportunidades.style.borderRadius = '0px';
+    oportunidades.style.transform = 'perspective(1000px) scale(1)'
+    oportunidades.style.marginTop = '0px'
 })
 //---------------------------------------------------------------------------------------------------------
 document.getElementById('orientacao-fzxa').addEventListener('mouseenter',function (){
     fraquezas.style.boxShadow = '0px 0px 7px -1px rgb(0 0 0 / 20%)';
     fraquezas.style.borderRadius = '10px';
+    fraquezas.style.transform = 'perspective(1000px) scale(1.02)'
+    fraquezas.style.marginBottom = '5px'
     forcas.style.opacity = '0.4';
     oportunidades.style.opacity = '0.4';
 
     ameacas.style.boxShadow = '0px 0px 7px -1px rgb(0 0 0 / 20%)';
     ameacas.style.borderRadius = '10px';
+    ameacas.style.transform = 'perspective(1000px) scale(1.02)'
+    ameacas.style.marginTop = '5px'
 })
 
 document.getElementById('orientacao-fzxa').addEventListener('mouseout',function (){
     fraquezas.style.boxShadow = 'none';
     fraquezas.style.borderRadius = '0px';
+    fraquezas.style.transform = 'perspective(1000px) scale(1)'
+    fraquezas.style.marginBottom = '0px'
     forcas.style.opacity = '1';
     oportunidades.style.opacity = '1';
 
     ameacas.style.boxShadow = 'none';
     ameacas.style.borderRadius = '0px';
+    ameacas.style.transform = 'perspective(1000px) scale(1)'
+    ameacas.style.marginTop = '0px'
 })
 
 

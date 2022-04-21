@@ -134,89 +134,113 @@
                                  <div class="card-body">
                                     <div class="d-flex justify-content-center align-items-center">
                                         <div class="container">
-                                            <div class="row bg-white">
-                                                <div class="col text-primary" id='forcas'>Forças
-                                                    <div class="text-secondary">
-                                                        <a><?= str_replace(', ','<br>',$select_swot['forcas']); ?></a>
-                                                    </div>
-                                                </div>
+                                            <div class="row bg-white" id='caixa-swot'>
+                                                <div class="card-header" id='titulo-swot'>Matriz SWOT</div>
+                                                    <div class='row' id='swot'>
+                                                        
+                                                        <div class="col text-primary" id='forcas'>Forças
+                                                            <div class="text-secondary">
+                                                                <a><?= str_replace(', ','<br>',$select_swot['forcas']); ?></a>
+                                                            </div>
+                                                        </div>
 
-                                                <div class="col text-primary" id='fraquezas'>Fraquezas
-                                                    <div class="text-secondary">
-                                                        <a><?= str_replace(', ','<br>',$select_swot['fraquezas']); ?></a>
-                                                    </div>
+                                                        <div class="col text-primary" id='fraquezas'>Fraquezas
+                                                            <div class="text-secondary">
+                                                                <a><?= str_replace(', ','<br>',$select_swot['fraquezas']); ?></a>
+                                                            </div>
+                                                        </div>
 
-                                                </div>
-                                                <div class="w-100"></div>
-                                                
-                                                <div class="col text-primary" id='oportunidades'>Oportunidades
-                                                    <div class="text-secondary">
-                                                        <a><?= str_replace(', ','<br>',$select_swot['oportunidades']); ?></a>
+                                                        <div class="w-100"></div>
+                                                        
+                                                        <div class="col text-primary" id='oportunidades'>Oportunidades
+                                                            <div class="text-secondary">
+                                                                <a><?= str_replace(', ','<br>',$select_swot['oportunidades']); ?></a>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="col text-primary" id='ameacas'>Ameaças
+                                                            <div class="text-secondary">
+                                                                <a><?= str_replace(', ','<br>',$select_swot['ameacas']); ?></a>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                
-                                                <div class="col text-primary" id='ameacas'>Ameaças
-                                                    <div class="text-secondary">
-                                                        <a><?= str_replace(', ','<br>',$select_swot['ameacas']); ?></a>
+                                            
+                                                <hr>
+                                                <div>
+                                                    <div class="card-header">
+                                                        <h4 class="card-title" id='orientacao'>Instruções SWOT</h4>
                                                     </div>
+                                                    <div id='orientacao-texto'>
+                                                        Neste momento é necessário fazer o relacionamento entre cada item da matriz SWOT. Para que norteie futuras tomadas de deciões. Utilize as informações acima a fim de basear estratégias benéficas para a administração em sua empresa. Interaja com o mouse ou clique nos itens abaixo para auxiliar na visualização:
+                                                    </div>
+                                                        <ul>
+                                                            <li id='orientacao-fxf'>Forças + Oportunidades: quais pontos fortes da empresa podem ser potencializados para maximizar as oportunidades identificadas?</li>
+                                                            <li id='orientacao-fxa'>
+                                                            Forças + Ameaças: quais pontos fortes da empresa podem ser potencializados para minimizar o impacto das ameaças?
+                                                            </li>
+                                                            <li id='orientacao-fzxo'>
+                                                            Fraquezas + Oportunidades: quais pontos fracos podem ser corrigidos para aproveitar as oportunidades levantadas?
+                                                            </li>
+                                                            <li id='orientacao-fzxa'>
+                                                            Fraquezas + Ameaças: quais pontos fracos podem ser corrigidos para minimizar o efeito das ameaças?
+                                                            </li>
+                                                        </ul>
                                                 </div>
                                             </div>
-                                            <br>
+
                                             <hr>
-                                            <div>
-                                            <div class="card-header">
-                                                <h4 class="card-title" id='orientacao'>O que fazer agora?</h4>
-                                            </div>
-                                            <div id='orientacao-texto'>
-                                                Neste momento é necessário fazer o relacionamento entre cada item da matriz SWOT. Para que norteie futuras tomadas de deciões. Utilize as informações acima a fim de basear estratégias benéficas para a administração em sua empresa passando o mouse nas instruções abaixo:
-                                            </div>
-                                                
-                                                <ul>
-                                                    <li id='orientacao-fxf'>Forças + Oportunidades: quais pontos fortes da empresa podem ser potencializados para maximizar as oportunidades identificadas?</li>
-                                                    <li id='orientacao-fxa'>
-                                                    Forças + Ameaças: quais pontos fortes da empresa podem ser potencializados para minimizar o impacto das ameaças?
-                                                    </li>
-                                                    <li id='orientacao-fzxo'>
-                                                    Fraquezas + Oportunidades: quais pontos fracos podem ser corrigidos para aproveitar as oportunidades levantadas?
-                                                    </li>
-                                                    <li id='orientacao-fzxa'>
-                                                    Fraquezas + Ameaças: quais pontos fracos podem ser corrigidos para minimizar o efeito das ameaças?
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <hr>
-                                            <br>
-                                            <div class="row bg-white">
-                                                <div class="col text-primary" id='produto'>Produto
-                                                    <div class="text-secondary">
-                                                        <a><?= str_replace(', ','<br>',$select_4ps['produto']); ?></a>
-                                                    </div>
-                                                </div>
 
-                                                <div class="col text-primary" id='preco'>Preço
-                                                    <div class="text-secondary">
-                                                        <a><?= str_replace(', ','<br>',$select_4ps['preco']); ?></a>
+                                            <div class="row bg-white"id='caixa-4ps'>
+                                                <div class="card-header" id='titulo-4ps'>4P's</div>
+                                                <div class='d-flex' id='Qps'>
+                                                    <div class="col text-primary" id='produto'>Produto
+                                                        <div class="text-secondary">
+                                                            <a><?= str_replace(', ','<br>',$select_4ps['produto']); ?></a>
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col text-primary" id='praca'>Praça
-                                                    <div class="text-secondary">
-                                                        <a><?= str_replace(', ','<br>',$select_4ps['praca']); ?></a>
+                                                    <div class="col text-primary" id='preco'>Preço
+                                                        <div class="text-secondary">
+                                                            <a><?= str_replace(', ','<br>',$select_4ps['preco']); ?></a>
+                                                        </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col text-primary" id='promocao'>Promoção
-                                                    <div class="text-secondary">
-                                                        <a><?= str_replace(', ','<br>',$select_4ps['promocao']); ?></a>
+                                                    <div class="col text-primary" id='praca'>Praça
+                                                        <div class="text-secondary">
+                                                            <a><?= str_replace(', ','<br>',$select_4ps['praca']); ?></a>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col text-primary" id='promocao'>Promoção
+                                                        <div class="text-secondary">
+                                                            <a><?= str_replace(', ','<br>',$select_4ps['promocao']); ?></a>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                                <hr>
+                                                <div>
+                                                    <div class="card-header">
+                                                        <h4 class="card-title" id='orientacao'>Instruções 4P's</h4>
+                                                    </div>
+                                                    <div id='orientacao-texto'>
+                                                        Neste momento é necessário fazer o relacionamento entre cada item da matriz SWOT. Para que norteie futuras tomadas de deciões. Utilize as informações acima a fim de basear estratégias benéficas para a administração em sua empresa. Interaja com o mouse ou clique nos itens abaixo para auxiliar na visualização:
+                                                    </div>
+                                                        <ul>
+                                                            <li>Forças + Oportunidades: quais pontos fortes da empresa podem ser potencializados para maximizar as oportunidades identificadas?</li>
+                                                            <li>
+                                                            Forças + Ameaças: quais pontos fortes da empresa podem ser potencializados para minimizar o impacto das ameaças?
+                                                            </li>
+                                                            <li>
+                                                            Fraquezas + Oportunidades: quais pontos fracos podem ser corrigidos para aproveitar as oportunidades levantadas?
+                                                            </li>
+                                                            <li>
+                                                            Fraquezas + Ameaças: quais pontos fracos podem ser corrigidos para minimizar o efeito das ameaças?
+                                                            </li>
+                                                        </ul>
+                                                </div>
+                                                <hr>
                                             </div>
-                                            <br>
-                                            <hr>
-                                            <div>
-                                                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam sapiente commodi ipsa maiores. Sint quis distinctio, praesentium vitae consequuntur quam dignissimos asperiores eveniet dolor, officia iure nostrum architecto ducimus voluptatibus.
-                                            </div>
-                                            <hr>
+
                                         </div>
                                     </div>
                                  </div>

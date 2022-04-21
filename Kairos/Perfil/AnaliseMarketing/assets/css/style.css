@@ -29,11 +29,14 @@
 }
 
 #orientacao{
+  border-top: 1px solid #00000038;
+  padding: 20px;
   margin-bottom: 15px;
   text-align: center;
 }
 
 #orientacao-texto{
+  text-align: justify;
   margin-bottom: 10px;
 }
 
@@ -146,11 +149,29 @@ input:focus, input:hover{
     border-color: #3d9cff !important;
     outline: none !important;
 }
+#swot{
+  margin-bottom: 27px;
+  padding: 10px;
+  overflow: hidden;
+}
 
+#caixa-swot, #caixa-4ps{
+  justify-content: center !important;
+  box-shadow: 0px 0px 4px 0px rgb(0 0 0 / 20%);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+
+#titulo-swot, #titulo-4ps{
+  text-align: center;
+  margin-bottom: 10px;
+}
 @media(min-width: 991px){
   #btnfechar{
     display: none;
   }
+
 }
 
 @media (max-width: 541px){
@@ -163,6 +184,12 @@ input:focus, input:hover{
     display: none;
   }
   #forcas, #fraquezas, #oportunidades{
+    border-bottom: 1px solid #00000017;
+  }
+  #Qps{
+    flex-direction: column;
+  }
+  #produto, #preco, #praca{
     border-bottom: 1px solid #00000017;
   }
 }
@@ -178,6 +205,10 @@ input:focus, input:hover{
   #oportunidades{
     border-right: 1px solid #00000017;
   }
+  #produto, #preco, #praca{
+    border-right: 1px solid #00000017;
+  }
+
 }
 
 /*===== All Preloader Style =====*/
