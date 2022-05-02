@@ -111,7 +111,7 @@
 					</div>
 					<div class="col-lg-6">
 						<div class="hero-img wow fadeInUp" data-wow-delay=".5s">
-							<img src="assets/img/hero/teste.png" id="imagem_inicial"alt="">
+							<img src="assets/img/hero/equipe.png" id="imagem_inicial"alt="">
 						</div>
 					</div>
         </div>
