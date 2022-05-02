@@ -27,7 +27,7 @@ $select=mysqli_query($conec, "SELECT email, nome, senha, cpf FROM usuario WHERE 
 
 if($select){
     if(trim($email) == $select['email'] && trim($nome) == $select['nome'] && $cpf == $select['cpf']){ // dados corretos
-        $_SESSION['senha']=$select['senha'];
+        $_SESSION['cpf']=$select['cpf'];
         header('Location: ../../recuperacao?'.md5('sucesso=true'));
         exit;
 

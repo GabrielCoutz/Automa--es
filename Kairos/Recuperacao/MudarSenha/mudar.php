@@ -10,12 +10,12 @@
 		<link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/style.scss">
 		<link rel="stylesheet" href="assets/css/popup.css">
-		<link rel="shortcut icon" href="../assets/img/favicon/favicon.ico" type="image/x-icon">
+		<link rel="shortcut icon" href="../../assets/img/favicon/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
 		<?php
 			error_reporting(E_ERROR | E_PARSE);
 			if(isset($_GET[md5('sucesso=true')])){
-				header('Location: MudarSenha/mudar');
+				header('Location: ../Login/login');
 			}
 		?>
 	</head>
@@ -38,35 +38,31 @@
     </div>
 		<div class="wrapper">
 			<div class="inner">
-				<form method="POST" id="recuperacao" action="assets/php/config">
-					<h3>Verificação de Identidade</h3>
-                    <div class="form-holder">
-						<span class="lnr lnr-user"></span>
-						<p>
-							<input type="text" class="form-control" placeholder="Insira seu Nome Completo" id="nome" name='nome' maxlength="100" onkeyup="apenasLetras(this)">
-						</p>
-					</div>
-					<div class='none alerta' id='nomeAlert'></div>
+				<form method="POST" id="mudar" action="assets/php/config">
+					<h3>Mudança de senha</h3>
+                <div class="form-holder">
+                    <span class="lnr lnr-lock"></span>
+                    <p>
+                        <input type="password" class="form-control" placeholder="Nova Senha" id="senha_nova" name='senha_nova'>
+                        <i class="bi bi-eye-slash" id="togglePassword"></i>
+                    </p>
+                    <span id="StrengthDisp" class="badge displayBadge">Validando senha...</span>
+                </div>
 
-					<div class="form-holder">
-						<span class="lnr lnr-user"></span>
-						<input type="email" class="form-control" placeholder="Insira seu Email" id="email" name='email' maxlength="50">
-					</div>
-					<div class='none alerta' id='emailAlert'></div>
-
-					<div class="form-holder">
-						<span class="lnr lnr-user"></span>
-						<p>
-							<input type="tel" class="form-control" placeholder="Insira seu CPF" id="cpf" name='cpf' onkeypress="$(this).mask('000.000.000-00')">
-						</p>
-					</div>
-					<div class='none alerta' id='cpfAlert'></div>
+                <div class="form-holder">
+                    <span class="lnr lnr-lock"></span>
+                    <p>
+                        <input type="password" class="form-control" placeholder="Digite Novamente" id="senha_nova_dup" name='senha_nova_dup'>
+                        <i class="bi bi-eye-slash" id="togglePassword_dup"></i>
+                    </p>
+                </div>
+                <div class='none alerta' id='senha_novaAlert'></div>
 
 					<button type='submit' class="btn btn-warning" id='butao' name="butao" onclick="validar()">
 						<span>Entrar</span>
 					</button>
 					<div id='divAjuda'>
-						<a href="../Contato/contato" id='ajuda'>Precisa de ajuda?</a>
+						<a href="../../Contato/contato" id='ajuda'>Precisa de ajuda?</a>
 					</div>
 					
 					

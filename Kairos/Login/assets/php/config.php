@@ -35,5 +35,4 @@ if (isset($_GET['validar'])){
     }
 }
 ?>
-
 <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js'></script>

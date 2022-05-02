@@ -22,8 +22,10 @@ const limpar_alertas = function(){
         }
     }
 }
+
 // -------------------- início código popup --------------------
 var janelaPopUp = new Object();
+
 janelaPopUp.abre = function(id, classes, titulo, corpo, functionCancelar, functionEnviar, textoCancelar, textoEnviar){
     var cancelar = (textoCancelar !== undefined)? textoCancelar: 'Ok';
     var enviar = (textoEnviar !== undefined)? textoEnviar: 'Send';
@@ -72,6 +74,7 @@ janelaPopUp.abre = function(id, classes, titulo, corpo, functionCancelar, functi
     });
     
 };
+
 janelaPopUp.fecha = function(id){
     if(id !== undefined){
         $("#" + id).removeClass("popUpEntrada").addClass("popUpSaida"); 
@@ -83,6 +86,7 @@ janelaPopUp.fecha = function(id){
                     $("window, body").css('overflow', 'auto');
                 }
             });
+
     }
     else{
         $(".popUp").removeClass("popUpEntrada").addClass("popUpSaida"); 
@@ -98,43 +102,53 @@ janelaPopUp.fecha = function(id){
     
 }
 // -------------------- fim código popup --------------------
+
+let timeout;
+let password = document.getElementById('senha_nova')
+let strengthBadge = document.getElementById('StrengthDisp')
+let strongPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})')
+let mediumPassword = new RegExp('((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))')
+
+password.addEventListener("input", () => {
+    strengthBadge.style.display= 'block'
+    clearTimeout(timeout);
+    timeout = setTimeout(() => StrengthChecker(password.value), 500);
+    if(password.value.length !== 0){
+        strengthBadge.style.display != 'block'
+    } else{
+        strengthBadge.style.display = 'none'
+    }
+});
+
 function mudar_senha(botao,elemento){
     let togglePassword = document.querySelector('#'+botao);
     let password = document.querySelector('#'+elemento);
+
   togglePassword.addEventListener('click', function (e) {
     let type = password.getAttribute('type') === 'password' ? 'text' : 'password';
     password.setAttribute('type', type);
     this.classList.toggle('bi-eye');
 });
 }
-mudar_senha('togglePassword','senha')
-function abrirjanela(cor, texto, titulo){
-    var tamanho = 'p';
-    var modo = 'alert';
-    janelaPopUp.abre( "asdf", tamanho + " "  + cor + ' ' + modo,  titulo ,  texto)
-}
-if (window.location.href.includes(md5('login=false'))) {
-    abrirjanela('red','Credenciais incorretas!<br>Por favor, verifique os dados inseridos!', 'Falha no login')
-    
-    let nextURL = window.location.href.replace(md5('login=false'),'').replace('?','');
-    let nextState = { additionalInformation: 'Updated the URL with JS' };
-    window.history.replaceState(nextState, 'Login', nextURL);
-    document.getElementById("email").classList.add('vermei')
-    document.getElementById("senha").classList.add('vermei')
-}
 
-if (window.location.href.includes(md5('sucesso=true'))) {
-    abrirjanela('green','Dados cadastrados com sucesso!', 'Cadastro')
-    let nextURL = window.location.href.replace(md5('sucesso=true'),'').replace('?','');
-    let nextState = { additionalInformation: 'Updated the URL with JS' };
-    window.history.replaceState(nextState, 'Login', nextURL);
-}
+mudar_senha('togglePassword','senha_nova')
+mudar_senha('togglePassword_dup','senha_nova_dup')
 
-if (window.location.href.includes(md5('sucesso_senha=true'))) {
-    abrirjanela('green','Senha alterada com sucesso!', 'Recuperação de Conta')
-    let nextURL = window.location.href.replace(md5('sucesso_senha=true'),'').replace('?','');
-    let nextState = { additionalInformation: 'Updated the URL with JS' };
-    window.history.replaceState(nextState, 'Recuperação', nextURL);
+function StrengthChecker(PasswordParameter){
+    if(PasswordParameter.length < 10){
+        strengthBadge.style.color="red"
+        strengthBadge.textContent = 'Senha muito curta'
+    }else if(strongPassword.test(PasswordParameter)) {
+        strengthBadge.style.color="green"
+        strengthBadge.textContent = 'Senha Forte'
+    } else if(mediumPassword.test(PasswordParameter)){
+        
+        strengthBadge.style.color="#b6bf31";
+        strengthBadge.textContent = 'Senha Mediana'
+    } else{
+        strengthBadge.style.color="red"
+        strengthBadge.textContent = 'Senha Fraca'
+    }
 }
 
 function alertaDeErro(elemento, mensagem){
@@ -142,34 +156,30 @@ function alertaDeErro(elemento, mensagem){
     document.getElementById(elemento+'Alert').classList.toggle('none')
 }
 
-$(document).keypress( // desativa tecla ENTER
-    function(event){
-      if (event.which == '13') {
-        event.preventDefault();
-      }
+const senha_nova = document.getElementById('senha_nova')
+const senha_nova_dup = document.getElementById('senha_nova_dup')
+
+function vazio(item){ // verifica se o valor passado está vazio
+    return item.trim() == ''
+}
+
+$("#mudar").submit(function(e) {
+    e.preventDefault();
 });
 
 function validar(){
     limpar_inputs()
-    let email = document.getElementById("email")
-    let senha = document.getElementById("senha")
+    if(vazio(senha_nova.value) || vazio(senha_nova_dup.value)){
+        alertaDeErro(senha_nova.id, "Por favor, preencha as senhas!")
+        senha_nova.focus()
+        senha_nova_dup.classList.add("vermei")
+        senha_nova.classList.add("vermei")
 
-    $("#login").submit(function(e) {
-        e.preventDefault();
-    });
-
-    if (email.value == "" ||  !/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi.test(email.value)){
-        alertaDeErro(email.id, "Por favor, insira um email válido!")
-        email.focus()
-        email.classList.add("vermei")
-
-    } else if (senha.value == ""){
-        alertaDeErro(senha.id, "Por favor, preencha a senha!")
-        senha.focus()
-        senha.classList.add("vermei")
-
-    } else{
-        document.getElementById('login').submit();
-        localStorage.clear();
+    } else if (senha_nova.value != senha_nova_dup.value){
+        alertaDeErro(senha_nova.id, "Senhas não coincidem! Verifique-as e tente novamente")
+        senha_nova_dup.classList.add('vermei')
+        senha_nova.classList.add('vermei')
+    } else {
+        document.getElementById('mudar').submit()
     }
 }
