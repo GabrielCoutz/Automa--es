@@ -15,6 +15,10 @@
   h3{
       cursor: default;
   }
+
+  #texto{
+    cursor: default;
+  }
   
   #ajuda{
     margin-top: 2px;

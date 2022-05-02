@@ -310,6 +310,9 @@ select option[value="1"]{
   display: none; 
   text-align :center;
 }
+h3{
+  cursor: default;
+}
 select{
   cursor: pointer;
 }

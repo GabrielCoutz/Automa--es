@@ -125,7 +125,7 @@ if (window.location.href.includes(md5('sucesso=true'))) {
 }
 
 if (window.location.href.includes(md5('sucesso=false'))) {
-    abrirjanela('red','Sua conta nnão foi localizada!<br>Por favor, verifique se os dados estão escritos corretamente.', 'Recuperação de Conta')
+    abrirjanela('red','Sua conta não foi localizada!<br><br>Por favor, verifique se os dados estão escritos corretamente.', 'Recuperação de Conta')
     
     let nextURL = window.location.href.replace(md5('sucesso=false'),'').replace('?','');
     let nextState = { additionalInformation: 'Updated the URL with JS' };

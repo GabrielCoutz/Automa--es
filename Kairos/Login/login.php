@@ -58,7 +58,7 @@
 						<span>Entrar</span>
 					</button>
 					<div id="esqueci">
-						<a href="../Recuperacao/recuperacao">Esqueci a senha</a>
+						<a href="../Recuperacao/recuperacao" >Esqueci a senha</a>
 					</div>
 					
 					
@@ -68,7 +68,7 @@
 						<a href="../CadastroUsuario/cadastro_usuario">Não possui possui conta? Então cadastre-se</a>
 					</div>
 					<div id='divAjuda'>
-						<a href="../Contato/contato" id='ajuda'>Precisa de ajuda?</a>
+						<a href="../Contato/contato" id='ajuda'target="_blank">Precisa de ajuda?</a>
 					</div>
 				</form>
 				<img src="assets/images/image-2.png" alt="" class="image-2">

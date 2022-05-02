@@ -1,17 +1,24 @@
 <?php
     session_start();
 
-    //ini_set('display_errors', '1');
-    //ini_set('display_startup_errors', '1');
-    //error_reporting(E_ALL);
+    ini_set('display_errors', '1');
+    ini_set('display_startup_errors', '1');
+    error_reporting(E_ALL);
 
     $dbHost     = 'localhost';
     $dbUname = 'root';
     $dbPass = '';
     $dbName     = 'kairos';
-    $cpf = $_SESSION['cpf'];
-
+    
     $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
+    
+    if($conec->connect_error){ // se não for localhost, usa a conexão do banco no site
+        $dbHost = 'sql210.epizy.com';
+        $dbUname = 'epiz_30663895';
+        $dbPass = 'ndLdcOqYk0K';
+        $dbName = 'epiz_30663895_Banco_Kairos';
+        $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
+    }
 
     // SWOT
     $fortes = '';

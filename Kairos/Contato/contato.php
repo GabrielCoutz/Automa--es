@@ -20,14 +20,6 @@
     session_start();
     error_reporting(E_ERROR | E_PARSE);
 
-
-    $dbHost     = 'localhost';
-    $dbUname = 'root';
-    $dbPass = '';
-    $dbName     = 'kairos';
-    $logado = 'false';
-    $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
-
     if(isset($_SESSION['email'])){
       $logado = 'true';
     }

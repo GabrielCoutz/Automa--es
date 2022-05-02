@@ -26,10 +26,20 @@
       error_reporting(E_ERROR | E_PARSE);
 
 
-      $dbHost     = 'localhost';
-      $dbUname = 'root';
-      $dbPass = '';
-      $dbName     = 'kairos';
+        $dbHost     = 'localhost';
+        $dbUname = 'root';
+        $dbPass = '';
+        $dbName     = 'kairos';
+
+        $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
+
+        if($conec->connect_error){ // se não for localhost, usa a conexão do banco no site
+            $dbHost = 'sql210.epizy.com';
+            $dbUname = 'epiz_30663895';
+            $dbPass = 'ndLdcOqYk0K';
+            $dbName = 'epiz_30663895_Banco_Kairos';
+            $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
+        }
       
 
       if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
@@ -38,8 +48,6 @@
       } else {
         $email=$_SESSION['email'];
       }
-
-      $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 
       $select=mysqli_query($conec, "SELECT * FROM usuario WHERE email = '$email'")->fetch_assoc();
       

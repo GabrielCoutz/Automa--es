@@ -20,13 +20,13 @@ if($conec->connect_error){ // se não for localhost, usa a conexão do banco no 
 
 $email=$_POST['email'];
 $cpf=$_POST['cpf'];
-$nome=$_POST['nome'];
+$nome=strtolower($_POST['nome']);
 
 
 $select=mysqli_query($conec, "SELECT email, nome, senha, cpf FROM usuario WHERE cpf ='$cpf'")->fetch_assoc();
 
 if($select){
-    if(trim($email) == $select['email'] && trim($nome) == $select['nome'] && $cpf == $select['cpf']){ // dados corretos
+    if(trim($email) == $select['email'] && trim($nome) == strtolower($select['nome']) && $cpf == $select['cpf']){ // dados corretos
         $_SESSION['cpf']=$select['cpf'];
         header('Location: ../../recuperacao?'.md5('sucesso=true'));
         exit;

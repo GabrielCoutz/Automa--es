@@ -5,9 +5,18 @@ $dbUname = 'root';
 $dbPass = '';
 $dbName     = 'kairos';
 
+$conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
+
+if($conec->connect_error){ // se não for localhost, usa a conexão do banco no site
+    $dbHost = 'sql210.epizy.com';
+    $dbUname = 'epiz_30663895';
+    $dbPass = 'ndLdcOqYk0K';
+    $dbName = 'epiz_30663895_Banco_Kairos';
+    $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
+}
+
 $_SESSION['email']=$_POST['email'];
 
-$conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 
 if (isset($_GET['validar'])){
 

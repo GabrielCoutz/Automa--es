@@ -20,6 +20,10 @@
   display: block;
 }
 
+h3{
+  cursor: default;
+}
+
 #esqueci{
   text-align: right;
   cursor: pointer;

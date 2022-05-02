@@ -13,6 +13,9 @@
 .none{
   display: none;
 }
+h3{
+  cursor: default;
+}
 
 #endereco_hide{
   text-align: center;

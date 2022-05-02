@@ -40,24 +40,30 @@
 			<div class="inner">
 				<form method="POST" id="recuperacao" action="assets/php/config">
 					<h3>Verificação de Identidade</h3>
+					<hr>
+					<p id='texto'>
+						Não tem problema se esqueceu a senha da sua conta, para recuperá-la basta inserir os dados da mesma nos campos abaixo.
+					</p>
+					<hr>
+					
                     <div class="form-holder">
 						<span class="lnr lnr-user"></span>
 						<p>
-							<input type="text" class="form-control" placeholder="Insira seu Nome Completo" id="nome" name='nome' maxlength="100" onkeyup="apenasLetras(this)">
+							<input type="text" class="form-control" placeholder="Nome Completo" id="nome" name='nome' maxlength="100" onkeyup="apenasLetras(this)">
 						</p>
 					</div>
 					<div class='none alerta' id='nomeAlert'></div>
 
 					<div class="form-holder">
 						<span class="lnr lnr-user"></span>
-						<input type="email" class="form-control" placeholder="Insira seu Email" id="email" name='email' maxlength="50">
+						<input type="email" class="form-control" placeholder="Email" id="email" name='email' maxlength="50">
 					</div>
 					<div class='none alerta' id='emailAlert'></div>
 
 					<div class="form-holder">
 						<span class="lnr lnr-user"></span>
 						<p>
-							<input type="tel" class="form-control" placeholder="Insira seu CPF" id="cpf" name='cpf' onkeypress="$(this).mask('000.000.000-00')">
+							<input type="tel" class="form-control" placeholder="CPF" id="cpf" name='cpf' onkeypress="$(this).mask('000.000.000-00')">
 						</p>
 					</div>
 					<div class='none alerta' id='cpfAlert'></div>
@@ -66,7 +72,7 @@
 						<span>Entrar</span>
 					</button>
 					<div id='divAjuda'>
-						<a href="../Contato/contato" id='ajuda'>Precisa de ajuda?</a>
+						<a href="../Contato/contato" id='ajuda' target="_blank">Precisa de ajuda?</a>
 					</div>
 					
 					

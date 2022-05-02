@@ -28,32 +28,38 @@
         $dbUname = 'root';
         $dbPass = '';
         $dbName     = 'kairos';
-    
+
         $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
+
+        if($conec->connect_error){ // se não for localhost, usa a conexão do banco no site
+            $dbHost = 'sql210.epizy.com';
+            $dbUname = 'epiz_30663895';
+            $dbPass = 'ndLdcOqYk0K';
+            $dbName = 'epiz_30663895_Banco_Kairos';
+            $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
+        }
     
-        //$cpf = $_SESSION['cpf'];
-        $cpf = '185.311.040-09';
-        $email='gabriel@gmail.com';
+        $cpf = $_SESSION['cpf'];
     
         $select_swot=mysqli_query($conec, "SELECT * FROM analise_swot WHERE cpf_usuario = '$cpf'")->fetch_assoc();
     
         $select_4ps=mysqli_query($conec, "SELECT * FROM analise_4ps WHERE cpf_usuario = '$cpf'")->fetch_assoc();
 
-        //switch (true) {
-        //    case !isset($_SESSION['email']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true')):
-        //        header("Refresh:0; url=resultado".'?'.md5('erro=true'));
-        //        exit;
-        //        break;
-        //    
-        //    case !$select_swot && !$select_4ps && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('analise=false')) && !strpos//($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('sucesso=false')) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER//['REQUEST_URI'],md5('erro=true')):
-        //        header("Refresh:0; url=resultado".'?'.md5('analise=false'));
-        //        exit;
-        //        break;
-//
-        //    default:
-        //        $email=$_SESSION['email'];
-        //        break;
-        //}
+        switch (true) {
+            case !isset($_SESSION['email']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true')):
+                header("Refresh:0; url=resultado".'?'.md5('erro=true'));
+                exit;
+                break;
+            
+            case !$select_swot && !$select_4ps && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('analise=false')) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('sucesso=false')) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true')):
+                header("Refresh:0; url=resultado".'?'.md5('analise=false'));
+                exit;
+                break;
+
+            default:
+                $email=$_SESSION['email'];
+                break;
+        }
 
     ?>
  </head>
@@ -258,7 +264,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="../../Contato/contato" id='suporte'>Suporte</a>
+                                <a href="../../Contato/contato" id='suporte' >Suporte</a>
                             </li>
                         </ul>
                     </nav>

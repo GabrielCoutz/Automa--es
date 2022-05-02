@@ -6,10 +6,18 @@ $dbUname = 'root';
 $dbPass = '';
 $dbName     = 'kairos';
 
+$conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
+
+if($conec->connect_error){ // se não for localhost, usa a conexão do banco no site
+    $dbHost = 'sql210.epizy.com';
+    $dbUname = 'epiz_30663895';
+    $dbPass = 'ndLdcOqYk0K';
+    $dbName = 'epiz_30663895_Banco_Kairos';
+    $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
+}
+
 $duplicado=false;
 $local='../../cadastro_empresa';
-
-$conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 
 $cpf=$_SESSION['cpf'];
 $nome_empresa=$_POST['nome_empresa'];

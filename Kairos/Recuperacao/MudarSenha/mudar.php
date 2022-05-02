@@ -62,7 +62,7 @@
 						<span>Entrar</span>
 					</button>
 					<div id='divAjuda'>
-						<a href="../../Contato/contato" id='ajuda'>Precisa de ajuda?</a>
+						<a href="../../Contato/contato" id='ajuda' target="_blank">Precisa de ajuda?</a>
 					</div>
 					
 					
