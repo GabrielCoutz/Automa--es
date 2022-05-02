@@ -14,10 +14,17 @@
 
 #ajuda{
   margin-top: 2px;
-  text-align: right;
+  text-align: center;
   margin-bottom: 1px;
   cursor: pointer;
   display: block;
+}
+
+#esqueci{
+  text-align: right;
+  cursor: pointer;
+  display: block;
+  margin-top: 3px;
 }
 
 .none{
@@ -35,7 +42,7 @@
 
 #divAjuda{
   display: grid;
-  justify-items: end;
+  margin-top: 6px;
 }
 
 * {

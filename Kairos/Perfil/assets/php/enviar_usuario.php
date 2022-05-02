@@ -8,7 +8,6 @@ $dbName     = 'kairos';
 $local='../../usuario';
 $duplicado=false;
 $email_padrao=$_SESSION['email_padrao'];
-$tel_padrao=$_SESSION['tel_padrao'];
 $nome_padrao=$_SESSION['nome_padrao'];
 
 $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
@@ -121,7 +120,6 @@ if(isset($_COOKIE['usuario'])){ // alteração de dados usuário
         if ($tels != 0){
             for($i= 0 ; $i < $tels ; $i++){
                 $tel_add = $_COOKIE['phone'.$num.'number'];
-                $aaa = "INSERT INTO telefone(cpf_usuario,tel) VALUES('$cpf', '$tel_add')";
                 
                 $result=mysqli_query($conec,"INSERT INTO telefone(cpf_usuario,tel) VALUES('$cpf','$tel_add')");
                 $num+=1;

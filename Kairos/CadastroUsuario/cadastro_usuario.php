@@ -47,7 +47,7 @@
 
                 <div class="form-holder">
                     <span class="lnr lnr-user"></span>
-                    <input type="text" class="form-control" placeholder="Nome Completo" id='nome' name='nome' onkeyup="apenasLetras(this)" maxlength="50">
+                    <input type="text" class="form-control" placeholder="Nome Completo" id='nome' name='nome' onkeyup="apenasLetras(this)" maxlength="100">
                 </div>
                 <div class='none alerta' id='nomeAlert'></div>
 
