@@ -73,7 +73,7 @@
 		</div>
 		<script src="assets/js/jquery-3.3.1.min.js"></script>
 		<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js'></script>
+		<script src="https://cdn.lordicon.com/lusqsztk.js"></script>
 		<script src="assets/js/validar.js"></script>
-		<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js'></script>
 	</body>
 </html>

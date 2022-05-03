@@ -19,6 +19,11 @@
   cursor: pointer;
   display: block;
 }
+lord-icon{
+  position: absolute !important;
+  margin-top: -14px;
+  right: 127px;
+}
 
 h3{
   cursor: default;

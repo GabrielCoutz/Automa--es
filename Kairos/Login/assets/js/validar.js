@@ -24,7 +24,8 @@ const limpar_alertas = function(){
 }
 // -------------------- início código popup --------------------
 var janelaPopUp = new Object();
-janelaPopUp.abre = function(id, classes, titulo, corpo, functionCancelar, functionEnviar, textoCancelar, textoEnviar){
+janelaPopUp.abre = function(id, classes, titulo, corpo, functionCancelar, functionEnviar, textoCancelar, textoEnviar, icone){
+    let icon = icone
     var cancelar = (textoCancelar !== undefined)? textoCancelar: 'Ok';
     var enviar = (textoEnviar !== undefined)? textoEnviar: 'Send';
     classes += ' ';
@@ -44,10 +45,25 @@ janelaPopUp.abre = function(id, classes, titulo, corpo, functionCancelar, functi
             default : classes += this + ' '; break;
         }
     });
+
+    var src = ''
+    var trigger = ''
+    var delay = ''
+    var colors = ''
+    var style = ''
+    console.log(icon)
+    if (icon == 'sucesso'){
+        src = "src='https://cdn.lordicon.com/lupuorrc.json' "
+        trigger = "trigger='loop' "
+        delay = "delay='1000' "
+        colors = "colors='primary:#121331,secondary:#ffffff' "
+        style = "style='width:46px;height:46px'> "
+    }
+
     var popFundo = '<div id="popFundo_' + id + '" class="popUpFundo ' + classesFundo + '"></div>'
-    var janela = '<div id="' + id + '" class="popUp ' + classes + '"><h1>' + titulo + "</h1><div><span>" + corpo + "</span></div><button class='puCancelar " + classBot + "' id='" + id +"_cancelar' data-parent=" + id + ">" + cancelar + "</button><button class='puEnviar " + classBot + "' data-parent=" + id + " id='" + id +"_enviar'>" + enviar + "</button></div>";
+    var janela = '<div id="' + id + '" class="popUp ' + classes + '"><h1>' + titulo + "</h1><div>"+"<lord-icon " + src + trigger + delay + colors + style + "</lord-icon><span>" + corpo + "</span></div><button class='puCancelar " + classBot + "' id='" + id +"_cancelar' data-parent=" + id + ">" + cancelar + "</button><button class='puEnviar " + classBot + "' data-parent=" + id + " id='" + id +"_enviar'>" + enviar + "</button></div>";
     $("window, body").css('overflow', 'hidden');
-    
+    console.log(src)
     $("body").append(popFundo);
     $("body").append(janela);
     $("body").append(popFundo);
@@ -108,13 +124,15 @@ function mudar_senha(botao,elemento){
 });
 }
 mudar_senha('togglePassword','senha')
-function abrirjanela(cor, texto, titulo){
-    var tamanho = 'p';
-    var modo = 'alert';
-    janelaPopUp.abre( "asdf", tamanho + " "  + cor + ' ' + modo,  titulo ,  texto)
+function abrirjanela(cor, texto, titulo, icone){
+    let icon = icone
+    console.log(icon)
+    let tamanho = 'p';
+    let modo = 'alert';
+    janelaPopUp.abre( "asdf", tamanho + " "  + cor + ' ' + modo,  titulo ,  texto, icon)
 }
 if (window.location.href.includes(md5('login=false'))) {
-    abrirjanela('red','Credenciais incorretas!<br>Por favor, verifique os dados inseridos!', 'Falha no login')
+    abrirjanela('red','Credenciais incorretas!<br>Por favor, verifique os dados inseridos!', 'Falha no login','falha')
     
     let nextURL = window.location.href.replace(md5('login=false'),'').replace('?','');
     let nextState = { additionalInformation: 'Updated the URL with JS' };
@@ -124,7 +142,7 @@ if (window.location.href.includes(md5('login=false'))) {
 }
 
 if (window.location.href.includes(md5('sucesso=true'))) {
-    abrirjanela('green','Dados cadastrados com sucesso!', 'Cadastro')
+    abrirjanela('green','Dados cadastrados com sucesso!', 'Cadastro', 'sucesso')
     let nextURL = window.location.href.replace(md5('sucesso=true'),'').replace('?','');
     let nextState = { additionalInformation: 'Updated the URL with JS' };
     window.history.replaceState(nextState, 'Login', nextURL);
