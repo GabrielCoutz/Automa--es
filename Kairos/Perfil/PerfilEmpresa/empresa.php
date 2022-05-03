@@ -267,7 +267,7 @@ use function PHPSTORM_META\type;
                                 </a>
                             </li>
                             <li>
-                                <a href="../../Contato/contato" id='suporte'>Suporte</a>
+                                <a href="../../Contato/contato" id='suporte' target="_blank">Suporte</a>
                             </li>
                         </ul>
                     </nav>

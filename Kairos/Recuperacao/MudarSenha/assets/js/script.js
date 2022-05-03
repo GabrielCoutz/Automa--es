@@ -46,8 +46,15 @@ janelaPopUp.abre = function(id, classes, titulo, corpo, functionCancelar, functi
             default : classes += this + ' '; break;
         }
     });
+
+    let src = "src='https://cdn.lordicon.com/iltqorsz.json' "
+    let trigger = "trigger='loop' "
+    let delay = "delay='1000' "
+    let colors = "colors='primary:#121331,secondary:#ffffff' "
+    let style = "style='width:46px;height:46px'> "
+
     var popFundo = '<div id="popFundo_' + id + '" class="popUpFundo ' + classesFundo + '"></div>'
-    var janela = '<div id="' + id + '" class="popUp ' + classes + '"><h1>' + titulo + "</h1><div><span>" + corpo + "</span></div><button class='puCancelar " + classBot + "' id='" + id +"_cancelar' data-parent=" + id + ">" + cancelar + "</button><button class='puEnviar " + classBot + "' data-parent=" + id + " id='" + id +"_enviar'>" + enviar + "</button></div>";
+    var janela = '<div id="' + id + '" class="popUp ' + classes + '"><h1>' + titulo + "</h1><div>"+"<lord-icon " + src + trigger + delay + colors + style + "</lord-icon><span>" + corpo + "</span></div><button class='puCancelar " + classBot + "' id='" + id +"_cancelar' data-parent=" + id + ">" + cancelar + "</button><button class='puEnviar " + classBot + "' data-parent=" + id + " id='" + id +"_enviar'>" + enviar + "</button></div>";
     $("window, body").css('overflow', 'hidden');
     
     $("body").append(popFundo);
@@ -100,6 +107,11 @@ janelaPopUp.fecha = function(id){
        
     }
     
+}
+function abrirjanela(cor, texto, titulo){
+    let tamanho = 'p';
+    let modo = 'alert';
+    janelaPopUp.abre( "asdf", tamanho + " "  + cor + ' ' + modo,  titulo ,  texto)
 }
 // -------------------- fim código popup --------------------
 
@@ -154,6 +166,14 @@ function StrengthChecker(PasswordParameter){
 function alertaDeErro(elemento, mensagem){
     document.getElementById(elemento+'Alert').innerHTML = mensagem
     document.getElementById(elemento+'Alert').classList.toggle('none')
+}
+
+if (window.location.href.includes(md5('conta_encontrada=true'))) {
+    abrirjanela('green','Sua conta foi localizada com sucesso!<br>Agora basta inserir sua nova senha.', 'Recuperação de Conta')
+    
+    let nextURL = window.location.href.replace(md5('sucesso=true'),'').replace('?','');
+    let nextState = { additionalInformation: 'Updated the URL with JS' };
+    window.history.replaceState(nextState, 'Recuperação', nextURL);
 }
 
 const senha_nova = document.getElementById('senha_nova')

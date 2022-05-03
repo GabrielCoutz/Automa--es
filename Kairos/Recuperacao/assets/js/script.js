@@ -102,8 +102,8 @@ janelaPopUp.fecha = function(id){
     
 }
 function abrirjanela(cor, texto, titulo){
-    var tamanho = 'p';
-    var modo = 'alert';
+    let tamanho = 'p';
+    let modo = 'alert';
     janelaPopUp.abre( "asdf", tamanho + " "  + cor + ' ' + modo,  titulo ,  texto)
 }
 // -------------------- fim código popup --------------------
@@ -116,15 +116,14 @@ function alertaDeErro(elemento, mensagem){
     document.getElementById(elemento+'Alert').classList.toggle('none')
 }
 
-if (window.location.href.includes(md5('sucesso=true'))) {
-    abrirjanela('green','Sua conta foi localizada!<br>Proseguindo para alteração de senha ...', 'Recuperação de Conta')
-    
-    let nextURL = window.location.href.replace(md5('sucesso=true'),'').replace('?','');
+if (window.location.href.includes(md5('erro=true'))){ //erro no captcha
+    abrirjanela('red','Possível Fraude detectada!<br>Por favor, insira as informações novamente.','Erro no CAPTCHA')
+    let nextURL = window.location.href.replace(md5('erro=true'),'').replace('?','');
     let nextState = { additionalInformation: 'Updated the URL with JS' };
     window.history.replaceState(nextState, 'Recuperação', nextURL);
 }
 
-if (window.location.href.includes(md5('sucesso=false'))) {
+if (window.location.href.includes(md5('sucesso=false'))) { // dados incorretos ou conta não existe
     abrirjanela('red','Sua conta não foi localizada!<br><br>Por favor, verifique se os dados estão escritos corretamente.', 'Recuperação de Conta')
     
     let nextURL = window.location.href.replace(md5('sucesso=false'),'').replace('?','');
@@ -160,6 +159,12 @@ $("#recuperacao").submit(function(e) {
         e.preventDefault();
 });
 
+$(document).ready(function(){ // desabilita CTRL+V por motivos de incompatibilidade de máscara
+    $('#cpf').on("cut copy paste",function(e) {
+        e.preventDefault();
+     });
+});
+
 
 function validar(){
     if(vazio(nome.value)){
@@ -174,6 +179,8 @@ function validar(){
         alertaDeErro(cpf.id, 'Por favor, preencha o CPF!')
         cpf.focus()
         cpf.classList.add('vermei')
+    } else if (grecaptcha.getResponse() == ""){
+        alertaDeErro(captcha.id, 'Por favor, preencha o CAPTCHA!')
     } else {
         abrirjanela('blue','Validando Dados ... ','Recuperação de Conta')
         document.getElementById('asdf_cancelar').style.display = 'none'

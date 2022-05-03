@@ -24,6 +24,10 @@ h3{
   cursor: default;
 }
 
+#login{
+  border-radius: 8px;
+}
+
 #esqueci{
   text-align: right;
   cursor: pointer;
@@ -45,8 +49,11 @@ h3{
 
 
 #divAjuda{
-  display: grid;
   margin-top: 6px;
+}
+
+#esqueci:hover, #signup:hover, #divAjuda:hover{
+  cursor: default !important;
 }
 
 * {

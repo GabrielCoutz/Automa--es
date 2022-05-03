@@ -18,6 +18,26 @@ if($conec->connect_error){ // se não for localhost, usa a conexão do banco no 
     $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 }
 
+//if(isset($_POST['g-recaptcha-response']) && $_POST['g-recaptcha-response'] != ""){
+//    $url='https://www.google.com/recaptcha/api/siteverify';
+//    $secret = '6Ld5L3oeAAAAAF7ExJjjJbY9EnWGQSyjCin5aGRL';
+//    $response = $_POST['g-recaptcha-response'];
+//    $variaveis = "secret=".$secret."&response=".$response;
+//
+//    $ch = curl_init($url);
+//    curl_setopt($ch, CURLOPT_POST, 1);
+//    curl_setopt($ch, CURLOPT_POSTFIELDS, $variaveis);
+//    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+//    curl_setopt($ch, CURLOPT_HEADER, 0);
+//    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+//    $resp = json_decode(curl_exec($ch));
+//
+//    if ($resp->success != 1){
+//        header('Location: ../../recuperacao?'.md5('erro=true'));
+//        exit;
+//    }
+//}
+
 $email=$_POST['email'];
 $cpf=$_POST['cpf'];
 $nome=strtolower($_POST['nome']);

@@ -212,6 +212,10 @@ input:focus, input:hover{
   }
 }
 
+.bi-eye-slash{
+  cursor: pointer !important;
+}
+
 #paginaInicial:hover, #suporte:hover{
   color: #3d9cff;
 }

@@ -131,7 +131,7 @@
 						<div class="about-content mb-50">
 							<div class="section-title mb-50 fadeInLeft mouseoff">
 								<h1 class="mb-25">Conheça um pouco sobre nós</h1>
-								<p>Utilizamos táticas de marketing para axuliar na criação e desenvolimento de empresas, apoiando startups, micro e pequenas empresas a entenderem seu público alvo e personas, bem como posicionar serviços e produtos, que não só atendam mas superem as expectativas de seus clientes.</p>
+								<p>Utilizamos táticas de marketing para auxiliar na criação e desenvolimento de negócios, apoiando startups, micro e pequenas empresas a entenderem seu público alvo e personas, bem como posicionar serviços e produtos, que não só atendam mas superem as expectativas de seus clientes.</p>
 							</div>
 							<div class="accordion pb-15" id="accordionExample">
 								<div class="single-faq">
@@ -420,7 +420,7 @@
 									<li> <a href="#service">Sobre</a> </li>
 									<li> <a href="#service">Métodos</a> </li>
 									<li> <a href="#pricing">Planos</a> </li>
-									<li> <a href="Contato/contato">Contato</a> </li>
+									<li> <a href="Contato/contato" target="_blank">Contato</a> </li>
 								</ul>
 							</div>
 						</div>

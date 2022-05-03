@@ -12,10 +12,12 @@
 		<link rel="stylesheet" href="assets/css/popup.css">
 		<link rel="shortcut icon" href="../assets/img/favicon/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+		<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 		<?php
 			error_reporting(E_ERROR | E_PARSE);
 			if(isset($_GET[md5('sucesso=true')])){
-				header('Location: MudarSenha/mudar');
+				header('Location: MudarSenha/mudar?'.md5('conta_encontrada=true'));
+				exit;
 			}
 		?>
 	</head>
@@ -67,6 +69,9 @@
 						</p>
 					</div>
 					<div class='none alerta' id='cpfAlert'></div>
+
+					<div class="g-recaptcha" data-sitekey="6Ld5L3oeAAAAAAH8CgndVZBek5uasbGl5mroKjP5" id="captcha"></div>
+                	<div class='none alerta' id='captchaAlert'></div>
 
 					<button type='submit' class="btn btn-warning" id='butao' name="butao" onclick="validar()">
 						<span>Entrar</span>

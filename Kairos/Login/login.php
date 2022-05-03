@@ -58,11 +58,8 @@
 						<span>Entrar</span>
 					</button>
 					<div id="esqueci">
-						<a href="../Recuperacao/recuperacao" >Esqueci a senha</a>
+						<a href="../Recuperacao/recuperacao">Esqueci a senha</a>
 					</div>
-					
-					
-						
 					
 					<div id='signup'>
 						<a href="../CadastroUsuario/cadastro_usuario">Não possui possui conta? Então cadastre-se</a>

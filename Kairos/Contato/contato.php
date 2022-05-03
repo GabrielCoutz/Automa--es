@@ -18,11 +18,6 @@
 
     <?php
     session_start();
-    error_reporting(E_ERROR | E_PARSE);
-
-    if(isset($_SESSION['email'])){
-      $logado = 'true';
-    }
     ?>
   </head>
   <body>
@@ -48,7 +43,6 @@
   <div class="content">
     
     <div class="container caixa">
-      <div class='none' id='logado'><a><?= $logado?></a></div>
       <div class="row justify-content-center">
         <div class="col-md-10">
           
