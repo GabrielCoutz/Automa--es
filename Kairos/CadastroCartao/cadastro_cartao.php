@@ -215,6 +215,8 @@
   <script src='https://unpkg.com/vue-the-mask@0.11.1/dist/vue-the-mask.js'></script>
   <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
   <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js'></script>
+  <script src="https://cdn.lordicon.com/lusqsztk.js"></script>
+  <script src="../assets/js/popup.js"></script>
   <script  src="assets/js/script.js"></script>
 
 </body>

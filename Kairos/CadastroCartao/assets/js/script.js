@@ -12,6 +12,7 @@ function nada(){
 }
 // -------------------- início código popup --------------------
 var janelaPopUp = new Object();
+var iconee = ''
 
 janelaPopUp.abre = function(id, classes, titulo, corpo, functionCancelar, functionEnviar, textoCancelar, textoEnviar){
     var cancelar = (textoCancelar !== undefined)? textoCancelar: 'Ok';
@@ -33,8 +34,29 @@ janelaPopUp.abre = function(id, classes, titulo, corpo, functionCancelar, functi
             default : classes += this + ' '; break;
         }
     });
+
+    let src = ''
+    let trigger = "trigger='loop' "
+    let delay = "delay='1000' "
+    let colors = "colors= 'primary:#121331,secondary:#ffffff' "
+    let style= "style= 'width:46px;height:46px'> "
+
+    switch (true) { // determina qual ícone aparecerá no popup de acordo com a string passada na varaiável 'icone'
+      case iconee == 'sucesso':
+        src = "src='https://cdn.lordicon.com/lupuorrc.json' "
+        break;
+      case iconee == 'falha':
+            src = "src= 'https://cdn.lordicon.com/tdrtiskw.json' "
+            break;
+      case iconee == 'carregar':
+            src = "src= 'https://cdn.lordicon.com/dpinvufc.json' "
+            delay = "delay = '10' "
+            colors = " colors= 'primary:#ffffff,secondary:#ffffff' "
+            break;
+    }
+  
     var popFundo = '<div id="popFundo_' + id + '" class="popUpFundo ' + classesFundo + '"></div>'
-    var janela = '<div id="' + id + '" class="popUp ' + classes + '"><h1>' + titulo + "</h1><div><span>" + corpo + "</span></div><button class='puCancelar " + classBot + "' id='" + id +"_cancelar' data-parent=" + id + ">" + cancelar + "</button><button class='puEnviar " + classBot + "' data-parent=" + id + " id='" + id +"_enviar'>" + enviar + "</button></div>";
+    var janela = '<div id="' + id + '" class="popUp ' + classes + '"><h1>' + titulo + "</h1><div>"+"<lord-icon " + src + trigger + delay + colors + style + "</lord-icon><span>" + corpo + "</span></div><button class='puCancelar " + classBot + "' id='" + id +"_cancelar' data-parent=" + id + ">" + cancelar + "</button><button class='puEnviar " + classBot + "' data-parent=" + id + " id='" + id +"_enviar'>" + enviar + "</button></div>";
     $("window, body").css('overflow', 'hidden');
     
     $("body").append(popFundo);
@@ -90,9 +112,10 @@ janelaPopUp.fecha = function(id){
             }
           }
           
-    function abrirjanela(cor, texto, titulo){
+    function abrirjanela(cor, texto, titulo, trigger){
       var tamanho = 'p';
       var modo = 'alert';
+      iconee = trigger
       janelaPopUp.abre( "asdf", tamanho + " "  + cor + ' ' + modo,  titulo ,  texto)
     }
 // -------------------- fim código popup --------------------
@@ -123,7 +146,7 @@ const limpar_alertas = function(){
 
 
 if (window.location.href.includes(md5('erro=true'))) { // erro de cadastro
-  abrirjanela('red','<br>Não foi possível realizar o cadastro!', 'Conta não sincronizada')
+  abrirjanela('red','<br>Não foi possível realizar o cadastro!', 'Conta não sincronizada', 'falha')
   
   document.getElementById('asdf_cancelar').style.display = 'none'
   setTimeout(nada , 4000)
@@ -209,7 +232,7 @@ function validar(){
     cvv().classList.add('vermei')
 
   } else {
-    abrirjanela('green','Cartão cadastrado com sucesso!','Sucesso')
+    abrirjanela('green','Cartão cadastrado com sucesso!','Sucesso', 'sucesso')
     document.getElementById('asdf_cancelar').addEventListener('click',function(){
       document.getElementById('cadastro_cartao').submit()
       localStorage.clear();

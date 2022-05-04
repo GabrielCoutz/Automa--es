@@ -22,9 +22,13 @@ const limpar_alertas = function(){
         }
     }
 }
+function nada(){
+    document.getElementById('asdf_cancelar').click()
+}
 
 // -------------------- início código popup --------------------
 var janelaPopUp = new Object();
+let icone = ''
 
 janelaPopUp.abre = function(id, classes, titulo, corpo, functionCancelar, functionEnviar, textoCancelar, textoEnviar){
     var cancelar = (textoCancelar !== undefined)? textoCancelar: 'Ok';
@@ -46,12 +50,20 @@ janelaPopUp.abre = function(id, classes, titulo, corpo, functionCancelar, functi
             default : classes += this + ' '; break;
         }
     });
-
-    let src = "src='https://cdn.lordicon.com/iltqorsz.json' "
+    let src = ''
     let trigger = "trigger='loop' "
     let delay = "delay='1000' "
-    let colors = "colors='primary:#121331,secondary:#ffffff' "
-    let style = "style='width:46px;height:46px'> "
+    let colors = "colors= 'primary:#121331,secondary:#ffffff' "
+    let style= "style= 'width:46px;height:46px'> "
+
+    switch (true) { // determina qual ícone aparecerá no popup de acordo com a string passada na varaiável 'icone'
+        case icone == 'falha':
+            src = "src= 'https://cdn.lordicon.com/tdrtiskw.json' ";
+            break;
+        case icone == 'encontrado':
+            src = "src= 'https://cdn.lordicon.com/iltqorsz.json' "
+            break;
+    }
 
     var popFundo = '<div id="popFundo_' + id + '" class="popUpFundo ' + classesFundo + '"></div>'
     var janela = '<div id="' + id + '" class="popUp ' + classes + '"><h1>' + titulo + "</h1><div>"+"<lord-icon " + src + trigger + delay + colors + style + "</lord-icon><span>" + corpo + "</span></div><button class='puCancelar " + classBot + "' id='" + id +"_cancelar' data-parent=" + id + ">" + cancelar + "</button><button class='puEnviar " + classBot + "' data-parent=" + id + " id='" + id +"_enviar'>" + enviar + "</button></div>";
@@ -108,9 +120,10 @@ janelaPopUp.fecha = function(id){
     }
     
 }
-function abrirjanela(cor, texto, titulo){
+function abrirjanela(cor, texto, titulo, trigger){
     let tamanho = 'p';
     let modo = 'alert';
+    icone = trigger
     janelaPopUp.abre( "asdf", tamanho + " "  + cor + ' ' + modo,  titulo ,  texto)
 }
 // -------------------- fim código popup --------------------
@@ -169,9 +182,21 @@ function alertaDeErro(elemento, mensagem){
 }
 
 if (window.location.href.includes(md5('conta_encontrada=true'))) {
-    abrirjanela('green','Sua conta foi localizada com sucesso!<br>Agora basta inserir sua nova senha.', 'Recuperação de Conta')
+    abrirjanela('green','Sua conta foi localizada com sucesso!<br>Agora basta inserir sua nova senha.', 'Recuperação de Conta', 'encontrado')
     
-    let nextURL = window.location.href.replace(md5('sucesso=true'),'').replace('?','');
+    let nextURL = window.location.href.replace(md5('conta_encontrada=true'),'').replace('?','');
+    let nextState = { additionalInformation: 'Updated the URL with JS' };
+    window.history.replaceState(nextState, 'Recuperação', nextURL);
+}
+
+if (window.location.href.includes(md5('erro=true'))) { // erro de cadastro
+    abrirjanela('red','<br>Não foi possível realizar o cadastro!', 'Conta não sincronizada','falha')
+    document.getElementById('asdf_cancelar').style.display = 'none'
+    setTimeout(nada , 4000)
+    document.getElementById('asdf_cancelar').addEventListener('click',function(){
+            window.location.href = "../../index"})
+
+    let nextURL = window.location.href.replace(md5('erro=true'),'').replace('?','');
     let nextState = { additionalInformation: 'Updated the URL with JS' };
     window.history.replaceState(nextState, 'Recuperação', nextURL);
 }

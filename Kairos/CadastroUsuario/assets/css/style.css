@@ -20,6 +20,11 @@
 #captchaAlert{
   margin-top: 5px;
 }
+lord-icon{
+  position: absolute !important;
+  margin-top: -14px;
+  right: 127px;
+}
 
 .alerta{
   margin-top: -21px;

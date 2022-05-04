@@ -27,6 +27,7 @@ function nada(){
 }
 // -------------------- início código popup --------------------
 var janelaPopUp = new Object();
+let icone = ''
 janelaPopUp.abre = function(id, classes, titulo, corpo, functionCancelar, functionEnviar, textoCancelar, textoEnviar){
     var cancelar = (textoCancelar !== undefined)? textoCancelar: 'Ok';
     var enviar = (textoEnviar !== undefined)? textoEnviar: 'Send';
@@ -47,8 +48,27 @@ janelaPopUp.abre = function(id, classes, titulo, corpo, functionCancelar, functi
             default : classes += this + ' '; break;
         }
     });
+    let src = ''
+    let trigger = "trigger='loop' "
+    let delay = "delay='1000' "
+    let colors = "colors= 'primary:#121331,secondary:#ffffff' "
+    let style= "style= 'width:46px;height:46px'> "
+
+    switch (true) { // determina qual ícone aparecerá no popup de acordo com a string passada na varaiável 'icone'
+        case icone == 'sucesso':
+            src = "src='https://cdn.lordicon.com/lupuorrc.json' "
+            break;
+        case icone == 'falha':
+            src = "src= 'https://cdn.lordicon.com/tdrtiskw.json' ";
+            break;
+        case icone == 'carregar':
+            src = "src= 'https://cdn.lordicon.com/dpinvufc.json' "
+            delay = "delay = '10' "
+            colors = " colors= 'primary:#ffffff,secondary:#ffffff' "
+            break;
+    }
     var popFundo = '<div id="popFundo_' + id + '" class="popUpFundo ' + classesFundo + '"></div>'
-    var janela = '<div id="' + id + '" class="popUp ' + classes + '"><h1>' + titulo + "</h1><div><span>" + corpo + "</span></div><button class='puCancelar " + classBot + "' id='" + id +"_cancelar' data-parent=" + id + ">" + cancelar + "</button><button class='puEnviar " + classBot + "' data-parent=" + id + " id='" + id +"_enviar'>" + enviar + "</button></div>";
+    var janela = '<div id="' + id + '" class="popUp ' + classes + '"><h1>' + titulo + "</h1><div>"+"<lord-icon " + src + trigger + delay + colors + style + "</lord-icon><span>" + corpo + "</span></div><button class='puCancelar " + classBot + "' id='" + id +"_cancelar' data-parent=" + id + ">" + cancelar + "</button><button class='puEnviar " + classBot + "' data-parent=" + id + " id='" + id +"_enviar'>" + enviar + "</button></div>";
     $("window, body").css('overflow', 'hidden');
     
     $("body").append(popFundo);
@@ -101,15 +121,17 @@ janelaPopUp.fecha = function(id){
     
     
 }
-function abrirjanela(cor, texto, titulo){
+function abrirjanela(cor, texto, titulo, trigger){
     let tamanho = 'p';
     let modo = 'alert';
+    icone = trigger
     janelaPopUp.abre( "asdf", tamanho + " "  + cor + ' ' + modo,  titulo ,  texto)
 }
 // -------------------- fim código popup --------------------
 const nome = document.getElementById('nome')
 const email = document.getElementById('email')
 const cpf = document.getElementById('cpf')
+const captcha = document.getElementById('captcha')
 
 function alertaDeErro(elemento, mensagem){
     document.getElementById(elemento+'Alert').innerHTML = mensagem
@@ -117,14 +139,14 @@ function alertaDeErro(elemento, mensagem){
 }
 
 if (window.location.href.includes(md5('erro=true'))){ //erro no captcha
-    abrirjanela('red','Possível Fraude detectada!<br>Por favor, insira as informações novamente.','Erro no CAPTCHA')
+    abrirjanela('red','Possível Fraude detectada!<br>Por favor, insira as informações novamente.','Erro no CAPTCHA', 'falha')
     let nextURL = window.location.href.replace(md5('erro=true'),'').replace('?','');
     let nextState = { additionalInformation: 'Updated the URL with JS' };
     window.history.replaceState(nextState, 'Recuperação', nextURL);
 }
 
 if (window.location.href.includes(md5('sucesso=false'))) { // dados incorretos ou conta não existe
-    abrirjanela('red','Sua conta não foi localizada!<br><br>Por favor, verifique se os dados estão escritos corretamente.', 'Recuperação de Conta')
+    abrirjanela('red','Sua conta não foi localizada!<br><br>Por favor, verifique se os dados estão escritos corretamente.', 'Recuperação de Conta', 'falha')
     
     let nextURL = window.location.href.replace(md5('sucesso=false'),'').replace('?','');
     let nextState = { additionalInformation: 'Updated the URL with JS' };
@@ -153,8 +175,6 @@ function apenasLetras(event) { // deixa apenas letras com ou sem acento serem di
     }
 }
 
-
-
 $("#recuperacao").submit(function(e) {
         e.preventDefault();
 });
@@ -164,7 +184,6 @@ $(document).ready(function(){ // desabilita CTRL+V por motivos de incompatibilid
         e.preventDefault();
      });
 });
-
 
 function validar(){
     if(vazio(nome.value)){
@@ -182,7 +201,7 @@ function validar(){
     } else if (grecaptcha.getResponse() == ""){
         alertaDeErro(captcha.id, 'Por favor, preencha o CAPTCHA!')
     } else {
-        abrirjanela('blue','Validando Dados ... ','Recuperação de Conta')
+        abrirjanela('blue','Validando Dados','Recuperação de Conta', 'carregar')
         document.getElementById('asdf_cancelar').style.display = 'none'
         setTimeout(nada , 4000)
         document.getElementById('asdf_cancelar').addEventListener('click',function(){

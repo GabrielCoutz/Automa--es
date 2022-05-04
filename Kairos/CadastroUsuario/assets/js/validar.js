@@ -1,3 +1,7 @@
+
+abrirjanela('green','et','fds','sucesso')
+
+
 window.onload = function () {
     window.setTimeout(fadeout, 500);
 }
@@ -10,86 +14,6 @@ function fadeout() {
 function nada(){
     document.getElementById('asdf_cancelar').click()
 }
-
-// -------------------- início código popup --------------------
-var janelaPopUp = new Object();
-
-janelaPopUp.abre = function(id, classes, titulo, corpo, functionCancelar, functionEnviar, textoCancelar, textoEnviar){
-    var cancelar = (textoCancelar !== undefined)? textoCancelar: 'Ok';
-    var enviar = (textoEnviar !== undefined)? textoEnviar: 'Send';
-    classes += ' ';
-    var classArray = classes.split(' ');
-    classes = '';
-    classesFundo = '';
-    var classBot = '';
-    $.each(classArray, function(index, value){
-        switch(value){
-            case 'alert' : classBot += ' alert '; break;
-            case 'blue' : classesFundo += this + ' ';
-            case 'green' : classesFundo += this + ' ';
-            case 'red' : classesFundo += this + ' ';
-            case 'white': classesFundo += this + ' ';
-            case 'orange': classesFundo += this + ' ';
-            case 'purple': classesFundo += this + ' ';
-            default : classes += this + ' '; break;
-        }
-    });
-    var popFundo = '<div id="popFundo_' + id + '" class="popUpFundo ' + classesFundo + '"></div>'
-    var janela = '<div id="' + id + '" class="popUp ' + classes + '"><h1>' + titulo + "</h1><div><span>" + corpo + "</span></div><button class='puCancelar " + classBot + "' id='" + id +"_cancelar' data-parent=" + id + ">" + cancelar + "</button><button class='puEnviar " + classBot + "' data-parent=" + id + " id='" + id +"_enviar'>" + enviar + "</button></div>";
-    $("window, body").css('overflow', 'hidden');
-    
-    $("body").append(popFundo);
-    $("body").append(janela);
-    $("body").append(popFundo);
-     //alert(janela);
-    $("#popFundo_" + id).fadeIn("fast");
-    $("#" + id).addClass("popUpEntrada");
-    
-    $("#" + id + '_cancelar').on("click", function(){
-        if((functionCancelar !== undefined) && (functionCancelar !== '')){
-            functionCancelar();
-            
-        }else{
-            janelaPopUp.fecha(id);
-        }
-    });
-    $("#" + id + '_enviar').on("click", function(){
-        if((functionEnviar !== undefined) && (functionEnviar !== '')){
-            functionEnviar();
-        }else{
-            janelaPopUp.fecha(id);
-        }
-    });
-    
-};
-
-janelaPopUp.fecha = function(id){
-    if(id !== undefined){
-        $("#" + id).removeClass("popUpEntrada").addClass("popUpSaida"); 
-        
-            $("#popFundo_" + id).fadeOut(1000, function(){
-                $("#popFundo_" + id).remove();
-                $("#" + $(this).attr("id") + ", #" + id).remove();
-                if (!($(".popUp")[0])){
-                    $("window, body").css('overflow', 'auto');
-                }
-            });
-
-    }
-    else{
-        $(".popUp").removeClass("popUpEntrada").addClass("popUpSaida"); 
-        
-            $(".popUpFundo").fadeOut(1000, function(){
-                $(".popUpFundo").remove();
-                $(".popUp").remove();
-                $("window, body").css('overflow', 'auto');
-            });
-            
-       
-    }
-    
-}
-// -------------------- fim código popup --------------------
 
 var alerta = ''
 const nome = document.getElementById("nome")
@@ -136,7 +60,7 @@ function ler(cep){
                 dataType: 'json',
                 success: function(resposta){
                     if(resposta.logradouro == undefined || resposta.bairro == undefined || resposta.localidade == undefined || resposta.uf == undefined){
-                        abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','Dados Inválidos')
+                        abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','Dados Inválidos', 'falha')
                         cep.classList.add('vermei')
                         cep.focus()
                         return
@@ -160,14 +84,8 @@ function ler(cep){
     }
 }
 
-function abrirjanela(cor, texto, titulo){
-    let tamanho = 'p';
-    let modo = 'alert';
-    janelaPopUp.abre( "asdf", tamanho + " "  + cor + ' ' + modo,  titulo ,  texto)
-}
-
 if (window.location.href.includes(md5('erro=true'))){ //erro no captcha
-    abrirjanela('red','Possível Fraude detectada!<br>Por favor, insira as informações novamente.','Erro no CAPTCHA')
+    abrirjanela('red','Possível Fraude detectada!<br>Por favor, insira as informações novamente.','Erro no CAPTCHA', 'falha')
     let nextURL = window.location.href.replace(md5('erro=true'),'').replace('?','');
     let nextState = { additionalInformation: 'Updated the URL with JS' };
     window.history.replaceState(nextState, 'Cadastro', nextURL);
@@ -179,8 +97,7 @@ if (window.location.href.includes(md5('email=false'))){ //email já cadastrado
     let nextState = { additionalInformation: 'Updated the URL with JS' };
     window.history.replaceState(nextState, 'Cadastro', nextURL);
     email.classList.add('vermei')
-    
-} 
+}
 
 if (window.location.href.includes(md5('cpf=false'))){ //cpf já cadastrado
     let nextURL = window.location.href.replace(md5('cpf=false'),'').replace('?','');
@@ -200,7 +117,7 @@ if (alerta != ''){
     ler(localStorage.getItem('cep'))
     document.getElementById('cadastro').focus()
 
-    abrirjanela('red',alerta,'Andamento Cadastro')
+    abrirjanela('red',alerta,'Andamento Cadastro', 'falha')
 }
 
 function vazio(item){ // verifica se o valor passado está vazio
@@ -432,7 +349,7 @@ function validar(){
         localStorage.setItem(tel.id,tel.value)
         localStorage.setItem(cep.id,cep.value)
         localStorage.setItem(numero.id,numero.value)
-        abrirjanela('blue','Validando Dados ... ','Andamento Cadastro')
+        abrirjanela('blue','Validando Dados','Andamento Cadastro', 'carregar')
         document.getElementById('asdf_cancelar').style.display = 'none'
         setTimeout(nada , 4000)
         document.getElementById('asdf_cancelar').addEventListener('click',function(){

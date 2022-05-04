@@ -155,16 +155,11 @@
 		
 
 		<script src="assets/js/jquery-3.3.1.min.js"></script>
-
 		<script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js'></script>
 		<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
-
+		<script src="https://cdn.lordicon.com/lusqsztk.js"></script>
 		<script src="assets/js/validar.js"></script>
-
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
-
 	</body>
-
 </html>

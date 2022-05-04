@@ -17,6 +17,12 @@ h3{
   cursor: default;
 }
 
+lord-icon{
+  position: absolute !important;
+  margin-top: -14px;
+  right: 127px;
+}
+
 #endereco_hide{
   text-align: center;
   color: #4E6EF1;

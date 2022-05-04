@@ -13,9 +13,14 @@
 		<link rel="shortcut icon" href="../../assets/img/favicon/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
 		<?php
+			session_start();
 			error_reporting(E_ERROR | E_PARSE);
 			if(isset($_GET[md5('sucesso=true')])){
 				header('Location: ../Login/login');
+			}
+			if (!isset($_SESSION['mudar']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
+				header("Refresh:0; url=mudar".'?'.md5('erro=true'));
+        		exit;
 			}
 		?>
 	</head>

@@ -41,6 +41,7 @@ if($conec->connect_error){ // se não for localhost, usa a conexão do banco no 
 $email=$_POST['email'];
 $cpf=$_POST['cpf'];
 $nome=strtolower($_POST['nome']);
+$_SESSION['mudar'] = 'true';
 
 
 $select=mysqli_query($conec, "SELECT email, nome, senha, cpf FROM usuario WHERE cpf ='$cpf'")->fetch_assoc();
