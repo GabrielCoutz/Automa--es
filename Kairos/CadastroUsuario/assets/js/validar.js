@@ -155,7 +155,7 @@ mudar_senha('togglePassword','senha')
 mudar_senha('togglePassword_confirm','confirm_senha')
 
 function StrengthChecker(PasswordParameter){
-    if(PasswordParameter.length < 10){
+    if(PasswordParameter.length <= 9){
         strengthBadge.style.color="red"
         strengthBadge.textContent = 'Senha muito curta'
     }else if(strongPassword.test(PasswordParameter)) {

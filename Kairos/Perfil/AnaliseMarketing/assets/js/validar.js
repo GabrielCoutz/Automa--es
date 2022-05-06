@@ -207,7 +207,6 @@ switch (true) {
         CriarAnalise()
         limparURL(md5('analise=false'))
         break;
-
 }
 
 function sair(){

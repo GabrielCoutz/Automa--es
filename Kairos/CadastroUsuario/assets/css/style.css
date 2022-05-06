@@ -322,7 +322,7 @@ select{
   cursor: pointer;
 }
 #StrengthDisp{
-  padding-left: 40%;
+  padding-left: 18%;
   padding-top: 14px;
   font-weight: bold;
   cursor: default;
@@ -448,8 +448,8 @@ h3 {
   .inner {
     width: auto; } 
   #StrengthDisp{
-    padding-left: 35%;
-    padding-top: 28px;
+    margin-left: 12%;
+    margin-top: 28px;
   }
   .image-2{
     right: -63px;

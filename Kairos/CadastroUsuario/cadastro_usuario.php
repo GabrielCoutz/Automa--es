@@ -15,6 +15,7 @@
     <!-- STYLE CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/popup.css">
+    <link rel="stylesheet" href="../assets/css/jquery.passwordRequirements.css">
     <link rel="shortcut icon" href="../assets/img/favicon/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -145,7 +146,7 @@
                 <div class="form-holder">
                     <span class="lnr lnr-lock"></span>
                     <p>
-                        <input type="password" class="form-control" placeholder="Senha" id="senha" name='senha'>
+                        <input type="password" class="form-control pr-password" placeholder="Senha" id="senha" name='senha'>
                         <i class="bi bi-eye-slash" id="togglePassword"></i>
                     </p>
                     <span id="StrengthDisp" class="badge displayBadge">Validando senha...</span>
@@ -181,8 +182,9 @@
     </script>
     <script src="https://cdn.lordicon.com/lusqsztk.js"></script>
     <script src="../assets/js/popup.js"></script>
-    <script src="assets/js/validar.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="../assets/js/jquery.passwordRequirements.min.js"></script>
+    <script src="assets/js/validar.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 
 
