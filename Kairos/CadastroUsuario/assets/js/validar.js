@@ -45,7 +45,6 @@ const limpar_alertas = function(){
 }
 
 function ler(cep){
-
     if(localStorage.getItem('erro') == 1){
         cep = document.getElementById('cep')
     }

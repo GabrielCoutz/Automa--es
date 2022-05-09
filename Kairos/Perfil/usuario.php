@@ -169,7 +169,8 @@
                                             <div class="col-md-3 px-1">
                                                 <div class="form-group">
                                                     <label>CPF</label>
-                                                    <div class='text-secondary'><a><?= $select['cpf'] ?></a></div>
+                                                    <div class='text-secondary'><a><?= 
+                                                    substr($select['cpf'], 0, 3).'.***.***'.substr($select['cpf'], -3, 3)?></a></div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 pl-1">

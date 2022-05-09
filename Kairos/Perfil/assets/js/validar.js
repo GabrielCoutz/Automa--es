@@ -11,6 +11,7 @@ const nome = document.getElementById('nome')
 const email = document.getElementById('email')
 const cep = document.getElementById('cep')
 const numero = document.getElementById('numero')
+const endereco = document.getElementById('endereco')
 
 const nome_input = document.getElementById('nome_input')
 const email_input = document.getElementById('email_input')
@@ -21,6 +22,8 @@ const conteudo_nome = document.getElementById('nome').innerText.trim()
 const conteudo_email = document.getElementById('email').innerText.trim()
 const conteudo_cep = document.getElementById('cep').innerText.trim()
 const conteudo_numero = document.getElementById('numero').innerText.trim()
+const conteudo_endereco = document.getElementById('endereco').innerText.trim()
+
 
 
 
@@ -213,6 +216,7 @@ function ler_cep(cep){ // preenche o endereço automaticamente do usuario usando
                     cep_input.value = ''
                     return
                 } else {
+                    cep_input.classList.remove('vermei')
                     document.getElementsByName('rua')[0].value = resposta.logradouro
                     document.getElementsByName('bairro')[0].value = resposta.bairro
                     document.getElementsByName('cidade')[0].value = resposta.localidade
@@ -481,7 +485,7 @@ function cancelar(item){
     if(document.getElementById('tel').style.display == 'none'){
         $('#tel').toggle();
     }
-
+    endereco.innerHTML = conteudo_endereco
     nome_input.value = ''
     email_input.value = ''
     cep_input.value = ''
@@ -550,7 +554,6 @@ function salvar(item){
         }
     });
 
-
     if(adicional){ // se houver números adicionais é verificado se todos estão preenchidos, senão é sinalizado com bordas vermelhas
         document.querySelectorAll('.adicional').forEach((item)=>{
             if (item.value.length == 15){
@@ -570,7 +573,6 @@ function salvar(item){
             
         });
     }
-
 
     if(!valido && adicional){
         abrirjanela('red','Telefone adicional incompleto<br> Por favor verifique-o ou remova-o!','Dados incompletos', 'falha')

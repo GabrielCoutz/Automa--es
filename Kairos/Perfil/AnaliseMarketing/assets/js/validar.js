@@ -9,6 +9,7 @@ function fadeout() {
 
 function CriarAnalise(){ // captura a resposta do usuario sobre a realização da análise e responde de acordo
     janelaPopUp.abre( "asdf", "p" + " "  + 'blue' + ' ' + 'confirm',  'Análise não realizada' , 'Parece que você não fez nenhuma análise ainda<br>Gostaria de iniciá-la agora?')
+
     document.getElementById('asdf_cancelar').style.marginLeft = '10px'
     document.getElementById('asdf_cancelar').innerHTML = 'Não'
     document.getElementById('asdf_cancelar').style.width = '40%'
@@ -16,6 +17,8 @@ function CriarAnalise(){ // captura a resposta do usuario sobre a realização d
     document.getElementById('asdf_enviar').innerHTML = 'Sim'
     document.getElementById('asdf_enviar').style.marginRight = '10px'
     document.getElementById('asdf_enviar').style.width = '40%'
+
+    document.getElementsByClassName('content')[0].classList.add('none')
 
     document.getElementById('asdf_cancelar').addEventListener('click',CancelarAnalise)
 

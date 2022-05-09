@@ -183,7 +183,8 @@ use function PHPSTORM_META\type;
                                                 <div class="form-group">
                                                     <label>CNPJ</label>
                                                     <div class='text-secondary'>
-                                                        <a><?= ucwords($select_empresa['cnpj']) ?></a>
+                                                        <a><?= 
+                                                    substr($select_empresa['cnpj'], 0, 5).'*.***/***'.substr($select_empresa['cnpj'], 14, 17)?></a>
                                                     </div>
                                                 </div>
                                             </div>
