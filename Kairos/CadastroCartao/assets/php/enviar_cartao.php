@@ -23,8 +23,26 @@ $titular = $_POST['nome_cartao'];
 $cvv_cartao = $_POST['cvv_cartao'];
 $cpf=$_SESSION['cpf'];
 $validade = $_POST['mes_cartao'].'/'.$_POST['ano_cartao'];
+$email = $_SESSION['email'];
+$cpf=$_POST['cpf'];
+$cep=$_POST['cep'];
+$rua=$_POST['rua'];
+$numero=$_POST['numero'];
+$bairro=$_POST['bairro'];
+$cidade=$_POST['cidade'];
+$estado=$_POST['estado'];
 
-$result=mysqli_query($conec, "INSERT INTO cartao(cpf_usuario, titular, numero, validade, cvv, assinatura) VALUES((SELECT cpf FROM usuario WHERE cpf = '$cpf'), '$titular', '$num_cartao', '$validade', '$cvv_cartao','$assinatura')");
+$local='../../cadastro_cartao';
+
+$select=mysqli_query($conec, "SELECT cpf FROM usuario WHERE cpf = '$cpf'")->fetch_assoc();
+
+if (isset($select['cpf'])){
+    $local=$local.'?'.md5('cpf=false');
+    header("Refresh:0; url="."$local");
+    exit;
+}
+
+$result=mysqli_query($conec, "INSERT INTO cartao(email_usuario, titular, numero, validade, cvv, assinatura) VALUES((SELECT email FROM usuario WHERE email = '$email'), '$titular', '$num_cartao', '$validade', '$cvv_cartao','$assinatura')");
 if(isset($_SESSION['assinar'])){
     header('Location: ../../../Perfil/usuario?'.md5('sucesso=true'));
     exit;

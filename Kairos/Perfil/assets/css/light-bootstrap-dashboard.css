@@ -1646,7 +1646,7 @@ fieldset[disabled] .btn-info.active {
 
 .btn-info.btn-fill {
     color: #FFFFFF;
-    background-color: #1DC7EA;
+    background-color: #4E6EF1;
     opacity: 1;
     filter: alpha(opacity=100);
 }
@@ -1654,6 +1654,7 @@ fieldset[disabled] .btn-info.active {
 .btn-info.btn-fill .caret {
     border-top-color: #FFFFFF;
 }
+
 
 .btn-info .caret {
     border-top-color: #1DC7EA;

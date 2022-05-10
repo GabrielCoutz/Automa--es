@@ -8,24 +8,29 @@ function fadeout() { // animação de loader inicial/2
 }
 
 const nome = document.getElementById('nome')
-const email = document.getElementById('email')
 const cep = document.getElementById('cep')
 const numero = document.getElementById('numero')
 const endereco = document.getElementById('endereco')
 
 const nome_input = document.getElementById('nome_input')
-const email_input = document.getElementById('email_input')
 const cep_input = document.getElementById('cep_input')
 const numero_input = document.getElementById('numero_input')
 
 const conteudo_nome = document.getElementById('nome').innerText.trim()
-const conteudo_email = document.getElementById('email').innerText.trim()
 const conteudo_cep = document.getElementById('cep').innerText.trim()
 const conteudo_numero = document.getElementById('numero').innerText.trim()
 const conteudo_endereco = document.getElementById('endereco').innerText.trim()
 
+$(document).ready(function(){
+    if(vazio(conteudo_cep)){
+        cep.innerHTML = 'Não cadastrado'
+        endereco.innerHTML = 'Não cadastrado'
+    }
 
-
+    if (vazio(conteudo_numero)){
+        numero.innerHTML = 'Não cadastrado'
+    }
+});
 
 const verSenhaAntiga = function () {
     let elemento = document.getElementById('togglePassword_antigo')
@@ -114,13 +119,6 @@ switch (true) {
         limparURL(md5('erro=true'))
         break;
 
-    case window.location.href.includes(md5('email_duplicado=true')): // email já cadastrado
-        document.getElementById('editarbtn').click()
-        document.getElementById("email_input").classList.add('vermei')
-        abrirjanela('red','Email já cadastrado!', 'Alteração Inválida','falha')
-        limparURL(md5('email_duplicado=true'))
-        break;
-
     case window.location.href.includes(md5('senha=false')): // senha diferente da já utilizada
         abrirjanela('red','Não foi possível alterar sua senha!<br>Por favor, verifique os campos e tente novamente.', 'Alteração Inválida', 'falha')
         
@@ -135,14 +133,6 @@ switch (true) {
         abrirjanela('green','Dados alterados com êxito.', 'Alteração realizada com sucesso', 'sucesso')
         limparURL(md5('sucesso=true'))
         break;
-}
-
-function validarEmail(email){ // auto-explicativo
-    if (email != ''){
-        return /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi.test(email)
-    } else {
-        return true
-    }
 }
 
 function verificar_input(){ // se ouver entrada nos inputs, o botão de salvar é liberado
@@ -175,7 +165,7 @@ function verificar_input(){ // se ouver entrada nos inputs, o botão de salvar �
         };
     }
 
-    if (vazio(nome_input.value) && vazio(email_input.value) && vazio(cep_input.value) && vazio(numero_input.value) && !deletar && !tel_input){ // se houver dados alterados, o usuário é liberado para salvá-los
+    if (vazio(nome_input.value) && vazio(numero_input.value) && !deletar && !tel_input && cep_input.value.length != 10){ // se houver dados alterados, o usuário é liberado para salvá-los
         document.getElementById('salvarbtn').disabled = true
 
     } else {
@@ -377,13 +367,11 @@ function alterar_edicao(chave){
 
     //remove sinalização de erros
     nome_input.classList.remove('vermei')
-    email_input.classList.remove('vermei')
     cep_input.classList.remove('vermei')
     numero_input.classList.remove('vermei')
 
     // esconde divs de conteúdo
     nome.classList.toggle("none")
-    email.classList.toggle("none")
     cep.classList.toggle("none")
     numero.classList.toggle("none")
 
@@ -396,7 +384,6 @@ function alterar_edicao(chave){
     
     // torna visível input para edição
     nome_input.classList.toggle("none")
-    email_input.classList.toggle("none")
     cep_input.classList.toggle("none")
     numero_input.classList.toggle("none")
 
@@ -439,15 +426,15 @@ function editar(item){
 
         return
     }
-
+    document.getElementById('divplano').classList.add('none')
     document.getElementById('senha').classList.toggle('none')
     alterar_edicao()
 
     // coloca o conteúdo em placeholder
     nome_input.placeholder = conteudo_nome
-    email_input.placeholder = conteudo_email
-    cep_input.placeholder = conteudo_cep
-    numero_input.placeholder = conteudo_numero
+
+    cep_input.placeholder = vazio(conteudo_cep) ? 'xx.xxx-xxx' : conteudo_cep
+    numero_input.placeholder = vazio(conteudo_numero) ? 'xxx' : conteudo_numero
 }
 
 function cancelar(item){
@@ -465,6 +452,7 @@ function cancelar(item){
 
         password.removeEventListener("keyup", verificarSenha2)
         strengthBadge.classList.add('none')
+        document.getElementById('divplano').classList.remove('none')
 
         return
     }
@@ -485,9 +473,8 @@ function cancelar(item){
     if(document.getElementById('tel').style.display == 'none'){
         $('#tel').toggle();
     }
-    endereco.innerHTML = conteudo_endereco
+    endereco.innerHTML = vazio(conteudo_endereco.replace(', , ,','')) ? 'Não Cadastrado' : conteudo_endereco
     nome_input.value = ''
-    email_input.value = ''
     cep_input.value = ''
     numero_input.value = ''
 }
@@ -582,12 +569,7 @@ function salvar(item){
         Cookies.set('tels',tels)
     }
 
-    if (!validarEmail(email_input.value)){
-        alertaDeErro(email_input.id, 'Insira um email válido!')
-        email_input.classList.add('vermei')
-        email_input.focus()
-
-    } else if (!vazio(cep_input.value) && cep_input.value.length <= 10 && vazio(numero_input.value)){
+    if (!vazio(cep_input.value) && cep_input.value.length <= 10 && vazio(numero_input.value)){
         alertaDeErro(cep_input.id, 'Complete o endereço!')
         cep_input.classList.add('vermei')
         numero_input.classList.add('vermei')

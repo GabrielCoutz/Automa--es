@@ -50,11 +50,7 @@ use function PHPSTORM_META\type;
 
     $email=$_SESSION['email'];
 
-    $select=mysqli_query($conec, "SELECT cpf FROM usuario WHERE email = '$email'")->fetch_assoc();
-
-    $cpf=$select['cpf'];
-
-    $select_empresa=mysqli_query($conec, "SELECT * FROM empresa WHERE cpf_usuario = '$cpf'")->fetch_assoc();
+    $select_empresa=mysqli_query($conec, "SELECT * FROM empresa WHERE email_usuario = '$email'")->fetch_assoc();
 
     switch (true) {
         case !isset($_SESSION['email']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true')):

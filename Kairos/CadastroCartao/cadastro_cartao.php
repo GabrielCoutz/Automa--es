@@ -12,10 +12,10 @@
   <?php
     session_start();
     error_reporting(E_ERROR | E_PARSE);
-    if(!isset($_SESSION['cadastro']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
-      header("Refresh:0; url=cadastro_cartao".'?'.md5('erro=true'));
-      exit;
-    }
+    //if(!isset($_SESSION['cadastro']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
+    //  header("Refresh:0; url=cadastro_cartao".'?'.md5('erro=true'));
+    //  exit;
+    //}
 
     $_SESSION['assinatura'] = $_GET['plano'];
   ?>
@@ -159,7 +159,7 @@
       <form action="assets/php/enviar_cartao" method="POST" id='cadastro_cartao' onsubmit="return false" autocomplete="off">
       <div class="card-form__inner">
         <div class="card-input">
-          <label for="cardNumber" class="card-input__label"></label>Numero do Cartão
+          <label for="cardNumber" class="card-input__label">Número do Cartão</label>
           <input type="tel" id="cardNumber" class="card-input__input" v-mask="generateCardNumberMask" v-model="cardNumber" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardNumber" autocomplete="cc-csc" name='num_cartao'>
         </div>
         <div class='none alerta' id='cardNumberAlert'></div>
@@ -200,6 +200,36 @@
           </div>
         </div>
         <div class='none alerta' id='cardCvvAlert'></div>
+          <div class="card-form__row">
+                    <div class="card-input max cpf">
+              <label for="cardName" class="card-input__label">CPF</label>
+              <input type="tel" class="card-input__input " id="cpf" name='cpf'
+                  onkeypress="$(this).mask('000.000.000-00')"
+                  onkeyup="evento_cpf(this)">
+              <div class='none alerta_data' id='cpfAlert'></div>
+            </div>
+
+            <div class="card-input max cep">
+                <label for="cardName" class="card-input__label">CEP</label>
+                <input type="tel" class="card-input__input" id="cep" name='cep'
+                    onkeypress="$(this).mask('00.000-000')" onkeyup="ler(this)">
+                <div class='none alerta_data' id='cepAlert'></div>
+            </div>
+
+            <div class="card-input max numero">
+                <label for="cardName" class="card-input__label">Número</label>
+                <input type="tel" class="card-input__input" id="numero" name='numero' maxlength="6">
+                <div class='none alerta_data' id='numeroAlert'></div>
+            </div>
+
+            <input type="text" class="none"  id="rua" name='rua'>
+            <input type="text" class="none"  id="bairro" name='bairro'>
+            <input type="text" class="none"  id="cidade" name='cidade'>
+            <input type="text" class="none"  id="estado" name='estado'>
+          </div>
+          <div id='endereco'></div>
+        </div>
+
 
         <button class="card-form__button" onclick="validar()" id='butao'>
           Validar
@@ -213,9 +243,10 @@
 <!-- partial -->
   <script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.10/vue.min.js'></script>
   <script src='https://unpkg.com/vue-the-mask@0.11.1/dist/vue-the-mask.js'></script>
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js'></script>
   <script src="https://cdn.lordicon.com/lusqsztk.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
   <script src="../assets/js/popup.js"></script>
   <script  src="assets/js/script.js"></script>
 

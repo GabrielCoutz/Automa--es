@@ -48,17 +48,21 @@
       } else {
         $email=$_SESSION['email'];
       }
-
+      $email='gabriel@gmail.com';
       $select=mysqli_query($conec, "SELECT * FROM usuario WHERE email = '$email'")->fetch_assoc();
       
 
       $id=$select['id'];
       $cpf=$select['cpf'];
+      if(empty($cpf)){
+          $cpf = 'Não Cadastrado';
+      } else {
+          $cpf = substr($select['cpf'], 0, 3).'.***.***'.substr($select['cpf'], -3, 3);
+      }
       $_SESSION['email_padrao']=$select['email'];
       $_SESSION['nome_padrao']=$select['nome'];
-      $_SESSION['cpf']=$select['cpf'];
 
-      $select_telefone=mysqli_query($conec, "SELECT * FROM telefone WHERE cpf_usuario = '$cpf'");
+      $select_telefone=mysqli_query($conec, "SELECT * FROM telefone WHERE email_usuario = '$email'");
 
       $result_telefone=$select_telefone->fetch_assoc();
       $numeros = '';
@@ -71,9 +75,9 @@
 
       $_SESSION['tel_padrao']=$result_telefone['tel'];
 
-      $select_endereco=mysqli_query($conec, "SELECT * FROM endereco WHERE cpf_usuario = '$cpf'")->fetch_assoc();
+      $select_endereco=mysqli_query($conec, "SELECT * FROM endereco WHERE email_usuario = '$email'")->fetch_assoc();
 
-      $select_cartao=mysqli_query($conec, "SELECT * FROM cartao WHERE cpf_usuario = '$cpf'")->fetch_assoc();
+      $select_cartao=mysqli_query($conec, "SELECT * FROM cartao WHERE email_usuario = '$email'")->fetch_assoc();
 
   ?>
 </head>
@@ -169,15 +173,16 @@
                                             <div class="col-md-3 px-1">
                                                 <div class="form-group">
                                                     <label>CPF</label>
-                                                    <div class='text-secondary'><a><?= 
-                                                    substr($select['cpf'], 0, 3).'.***.***'.substr($select['cpf'], -3, 3)?></a></div>
+                                                    <div class='text-secondary' id='cpf'>
+                                                        <a><?= $cpf ?></a>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-md-4 pl-1">
                                                 <div class="form-group">
                                                     <label>Email</label>
-                                                    <input type="email" class="form-control none" id='email_input' name='email'>
-                                                    <div id='email' class='text-secondary'><a><?= $select['email'] ?></a></div>
+                                                    <input class="form-control none" id='email'>
+                                                    <div class='text-secondary'><a><?= $select['email'] ?></a></div>
                                                 </div>
                                                 <div class='none alerta' id='email_inputAlert'></div>
                                             </div>
@@ -235,7 +240,7 @@
                                             </div>
                                         </div>
                                         
-                                        <div class="row">
+                                        <div class="row" id='divplano'>
                                             <div class="col-md-12">
                                                 <div class="form-group">
                                                     <label>Assinatura</label>
@@ -290,7 +295,7 @@
                                         <button class="btn btn-info btn-fill pull-right none" id='cancelarbtn' onclick="cancelar(this)"><div class='circle'></div>Cancelar</button>
 
                                         <button class="btn btn-info btn-fill pull-right none" id='salvar_senhabtn' onclick="salvar(this)"><div class='circle'></div>Salvar Alteração</button>
-                                        <button class="btn btn-info btn-fill pull-right none" id='cancelar_senhabtn' onclick="cancelar(this)"><div class='circle'></div>Cancelar</button>
+                                        <button class="btn btn-info btn-fill pull-right none" id='cancelar_senhabtn' onclick="cancelar(this)" style="color:#4E6EF1;background-color:white;border-color:#4E6EF1;"><div class='circle'></div>Cancelar</button>
                                     </form>
                                 </div>
                             </div>

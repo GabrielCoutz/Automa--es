@@ -15,6 +15,39 @@ body {
   cursor: default;
 }
 
+.alerta_data{
+  margin-top: 8px;
+  margin-bottom: -26px;
+  text-align: center;
+  color: #ff0000;
+  cursor: default;
+}
+
+html{
+  cursor: default;
+}
+
+.cep{
+  min-width: 120px;
+}
+
+.cpf{
+  min-width: 150px;
+}
+
+.cep, .cpf{
+  margin-right: 15px;
+}
+
+.none{
+  display: none;
+}
+
+#endereco{
+  text-align: center;
+  margin-top: 10px;
+}
+
 .seletor{
   margin-top: 6px !important;
 }
@@ -230,6 +263,13 @@ button:disabled{
   .card-form__inner {
     padding: 25px;
     padding-top: 165px;
+  }
+  .cep, .cpf, .numero{
+    width: 100%;
+    min-width: 100%;
+  }
+  .max{
+    max-width: 150px;
   }
 }
 @media screen and (max-width: 360px) {

@@ -10,21 +10,11 @@ function fadeout() {
 function nada(){
     document.getElementById('asdf_cancelar').click()
 }
-
-var alerta = ''
 const nome = document.getElementById("nome")
 const tel = document.getElementById("tel")
 const email = document.getElementById("email")
-const cpf = document.getElementById("cpf")
 const senha = document.getElementById("senha")
 const confirm_senha = document.getElementById("confirm_senha")
-const cep = document.getElementById("cep")
-const rua = document.getElementById("rua")
-const numero = document.getElementById("numero")
-const bairro = document.getElementById("bairro")
-const cidade = document.getElementById("cidade")
-const estado = document.getElementById("estado")
-const endereco = document.getElementById("endereco")
 const captcha = document.getElementById("captcha")
 const limpar_inputs = function(){
     let elementos = document.getElementsByTagName('input')
@@ -44,41 +34,6 @@ const limpar_alertas = function(){
     }
 }
 
-function ler(cep){
-    if(localStorage.getItem('erro') == 1){
-        cep = document.getElementById('cep')
-    }
-
-    if(cep.value.length == 10){
-            $.ajax({
-                url: 'https://viacep.com.br/ws/'+cep.value.replace(/-/, '').replace('.', '')+'/json/',
-                dataType: 'json',
-                success: function(resposta){
-                    if(resposta.logradouro == undefined || resposta.bairro == undefined || resposta.localidade == undefined || resposta.uf == undefined){
-                        abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','Dados Inválidos', 'falha')
-                        cep.classList.add('vermei')
-                        cep.focus()
-                        return
-                    } else {
-                        cep.classList.remove('vermei')
-                        $("#rua").val(resposta.logradouro);
-                        $("#bairro").val(resposta.bairro);
-                        $("#cidade").val(resposta.localidade);
-                        $("#estado").val(resposta.uf);
-                        $("#estado").css('opacity', '1').change();
-
-                        let endereco_full = resposta.logradouro + ', ' + resposta.bairro + ', ' + resposta.localidade + ', ' + resposta.uf
-
-                        $('#edit').toggle()
-
-                        endereco.innerHTML = endereco_full
-
-                        numero.focus();
-                }}
-            });
-    }
-}
-
 
 function limparURL(url){ // tira o disparador de popup da url, limpando-a
     let nextURL = window.location.href.replace(url,'').replace('?','');
@@ -93,29 +48,18 @@ switch (true) { // verifica se há erros passados na URL
         break;
 
     case window.location.href.includes(md5('email=false')): //email já cadastrado
-        limparURL(md5('email=false'))
         email.classList.add('vermei')
-        alerta = 'Email já cadastrado!<br>'
+        abrirjanela('red','Email já utilizado!', 'Dados Duplicados','falha')
+        localStorage.setItem('erro',1)
+        cep.value = localStorage.getItem('cep')
+        nome.value = localStorage.getItem('nome')
+        tel.value = localStorage.getItem('tel')
+        numero.value = localStorage.getItem('numero')
+
+        ler(localStorage.getItem('cep'))
+        document.getElementById('cadastro').focus()
+        limparURL(md5('email=false'))
         break;
-
-    case window.location.href.includes(md5('cpf=false')): //cpf já cadastrado
-        limparURL(md5('cpf=false'))
-        alerta+='CPF já cadastrado!'
-        cpf.classList.add('vermei')
-        break;
-}
-
-if (!vazio(alerta)){ // mostra quais erros existem, de acordo com o passado na variável 'alerta'
-    localStorage.setItem('erro',1)
-    cep.value = localStorage.getItem('cep')
-    nome.value = localStorage.getItem('nome')
-    tel.value = localStorage.getItem('tel')
-    numero.value = localStorage.getItem('numero')
-
-    ler(localStorage.getItem('cep'))
-    document.getElementById('cadastro').focus()
-
-    abrirjanela('red',alerta,'Andamento Cadastro', 'falha')
 }
 
 function vazio(item){ // verifica se o valor passado está vazio
@@ -168,38 +112,6 @@ function StrengthChecker(PasswordParameter){
         strengthBadge.style.color="red"
         strengthBadge.textContent = 'Senha Fraca'
     }
-}
-
-function validar_cpf(cpf) {
-    var Soma;
-    var Resto;
-    Soma = 0;
-    cpf = String(cpf).replace('.','').replace('-','').replace('.','')
-  if (  cpf == "00000000000" ||
-        cpf == "11111111111" ||
-        cpf == "22222222222" ||
-        cpf == "33333333333" ||
-        cpf == "44444444444" ||
-        cpf == "55555555555" ||
-        cpf == "66666666666" ||
-        cpf == "77777777777" ||
-        cpf == "88888888888" ||
-        cpf == "99999999999" ) return 1;
-
-
-    for (i=1; i<=9; i++) Soma = Soma + parseInt(cpf.substring(i-1, i)) * (11 - i);
-    Resto = (Soma * 10) % 11;
-
-    if ((Resto == 10) || (Resto == 11))  Resto = 0;
-    if (Resto != parseInt(cpf.substring(9, 10)) ) return 1;
-
-  Soma = 0;
-    for (i = 1; i <= 10; i++) Soma = Soma + parseInt(cpf.substring(i-1, i)) * (12 - i);
-    Resto = (Soma * 10) % 11;
-
-    if ((Resto == 10) || (Resto == 11))  Resto = 0;
-    if (Resto != parseInt(cpf.substring(10, 11) ) ) return 1;
-    return 0
 }
 
 function validarEmail(email){ // auto-explicativo
@@ -265,9 +177,6 @@ const dispararEvento = function(elemento, evento, stringCondicao){  //dispara um
     switch(stringCondicao){ // seta a função de acordo com a stringCondicao, usada para saber qual validação será usada para tratar o erro
         case 'condicaoTel': var condicao = function(){ return tel.value.length != 15}; break;
         case 'condicaoEmail': var condicao = function(){ return !validarEmail(email.value)}; break;
-        case 'condicaoCPF': var condicao = function(){ return validar_cpf(cpf.value) == 1}; break;
-        case 'condicaoCep': var condicao = function(){ return cep.value.length != 10}; break;
-        case 'condicaoNumero': var condicao = function(){ return vazio(numero.value)}; break;
         case 'condicaoSenha': var condicao = function(){ return vazio(senha.value) || vazio(confirm_senha.value)}; break;
     }
 
@@ -306,24 +215,6 @@ function validar(){
         email.focus()
         email.classList.add("vermei")
 
-    } else if(vazio(cpf.value)){
-        dispararEvento(cpf, 'keyup', 'condicaoCPF')
-        alertaDeErro(cpf.id, 'Preencha o CPF!')
-        cpf.focus()
-        cpf.classList.add('vermei')
-
-    } else if(vazio(cep.value)){
-        dispararEvento(cep, 'keyup', 'condicaoCep')
-        alertaDeErro(cep.id, 'Preencha o CEP!')
-        cep.focus()
-        cep.classList.add('vermei')
-
-    } else if (vazio(numero.value)){
-        dispararEvento(numero, 'keyup', 'condicaoNumero')
-        alertaDeErro(numero.id, "Preencha o Número!")
-        numero.focus()
-        numero.classList.add("vermei")
-
     } else if (vazio(senha.value) || vazio(confirm_senha.value)){
         dispararEvento(senha, 'keyup', 'condicaoSenha')
         alertaDeErro(senha.id, "Preencha a senha!")
@@ -345,8 +236,6 @@ function validar(){
     } else {
         localStorage.setItem(nome.id,nome.value)
         localStorage.setItem(tel.id,tel.value)
-        localStorage.setItem(cep.id,cep.value)
-        localStorage.setItem(numero.id,numero.value)
         abrirjanela('blue','Validando Dados','Andamento Cadastro', 'carregar')
         document.getElementById('asdf_cancelar').style.display = 'none'
         setTimeout(nada , 4000)
