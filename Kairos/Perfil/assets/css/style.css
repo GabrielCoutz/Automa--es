@@ -1,0 +1,396 @@
+#del_tel{
+    position: relative;
+    color: #fff;
+    margin-left: 10px;
+    background-color: #a82020 !important;
+    border-color: #a82020 !important;
+}
+
+#btnsair, #btnfechar{
+    cursor: pointer !important ;
+}
+#btnsair:hover{
+    color: red !important;
+}
+#salvar_senhabtn{
+  margin-left: 10px;
+}
+.close-layer{
+  display: none !important;
+}
+
+#cancelarbtn{
+  position: relative;
+  color: #4E6EF1 !important;
+  margin-left: 10px;
+  background-color: white !important;
+  border-color: #4E6EF1 !important;
+}
+
+#cancelarbtn:hover, #cancelar_senhabtn:hover{
+  color: white !important;
+  background-color: #4E6EF1 !important;
+}
+
+#assinarbtn{
+  margin-bottom: 11px;
+}
+
+.adicional{
+  margin-bottom: 3px;
+  margin-top: 3px;
+}
+lord-icon{
+  position: absolute !important;
+  margin-top: -14px;
+  right: 127px;
+}
+
+#nome_inputAlert, #email_inputAlert{
+  text-align: left;
+  margin-top: -7px;
+}
+
+.circle{
+  border-radius:50%;
+  transition: all 0.4s cubic-bezier(.86,.31,.55,.99);
+  width:4px;
+  top:calc(50% - 1px);
+  left:calc(50% - 1px);
+  height:2px;
+  position:absolute;
+  display:inline-block;
+  background:#ffffff23;
+}
+.alerta{
+  margin-top: -21px;
+  margin-bottom: 3px;
+  text-align: center;
+  color: #ff0000;
+  cursor: default;
+}
+
+button:hover >.circle{
+  transform:scale(90);
+}
+
+button{
+  border-color: transparent !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn {
+    display: inline-block;
+    overflow: hidden;
+    font-weight: bold;
+    color: #212529;
+    text-align: center;
+    vertical-align: middle;
+    cursor: pointer;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif !important;
+    font-size: 14px !important;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-color: transparent;
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+#add_tel, #salvarbtn, #salvar_senhabtn{
+    color: white;
+    background: #20a837 !important;
+}
+#editarsenha, #editarbtn, #assinarbtn{
+  background: #4E6EF1 !important;
+}
+
+button:disabled{
+    cursor: default;
+}
+
+
+.vermei, .vermei:focus, .vermei:hover{
+    border: 1px solid red !important;
+}
+input{
+    max-width: 250px;
+    font-family: muli, sans-serif !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+}
+
+.small-input {
+    -moz-appearance: textfield;
+}
+.small-input::-webkit-inner-spin-button {
+        display: none;
+    }
+
+.small-input::-webkit-outer-spin-button,
+.small-input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+#pass2{
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+
+label{
+    color: #000000 !important;
+    font-weight: bold !important;
+}
+.content{
+    cursor: default;
+}
+input::-webkit-input-placeholder {
+    color: black !important;
+    opacity: 0.5 !important;
+}
+.text-secondary{
+    color: #6c757d!important;
+
+}
+.btn-remove-phone {
+    margin-top: 4px;
+    padding: 5px !important;
+    height: 29px;
+    border-radius: 0.25rem !important;
+}
+.btn-danger {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+input{
+    transition: all 0.5s ease-in-out !important;
+    border-radius:6px !important;
+    border: 1px solid #ced6e0 !important;
+}
+input:focus, input:hover{
+    box-shadow: 0px 10px 20px -13px rgba(32, 56, 117, 0.35);
+    text-align: left !important;
+    border-radius:6px !important;
+    border-color: #3d9cff !important;
+    outline: none !important;
+}
+
+#tel{
+    margin-top: 10px;
+}
+
+#salvarbtn{
+    margin-left: 10px;
+}
+
+#asdf{
+  cursor: default;
+}
+
+@media(min-width: 991px){
+  #btnfechar{
+    display: none;
+  }
+}
+
+@media(max-width: 500px){
+  button{
+    width: 100%;
+  }
+  #nome_inputAlert, #email_inputAlert{
+    text-align: center;
+    margin-top: -7px;
+  }
+  #add_tel, #del_tel{
+    width: 97% !important;
+  }
+  #senha{
+    display: grid;
+  }
+  #salvar_senhabtn, #add_tel, #del_tel, #salvarbtn, .adicional{
+    margin-bottom: 10px;
+  }
+  .adicional{
+    height: 35px;
+  }
+  .btn-remove-phone{
+    width: auto;
+  }
+  #pass2 {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 15px;
+}
+  #botoes_tel, #add_tel, #del_tel{
+    display: grid;
+  }
+  #del_tel{
+    margin-left: 0;
+  }
+}
+
+.bi-eye-slash{
+  cursor: pointer !important;
+}
+
+#paginaInicial:hover, #suporte:hover{
+  color: #3d9cff;
+}
+/*===== All Preloader Style =====*/
+.preloader {
+    /* Body Overlay */
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: table;
+    height: 100%;
+    width: 100%;
+    /* Change Background Color */
+    background: #fff;
+    z-index: 99999;
+  }
+  
+  .preloader .loader {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+  }
+  
+  .preloader .loader .spinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 64px;
+    margin-left: -32px;
+    z-index: 18;
+    pointer-events: none;
+  }
+  
+  .preloader .loader .spinner .spinner-container {
+    pointer-events: none;
+    position: absolute;
+    width: 100%;
+    padding-bottom: 100%;
+    top: 50%;
+    left: 50%;
+    margin-top: -50%;
+    margin-left: -50%;
+    animation: spinner-linspin 1568.2353ms linear infinite;
+  }
+  
+  .preloader .loader .spinner .spinner-container .spinner-rotator {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    animation: spinner-easespin 5332ms cubic-bezier(0.4, 0, 0.2, 1) infinite both;
+  }
+  
+  .preloader .loader .spinner .spinner-container .spinner-rotator .spinner-left {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    overflow: hidden;
+    right: 50%;
+  }
+  
+  .preloader .loader .spinner .spinner-container .spinner-rotator .spinner-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    left: 50%;
+  }
+  
+  .preloader .loader .spinner-circle {
+    box-sizing: border-box;
+    position: absolute;
+    width: 200%;
+    height: 100%;
+    border-style: solid;
+    /* Spinner Color */
+    border-color: #4E6EF1 #4E6EF1 #ddd;
+    border-radius: 50%;
+    border-width: 6px;
+  }
+  
+  .preloader .loader .spinner-left .spinner-circle {
+    left: 0;
+    right: -100%;
+    border-right-color: #ddd;
+    animation: spinner-left-spin 1333ms cubic-bezier(0.4, 0, 0.2, 1) infinite both;
+  }
+  
+  .preloader .loader .spinner-right .spinner-circle {
+    left: -100%;
+    right: 0;
+    border-left-color: #ddd;
+    animation: right-spin 1333ms cubic-bezier(0.4, 0, 0.2, 1) infinite both;
+  }
+  
+  /* Preloader Animations */
+  
+  @keyframes spinner-linspin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  @keyframes spinner-easespin {
+    12.5% {
+      transform: rotate(135deg);
+    }
+    25% {
+      transform: rotate(270deg);
+    }
+    37.5% {
+      transform: rotate(405deg);
+    }
+    50% {
+      transform: rotate(540deg);
+    }
+    62.5% {
+      transform: rotate(675deg);
+    }
+    75% {
+      transform: rotate(810deg);
+    }
+    87.5% {
+      transform: rotate(945deg);
+    }
+    to {
+      transform: rotate(1080deg);
+    }
+  }
+  
+  @keyframes spinner-left-spin {
+    0% {
+      transform: rotate(130deg);
+    }
+    50% {
+      transform: rotate(-5deg);
+    }
+    to {
+      transform: rotate(130deg);
+    }
+  }
+  
+  @keyframes right-spin {
+    0% {
+      transform: rotate(-130deg);
+    }
+    50% {
+      transform: rotate(5deg);
+    }
+    to {
+      transform: rotate(-130deg);
+    }
+  }
