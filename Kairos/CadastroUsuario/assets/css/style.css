@@ -9,9 +9,9 @@
   -moz-box-sizing: border-box;
   box-sizing: border-box; }
 
-  a {
-    color: #0060B6;
-    text-decoration: none;
+a {
+  color: #0060B6;
+  text-decoration: none;
 }
 #asdf:hover{
   cursor: default;
@@ -43,6 +43,10 @@ lord-icon{
 button:disabled{
   opacity: 0.3;
   cursor: default !important;
+}
+
+button{
+  font-weight: bold;
 }
 
 #endereco{
@@ -247,6 +251,7 @@ input, textarea, select, button {
 input{
   transition: all 0.5s ease-in-out;
   display: inline !important;
+  font-weight: bold;
 }
 
 p, h1, h2, h3, h4, h5, h6, ul {

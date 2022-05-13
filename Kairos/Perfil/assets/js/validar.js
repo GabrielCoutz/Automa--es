@@ -36,21 +36,24 @@ const verSenhaAntiga = function () {
     let elemento = document.getElementById('togglePassword_antigo')
     let type = elemento.previousElementSibling.getAttribute('type') === 'password' ? 'text' : 'password';
     elemento.previousElementSibling.setAttribute('type', type)
-    elemento.classList.toggle('bi-eye')
+    elemento.classList.toggle('gg-eye')
+    elemento.classList.toggle('gg-eye-alt')
 }
 
 const verSenhaAntigaNovo = function () {
     let elemento = document.getElementById('togglePassword_novo')
     let type = elemento.previousElementSibling.getAttribute('type') === 'password' ? 'text' : 'password';
     elemento.previousElementSibling.setAttribute('type', type)
-    elemento.classList.toggle('bi-eye')
+    elemento.classList.toggle('gg-eye')
+    elemento.classList.toggle('gg-eye-alt')
 }
 
 const verSenhaAntigaNovoDup = function () {
     let elemento = document.getElementById('togglePassword_novo_dup')
     let type = elemento.previousElementSibling.getAttribute('type') === 'password' ? 'text' : 'password';
     elemento.previousElementSibling.setAttribute('type', type)
-    elemento.classList.toggle('bi-eye')
+    elemento.classList.toggle('gg-eye')
+    elemento.classList.toggle('gg-eye-alt')
 }
 
 function nada(){

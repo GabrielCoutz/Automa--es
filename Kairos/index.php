@@ -77,8 +77,6 @@
                     <li class="nav-item">
                       <a href="Login/login">Login</a>
                     </li>
-                    <li class="nav-item">
-                    </li>
                   </ul>
                 </div>
               </nav>

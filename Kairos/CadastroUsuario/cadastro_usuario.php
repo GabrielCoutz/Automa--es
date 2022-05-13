@@ -8,13 +8,11 @@
     <meta charset="utf-8">
     <title>Cadastro</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- LINEARICONS -->
     <link rel="stylesheet" href="assets/fonts/linearicons/style.css">
 
-    <!-- STYLE CSS -->
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/popup.css">
+    <link rel="stylesheet" href="../assets/css/icones.css">
     <link rel="stylesheet" href="../assets/css/jquery.passwordRequirements.css">
     <link rel="shortcut icon" href="../assets/img/favicon/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
@@ -44,43 +42,43 @@
         <div class="inner">
             <form action="assets/php/enviar_usuario" method="POST" class="gridado" name="cadastro"
                 onsubmit="return false" id="cadastro">
-                <h3>Cadastro</h3>
+                <h3 style="font-family: 'Muli-Regular' !important;">Cadastro</h3>
 
                 <div class="form-holder">
-                    <span class="lnr lnr-user"></span>
+                    <i class="gg-user user"></i>
                     <input type="text" class="form-control" placeholder="Nome Completo" id='nome' name='nome' onkeyup="apenasLetras(this)" maxlength="100">
                 </div>
                 <div class='none alerta' id='nomeAlert'></div>
 
                 <div class="form-holder">
-                    <span class="lnr lnr-phone-handset"></span>
+                    <i class="gg-smartphone phone"></i>
                     <input type="tel" class="form-control" placeholder="Telefone" id="tel" name='tel'
                         onkeypress="$(this).mask('(00) 0000-00009')"  maxlength="15">
                 </div>
                 <div class='none alerta' id='telAlert'></div>
 
                 <div class="form-holder">
-                    <span class="lnr lnr-envelope"></span>
+                    <i class="gg-mail mail"></i>
                     <input type="email" class="form-control" placeholder="Email" id="email" name='email' maxlength="50">
                 </div>
                 <div class='none alerta' id='emailAlert'></div>
 
                 <div class="form-holder">
-                    <span class="lnr lnr-lock"></span>
+                    <i class="gg-lock lock"></i>
                     <p>
                         <input type="password" class="form-control pr-password" placeholder="Senha" id="senha" name='senha'>
-                        <i class="bi bi-eye-slash" id="togglePassword"></i>
+                        <i class="gg-eye eye" id="togglePassword"></i>
                     </p>
                     <span id="StrengthDisp" class="badge displayBadge">Validando senha...</span>
                 </div>
                 <div class='none alerta' id='senhaAlert'></div>
 
                 <div class="form-holder">
-                    <span class="lnr lnr-lock"></span>
+                    <i class="gg-lock lock"></i>
                     <p>
                         <input type="password" class="form-control" placeholder="Confirmar Senha" id="confirm_senha"
                             name='confirm_senha'>
-                        <i class="bi bi-eye-slash" id="togglePassword_confirm"></i>
+                        <i class="gg-eye eye" id="togglePassword_confirm"></i>
                     </p>
                 </div>
                 <div class='none alerta' id='confirm_senhaAlert'></div>
@@ -89,7 +87,7 @@
                 <div class='none alerta' id='captchaAlert'></div>
                 
                 <div class='none alerta' id='butaoAlert'>Apenas CPF's válidos são aceitos, por favor verifique e tente novamente!</div>
-                <button class="btn btn-warning" type="submit" onclick="validar()" id='butao' name='butao'>
+                <button class="btn btn-warning" type="submit" onclick="validar()" id='butao' name='butao' style="font-family: 'Muli-Regular' !important;">
                     <span>Registrar</span>
                 </button>
                 <div id='signin'>

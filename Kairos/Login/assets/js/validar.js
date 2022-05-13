@@ -26,11 +26,12 @@ const limpar_alertas = function(){
 function mudar_senha(botao,elemento){
     let togglePassword = document.querySelector('#'+botao);
     let password = document.querySelector('#'+elemento);
-  togglePassword.addEventListener('click', function (e) {
-    let type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-    password.setAttribute('type', type);
-    this.classList.toggle('bi-eye');
-});
+    togglePassword.addEventListener('click', function (e) {
+        let type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+        password.setAttribute('type', type);
+        this.classList.toggle('gg-eye')
+        this.classList.toggle('gg-eye-alt');
+    });
 }
 mudar_senha('togglePassword','senha')
 

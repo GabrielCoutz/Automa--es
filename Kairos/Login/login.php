@@ -4,11 +4,10 @@
 		<meta charset="utf-8">
 		<title>Login</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<!-- LINEARICONS -->
-		<link rel="stylesheet" href="assets/fonts/linearicons/style.css">
-		<!-- STYLE CSS -->
+
 		<link rel="stylesheet" href="assets/css/style.css">
 		<link rel="stylesheet" href="../assets/css/popup.css">
+		<link rel="stylesheet" href="../assets/css/icones.css">
 		<link rel="shortcut icon" href="../assets/img/favicon/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
 		<?php
@@ -37,24 +36,24 @@
     </div>
 		<div class="wrapper">
 			<div class="inner">
-				<form method="POST" id="login" action="assets/php/config?validar=true">
-					<h3>Login</h3>
+				<form method="POST" id="login" action="assets/php/config?validar=true" style="padding: 77px 46px 66px;">
+					<h3 style="font-family: 'Muli-Regular' !important;">Login</h3>
 					<div class="form-holder">
-						<span class="lnr lnr-user"></span>
+						<i class="gg-user user"></i>
 						<input type="email" class="form-control" placeholder="Email" id="email" name='email' maxlength="50">
 					</div>
 					<div class='none alerta' id='emailAlert'></div>
 
 					<div class="form-holder">
-						<span class="lnr lnr-lock"></span>
+						<i class="gg-lock lock"></i>
 						<p>
 							<input type="password" class="form-control" placeholder="Senha" id="senha" name='senha'>
-							<i class="bi bi-eye-slash" id="togglePassword"></i>
+							<i class="gg-eye eye" id="togglePassword"></i>
 						</p>
 					</div>
 					<div class='none alerta' id='senhaAlert'></div>
 
-					<button type='submit' class="btn btn-warning" id='butao' name="butao" onclick="validar()">
+					<button type='submit' class="btn btn-warning" id='butao' name="butao" onclick="validar()" style="font-family: 'Muli-Regular' !important;">
 						<span>Entrar</span>
 					</button>
 					<div id="esqueci">

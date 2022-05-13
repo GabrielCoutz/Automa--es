@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://use.typekit.net/kog7goj.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
-    <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
+    <link rel="stylesheet" href="../assets/css/icones.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
 
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
@@ -20,6 +20,7 @@
     
     <link href="assets/css/style.css" rel="stylesheet"/>
     <link href="../assets/css/popup.css" rel="stylesheet"/>
+    <link  href="../assets/css/jquery.passwordRequirements.css" rel="stylesheet">
     <?php
       session_start();
       error_reporting(E_ERROR | E_PARSE);
@@ -47,6 +48,7 @@
       } else {
         $email=$_SESSION['email'];
       }
+      
       $select=mysqli_query($conec, "SELECT * FROM usuario WHERE email = '$email'")->fetch_assoc();
 
       $id=$select['id'];
@@ -257,17 +259,17 @@
 
                                                     <div class="none" id='pass'>
                                                         <div class='texto'>Senha antiga</div>
-                                                        <p>
-                                                        <input type="password" id='senha_antiga' name='senha_antiga'>
-                                                        <i class="bi bi-eye-slash" id="togglePassword_antigo"></i>
+                                                        <p class='p-senha'>
+                                                            <input type="password" id='senha_antiga' name='senha_antiga'>
+                                                            <i class="gg-eye eye" id="togglePassword_antigo" style="margin-top: 5px !important;"></i>
                                                         </p>
                                                     </div>
 
                                                     <div class="none" id='pass2'>
                                                         <div class='texto'>Senha nova</div>
-                                                        <p>
-                                                            <input type="password" id='senha_nova' name='senha_nova'>
-                                                            <i class="bi bi-eye-slash" id="togglePassword_novo"></i>
+                                                        <p class='p-senha'>
+                                                            <input type="password" id='senha_nova' name='senha_nova' class='pr-password'>
+                                                            <i class="gg-eye eye" id="togglePassword_novo" style="margin-top: 5px !important;"></i>
                                                         </p>
                                                         <span id="StrengthDisp" class="badge displayBadge">Validando senha...</span>
                                                         <br>
@@ -275,9 +277,9 @@
                                                     
                                                     <div class="none" id='pass3'>
                                                         <div class='texto'>Digite Novamente</div>
-                                                        <p>
-                                                        <input type="password" id='senha_nova_dup' name='senha_nova_dup'>
-                                                        <i class="bi bi-eye-slash" id="togglePassword_novo_dup"></i>
+                                                        <p class='p-senha'>
+                                                            <input type="password" id='senha_nova_dup' name='senha_nova_dup'>
+                                                            <i class="gg-eye eye" id="togglePassword_novo_dup" style="margin-top: 5px !important;"></i>
                                                         </p>
                                                         <br>
                                                     </div>
@@ -292,7 +294,7 @@
                                         <button class="btn btn-info btn-fill pull-right none" id='cancelarbtn' onclick="cancelar(this)"><div class='circle'></div>Cancelar</button>
 
                                         <button class="btn btn-info btn-fill pull-right none" id='salvar_senhabtn' onclick="salvar(this)"><div class='circle'></div>Salvar Alteração</button>
-                                        <button class="btn btn-info btn-fill pull-right none" id='cancelar_senhabtn' onclick="cancelar(this)" style="color:#4E6EF1;background-color:white;border-color:#4E6EF1;"><div class='circle'></div>Cancelar</button>
+                                        <button class="btn btn-info btn-fill pull-right none" id='cancelar_senhabtn' onclick="cancelar(this)" style="color:#4E6EF1;background-color:white;border-color:#4E6EF1 !important;"><div class='circle'></div>Cancelar</button>
                                     </form>
                                 </div>
                             </div>
@@ -330,5 +332,6 @@
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 <script src="https://cdn.lordicon.com/lusqsztk.js"></script>
 <script src="../assets/js/popup.js"></script>
+<script src="../assets/js/jquery.passwordRequirements.min.js"></script>
 <script src="assets/js/validar.js" type="text/javascript"></script>
 </html>

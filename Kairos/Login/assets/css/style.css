@@ -449,18 +449,24 @@ body {
 
 }
 
+.eye{
+  margin-left: -30px;
+}
+
 input{
   transition: all 0.5s ease-in-out;
   display: inline !important;
   width: 90% !important;
-
+  font-weight: bold;
 }
 
 input, textarea, select, button {
 
   font-family: "Muli-Regular"; }
 
-
+button{
+  font-weight: bold;
+}
 
 p, h1, h2, h3, h4, h5, h6, ul {
 
