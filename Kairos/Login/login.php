@@ -9,7 +9,7 @@
 		<link rel="stylesheet" href="../assets/css/popup.css">
 		<link rel="stylesheet" href="../assets/css/icones.css">
 		<link rel="shortcut icon" href="../assets/img/favicon/favicon.ico" type="image/x-icon">
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+
 		<?php
 			error_reporting(E_ERROR | E_PARSE);
 			if(isset($_GET[md5('login=true')])){
@@ -53,19 +53,17 @@
 					</div>
 					<div class='none alerta' id='senhaAlert'></div>
 
-					<button type='submit' class="btn btn-warning" id='butao' name="butao" onclick="validar()" style="font-family: 'Muli-Regular' !important;">
+					<button type='submit' class="btn btn-warning login" name="butao" onclick="validar()" style="font-family: 'Muli-Regular' !important;">
 						<span>Entrar</span>
+					</button>
+
+					<button class="registrar" type="button" onclick="registrar()" id='butao' style="font-family: 'Muli-Regular' !important;">
+						<span>Registrar-se</span>
 					</button>
 					<div id="esqueci">
 						<a href="../Recuperacao/recuperacao">Esqueci a senha</a>
 					</div>
 					
-					<div id='signup'>
-						<a href="../CadastroUsuario/cadastro_usuario">Não possui possui conta? Então cadastre-se</a>
-					</div>
-					<div id='divAjuda'>
-						<a href="../Contato/contato" id='ajuda'target="_blank">Precisa de ajuda?</a>
-					</div>
 				</form>
 				<img src="assets/images/image-2.png" alt="" class="image-2">
 			</div>

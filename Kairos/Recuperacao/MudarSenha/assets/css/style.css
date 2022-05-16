@@ -34,8 +34,8 @@
   }
   
   #ajuda{
-    margin-top: 2px;
-    text-align: right;
+    margin-top: 8px;
+    text-align: center;
     margin-bottom: 1px;
     cursor: pointer;
     display: block;
@@ -43,6 +43,10 @@
   
   .none{
     display: none;
+  }
+
+  #mudar{
+    border-radius: 8px;
   }
   
   .alerta {
@@ -56,7 +60,6 @@
   
   #divAjuda{
     display: grid;
-    justify-items: end;
   }
   
   * {
@@ -440,7 +443,12 @@
     transition: all 0.5s ease-in-out;
     display: inline !important;
     width: 90% !important;
+    font-weight: bold;
   
+  }
+
+  button{
+    font-weight: bold;
   }
   
   input, textarea, select, button {

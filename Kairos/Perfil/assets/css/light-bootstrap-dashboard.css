@@ -1612,8 +1612,7 @@ fieldset[disabled] .btn-success.active {
 .btn-info.active,
 .open>.btn-info.dropdown-toggle {
     background-color: transparent;
-    color: #42d0ed;
-    border-color: #42d0ed;
+    color: red;
 }
 
 .btn-info.disabled,
@@ -1730,44 +1729,6 @@ fieldset[disabled] .btn-warning.active {
 .btn-danger {
     border-color: #FF4A55;
     color: #FF4A55;
-}
-
-.btn-danger:hover,
-.btn-danger:focus,
-.btn-danger:active,
-.btn-danger.active,
-.open>.btn-danger.dropdown-toggle {
-    background-color: transparent;
-    color: #EE2D20;
-    border-color: #EE2D20;
-}
-
-.btn-danger.disabled,
-.btn-danger.disabled:hover,
-.btn-danger.disabled:focus,
-.btn-danger.disabled.focus,
-.btn-danger.disabled:active,
-.btn-danger.disabled.active,
-.btn-danger:disabled,
-.btn-danger:disabled:hover,
-.btn-danger:disabled:focus,
-.btn-danger:disabled.focus,
-.btn-danger:disabled:active,
-.btn-danger:disabled.active,
-.btn-danger[disabled],
-.btn-danger[disabled]:hover,
-.btn-danger[disabled]:focus,
-.btn-danger[disabled].focus,
-.btn-danger[disabled]:active,
-.btn-danger[disabled].active,
-fieldset[disabled] .btn-danger,
-fieldset[disabled] .btn-danger:hover,
-fieldset[disabled] .btn-danger:focus,
-fieldset[disabled] .btn-danger.focus,
-fieldset[disabled] .btn-danger:active,
-fieldset[disabled] .btn-danger.active {
-    background-color: transparent;
-    border-color: #FF4A55;
 }
 
 .btn-danger.btn-fill {

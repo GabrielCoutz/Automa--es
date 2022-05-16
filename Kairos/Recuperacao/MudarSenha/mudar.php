@@ -4,14 +4,13 @@
 		<meta charset="utf-8">
 		<title>Recuperação</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<!-- LINEARICONS -->
+		
 		<link rel="stylesheet" href="assets/fonts/linearicons/style.css">
-		<!-- STYLE CSS -->
 		<link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/style.scss">
 		<link rel="stylesheet" href="../../assets/css/popup.css">
+		<link rel="stylesheet" href="../../assets/css/icones.css">
 		<link rel="shortcut icon" href="../../assets/img/favicon/favicon.ico" type="image/x-icon">
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
 		<link rel="stylesheet" href="../../assets/css/jquery.passwordRequirements.css">
 		<?php
 			session_start();
@@ -45,26 +44,26 @@
 		<div class="wrapper">
 			<div class="inner">
 				<form method="POST" id="mudar" action="assets/php/config">
-					<h3>Mudança de senha</h3>
+					<h3 style="font-family: 'Muli-Regular' !important;">Mudança de senha</h3>
                 <div class="form-holder">
-                    <span class="lnr lnr-lock"></span>
+                    <i class="gg-lock lock"></i>
                     <p>
                         <input type="password" class="form-control pr-password" placeholder="Nova Senha" id="senha_nova" name='senha_nova'>
-                        <i class="bi bi-eye-slash" id="togglePassword"></i>
+                        <i class="gg-eye eye" id="togglePassword"></i>
                     </p>
                     <span id="StrengthDisp" class="badge displayBadge">Validando senha...</span>
                 </div>
 
                 <div class="form-holder">
-                    <span class="lnr lnr-lock"></span>
+                    <i class="gg-lock lock"></i>
                     <p>
                         <input type="password" class="form-control" placeholder="Digite Novamente" id="senha_nova_dup" name='senha_nova_dup'>
-                        <i class="bi bi-eye-slash" id="togglePassword_dup"></i>
+                        <i class="gg-eye eye" id="togglePassword_dup"></i>
                     </p>
                 </div>
                 <div class='none alerta' id='senha_novaAlert'></div>
 
-					<button type='submit' class="btn btn-warning" id='butao' name="butao" onclick="validar()">
+					<button type='submit' class="btn btn-warning" id='butao' name="butao" onclick="validar()" style="font-family: 'Muli-Regular' !important;">
 						<span>Entrar</span>
 					</button>
 					<div id='divAjuda'>

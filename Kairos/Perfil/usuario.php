@@ -48,6 +48,8 @@
       } else {
         $email=$_SESSION['email'];
       }
+
+      $email='gabriel@gmail.com';
       
       $select=mysqli_query($conec, "SELECT * FROM usuario WHERE email = '$email'")->fetch_assoc();
 
@@ -122,7 +124,7 @@
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg " color-on-scroll="500">
                 <div class="container-fluid">
-                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" style="box-shadow: none !important;">
                         <span class="navbar-toggler-bar burger-lines"></span>
                         <span class="navbar-toggler-bar burger-lines"></span>
                         <span class="navbar-toggler-bar burger-lines"></span>
@@ -193,8 +195,8 @@
                                                     <label>Telefone</label>
                                                     <div class="phone-list">
                                                         <div class="input-group phone-input none" id='botoes_tel'>
-                                                            <button class="btn btn-success btn-sm btn-add-phone" id='add_tel'><div class='circle'></div>Adicionar telefone</button>
-                                                            <button class="btn btn-sm btn-del-phone" id='del_tel'><div class='circle'></div>Excluir telefone</button>
+                                                            <button class="btn btn-success btn-sm btn-add-phone" id='add_tel'>Adicionar telefone</button>
+                                                            <button class="btn btn-sm btn-del-phone" id='del_tel'>Excluir telefone</button>
                                                         </div>
                                                     </div>
                                                         <div id='tel' class='text-secondary'>
@@ -244,7 +246,7 @@
                                                 <div class="form-group">
                                                     <label>Assinatura</label>
                                                     <br>
-                                                    <button class="btn btn-info btn-fill pull-left none" id='assinarbtn' onclick="assinar()"><div class='circle'></div>Assinar Plano</button>
+                                                    <button class="btn btn-info btn-fill pull-left none" id='assinarbtn' onclick="assinar()">Assinar Plano</button>
                                                     <div id='plano' class='text-secondary'><a><?= ucwords($select_cartao['assinatura']) ?></a></div>
                                                 </div>
                                             </div>
@@ -254,7 +256,7 @@
                                                 <div class='col-md-12'>
                                                     <label class='senha'>Senha</label>
                                                     <br>
-                                                    <button class="btn btn-info btn-fill pull-left" onclick="editar(this)" type="submit" id="editarsenha"><div class='circle'></div>Editar Senha</button>
+                                                    <button class="btn btn-info btn-fill pull-left" onclick="editar(this)" type="submit" id="editarsenha">Editar Senha</button>
                                                     <div class='row' style="margin-left: 0; margin-right: 0;">
 
                                                     <div class="none" id='pass'>
@@ -289,12 +291,12 @@
                                         </div>
                         
                                         </div>
-                                        <button class="btn btn-info btn-fill pull-right" id='editarbtn' onclick="editar(this)"><div class='circle'></div>Editar</button>
-                                        <button class="btn btn-info btn-fill pull-right none" id='salvarbtn' onclick="salvar(this)"><div class='circle'></div>Salvar</button>
-                                        <button class="btn btn-info btn-fill pull-right none" id='cancelarbtn' onclick="cancelar(this)"><div class='circle'></div>Cancelar</button>
+                                        <button class="btn btn-info btn-fill pull-right" id='editarbtn' onclick="editar(this)">Editar</button>
+                                        <button class="btn btn-info btn-fill pull-right none" id='salvarbtn' onclick="salvar(this)">Salvar</button>
+                                        <button class="btn btn-info btn-fill pull-right none" id='cancelarbtn' onclick="cancelar(this)">Cancelar</button>
 
-                                        <button class="btn btn-info btn-fill pull-right none" id='salvar_senhabtn' onclick="salvar(this)"><div class='circle'></div>Salvar Alteração</button>
-                                        <button class="btn btn-info btn-fill pull-right none" id='cancelar_senhabtn' onclick="cancelar(this)" style="color:#4E6EF1;background-color:white;border-color:#4E6EF1 !important;"><div class='circle'></div>Cancelar</button>
+                                        <button class="btn btn-info btn-fill pull-right none" id='salvar_senhabtn' onclick="salvar(this)">Salvar Alteração</button>
+                                        <button class="btn btn-info btn-fill pull-right none" id='cancelar_senhabtn' onclick="cancelar(this)" style="color:#4E6EF1;background-color:white;border-color:#4E6EF1 !important;">Cancelar</button>
                                     </form>
                                 </div>
                             </div>

@@ -96,3 +96,7 @@ function validar(){
         localStorage.clear();
     }
 }
+
+function registrar(){
+    window.location.href = "../CadastroUsuario/cadastro_usuario";
+}

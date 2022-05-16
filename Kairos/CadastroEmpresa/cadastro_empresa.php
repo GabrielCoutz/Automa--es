@@ -5,19 +5,19 @@
 	error_reporting(E_ERROR | E_PARSE);
 
 
-	if(!isset($_SESSION['cadastro']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
-		header("Refresh:0; url=cadastro_empresa".'?'.md5('erro=true'));
-        exit;
-	}
+	//if(!isset($_SESSION['cadastro']) && !strpos//($protocol . $_SERVER['HTTP_HOST'] . //$_SERVER['REQUEST_URI'],md5('erro=true'))){
+	//	header("Refresh:0; //url=cadastro_empresa".'?'.md5//('erro=true'));
+    //    exit;
+	//}
 	?>
 	<head>
 		<meta charset="utf-8">
 		<title>Cadastro</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<link rel="stylesheet" href="assets/fonts/linearicons/style.css">
-	
 		<link rel="stylesheet" href="assets/css/style.css">
 		<link rel="stylesheet" href="../assets/css/popup.css">
+		<link rel="stylesheet" href="../assets/css/icones.css">
 		<link rel="shortcut icon" href="../assets/img/favicon/favicon.ico" type="image/x-icon">
 
 	</head>
@@ -41,27 +41,27 @@
 		<div class="wrapper">
 			<div class="inner">
 				<form action="assets/php/enviar_empresa" method="POST" name="cadastro" onsubmit="return false" id="cadastro_empresa">
-					<h3>Cadastro Empresa</h3>
+					<h3 style="font-family: 'Muli-Regular' !important;">Cadastro Empresarial</h3>
 					<div class="form-holder">
-						<span class="lnr lnr-apartment"></span>
+						<i class="gg-organisation organisation"></i>
 						<input type="text" class="form-control" placeholder="Nome da Empresa"  id='nome_empresa' name='nome_empresa' maxlength="50">
 					</div>
 					<div class='none alerta' id='nome_empresaAlert'></div>
 
 					<div class="form-holder">
-						<span class="lnr lnr-apartment"></span>
+						<i class="gg-organisation organisation"></i>
 						<input type="text" class="form-control" placeholder="Nome Fantasia"  id="nome_fantasia" name="nome_fantasia" maxlength="50">
 					</div>
 					<div class='none alerta' id='nome_fantasiaAlert'></div>
 
 					<div class="form-holder">
-						<span class="lnr lnr-apartment"></span>
+						<i class="gg-organisation organisation"></i>
 						<input type="tel" class="form-control" placeholder="CNPJ"  id="cnpj" name="cnpj" onkeypress="$(this).mask('00.000.000/0000-00')">
 					</div>
 					<div class='none alerta' id='cnpjAlert'></div>
 
 					<div class="form-holder">
-						<span class="lnr lnr-apartment"></span>
+						<i class="gg-organisation organisation"></i>
 						<div class="col-md-4 selectContainer">
 							<div class="input-group">
 								<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
@@ -79,13 +79,13 @@
 					<div class='none alerta' id='ramoAlert'></div>
 
 					<div class="form-holder">
-						<span class="lnr lnr-map-marker"></span>
+						<i class="gg-pin pin"></i>
 						<input type="tel" class="form-control" placeholder="CEP"  id="cep_empresa" name="cep_empresa" onkeypress="$(this).mask('00.000-000')" onkeyup="ler(this)">
 					</div>
 					<div class='none alerta' id='cep_empresaAlert'></div>
 
 					<div class="form-holder">
-						<span class="lnr lnr-map-marker"></span>
+						<i class="gg-pin pin"></i>
 						<input type="tel" class="form-control" placeholder="Número"  id="numero_empresa" name="numero_empresa" maxlength="15">
 					</div>
 					<div class='none alerta' id='numero_empresaAlert'></div>
@@ -97,8 +97,8 @@
 					<input type="text" class="none"  id="estado_empresa" name="estado_empresa">
 
 					<div class='none alerta' id='butaoAlert'>Apenas CNPJ's válidos são aceitos, por favor verifique e tente novamente!</div>
-					<button class="btn btn-warning" type="submit" onclick="validar()" id='butao'>
-						<span >Registrar</span>
+					<button class="btn btn-warning" type="submit" onclick="validar()" id='butao' style="font-family: 'Muli-Regular' !important;">
+						<span id='reg'>Registrar</span>
 					</button>
 				</form>
 				<img src="assets/images/image-2.png" alt="" class="image-2">

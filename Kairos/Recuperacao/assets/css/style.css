@@ -35,8 +35,8 @@
 }
   
   #ajuda{
-    margin-top: 2px;
-    text-align: right;
+    margin-top: 8px;
+    text-align: center;
     margin-bottom: 1px;
     cursor: pointer;
     display: block;
@@ -57,7 +57,6 @@
   
   #divAjuda{
     display: grid;
-    justify-items: end;
   }
   
   * {
@@ -441,7 +440,7 @@
     transition: all 0.5s ease-in-out;
     display: inline !important;
     width: 90% !important;
-  
+    font-weight: bold;
   }
   
   input, textarea, select, button {
@@ -644,6 +643,7 @@
   
   
       #butao {
+        font-weight: bold;
         border: none;
         width: 100%;
         height: 49px;

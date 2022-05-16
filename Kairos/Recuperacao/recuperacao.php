@@ -4,14 +4,14 @@
 		<meta charset="utf-8">
 		<title>Recuperação</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<!-- LINEARICONS -->
+
 		<link rel="stylesheet" href="assets/fonts/linearicons/style.css">
-		<!-- STYLE CSS -->
 		<link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/style.scss">
 		<link rel="stylesheet" href="../assets/css/popup.css">
+		<link rel="stylesheet" href="../assets/css/icones.css">
 		<link rel="shortcut icon" href="../assets/img/favicon/favicon.ico" type="image/x-icon">
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+
 		<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 		<?php
 			error_reporting(E_ERROR | E_PARSE);
@@ -49,7 +49,7 @@
 					<hr>
 					
                     <div class="form-holder">
-						<span class="lnr lnr-user"></span>
+						<i class="gg-user user"></i>
 						<p>
 							<input type="text" class="form-control" placeholder="Nome Completo" id="nome" name='nome' maxlength="100" onkeyup="apenasLetras(this)">
 						</p>
@@ -57,13 +57,13 @@
 					<div class='none alerta' id='nomeAlert'></div>
 
 					<div class="form-holder">
-						<span class="lnr lnr-user"></span>
+						<i class="gg-user user"></i>
 						<input type="email" class="form-control" placeholder="Email" id="email" name='email' maxlength="50">
 					</div>
 					<div class='none alerta' id='emailAlert'></div>
 
 					<div class="form-holder">
-						<span class="lnr lnr-user"></span>
+						<i class="gg-user user"></i>
 						<p>
 							<input type="tel" class="form-control" placeholder="CPF" id="cpf" name='cpf' onkeypress="$(this).mask('000.000.000-00')">
 						</p>
@@ -73,7 +73,7 @@
 					<div class="g-recaptcha" data-sitekey="6Ld5L3oeAAAAAAH8CgndVZBek5uasbGl5mroKjP5" id="captcha"></div>
                 	<div class='none alerta' id='captchaAlert'></div>
 
-					<button type='submit' class="btn btn-warning" id='butao' name="butao" onclick="validar()">
+					<button type='submit' class="btn btn-warning" id='butao' name="butao" onclick="validar()" style="font-family: 'Muli-Regular' !important;">
 						<span>Entrar</span>
 					</button>
 					<div id='divAjuda'>

@@ -91,7 +91,7 @@
                     <span>Registrar</span>
                 </button>
                 <div id='signin'>
-                    <a href="../Login/login">Já possui conta? Então faça login</a>
+                    <a href="../Login/login">Fazer login</a>
                 </div>
             </form>
             <img src="assets/images/image-2.png" alt="" class="image-2">

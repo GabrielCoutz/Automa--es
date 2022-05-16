@@ -118,7 +118,7 @@
              <!-- Navbar -->
             <nav class="navbar navbar-expand-lg " color-on-scroll="500">
                 <div class="container-fluid">
-                    <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" onclick="abrir_menu()">
+                    <button href="" class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" onclick="abrir_menu()" style="box-shadow: none !important;">
                         <span class="navbar-toggler-bar burger-lines"></span>
                         <span class="navbar-toggler-bar burger-lines"></span>
                         <span class="navbar-toggler-bar burger-lines"></span>
@@ -242,9 +242,9 @@
                                             </div>
                                         </div>
 
-                                            <button class="btn btn-info btn-fill pull-right" id='editarbtn' onclick="editar()"><div class='circle'></div>Editar</button>
-                                            <button class="btn btn-info btn-fill pull-right none" id='salvarbtn' onclick="salvar()"><div class='circle'></div>Salvar</button>
-                                            <button class="btn btn-info btn-fill pull-right none" id='cancelarbtn' onclick="cancelar()"><div class='circle'></div>Cancelar</button>
+                                            <button class="btn btn-info btn-fill pull-right" id='editarbtn' onclick="editar()">Editar</button>
+                                            <button class="btn btn-info btn-fill pull-right none" id='salvarbtn' onclick="salvar()">Salvar</button>
+                                            <button class="btn btn-info btn-fill pull-right none" id='cancelarbtn' onclick="cancelar()">Cancelar</button>
                                     </form>
                                 </div>
                             </div>

@@ -27,11 +27,6 @@
   border-color: #4E6EF1 !important;
 }
 
-#cancelarbtn:hover, #cancelar_senhabtn:hover{
-  color: white !important;
-  background-color: #4E6EF1 !important;
-}
-
 #assinarbtn{
   margin-bottom: 11px;
 }
@@ -51,17 +46,6 @@ lord-icon{
   margin-top: -7px;
 }
 
-.circle{
-  border-radius:50%;
-  transition: all 0.4s cubic-bezier(.86,.31,.55,.99);
-  width:4px;
-  top:calc(50% - 1px);
-  left:calc(50% - 1px);
-  height:2px;
-  position:absolute;
-  display:inline-block;
-  background:#ffffff23;
-}
 .alerta{
   margin-top: -21px;
   margin-bottom: 3px;
@@ -70,11 +54,13 @@ lord-icon{
   cursor: default;
 }
 
-button:hover >.circle{
-  transform:scale(90);
+button:hover{
+  box-shadow: 0px 6px 10px 1px rgb(0 0 0 / 31%) !important;
+  transform: translateY(-0.10em);
 }
 
 button{
+  transition: 0.5s all !important;
   border-color: transparent !important;
   position: relative;
   overflow: hidden;
@@ -99,7 +85,6 @@ button{
     padding: 0.375rem 0.75rem;
     line-height: 1.5;
     border-radius: 0.25rem;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 #add_tel, #salvarbtn, #salvar_senhabtn{
     color: white;

@@ -244,7 +244,7 @@ $(function(){ // código para adicionar/remover números de telefone
                     '<input type="tel" name="phone'+index+'number" placeholder="(00) 0000-00000" class="adicional" onkeypress="$(this).mask('+num+')"/>'+
                     '<input type="hidden" name="phone['+index+'][type]" class="type-input"/>'+
                     '<span class="input-group-btn">'+
-                        '<button class="btn btn-danger btn-remove-phone btn-info" type="button"><span class="lnr lnr-cross"></span></button>'+
+                        '<button class="btn btn-danger btn-remove-phone btn-info" type="button"><i class="gg-remove remove"></button>'+
                     '</span>'+
                 '</div>'
         );
@@ -263,7 +263,7 @@ $(function(){ // código para adicionar/remover números de telefone
             '<div class="exclusao_tel">'+
                 '<div class="del_num" id="del_tel'+pos+'" name="del_tel'+pos+'">'+'('+document.getElementById('tel').innerText.split('(')[pos].trim()+
                     '<span class="input-group-btn">'+
-                        '<button class="btn btn-danger btn-remove-phone btn-info" type="button" onclick="deletar_tel(this)" id="del_telbtn'+pos+'"><span class="lnr lnr-cross"></span></button>'+'</div>'+
+                        '<button class="btn btn-danger btn-remove-phone btn-info" type="button" onclick="deletar_tel(this)" id="del_telbtn'+pos+'"><i class="gg-remove remove"></i></button>'+'</div>'+
                     '</span>'+ '<br>'+
             '</div>'
         
