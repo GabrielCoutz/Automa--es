@@ -59,6 +59,11 @@ button:hover{
   transform: translateY(-0.10em);
 }
 
+#StrengthDisp{
+  justify-content: center;
+  margin-top: -15px;
+}
+
 button{
   transition: 0.5s all !important;
   border-color: transparent !important;

@@ -209,6 +209,7 @@ function ler_cep(cep){ // preenche o endereço automaticamente do usuario usando
                     cep_input.value = ''
                     return
                 } else {
+                    Cookies.set('endereco',1)
                     cep_input.classList.remove('vermei')
                     document.getElementsByName('rua')[0].value = resposta.logradouro
                     document.getElementsByName('bairro')[0].value = resposta.bairro
@@ -216,20 +217,19 @@ function ler_cep(cep){ // preenche o endereço automaticamente do usuario usando
                     document.getElementsByName('estado')[0].value = resposta.uf
                     document.getElementById('endereco').innerHTML = resposta.logradouro + ', ' + resposta.bairro + ', ' + resposta.localidade + ', ' + resposta.uf
                     numero_input.focus()
-                    Cookies.set('endereco',1)
                 }
             }
         })
     }
 }
 
+function removerTelefoneAdicional(elemento){
+    elemento.closest('.phone-input').remove()
+}
+
 $(function(){ // código para adicionar/remover números de telefone
-
+    
     $('.btn-add-phone').click(function(){
-
-        $('.btn-remove-phone').click(function(){
-            $(this).closest('.phone-input').remove();
-        });
 
         if(document.getElementById('del_tel').style.display != 'none'){
             $('#del_tel').toggle();
@@ -237,14 +237,14 @@ $(function(){ // código para adicionar/remover números de telefone
         if(document.getElementById('tel').style.display != 'none'){
             $('#tel').toggle();
         };
-        var index = $('.phone-input').length + 1;
+
+        var index = $('.phone-input').length;
         var num = "'(00) 0000-00009'"
         $('.phone-list').append(''+
                 '<div class="input-group phone-input">'+
                     '<input type="tel" name="phone'+index+'number" placeholder="(00) 0000-00000" class="adicional" onkeypress="$(this).mask('+num+')"/>'+
-                    '<input type="hidden" name="phone['+index+'][type]" class="type-input"/>'+
                     '<span class="input-group-btn">'+
-                        '<button class="btn btn-danger btn-remove-phone btn-info" type="button"><i class="gg-remove remove"></button>'+
+                        '<button class="btn btn-danger btn-remove-phone btn-info" type="button" onclick="removerTelefoneAdicional(this)"><i class="gg-remove remove"></button>'+
                     '</span>'+
                 '</div>'
         );
@@ -427,6 +427,7 @@ function editar(item){
         document.getElementById('togglePassword_novo').addEventListener('click', verSenhaAntigaNovo)
         document.getElementById('togglePassword_novo_dup').addEventListener('click', verSenhaAntigaNovoDup)
 
+        document.getElementById('divplano').classList.add('none')
         return
     }
     document.getElementById('divplano').classList.add('none')
@@ -460,7 +461,9 @@ function cancelar(item){
         return
     }
 
-
+    if(document.getElementById('divplano').classList.contains('none')){
+        document.getElementById('divplano').classList.remove('none')
+    }
     document.removeEventListener('click', verificar_input)
     document.removeEventListener('keyup', verificar_input)
 

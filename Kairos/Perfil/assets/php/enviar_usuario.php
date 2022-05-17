@@ -27,7 +27,7 @@ if(isset($_GET['assinar'])){
     header('Location: ../../../Assinaturas/assinatura?'.md5('cadastro=true'));
     exit;
 }
-
+print_r($email_padrao);
 
 if(isset($_COOKIE['excluir_num'])){ // deletar numeros de telefone
     $limite = $_COOKIE['excluir_nums'];
@@ -91,10 +91,9 @@ if(isset($_COOKIE['senha'])){ // alterar senha
 }
 
 if(isset($_COOKIE['usuario'])){ // alteração de dados usuário
-    //echo 'alterar usuario';
     $nome = $_POST['nome'];
     $tels= $_COOKIE['tels'];
-    $num = 2;
+    $num = 0;
 
 
     if(!empty($nome)){
@@ -109,7 +108,7 @@ if(isset($_COOKIE['usuario'])){ // alteração de dados usuário
             $num+=1;
         }
     }
-    $num = 2;
+    $num = 0;
     if ($tels != 0){
         for($i= 0 ; $i < $tels ; $i++){
             setcookie('phone'.$num.'number', '', time() - 3600, '/');
@@ -120,8 +119,8 @@ if(isset($_COOKIE['usuario'])){ // alteração de dados usuário
         setcookie('tels', '', time() - 3600, '/');
     }
     setcookie('usuario', '', time() - 3600, '/');
-    header('Location:'.$local.'?'.md5('sucesso=true'));
-    exit;
+    //header('Location:'.$local.'?'.md5('sucesso=true'));
+    //exit;
 }
 
 

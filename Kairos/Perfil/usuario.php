@@ -42,14 +42,15 @@
         }
       
 
-      if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
-        header("Refresh:0; url=usuario".'?'.md5('erro=true'));
-        exit;
-      } else {
-        $email=$_SESSION['email'];
-      }
+      //if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER//['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
+      //  header("Refresh:0; url=usuario".'?'.md5('erro=true'));
+      //  exit;
+      //} else {
+      //  $email=$_SESSION['email'];
+      //}
 
       $email='gabriel@gmail.com';
+      $_SESSION['email']='gabriel@gmail.com';
       
       $select=mysqli_query($conec, "SELECT * FROM usuario WHERE email = '$email'")->fetch_assoc();
 
@@ -194,7 +195,7 @@
                                                 <div class="form-group">
                                                     <label>Telefone</label>
                                                     <div class="phone-list">
-                                                        <div class="input-group phone-input none" id='botoes_tel'>
+                                                        <div class="none" id='botoes_tel'>
                                                             <button class="btn btn-success btn-sm btn-add-phone" id='add_tel'>Adicionar telefone</button>
                                                             <button class="btn btn-sm btn-del-phone" id='del_tel'>Excluir telefone</button>
                                                         </div>

@@ -327,10 +327,12 @@ select{
   cursor: pointer;
 }
 #StrengthDisp{
-  padding-left: 18%;
-  padding-top: 14px;
+  margin-top: 28px;
   font-weight: bold;
   cursor: default;
+  width: 100%;
+  text-align: center;
+  padding-right: 0 !important;
 }
 form {
   width: 600px;
@@ -452,10 +454,7 @@ h3 {
 @media (max-width: 991px) {
   .inner {
     width: auto; } 
-  #StrengthDisp{
-    margin-left: 12%;
-    margin-top: 28px;
-  }
+    
   .image-2{
     right: -63px;
   }
