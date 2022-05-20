@@ -5,6 +5,12 @@ function fadeout() {
     document.querySelector('.preloader').style.opacity = '0';
     document.querySelector('.preloader').style.display = 'none';
 }
+function nada(){
+    document.getElementById('asdf_cancelar').addEventListener('click', function(){
+        document.getElementById("login").submit();
+    })
+    document.getElementById('asdf_cancelar').click()
+}
 const limpar_inputs = function(){
     let elementos = document.getElementsByTagName('input')
     for(let i = 0; i < elementos.length ; i++){
@@ -92,8 +98,10 @@ function validar(){
         senha.classList.add("vermei")
 
     } else{
-        document.getElementById('login').submit();
         localStorage.clear();
+        abrirjanela('blue','Aguarde','Validando dados','carregar')
+        document.getElementById('asdf_cancelar').style.display = 'none'
+        setTimeout(nada , 3000)
     }
 }
 

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-<?php
-	session_start();
+    <?php
+	    session_start();
 	?>
 
 <head>
@@ -52,8 +52,7 @@
 
                 <div class="form-holder">
                     <i class="gg-smartphone phone"></i>
-                    <input type="tel" class="form-control" placeholder="Telefone" id="tel" name='tel'
-                        onkeypress="$(this).mask('(00) 0000-00009')"  maxlength="15">
+                    <input type="tel" class="form-control" placeholder="Telefone" id="tel" name='tel' onkeypress="$(this).mask('(00) 0000-00009')" maxlength="15">
                 </div>
                 <div class='none alerta' id='telAlert'></div>
 
@@ -86,7 +85,6 @@
                 <div class="g-recaptcha" data-sitekey="6Ld5L3oeAAAAAAH8CgndVZBek5uasbGl5mroKjP5" id="captcha"></div>
                 <div class='none alerta' id='captchaAlert'></div>
                 
-                <div class='none alerta' id='butaoAlert'>Apenas CPF's válidos são aceitos, por favor verifique e tente novamente!</div>
                 <button class="btn btn-warning" type="submit" onclick="validar()" id='butao' name='butao' style="font-family: 'Muli-Regular' !important;">
                     <span>Registrar</span>
                 </button>
@@ -98,8 +96,7 @@
         </div>
     </div>
     <script src="assets/js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js'>
-    </script>
+    <script type="text/javascript" src='https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.12.0/js/md5.min.js'></script>
     <script src="https://cdn.lordicon.com/lusqsztk.js"></script>
     <script src="../assets/js/popup.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -107,7 +104,5 @@
     <script src="assets/js/validar.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 
-
 </body>
-
 </html>

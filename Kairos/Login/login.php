@@ -36,7 +36,7 @@
     </div>
 		<div class="wrapper">
 			<div class="inner">
-				<form method="POST" id="login" action="assets/php/config?validar=true" style="padding: 77px 46px 66px;">
+				<form method="POST" id="login" action="assets/php/config?validar=true" style="padding: 72px 48px 72px;" onsubmit="return false">
 					<h3 style="font-family: 'Muli-Regular' !important;">Login</h3>
 					<div class="form-holder">
 						<i class="gg-user user"></i>

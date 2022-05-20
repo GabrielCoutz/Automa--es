@@ -149,9 +149,38 @@ input:focus, input:hover, select:focus, select:hover{
   color: #3d9cff;
 }
 
+#btnsair-v{
+  background-color: white;
+  color: red;
+  border-color: red !important;
+  width: 80px;
+  height: 35px;
+}
+
 @media(min-width: 991px){
   #btnfechar{
     display: none;
+  }
+  #btnsair{
+    display: none;
+  }
+  #btnsair-v{
+    display: inline-block;
+  }
+  .nav-mobile-menu{
+    display: none !important;
+  }
+}
+
+@media(max-width: 990px){
+  #btnsair{
+    display: inline-block;
+  }
+  #btnsair-v{
+    display: none;
+  }
+  .nav-mobile-menu{
+    display: block !important;
   }
 }
 

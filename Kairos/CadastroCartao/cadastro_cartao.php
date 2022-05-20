@@ -10,14 +10,15 @@
   <link rel="stylesheet" href="../assets/css/popup.css">
   <link rel="shortcut icon" href="../assets/img/favicon/favicon.ico" type="image/x-icon">
   <?php
-    session_start();
-    error_reporting(E_ERROR | E_PARSE);
-    if(!isset($_SESSION['cadastro']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
-      header("Refresh:0; url=cadastro_cartao".'?'.md5('erro=true'));
-      exit;
-    }
-
-    $_SESSION['assinatura'] = $_GET['plano'];
+      session_start();
+      error_reporting(E_ERROR | E_PARSE);
+      if(!isset($_SESSION['cadastro']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
+        header("Refresh:0; url=cadastro_cartao".'?'.md5('erro=true'));
+        exit;
+      }
+      if (!empty($_GET['plano'])){
+        $_SESSION['assinatura'] = $_GET['plano'];
+      }
   ?>
 
 </head>
@@ -156,7 +157,7 @@
           </div>
         </div>
       </div>
-      <form action="assets/php/enviar_cartao" method="POST" id='cadastro_cartao' onsubmit="return false" autocomplete="off">
+      <form action="assets/php/enviar_cartao?assinatura=<?= $_GET['plano'] ?>" method="POST" id='cadastro_cartao' onsubmit="return false" autocomplete="off">
       <div class="card-form__inner">
         <div class="card-input">
           <label for="cardNumber" class="card-input__label">Número do Cartão</label>
@@ -166,7 +167,7 @@
 
         <div class="card-input">
           <label for="cardName" class="card-input__label">Nome Impresso no Cartão</label>
-          <input type="text" id="cardName" class="card-input__input" v-model="cardName" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardName" autocomplete="cc-csc" name='nome_cartao' maxlength="30">
+          <input type="text" id="cardName" class="card-input__input" v-model="cardName" v-on:focus="focusInput" v-on:blur="blurInput" data-ref="cardName" autocomplete="cc-csc" name='nome_cartao' maxlength="30" onkeyup="apenasLetras(this)">
         </div>
         <div class='none alerta' id='cardNameAlert'></div>
 
@@ -200,28 +201,23 @@
           </div>
         </div>
         <div class='none alerta' id='cardCvvAlert'></div>
-          <div class="card-form__row">
-                    <div class="card-input max cpf">
-              <label for="cardName" class="card-input__label">CPF</label>
-              <input type="tel" class="card-input__input " id="cpf" name='cpf'
-                  onkeypress="$(this).mask('000.000.000-00')"
-                  onkeyup="evento_cpf(this)">
-              <div class='none alerta_data' id='cpfAlert'></div>
-            </div>
+        <div class="card-form__row">
+          <div class="card-input max cpf">
+            <label for="cardName" class="card-input__label">CPF</label>
+            <input type="tel" class="card-input__input " id="cpf" name='cpf' onkeypress="$(this).mask('000.000.000-00')" onkeyup="evento_cpf(this)">
+            <div class='none alerta_data' id='cpfAlert'></div>
+          </div>
+          <div class="card-input max cep">
+            <label for="cardName" class="card-input__label">CEP</label>
+            <input type="tel" class="card-input__input" id="cep" name='cep' onkeypress="$(this).mask('00.000-000')" onkeyup="ler(this)">
+            <div class='none alerta_data' id='cepAlert'></div>
+          </div>
 
-            <div class="card-input max cep">
-                <label for="cardName" class="card-input__label">CEP</label>
-                <input type="tel" class="card-input__input" id="cep" name='cep'
-                    onkeypress="$(this).mask('00.000-000')" onkeyup="ler(this)">
-                <div class='none alerta_data' id='cepAlert'></div>
-            </div>
-
-            <div class="card-input max numero">
-                <label for="cardName" class="card-input__label">Número</label>
-                <input type="tel" class="card-input__input" id="numero" name='numero' maxlength="6">
-                <div class='none alerta_data' id='numeroAlert'></div>
-            </div>
-
+          <div class="card-input max numero">
+            <label for="cardName" class="card-input__label">Número</label>
+            <input type="tel" class="card-input__input" id="numero" name='numero' maxlength="6">
+            <div class='none alerta_data' id='numeroAlert'></div>
+          </div>
             <input type="text" class="none"  id="rua" name='rua'>
             <input type="text" class="none"  id="bairro" name='bairro'>
             <input type="text" class="none"  id="cidade" name='cidade'>

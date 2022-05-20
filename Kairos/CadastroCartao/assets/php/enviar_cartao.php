@@ -1,5 +1,6 @@
 <?php
 session_start();
+error_reporting(E_ERROR | E_PARSE);
 
 $dbHost     = 'localhost';
 $dbUname = 'root';
@@ -16,12 +17,11 @@ if($conec->connect_error){ // se não for localhost, usa a conexão do banco no 
     $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 }
 
-
-$assinatura = $_SESSION['assinatura'];
+$assinatura = $_GET['assinatura'];
 $num_cartao = $_POST['num_cartao'];
 $titular = $_POST['nome_cartao'];
 $cvv_cartao = md5($_POST['cvv_cartao']);
-$cpf=$_SESSION['cpf'];
+$cpf=$_POST['cpf'];
 $validade = $_POST['mes_cartao'].'/'.$_POST['ano_cartao'];
 $email = $_SESSION['email'];
 $cpf=$_POST['cpf'];
@@ -37,16 +37,30 @@ $local='../../cadastro_cartao';
 $select=mysqli_query($conec, "SELECT cpf FROM usuario WHERE cpf = '$cpf'")->fetch_assoc();
 
 if (isset($select['cpf'])){
-    $local=$local.'?'.md5('cpf=false');
+    $local=$local.'?'.md5('cpf=false').'?plano='.$assinatura;
     header("Refresh:0; url="."$local");
     exit;
+} else {
+    $assinatura=$_SESSION['assinatura'];
+    $result=mysqli_query($conec, "INSERT INTO cartao(email_usuario, titular, numero, validade, cvv, assinatura) VALUES((SELECT email FROM usuario WHERE email = '$email'), '$titular', '$num_cartao', '$validade', '$cvv_cartao','$assinatura')");
+
+    $result_usuario=mysqli_query($conec, "UPDATE usuario SET cpf='$cpf' WHERE email='$email'");
+
+    $select_endereco=mysqli_query($conec, "SELECT * FROM endereco WHERE email_usuario='$email'")->fetch_assoc();
 }
 
-$result=mysqli_query($conec, "INSERT INTO cartao(email_usuario, titular, numero, validade, cvv, assinatura) VALUES((SELECT email FROM usuario WHERE email = '$email'), '$titular', '$num_cartao', '$validade', '$cvv_cartao','$assinatura')");
+if (empty($select_endereco['email_usuario'])) { // se não tiver endereço, então todos os dados são cadastrados
+    $result_endereco=mysqli_query($conec, "INSERT INTO endereco(email_usuario, cep, rua, numero, bairro, cidade, estado) VALUES('$email', '$cep', '$rua', ////'$numero', '$bairro', '$cidade', '$estado')");
 
-$result_usuario=mysqli_query($conec, "UPDATE usuario SET cpf='$cpf' WHERE email='$email'");
+} else { // senão é realizado apenas a alteração
+    $result_endereco=mysqli_multi_query($conec,"UPDATE endereco SET cep='$cep' WHERE email_usuario='$email';
+    UPDATE endereco SET rua='$rua' WHERE email_usuario='$email';
+    UPDATE endereco SET numero='$numero' WHERE email_usuario='$email';
+    UPDATE endereco SET bairro='$bairro' WHERE email_usuario='$email';
+    UPDATE endereco SET cidade='$cidade' WHERE email_usuario='$email';
+    UPDATE endereco SET estado='$estado' WHERE email_usuario='$email';");
+}
 
-$result_endereco=mysqli_query($conec, "INSERT INTO endereco(email_usuario, cep, rua, numero, bairro, cidade, estado) VALUES('$email', '$cep', '$rua', '$numero', '$bairro', '$cidade', '$estado')");
 
 if(isset($_SESSION['assinar'])){
     header('Location: ../../../Perfil/usuario?'.md5('sucesso=true'));

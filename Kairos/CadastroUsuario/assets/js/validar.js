@@ -83,6 +83,10 @@ password.addEventListener("input", () => {
     }
 });
 
+password.addEventListener('focusout', function(){
+    strengthBadge.style.display = 'none'
+})
+
 function mudar_senha(botao,elemento){
     let togglePassword = document.querySelector('#'+botao);
     let password = document.querySelector('#'+elemento);
@@ -99,14 +103,16 @@ mudar_senha('togglePassword','senha')
 mudar_senha('togglePassword_confirm','confirm_senha')
 
 function StrengthChecker(PasswordParameter){
-    if(PasswordParameter.length <= 9){
+    if (!document.getElementById('senhaAlert').classList.contains('none')){
+        document.getElementById('senhaAlert').classList.add('none')
+    }
+    if (PasswordParameter.length <= 9){
         strengthBadge.style.color="red"
         strengthBadge.textContent = 'Senha muito curta'
     }else if(strongPassword.test(PasswordParameter)) {
         strengthBadge.style.color="green"
         strengthBadge.textContent = 'Senha Forte'
     } else if(mediumPassword.test(PasswordParameter)){
-        
         strengthBadge.style.color="#b6bf31";
         strengthBadge.textContent = 'Senha Mediana'
     } else{
@@ -159,15 +165,20 @@ const dispararEvento = function(elemento, evento, stringCondicao){  //dispara um
     var condicao // função usada para validação
 
     switch(stringCondicao){ // seta a função de acordo com a stringCondicao, usada para saber qual validação será usada para tratar o erro
+        case 'condicaoNome': var condicao = function(){ return vazio(nome.value)}; break;
         case 'condicaoTel': var condicao = function(){ return tel.value.length != 15}; break;
         case 'condicaoEmail': var condicao = function(){ return !validarEmail(email.value)}; break;
-        case 'condicaoSenha': var condicao = function(){ return vazio(senha.value) || vazio(confirm_senha.value)}; break;
+        case 'condicaoSenha': var condicao = function(){ if (vazio(senha.value) || vazio(confirm_senha.value)){return true}else{return false}}; break;
     }
 
     let funcao = function(){ // verifica se a validação é satisfeita, assim retira o eventListener, remove os avisos e libera o usuario para registrar-se
         if(!condicao()){
             elemento.classList.remove('vermei')
             document.getElementById(elemento.id+'Alert').classList.add('none')
+            if (elemento == senha){
+                confirm_senha.removeEventListener(evento,funcao)
+                confirm_senha.classList.remove('vermei')
+            }
             elemento.removeEventListener(evento,funcao)
             document.getElementById('butao').disabled = false
         }
@@ -175,6 +186,10 @@ const dispararEvento = function(elemento, evento, stringCondicao){  //dispara um
 
     // Já sabendo qual condição deve ser utilizada, é adicionado ao elemento seu evento (keydown ou keyup) e chamada da função, no qual fará uso da condicao setada pelo switch
     document.getElementById('butao').disabled = true
+    if (elemento == senha){
+        elemento.addEventListener(evento,funcao)
+        confirm_senha.addEventListener(evento,funcao)
+    }
     elemento.addEventListener(evento,funcao)
 
 }
@@ -183,6 +198,7 @@ function validar(){
     limpar_inputs()
 
     if (vazio(nome.value)){
+        dispararEvento(nome, 'keyup', 'condicaoNome')
         alertaDeErro(nome.id, "Insira apenas letras!")
         nome.focus()
         nome.classList.add("vermei")
@@ -201,7 +217,7 @@ function validar(){
 
     } else if (vazio(senha.value) || vazio(confirm_senha.value)){
         dispararEvento(senha, 'keyup', 'condicaoSenha')
-        alertaDeErro(senha.id, "Preencha a senha!")
+        alertaDeErro(senha.id, "Preencha ambas as senhas!")
         senha.focus()
         senha.classList.add("vermei")
         confirm_senha.classList.add("vermei")

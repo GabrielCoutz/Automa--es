@@ -19,25 +19,22 @@ $_SESSION['email']=$_POST['email'];
 
 
 if (isset($_GET['validar'])){
-
     $email=$_POST['email'];
     $senha=md5($_POST['senha']);
-    
     $select=mysqli_query($conec, "SELECT email, senha FROM usuario WHERE email ='$email'");
-    
     $result=$select->fetch_assoc();
-    
+
     if(mysqli_num_rows($select)){
-        
         if($result['email'] == $email && $result['senha'] == $senha){
             header('Location: ../../login?'.md5('login=true'));
             exit;
+
         } else {
             header('Location: ../../login?'.md5('login=false'));
             exit;
-            
         }
-    }else{
+
+    } else {
         header('Location: ../../login?'.md5('login=false'));
         exit;
         

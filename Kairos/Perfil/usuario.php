@@ -42,15 +42,13 @@
         }
       
 
-      //if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER//['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
-      //  header("Refresh:0; url=usuario".'?'.md5('erro=true'));
-      //  exit;
-      //} else {
-      //  $email=$_SESSION['email'];
-      //}
+      if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
+        header("Refresh:0; url=usuario".'?'.md5('erro=true'));
+        exit;
+      } else {
+        $email=$_SESSION['email'];
+      }
 
-      $email='gabriel@gmail.com';
-      $_SESSION['email']='gabriel@gmail.com';
       
       $select=mysqli_query($conec, "SELECT * FROM usuario WHERE email = '$email'")->fetch_assoc();
 
@@ -131,7 +129,7 @@
                         <span class="navbar-toggler-bar burger-lines"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-end" id="navigation">
-                        <ul class="nav navbar-nav mr-auto">
+                        <ul class="nav navbar-nav" id='ul-auto'>
                             <li class='nav-item' id='btnfechar'>
                                 <a class="nav-link" onclick="fechar_menu()">
                                     <i class="nc-icon nc-stre-left"></i>
@@ -140,10 +138,14 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link" onclick="sair()" id='btnsair'>
+                                <a class="nav-link none" onclick="sair()" id='btnsair'>
                                 <i class="nc-icon nc-simple-remove"></i>
                                     <span class="no-icon">Sair</span>
                                 </a>
+                            </li>
+
+                            <li class='nav-item'>
+                                <button class='btn' onclick="sair()" id='btnsair-v'>Sair</button>
                             </li>
                         </ul>
                     </div>

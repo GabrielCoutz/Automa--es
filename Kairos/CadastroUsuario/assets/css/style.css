@@ -18,7 +18,7 @@ a {
 }
 
 #captchaAlert{
-  margin-top: 5px;
+  margin-top: 8px;
 }
 lord-icon{
   position: absolute !important;
@@ -27,8 +27,8 @@ lord-icon{
 }
 
 .alerta{
-  margin-top: -21px;
-  margin-bottom: 3px;
+  margin-top: -22px;
+  margin-bottom: 4px;
   text-align: center;
   color: #ff0000;
   cursor: default;
@@ -36,7 +36,7 @@ lord-icon{
 
 #butaoAlert{
     position: relative;
-    margin-bottom: -44px;
+    margin-bottom: -16px;
     margin-top: 15px;
 }
 
@@ -67,7 +67,7 @@ a:hover {
 #signin{
   color: #6486a9;
   text-align: center;
-  padding-top: 10px;
+  padding-top: 8px;
   font-weight: bold;
   font-size: 1.0em;
 }
@@ -358,7 +358,7 @@ h3 {
 
 .form-holder {
   position: relative;
-  margin-bottom: 21px; }
+  margin-bottom: 24px; }
   .form-holder span {
     padding-right: 26px;
     position: absolute;
@@ -407,8 +407,8 @@ h3 {
   #butao {
   border: none;
   width: 100%;
-  height: 49px;
-  margin-top: 50px;
+  height: 48px;
+  margin-top: 24px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -477,8 +477,7 @@ h3 {
     display: none; }
 
   form {
-    padding-top: 4%;
-    padding-bottom: 9%;
+    padding: 72px 48px 72px;
     box-shadow: none;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;

@@ -54,7 +54,7 @@ if(isset($select_email['email'])){ // email já utilizado
     exit;
 
 } else {
-    $result=mysqli_multi_query($conec, "INSERT INTO usuario(nome,email,senha) VALUES('$nome','$email','$senha');
+    $result=mysqli_multi_query($conec, "INSERT INTO usuario(nome, email, senha) VALUES('$nome', '$email', '$senha');
                                         INSERT INTO telefone(email_usuario, tel) VALUES((SELECT email FROM usuario WHERE email = '$email'), '$tel')");
 
     header('Location: ../../../Login/login?'.md5('sucesso=true'));

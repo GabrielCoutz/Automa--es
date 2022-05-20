@@ -27,7 +27,6 @@ if(isset($_GET['assinar'])){
     header('Location: ../../../Assinaturas/assinatura?'.md5('cadastro=true'));
     exit;
 }
-print_r($email_padrao);
 
 if(isset($_COOKIE['excluir_num'])){ // deletar numeros de telefone
     $limite = $_COOKIE['excluir_nums'];
@@ -59,16 +58,22 @@ if(isset($_COOKIE['endereco'])){ // alteração do endereco
     $cidade = $_POST['cidade'];
     $estado = $_POST['estado'];
 
-    $result_nome_empresa=mysqli_multi_query($conec,"UPDATE endereco SET cep='$cep' WHERE email_usuario='$email_padrao';
-    UPDATE endereco SET rua='$rua' WHERE email_usuario='$email_padrao';
-    UPDATE endereco SET numero='$numero' WHERE email_usuario='$email_padrao';
-    UPDATE endereco SET bairro='$bairro' WHERE email_usuario='$email_padrao';
-    UPDATE endereco SET cidade='$cidade' WHERE email_usuario='$email_padrao';
-    UPDATE endereco SET estado='$estado' WHERE email_usuario='$email_padrao';");
+    $select_endereco=mysqli_query($conec, "SELECT * FROM endereco WHERE email_usuario='$email_padrao'")->fetch_assoc();
+
+    if(empty($select_endereco['email_usuario'])){ // se não tiver endereço, então todos os dados são cadastrados
+        $result_endereco=mysqli_query($conec, "INSERT INTO endereco(email_usuario, cep, rua, numero, bairro, cidade, estado) VALUES('$email_padrao', '$cep', '$rua', '$numero', '$bairro', '$cidade', '$estado')");
+
+    } else { // senão é realizado apenas a alteração
+        $result_endereco=mysqli_multi_query($conec,"UPDATE endereco SET cep='$cep' WHERE email_usuario='$email_padrao';
+        UPDATE endereco SET rua='$rua' WHERE email_usuario='$email_padrao';
+        UPDATE endereco SET numero='$numero' WHERE email_usuario='$email_padrao';
+        UPDATE endereco SET bairro='$bairro' WHERE email_usuario='$email_padrao';
+        UPDATE endereco SET cidade='$cidade' WHERE email_usuario='$email_padrao';
+        UPDATE endereco SET estado='$estado' WHERE email_usuario='$email_padrao';");
+    }
 
     setcookie('endereco', '', time() - 3600, '/');
-
-}
+} ## arrumar o plano sendo excluido quando cpf é duplicado
 
 if(isset($_COOKIE['senha'])){ // alterar senha
     //echo 'alterar senha';
@@ -77,17 +82,17 @@ if(isset($_COOKIE['senha'])){ // alterar senha
     $senha_nova_dup = md5($_POST['senha_nova_dup']);
 
     $select_senha=mysqli_query($conec, "SELECT senha FROM usuario WHERE email ='$email_padrao'")->fetch_assoc()['senha'];
-    if($select_senha != $senha_antiga){
+    if($select_senha != $senha_antiga){ 
         setcookie('senha', '', time() - 3600, '/');
         header('Location:'.$local.'?'.md5('senha=false'));
         exit;
+
     } else {
         $result_senha=mysqli_query($conec,"UPDATE usuario SET senha = '$senha_nova' WHERE email = '$email_padrao'");
         setcookie('senha', '', time() - 3600, '/');
         header('Location:'.$local.'?'.md5('sucesso=true'));
         exit;
     }
-
 }
 
 if(isset($_COOKIE['usuario'])){ // alteração de dados usuário
@@ -119,8 +124,8 @@ if(isset($_COOKIE['usuario'])){ // alteração de dados usuário
         setcookie('tels', '', time() - 3600, '/');
     }
     setcookie('usuario', '', time() - 3600, '/');
-    //header('Location:'.$local.'?'.md5('sucesso=true'));
-    //exit;
+    header('Location:'.$local.'?'.md5('sucesso=true'));
+    exit;
 }
 
 

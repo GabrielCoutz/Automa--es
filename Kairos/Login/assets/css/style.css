@@ -12,13 +12,6 @@
   cursor: default;
 }
 
-#ajuda{
-  margin-top: 2px;
-  text-align: center;
-  margin-bottom: 1px;
-  cursor: pointer;
-  display: block;
-}
 lord-icon{
   position: absolute !important;
   margin-top: -14px;
@@ -37,11 +30,16 @@ h3{
   text-align: center;
   cursor: pointer;
   display: block;
-  margin-top: 5px;
+  margin-top: 8px;
 }
 
 .none{
   display: none;
+}
+
+#senhaAlert{
+  margin-top: -21px !important;
+  margin-bottom: -21px !important;
 }
 
 .alerta {
@@ -52,12 +50,7 @@ h3{
   cursor: default;
 }
 
-
-#divAjuda{
-  margin-top: 6px;
-}
-
-#esqueci:hover, #signup:hover, #divAjuda:hover{
+#esqueci:hover, #signup:hover{
   cursor: default !important;
 }
 
@@ -582,7 +575,7 @@ h3 {
 
   text-align: center;
 
-  margin-bottom: 33px; }
+  margin-bottom: 32px; }
 
 
 
@@ -590,7 +583,7 @@ h3 {
 
   position: relative;
 
-  margin-bottom: 21px; }
+  margin-bottom: 24px; }
 
   .form-holder span {
 
@@ -684,7 +677,7 @@ h3 {
   border: 1px solid #4E6EF1 !important;
   width: 100%;
   margin-top: 40px;
-  height: 49px;
+  height: 48px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -761,9 +754,7 @@ transform: translate(0, 0); }
 
   .inner {
 
-    width: 400px;
-
-    left: 4%; } }
+    width: 400px; } }
 
 @media (max-width: 767px) {
 

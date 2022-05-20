@@ -73,9 +73,16 @@ function ler(cep){
 }
 
 function limparURL(url){ // tira o disparador de popup da url, limpando-a
-  let nextURL = window.location.href.replace(url,'').replace('?','');
+  let nextURL = window.location.href.replace('?'+url,'');
   let nextState = { additionalInformation: 'Updated the URL with JS' };
   window.history.replaceState(nextState, 'Cadastro', nextURL);
+}
+
+function apenasLetras(event) { // deixa apenas letras com ou sem acento serem digitadas
+  if(event.value != undefined){
+      let limpo = event.value.replace(/[^\w\s-zÀ-ÖØ-öø-ÿ]/gi, '').replace(/[0-9]/g,'')
+      event.value = limpo.replace('-','').replace('_','')
+  }
 }
 
 switch (true) {

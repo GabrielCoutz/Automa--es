@@ -124,7 +124,7 @@
                         <span class="navbar-toggler-bar burger-lines"></span>
                     </button>
                     <div class="collapse navbar-collapse justify-content-end" id="navigation">
-                        <ul class="nav navbar-nav mr-auto">
+                        <ul class="nav navbar-nav" id='ul-auto'>
                             <li class='nav-item' id='btnfechar'>
                                 <a class="nav-link" onclick="fechar_menu()">
                                     <i class="nc-icon nc-stre-left"></i>
@@ -137,6 +137,10 @@
                                     <i class="nc-icon nc-simple-remove"></i>
                                     <span >Sair</span>
                                 </a>
+                            </li>
+
+                            <li class='nav-item'>
+                                <button class='btn' onclick="sair()" id='btnsair-v'>Sair</button>
                             </li>
                         </ul>
                     </div>
