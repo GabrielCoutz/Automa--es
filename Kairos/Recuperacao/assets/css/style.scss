@@ -81,19 +81,8 @@ h3 {
 }
 .form-holder {
 	position: relative;
-	margin-bottom: 21px;
-	span {
-		position: absolute;
-		left: 0;
-		top: 50%;
-		transform: translateY(-50%);
-		font-size: 15px;
-		color: #333;
-		&.lnr-lock {
-			left: 2px;
-		}
+	margin-bottom: 24px;
 	}
-}
 .form-control {
 	border: none;
 	border-bottom: 1px solid #e6e6e6;

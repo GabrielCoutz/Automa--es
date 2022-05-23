@@ -25,6 +25,10 @@
     cursor: default;
   }
 
+  #primeiro{
+    margin-top: 24px;
+  }
+
   #captchaAlert{
     margin-top: 5px;
   }
@@ -39,6 +43,7 @@
     text-align: center;
     margin-bottom: 1px;
     cursor: pointer;
+    font-weight: bold;
     display: block;
   }
   
@@ -427,27 +432,25 @@
     margin: 0;
   
     color: #999; }
-  
-  
-  
+   
   .vermei{
   
     border-bottom: 1px solid #ff0000 !important;
   
   }
+  .form-control:focus, .form-control:hover {
+    border-bottom: 1px solid #accffe; }
   
   input{
     transition: all 0.5s ease-in-out;
     display: inline !important;
-    width: 90% !important;
+    width: 100% !important;
     font-weight: bold;
   }
   
   input, textarea, select, button {
   
     font-family: "Muli-Regular"; }
-  
-  
   
   p, h1, h2, h3, h4, h5, h6, ul {
   
@@ -514,7 +517,7 @@
   
     z-index: 9;
   
-    padding: 77px 61px 66px;
+    padding: 72px 48px 72px;
   
     background: #fff;
   
@@ -552,7 +555,7 @@
   
     position: relative;
   
-    margin-bottom: 21px; }
+    margin-bottom: 24px; }
   
     .form-holder span {
   
@@ -646,10 +649,11 @@
         font-weight: bold;
         border: none;
         width: 100%;
-        height: 49px;
-        margin-top: 18px;
+        height: 48px;
+        margin-top: 24px;
         cursor: pointer;
         display: flex;
+        font-weight: bold;
         align-items: center;
         justify-content: center;
         padding: 0;

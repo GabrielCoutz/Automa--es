@@ -48,11 +48,9 @@ $(document).ready(function() {
 window.addEventListener('resize',function(){
     if ((window.screen.width) > 991){
         document.getElementById('ul-auto').classList.remove('mr-auto')
-        document.getElementById('btnsair').classList.add('none')
     }
     if ((window.screen.width) < 991){
         document.getElementById('ul-auto').classList.add('mr-auto')
-        document.getElementById('btnsair').classList.remove('none')
     }
 })
 

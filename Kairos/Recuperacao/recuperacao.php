@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 	<head>
 		<meta charset="utf-8">
 		<title>Recuperação</title>
@@ -40,15 +40,15 @@
     </div>
 		<div class="wrapper">
 			<div class="inner">
-				<form method="POST" id="recuperacao" action="assets/php/config">
-					<h3>Verificação de Identidade</h3>
+				<form method="POST" id="recuperacao" action="assets/php/config" style="padding: 72px 48px 72px;">
+					<h3 style="font-family: 'Muli-Regular' !important;">Verificação de Identidade</h3>
 					<hr>
 					<p id='texto'>
 						Não tem problema se esqueceu a senha da sua conta, para recuperá-la basta inserir os dados da mesma nos campos abaixo.
 					</p>
 					<hr>
 					
-                    <div class="form-holder">
+                    <div class="form-holder" id='primeiro'>
 						<i class="gg-user user"></i>
 						<p>
 							<input type="text" class="form-control" placeholder="Nome Completo" id="nome" name='nome' maxlength="100" onkeyup="apenasLetras(this)">

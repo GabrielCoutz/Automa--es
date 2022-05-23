@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 	<head>
 		<meta charset="utf-8">
 		<title>Recuperação</title>
@@ -43,7 +43,7 @@
     </div>
 		<div class="wrapper">
 			<div class="inner">
-				<form method="POST" id="mudar" action="assets/php/config">
+				<form method="POST" id="mudar" action="assets/php/config" style="padding: 72px 48px 72px;" >
 					<h3 style="font-family: 'Muli-Regular' !important;">Mudança de senha</h3>
                 <div class="form-holder">
                     <i class="gg-lock lock"></i>

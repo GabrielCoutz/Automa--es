@@ -123,7 +123,7 @@
             <!-- Navbar -->
             <nav class="navbar navbar-expand-lg " color-on-scroll="500">
                 <div class="container-fluid">
-                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" style="box-shadow: none !important;">
+                    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation" style="box-shadow: none !important;" onclick="abrir_menu()">
                         <span class="navbar-toggler-bar burger-lines"></span>
                         <span class="navbar-toggler-bar burger-lines"></span>
                         <span class="navbar-toggler-bar burger-lines"></span>
@@ -138,7 +138,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a class="nav-link none" onclick="sair()" id='btnsair'>
+                                <a class="nav-link" onclick="sair()" id='btnsair'>
                                 <i class="nc-icon nc-simple-remove"></i>
                                     <span class="no-icon">Sair</span>
                                 </a>

@@ -20,23 +20,25 @@ janelaPopUp.abre = function(id, classes, titulo, corpo, functionCancelar, functi
         }
     });
 
-    let src = ''
+    let src = ""
     let trigger = "trigger='loop' "
     let delay = "delay='1000' "
-    let colors = "colors= 'primary:#121331,secondary:#ffffff' "
+    let colors = ""
     let style= "style= 'width:46px;height:46px'> "
 
     switch (true) { // determina qual ícone aparecerá no popup de acordo com a string passada na variável 'icone'
       case icone == 'sucesso':
         src = "src='https://cdn.lordicon.com/lupuorrc.json' "
+        colors= "colors= 'primary:#121331,secondary:#16c72e' "
         break;
       case icone == 'falha':
             src = "src= 'https://cdn.lordicon.com/tdrtiskw.json' "
+            colors ="colors= 'primary:#c71f16,secondary:#000000' "
             break;
       case icone == 'carregar':
             src = "src= 'https://cdn.lordicon.com/dpinvufc.json' "
             delay = "delay = '10' "
-            colors = " colors= 'primary:#ffffff,secondary:#ffffff' "
+            colors = "  colors='primary:#4E6EF1,secondary:#4E6EF1' "
             break;
         case icone == 'encontrado':
             src= "src='https://cdn.lordicon.com/msoeawqm.json' "
@@ -44,7 +46,7 @@ janelaPopUp.abre = function(id, classes, titulo, corpo, functionCancelar, functi
     }
   
     let popFundo = '<div id="popFundo_' + id + '" class="popUpFundo ' + classesFundo + '"></div>'
-    let janela = '<div id="' + id + '" class="popUp ' + classes + '"><h1>' + titulo + "</h1><div>"+"<lord-icon " + src + trigger + delay + colors + style + "</lord-icon><span>" + corpo + "</span></div><button class='puCancelar " + classBot + "' id='" + id +"_cancelar' data-parent=" + id + ">" + cancelar + "</button><button class='puEnviar " + classBot + "' data-parent=" + id + " id='" + id +"_enviar'>" + enviar + "</button></div>";
+    let janela = '<div id="' + id + '" class="popUp ' + classes + '"><h1>' + titulo + "</h1><div id='conteudoPopUp'>"+"<lord-icon " + src + trigger + delay + colors + style + "</lord-icon><span>" + corpo + "</span></div><button class='puCancelar " + classBot + "' id='" + id +"_cancelar' data-parent=" + id + ">" + cancelar + "</button><button class='puEnviar " + classBot + "' data-parent=" + id + " id='" + id +"_enviar'>" + enviar + "</button></div>";
     $("window, body").css('overflow', 'hidden');
     
     $("body").append(popFundo);

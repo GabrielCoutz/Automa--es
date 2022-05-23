@@ -174,7 +174,7 @@ input:focus, input:hover, select:focus, select:hover{
 
 @media(max-width: 990px){
   #btnsair{
-    display: inline-block;
+    display: block;
   }
   #btnsair-v{
     display: none;

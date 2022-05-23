@@ -31,6 +31,7 @@ h3{
   cursor: pointer;
   display: block;
   margin-top: 8px;
+  font-weight: bold;
 }
 
 .none{
@@ -584,6 +585,9 @@ h3 {
   position: relative;
 
   margin-bottom: 24px; }
+
+  .form-control:focus, .form-control:hover {
+    border-bottom: 1px solid #accffe; }
 
   .form-holder span {
 

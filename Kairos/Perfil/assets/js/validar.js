@@ -133,7 +133,7 @@ switch (true) {
         break;
 
     case window.location.href.includes(md5('sucesso=true')):
-        abrirjanela('green','Dados alterados com êxito.', 'Alteração realizada com sucesso', 'sucesso')
+        abrirjanela('green','Dados alterados com êxito.', 'Alteração realizada', 'sucesso')
         limparURL(md5('sucesso=true'))
         break;
 }
@@ -596,4 +596,8 @@ function sair(){
 function fechar_menu(){
     document.getElementsByTagName('html')[0].classList.remove('nav-open')
     document.getElementsByClassName('close-layer')[0].classList.add('none')
+}
+
+function abrir_menu(){
+    document.getElementsByTagName('html')[0].classList.add('nav-open')
 }
