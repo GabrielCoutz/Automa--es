@@ -71,17 +71,13 @@ const cancelarCadastroEmpresa = function(){
 }
 
 function abrirEmpresa(){
-    janelaPopUp.abre( "asdf", "p" + " "  + 'blue' + ' ' + 'confirm',  'Empresa Não encontrada' , 'Parece que você não tem uma empresa cadastrada.<br>Gostaria de cadastrá-la agora?')
+    janelaPopUp.abre( "asdf", "p" + " "  + 'blue' + ' ' + 'confirm',  'Empresa Não encontrada' , 'Parece que você não tem uma empresa cadastrada. Gostaria de cadastrá-la agora?')
 
-    document.getElementById('asdf_enviar').innerHTML = 'Não'
-    document.getElementById('asdf_enviar').style.marginRight = '10px'
-    document.getElementById('asdf_enviar').style.width = '40%'
+    document.getElementById('asdf_enviar').innerHTML = 'Não, talvez mais tarde'
     document.getElementById('asdf_enviar').addEventListener('click', cancelarCadastroEmpresa)
 
     document.getElementById('asdf_cancelar').addEventListener('click', IniciarCadastroEmpresa)
-    document.getElementById('asdf_cancelar').style.marginLeft = '10px'
-    document.getElementById('asdf_cancelar').innerHTML = 'Sim'
-    document.getElementById('asdf_cancelar').style.width = '40%'
+    document.getElementById('asdf_cancelar').innerHTML = 'Sim, gostaria'
 }
 
 // -------------------- fim código popup --------------------

@@ -23,7 +23,6 @@
       setcookie(session_name(),'',0,'/');
       session_regenerate_id(true);
     ?>
-    
 
   </head>
   <body>

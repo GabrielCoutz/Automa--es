@@ -73,20 +73,10 @@ body, html, root, document{
     font-size: 18px;
     font-weight: bold;
     text-align: center;
-    color: #fff;
     background-color: transparent;
     border-style: none;
     border-width: 5px;
     border-color: black;
-}
-.vermelha>h1{
-    border-color: #fa5032;
-}
-.verde>h1{
-    border-color: #42ad4f;
-}
-.azul>h1{
-    border-color: #659cff;
 }
 
 .popUp>div{
@@ -120,17 +110,16 @@ body, html, root, document{
     padding: 10px;
     width: 50%;
     border: 1px none #ccc;
-    color: #fff;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif !important;
     font-weight: bold;
     cursor: pointer;
 }
 .alert{
-    width: 61% !important;
+    width: 40% !important;
 }
 .popUp .puCancelar{
     float: left;
-    margin-left: 20%;
+    margin-left: 30%;
     text-align: center;
 }
 
@@ -274,6 +263,7 @@ h1{
 }
 
 #conteudoPopUp{
+    color: #666666 !important;
     padding-right: 8px;
     font-size: 15px;
     padding-left: 8px;
@@ -283,48 +273,28 @@ h1{
     background-color:white;
 }
 
-.blue>button{
-	border-radius:16px;
-    background-color:transparent;
-	border:3px solid #ffffff;
-    border-color: rgb(42, 92, 255) !important;
-	display:inline-block;
-	cursor:pointer;
-	color:#0037f1;
-	font-family: -apple-system, BlinkMacSystemFont, sans-serif !important;
-    font-weight: bold;
-	text-decoration:none;
-    transition: ease-in 0.5s;
-}
-.popUpFundo.blue{
-    backdrop-filter: blur(8px);
-    background: rgb(0 0 0 / 46%);
-}
 
 #asdf{
-    border: 6px solid rgb(42 91 255 / 86%);
-    color: rgba(0, 0, 0, 0.6);
-    font-weight: bold;
     border-radius: 23px !important;
     box-shadow: rgb(0 0 0 / 30%) 0px 8px 10px -6px !important;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    border:3px solid #ffffff;
+    color: #666666;
+    font-weight: bold;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
 
-.popUp.green{
-    border-color: #45df4c !important;
-}
 
-.green>button{
-    background-color:transparent;
-	border-radius:19px;
-	border:3px solid #ffffff;
-    border-color: rgb(42, 92, 255) !important;
-    color:#0037f1;
-	display:inline-block;
-	cursor:pointer;
-	font-family: -apple-system, BlinkMacSystemFont, sans-serif !important;
-    font-weight: bold !important;
-	text-decoration:none;
+.blue>button, .green>button, .red>button{
+    background-color:transparent !important;
+    border:3px solid #ffffff;
+    border-color: rgb(102 102 102) !important;
+    color: #666666;
+    font-weight: bold;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif !important;
+    display:inline-block;
+    text-decoration:none;
+    cursor:pointer;
+    border-radius:24px;
     transition: ease-in 0.5s;
 }
 
@@ -334,29 +304,57 @@ h1{
     transform: translateY(-0.10em);
 }
 
-.popUpFundo.green{
-    backdrop-filter: blur(8px);
-    background: rgb(0 0 0 / 46%);
+.confirm{
+    max-height: 250px !important;
+    max-width: 384px !important;
+}
+.confirm > #conteudoPopUp > span{
+    width: 100% !important;
+    text-align: center !important;
+}
+
+.confirm > #asdf_cancelar{
+    margin-top: 8px;
+    background-color: #4E6EF1 !important;
+    border-radius: 50px;
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+.confirm > #asdf_cancelar, #asdf_enviar{
+    border-color: transparent !important;
+    width: 70%;
+    margin-left: 15%;
+}
+
+.confirm > #asdf_enviar{
+    background: white !important;
+    color: #4E6EF1 !important;
+    border: 1px solid #4E6EF1 !important;
+    float: none !important;
+}
+
+.puCancelar>.popUp.blue{
+    margin-top: 8px;
+    background: #4E6EF1 !important;
+    border-radius: 50px;
+    color: #fff;
+    margin-bottom: 8px;
 }
 
 .popUp.red{
     border-color: rgb(255 76 76) !important
 }
 
-.red>button{
-    transition: ease-in 0.5s;
-    background-color:transparent !important;
-	border-radius:16px;
-    border:3px solid #ffffff;
-    border-color: rgb(42, 92, 255) !important;
-	display:inline-block;
-	cursor:pointer;
-	color:#0037f1;
-	font-family: -apple-system, BlinkMacSystemFont, sans-serif !important;
-    font-weight: bold;
-	text-decoration:none;
+.popUp.green{
+    border-color: #45df4c !important;
 }
-.popUpFundo.red{
+
+.popUp.blue{
+    border-color: #659cff !important;
+}
+
+.popUpFundo.green, .popUpFundo.blue, .popUpFundo.red{
     backdrop-filter: blur(8px);
     background: rgb(0 0 0 / 46%);
 }
