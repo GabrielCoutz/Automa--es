@@ -136,6 +136,11 @@ switch (true) {
         abrirjanela('green','Dados alterados com êxito.', 'Alteração realizada', 'sucesso')
         limparURL(md5('sucesso=true'))
         break;
+
+    case window.location.href.includes(md5('sucesso=false')):
+        abrirjanela('red','Não foi possível realizar a operação solicitada. Por favor, tente novamente ou entre em contato conosco.', 'Erro inesperado', 'falha')
+        limparURL(md5('sucesso=false'))
+        break;
 }
 
 function verificar_input(){ // se ouver entrada nos inputs, o botão de salvar é liberado

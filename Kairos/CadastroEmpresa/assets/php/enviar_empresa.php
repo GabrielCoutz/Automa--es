@@ -38,12 +38,20 @@ if(isset($select['cnpj'])){
 } else {
     $result = mysqli_multi_query($conec,"INSERT INTO empresa(email_usuario,nome,nome_fantasia,cnpj,ramo) VALUES((SELECT email FROM usuario WHERE email = '$email'),'$nome_empresa','$nome_fantasia','$cnpj','$ramo');
                                         INSERT INTO endereco_empresa(cnpj_empresa,cep,rua,numero,bairro,cidade,estado) VALUES((SELECT cnpj FROM empresa WHERE cnpj = '$cnpj'),'$cep_empresa','$rua_empresa','$numero_empresa','$bairro_empresa','$cidade_empresa','$estado_empresa')" );
+                                        echo $result;
 
-    if(isset($_COOKIE['cadastro_empresa'])){
-        header('Location: ../../../Perfil/PerfilEmpresa/empresa?'.md5('cadastro=true'));
-        exit;
-    } else {
-        header('Location: ../../../Login/login?'.md5('sucesso=true'));
+    if($result){ // insert feito
+
+        if(isset($_COOKIE['cadastro_empresa'])){
+            header('Location: ../../../Perfil/PerfilEmpresa/empresa?'.md5('cadastro=true'));
+            exit;
+        } else {
+            header('Location: ../../../Login/login?'.md5('sucesso=true'));
+            exit;
+        }
+
+    } else { // insert não feito
+        header('Location: ../../../Login/login?'.md5('sucesso=false'));
         exit;
     }
 }

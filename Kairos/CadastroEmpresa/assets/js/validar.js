@@ -8,6 +8,10 @@ function fadeout() {
 }
 
 function nada(){
+    document.getElementById('asdf_cancelar').addEventListener('click',function(){
+        document.getElementById('cadastro_empresa').submit()
+    }
+    )
     document.getElementById('asdf_cancelar').click()
 }
 
@@ -57,7 +61,7 @@ function limparURL(url){ // tira o disparador de popup da url, limpando-a
 function ler(cep){
     if(localStorage.getItem('erro') == 1){
         cep = document.getElementById('cep_empresa')
-    }
+}
 
     if(cep.value.length == 10){
             $.ajax({
@@ -202,7 +206,6 @@ const dispararEvento = function(elemento, evento, stringCondicao){  //dispara um
     // Já sabendo qual condição deve ser utilizada, é adicionado ao elemento seu evento (keydown ou keyup) e chamada da função, no qual fará uso da condicao setada pelo switch
     document.getElementById('butao').disabled = true
     elemento.addEventListener(evento,funcao)
-
 }
 
 
@@ -256,9 +259,5 @@ function validar(){
         abrirjanela('blue','Verificando Dados','Andamento Cadastro', 'carregar')
         document.getElementById('asdf_cancelar').style.display = 'none'
         setTimeout(nada , 1500)
-        document.getElementById('asdf_cancelar').addEventListener('click',function(){
-            document.getElementById('cadastro_empresa').submit()
-            }
-        )
-        }
+    }
 }

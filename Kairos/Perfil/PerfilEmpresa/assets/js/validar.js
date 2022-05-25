@@ -135,6 +135,11 @@ switch (true) {
         limparURL(md5('cadastro=true'))
         break;
 
+    case window.location.href.includes(md5('sucesso=false')):
+        abrirjanela('red','Não foi possível realizar a operação solicitada. Por favor, tente novamente ou entre em contato conosco.', 'Erro inesperado', 'falha')
+        limparURL(md5('sucesso=false'))
+        break;
+
 
 }
 

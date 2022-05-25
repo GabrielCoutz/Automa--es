@@ -378,7 +378,7 @@
 					<div class="col-xl-6 col-lg-7">
 						<div class="section-title mb-50">
 							<h1 class="mb-20 wow fadeInUp" data-wow-delay=".2s">Já tem um projeto em mente?
-								Maravilha!<br> Vamos começar agora mesmo!
+								Maravilha!<br>Vamos começar agora mesmo!
 							</h1>
 						</div>
 					</div>
@@ -395,8 +395,6 @@
 			<div class="container">
 				<div class="widget-wrapper">
 					<div class="row">
-
-
 						<div class="col-xl-2 offset-xl-1 col-md-5 offset-md-1 col-sm-6">
 							<div class="footer-widget">
 								<h3>Links</h3>
@@ -435,7 +433,7 @@
 
 			</div>
 		</footer>
-    <a href="#" class="scroll-top btn-hover">
+    <a class="scroll-top btn-hover">
       <i class="lni lni-chevron-up"></i>
     </a>
 

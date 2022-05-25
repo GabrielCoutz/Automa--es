@@ -20,6 +20,13 @@ $duplicado=false;
 $email_padrao=$_SESSION['email_padrao'];
 $nome_padrao=$_SESSION['nome_padrao'];
 
+function verificarOperacao($query, $url){ // retorna uma sinalização de erro
+    if(!$query){ // se a operação não tiver retorno, não foi feita. Então manda uma sinalização de erro mostrando que houve falha.
+        header('Location:'.$url.'?'.md5('sucesso=false'));
+        exit;
+        return;
+    }
+}
 
 if(isset($_GET['assinar'])){
     $_SESSION['cadastro']=md5('valido');
@@ -73,7 +80,8 @@ if(isset($_COOKIE['endereco'])){ // alteração do endereco
     }
 
     setcookie('endereco', '', time() - 3600, '/');
-} ## arrumar o plano sendo excluido quando cpf é duplicado
+    verificarOperacao($result_endereco, $local); // verifica se a operação foi feita com sucesso
+}
 
 if(isset($_COOKIE['senha'])){ // alterar senha
     //echo 'alterar senha';
@@ -90,9 +98,11 @@ if(isset($_COOKIE['senha'])){ // alterar senha
     } else {
         $result_senha=mysqli_query($conec,"UPDATE usuario SET senha = '$senha_nova' WHERE email = '$email_padrao'");
         setcookie('senha', '', time() - 3600, '/');
+        verificarOperacao($result_senha, $local); // verifica se a operação foi feita com sucesso
+
         header('Location:'.$local.'?'.md5('sucesso=true'));
         exit;
-    }
+        }
 }
 
 if(isset($_COOKIE['usuario'])){ // alteração de dados usuário
@@ -100,9 +110,9 @@ if(isset($_COOKIE['usuario'])){ // alteração de dados usuário
     $tels= $_COOKIE['tels'];
     $num = 0;
 
-
     if(!empty($nome)){
         $result=mysqli_query($conec,"UPDATE usuario SET nome='$nome' WHERE email = '$email_padrao'");
+        verificarOperacao($result, $local); // verifica se a operação foi feita com sucesso
     }
 
     if ($tels != 0){
@@ -110,9 +120,11 @@ if(isset($_COOKIE['usuario'])){ // alteração de dados usuário
             $tel_add = $_COOKIE['phone'.$num.'number'];
             
             $result=mysqli_query($conec,"INSERT INTO telefone(email_usuario,tel) VALUES('$email_padrao','$tel_add')");
+            verificarOperacao($result, $local); // verifica se a operação foi feita com sucesso
             $num+=1;
         }
     }
+
     $num = 0;
     if ($tels != 0){
         for($i= 0 ; $i < $tels ; $i++){
@@ -127,8 +139,6 @@ if(isset($_COOKIE['usuario'])){ // alteração de dados usuário
     header('Location:'.$local.'?'.md5('sucesso=true'));
     exit;
 }
-
-
 
 ?>
 
