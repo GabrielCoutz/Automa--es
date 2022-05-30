@@ -44,6 +44,12 @@ password.addEventListener("input", () => {
     }
 });
 
+function limparURL(url){ // tira o disparador de popup da url, limpando-a
+    let nextURL = window.location.href.replace(url,'').replace('?','');
+    let nextState = { additionalInformation: 'Updated the URL with JS' };
+    window.history.replaceState(nextState, 'Cadastro', nextURL);
+}
+
 function mudar_senha(botao,elemento){
     let togglePassword = document.querySelector('#'+botao);
     let password = document.querySelector('#'+elemento);
@@ -81,25 +87,27 @@ function alertaDeErro(elemento, mensagem){
     document.getElementById(elemento+'Alert').classList.toggle('none')
 }
 
-if (window.location.href.includes(md5('conta_encontrada=true'))) {
-    abrirjanela('green','Sua conta foi localizada com sucesso!<br>Agora basta inserir sua nova senha.', 'Recuperação de Conta', 'encontrado')
-    
-    let nextURL = window.location.href.replace(md5('conta_encontrada=true'),'').replace('?','');
-    let nextState = { additionalInformation: 'Updated the URL with JS' };
-    window.history.replaceState(nextState, 'Recuperação', nextURL);
+switch (true) {
+    case window.location.href.includes(md5('conta_encontrada=true')):
+        abrirjanela('green','Sua conta foi localizada com sucesso!<br>Agora basta inserir sua nova senha.', 'Recuperação de Conta', 'encontrado')
+        limparURL(md5('conta_encontrada=true'))
+        break;
+
+    case window.location.href.includes(md5('sucesso=false')):
+        abrirjanela('red','Não foi possível realizar a operação solicitada. Por favor, tente novamente ou entre em contato conosco.', 'Erro inesperado', 'falha')
+        limparURL(md5('sucesso=false'))
+        break;
+
+    case window.location.href.includes(md5('erro=true')):
+        abrirjanela('red','<br>Não foi possível realizar a alteração de senha!', 'Conta não sincronizada','falha')
+        limparURL(md5('erro=true'))
+        document.getElementById('asdf_cancelar').style.display = 'none'
+        setTimeout(nada , 4000)
+        document.getElementById('asdf_cancelar').addEventListener('click',function(){
+                window.location.href = "../../index"})
+        break;
 }
 
-if (window.location.href.includes(md5('erro=true'))) { // erro de cadastro
-    abrirjanela('red','<br>Não foi possível realizar a alteração de senha!', 'Conta não sincronizada','falha')
-    document.getElementById('asdf_cancelar').style.display = 'none'
-    setTimeout(nada , 4000)
-    document.getElementById('asdf_cancelar').addEventListener('click',function(){
-            window.location.href = "../../index"})
-
-    let nextURL = window.location.href.replace(md5('erro=true'),'').replace('?','');
-    let nextState = { additionalInformation: 'Updated the URL with JS' };
-    window.history.replaceState(nextState, 'Recuperação', nextURL);
-}
 
 const senha_nova = document.getElementById('senha_nova')
 const senha_nova_dup = document.getElementById('senha_nova_dup')

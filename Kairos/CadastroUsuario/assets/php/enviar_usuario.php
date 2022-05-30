@@ -24,6 +24,14 @@ $email=$_POST['email'];
 $duplicado=false;
 $local='../../cadastro_usuario';
 
+function verificarOperacao($query, $url){ // retorna uma sinalização de erro
+    if(!$query){ // se a operação não tiver retorno, não foi feita. Então manda uma sinalização de erro mostrando que houve falha.
+        header('Location:'.$url.'?'.md5('sucesso=false'));
+        exit;
+        return;
+    }
+}
+
 if(isset($_POST['g-recaptcha-response']) && $_POST['g-recaptcha-response'] != ""){
         $url='https://www.google.com/recaptcha/api/siteverify';
         $secret = '6Ld5L3oeAAAAAF7ExJjjJbY9EnWGQSyjCin5aGRL';
@@ -56,6 +64,8 @@ if(isset($select_email['email'])){ // email já utilizado
 } else {
     $result=mysqli_multi_query($conec, "INSERT INTO usuario(nome, email, senha) VALUES('$nome', '$email', '$senha');
                                         INSERT INTO telefone(email_usuario, tel) VALUES((SELECT email FROM usuario WHERE email = '$email'), '$tel')");
+    
+    verificarOperacao($result, $local);
 
     header('Location: ../../../Login/login?'.md5('sucesso=true'));
     exit;

@@ -3352,8 +3352,8 @@ Copyright (c) 2015 Daniel Eden
 
 .card .card-category,
 .card label {
-    font-size: 14px;
-    font-weight: 400;
+    font-size: 15px;
+    font-weight: 600;
     color: #9A9A9A;
     margin-bottom: 0px;
 }
@@ -3364,15 +3364,22 @@ Copyright (c) 2015 Daniel Eden
 }
 
 .card label {
-    font-size: 12px;
-    margin-bottom: 5px;
-    text-transform: uppercase;
+    font-size: 15x;
 }
+
+select{
+    padding-left: 8px;
+}
+
+h4{
+    font-family: "San Francisco", sans-serif !important;
+}
+
 
 .card .card-title {
     margin: 0;
     color: #333333;
-    font-weight: 300;
+    font-weight: 600;
 }
 
 .card .avatar {

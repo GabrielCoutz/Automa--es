@@ -32,6 +32,14 @@ $bairro=$_POST['bairro'];
 $cidade=$_POST['cidade'];
 $estado=$_POST['estado'];
 
+function verificarOperacao($query, $url){ // retorna uma sinalização de erro
+    if(!$query){ // se a operação não tiver retorno, não foi feita. Então manda uma sinalização de erro mostrando que houve falha.
+        header('Location:'.$url.'?'.md5('sucesso=false'));
+        exit;
+        return;
+    }
+}
+
 $local='../../cadastro_cartao';
 
 $select=mysqli_query($conec, "SELECT cpf FROM usuario WHERE cpf = '$cpf'")->fetch_assoc();
@@ -43,8 +51,10 @@ if (isset($select['cpf'])){
 } else {
     $assinatura=$_SESSION['assinatura'];
     $result=mysqli_query($conec, "INSERT INTO cartao(email_usuario, titular, numero, validade, cvv, assinatura) VALUES((SELECT email FROM usuario WHERE email = '$email'), '$titular', '$num_cartao', '$validade', '$cvv_cartao','$assinatura')");
+    verificarOperacao($result, $local);
 
     $result_usuario=mysqli_query($conec, "UPDATE usuario SET cpf='$cpf' WHERE email='$email'");
+    verificarOperacao($result_usuario, $local);
 
     $select_endereco=mysqli_query($conec, "SELECT * FROM endereco WHERE email_usuario='$email'")->fetch_assoc();
 }
@@ -60,6 +70,7 @@ if (empty($select_endereco['email_usuario'])) { // se não tiver endereço, ent�
     UPDATE endereco SET cidade='$cidade' WHERE email_usuario='$email';
     UPDATE endereco SET estado='$estado' WHERE email_usuario='$email';");
 }
+verificarOperacao($result_endereco, $local);
 
 
 if(isset($_SESSION['assinar'])){

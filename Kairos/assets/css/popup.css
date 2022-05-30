@@ -1,4 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic);
+@font-face {
+    font-family: "San Francisco";
+    font-weight: 400;
+    src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
+  }
 @-webkit-keyframes popUpEntrada {
   0%{opacity: 0; margin-top: -20%;}
   75%{margin-top: 5%;}
@@ -357,4 +362,58 @@ h1{
 .popUpFundo.green, .popUpFundo.blue, .popUpFundo.red{
     backdrop-filter: blur(8px);
     background: rgb(0 0 0 / 46%);
+}
+
+#img{
+    width: 60%;
+    display: grid;
+    position: initial;
+    margin-top: 16px !important;
+    margin-bottom: 16px !important;
+    margin: auto;
+    border-radius: 10px;
+}
+
+.blue.marketing.p{
+    max-width: 480px !important;
+    max-height: 445px !important;
+}
+
+#asdf.marketing{
+    border-radius: 16px !important;
+    color: #666666;
+    font-weight: bold;
+}
+
+#asdf.marketing, .marketing > button, .popUp.marketing h1, .marketing > #conteudoPopUp{
+    font-family: 'San Francisco';
+}
+
+.marketing > button {
+    width: 60% !important;
+    margin-bottom: 8px;
+    background-color: #4E6EF1 !important;
+    border: none;
+    border-color: none !important;
+    color: #ffffff;
+    margin-left: 20% !important;
+}
+
+.popUp.marketing h1{
+    border-top: 2px solid black;
+    font-size: 24px;
+    text-align: center;
+}
+
+.marketing > #conteudoPopUp{
+    color: #505050 !important;
+    padding-right: 8px ;
+    font-size: 17px ;
+    font-weight: 100 ;
+    padding-left: 8px ;
+}
+
+.marketing > #conteudoPopUp > span{
+    text-align: center;
+    width: auto;
 }

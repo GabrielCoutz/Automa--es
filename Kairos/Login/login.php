@@ -37,7 +37,7 @@
 		<div class="wrapper">
 			<div class="inner">
 				<form method="POST" id="login" action="assets/php/config?validar=true" style="padding: 72px 48px 72px;" onsubmit="return false">
-					<h3 style="font-family: 'Muli-Regular' !important;">Login</h3>
+					<h3 style="font-family: 'San Francisco' !important;">Login</h3>
 					<div class="form-holder">
 						<i class="gg-user user"></i>
 						<input type="email" class="form-control" placeholder="Email" id="email" name='email' maxlength="50">
@@ -53,11 +53,11 @@
 					</div>
 					<div class='none alerta' id='senhaAlert'></div>
 
-					<button type='submit' class="btn btn-warning login" name="butao" onclick="validar()" style="font-family: 'Muli-Regular' !important;">
+					<button type='submit' class="btn btn-warning login" name="butao" onclick="validar()" style="font-family: 'San Francisco' !important;">
 						<span>Entrar</span>
 					</button>
 
-					<button class="registrar" type="button" onclick="registrar()" id='butao' style="font-family: 'Muli-Regular' !important;">
+					<button class="registrar" type="button" onclick="registrar()" id='butao' style="font-family: 'San Francisco' !important;">
 						<span>Registrar-se</span>
 					</button>
 					<div id="esqueci">

@@ -124,7 +124,6 @@ switch (true) {
 
     case window.location.href.includes(md5('senha=false')): // senha diferente da já utilizada
         abrirjanela('red','Não foi possível alterar sua senha!<br>Por favor, verifique os campos e tente novamente.', 'Alteração Inválida', 'falha')
-        
         limparURL(md5('senha=false'))
         document.getElementById('editarsenha').click()
         document.getElementById("senha_antiga").classList.add('vermei')

@@ -60,6 +60,11 @@ switch (true) { // verifica se há erros passados na URL
         document.getElementById('cadastro').focus()
         limparURL(md5('email=false'))
         break;
+
+    case window.location.href.includes(md5('sucesso=false')):
+        abrirjanela('red','Não foi possível realizar a operação solicitada. Por favor, tente novamente ou entre em contato conosco.', 'Erro inesperado', 'falha')
+        limparURL(md5('sucesso=false'))
+        break;
 }
 
 function vazio(item){ // verifica se o valor passado está vazio

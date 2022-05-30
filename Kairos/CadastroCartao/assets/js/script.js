@@ -102,6 +102,11 @@ switch (true) {
     abrirjanela('red','CPF já utilizado!', 'Dados Duplicados','falha')
     cpf.classList.add('vermei')
     break;
+
+  case window.location.href.includes(md5('sucesso=false')):
+      abrirjanela('red','Não foi possível realizar a operação solicitada. Por favor, tente novamente ou entre em contato conosco.', 'Erro inesperado', 'falha')
+      limparURL(md5('sucesso=false'))
+      break;
 }
 
 function alertaDeErro(elemento, mensagem){

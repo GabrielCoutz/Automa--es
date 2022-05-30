@@ -26,7 +26,6 @@
     $oportunidades = '';
     $ameacas = '';
 
-
     // 4Ps
     $produto = '';
     $preco = '';

@@ -1,6 +1,7 @@
 // Código usado para popups, usando a função abrirjanela()
 let janelaPopUp = new  Object();
 let icone = ''
+let img = ''
 
 janelaPopUp.abre = function(id, classes, titulo, corpo, functionCancelar, functionEnviar, textoCancelar, textoEnviar){
     let cancelar = (textoCancelar !== undefined)? textoCancelar: 'OK';
@@ -46,7 +47,7 @@ janelaPopUp.abre = function(id, classes, titulo, corpo, functionCancelar, functi
     }
   
     let popFundo = '<div id="popFundo_' + id + '" class="popUpFundo ' + classesFundo + '"></div>'
-    let janela = '<div id="' + id + '" class="popUp ' + classes + '"><h1>' + titulo + "</h1><div id='conteudoPopUp'>"+"<lord-icon " + src + trigger + delay + colors + style + "</lord-icon><span>" + corpo + "</span></div><button class='puCancelar " + classBot + "' id='" + id +"_cancelar' data-parent=" + id + ">" + cancelar + "</button><button class='puEnviar " + classBot + "' data-parent=" + id + " id='" + id +"_enviar'>" + enviar + "</button></div>";
+    let janela = '<div id="' + id + '" class="popUp ' + classes + '">' + img + '<h1>' + titulo + "</h1><div id='conteudoPopUp'>"+"<lord-icon " + src + trigger + delay + colors + style + "</lord-icon><span>" + corpo + "</span></div><button class='puCancelar " + classBot + "' id='" + id +"_cancelar' data-parent=" + id + ">" + cancelar + "</button><button class='puEnviar " + classBot + "' data-parent=" + id + " id='" + id +"_enviar'>" + enviar + "</button></div>";
     $("window, body").css('overflow', 'hidden');
     
     $("body").append(popFundo);
@@ -104,5 +105,14 @@ janelaPopUp.fecha = function(id){
 
 function abrirjanela(cor, texto, titulo, trigger){ // trigger é usado para sinalizar qual ícone vai ser usado
       icone = trigger
-      janelaPopUp.abre( "asdf", 'p' + " "  + cor + ' ' + 'alert',  titulo ,  texto)
+      img = ''
+      janelaPopUp.abre( "asdf", 'p' + " " + cor + ' ' + 'alert', titulo , texto)
+}
+
+function abrirJanelaMarketing(){
+    img = ' <img src="assets/images/teste2.png" id="img"> '
+    janelaPopUp.abre( "asdf", 'p' + " " + 'blue' + ' ' + 'alert', 'Faça sua análise hoje mesmo!' , 'Sabia que você pode impulsionar sua gestão de marketing com alguns clicks?')
+    document.getElementById('asdf_cancelar').innerHTML = 'Realizar Agora'
+    $('#asdf').append('<div id="esqueci" >' + '<a href="#"> Talvez, depois </a>' + '</div>')
+    document.getElementById('asdf').classList.add('marketing')
 }
