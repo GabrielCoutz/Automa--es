@@ -12,13 +12,13 @@
   <?php
       session_start();
       error_reporting(E_ERROR | E_PARSE);
-      if(!isset($_SESSION['cadastro']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
-        header("Refresh:0; url=cadastro_cartao".'?'.md5('erro=true'));
-        exit;
-      }
-      if (!empty($_GET['plano'])){
-        $_SESSION['assinatura'] = $_GET['plano'];
-      }
+      //if(!isset($_SESSION['cadastro']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
+      //  header("Refresh:0; url=cadastro_cartao".'?'.md5('erro=true'));
+      //  exit;
+      //}
+      //if (!empty($_GET['plano'])){
+      //  $_SESSION['assinatura'] = $_GET['plano'];
+      //}
   ?>
 
 </head>
@@ -224,12 +224,12 @@
             <input type="text" class="none"  id="estado" name='estado'>
           </div>
           <div id='endereco'></div>
+          <button class="card-form__button" onclick="validar()" id='butao'>
+            Validar
+          </button>
         </div>
 
 
-        <button class="card-form__button" onclick="validar()" id='butao'>
-          Validar
-        </button>
         </form>
       </div>
     </div>

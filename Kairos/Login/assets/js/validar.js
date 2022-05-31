@@ -1,6 +1,6 @@
 window.onload = function () {
     window.setTimeout(fadeout, 500);
-    abrirJanelaMarketing()
+    //abrirJanelaMarketing()
 }
 
 
@@ -25,9 +25,17 @@ const limpar_inputs = function(){
 
 const limpar_alertas = function(){
     let alerta = document.getElementsByClassName('alerta')
+    let underline = document.getElementsByClassName('underline')
+
     for(let i = 0; i < alerta.length ; i++){
         if (!alerta[i].classList.contains('none')){
             alerta[i].classList.toggle('none')
+        }
+    }
+
+    for(let i = 0; i < underline.length ; i++){
+        if (underline[i].style.background == 'rgb(255, 0, 0)'){
+            underline[i].style.background = '#4e6ef1a6'
         }
     }
 }
@@ -75,8 +83,10 @@ switch (true) {
 }
 
 function alertaDeErro(elemento, mensagem){
+    document.getElementById(elemento).classList.add('vermei')
     document.getElementById(elemento+'Alert').innerHTML = mensagem
     document.getElementById(elemento+'Alert').classList.toggle('none')
+    document.getElementById(elemento+'underline').style.background = '#ff0000'
 }
 
 $(document).keypress( // desativa tecla ENTER
@@ -98,12 +108,10 @@ function validar(){
     if (email.value == "" ||  !/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi.test(email.value)){
         alertaDeErro(email.id, "Insira um email válido!")
         email.focus()
-        email.classList.add("vermei")
 
     } else if (senha.value == ""){
         alertaDeErro(senha.id, "Preencha a senha!")
         senha.focus()
-        senha.classList.add("vermei")
 
     } else{
         localStorage.clear();

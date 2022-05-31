@@ -40,16 +40,28 @@
 					<h3 style="font-family: 'San Francisco' !important;">Login</h3>
 					<div class="form-holder">
 						<i class="gg-user user"></i>
-						<input type="email" class="form-control" placeholder="Email" id="email" name='email' maxlength="50">
+						<div class="input-content">
+							<div class='inputbox'>
+								<div class='inputbox-content'>
+									<input type="email" class="form-control" placeholder="Email" id="email" name='email' maxlength="50">
+									<span class="underline" id='emailunderline'></span>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class='none alerta' id='emailAlert'></div>
 
 					<div class="form-holder">
 						<i class="gg-lock lock"></i>
-						<p>
-							<input type="password" class="form-control" placeholder="Senha" id="senha" name='senha'>
-							<i class="gg-eye eye" id="togglePassword"></i>
-						</p>
+						<div class="input-content">
+							<div class='inputbox'>
+								<div class='inputbox-content'>
+									<input type="password" class="form-control" placeholder="Senha" id="senha" name='senha'>
+									<i class="gg-eye eye" id="togglePassword"></i>
+									<span class="underline" id='senhaunderline'></span>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class='none alerta' id='senhaAlert'></div>
 

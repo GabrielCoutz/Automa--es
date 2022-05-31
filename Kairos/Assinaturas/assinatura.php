@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" href="assets/css/bootstrap-5.0.0-beta2.min.css" />
+    <link rel="stylesheet" href="../assets/css/popup.css">
 
     <link rel="stylesheet" href="assets/css/LineIcons.2.0.css" />
 

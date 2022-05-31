@@ -365,6 +365,8 @@ h1{
 }
 
 #img{
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgb(0 0 0 / 25%);
     width: 60%;
     display: grid;
     position: initial;
@@ -416,4 +418,29 @@ h1{
 .marketing > #conteudoPopUp > span{
     text-align: center;
     width: auto;
+}
+
+/* animação linha azul no input:focus */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css');
+
+
+.input-content .inputbox-content {
+  position: relative;
+  width: 100%;
+}
+
+.input-content .inputbox-content input:focus ~ .underline {
+  width: 100%;
+}
+
+.input-content .inputbox-content .underline {
+  content: "";
+  display: block;
+  position: initial;
+  bottom: -1px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #4e6ef1a6;
+  transition: all 200ms ease-out;
 }

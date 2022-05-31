@@ -13,6 +13,8 @@ body {
   text-align: center;
   color: #ff0000;
   cursor: default;
+  font-family: 'San Francisco';
+  font-size: 16px;
 }
 
 input, select {
@@ -329,15 +331,23 @@ button:disabled{
 .card-form__group .card-input__input:last-child {
   margin-right: 0;
 }
+
+button:hover{
+  box-shadow: 0px 6px 10px 1px rgb(0 0 0 / 31%) !important;
+  transform: translateY(-0.10em);
+}
+
 .card-form__button {
+  transition: 0.5s all !important;
   width: 100%;
   height: 56px;
   background: #2364d2;
   border: none;
-  border-radius: 5px;
+  border-radius: 50px;
   font-size: 22px;
-  font-weight: 500;
-  font-family: "Source Sans Pro", sans-serif;
+  font-weight: bold;
+  letter-spacing: 2px;
+  font-family: "San Francisco", sans-serif;
   box-shadow: 3px 10px 20px 0px rgba(35, 100, 210, 0.3);
   color: #fff;
   margin-top: 20px;
@@ -737,10 +747,11 @@ button:disabled{
   margin-bottom: 24px;
 }
 .card-input__label {
-  font-size: 14px;
+  font-size: 15px;
   margin-bottom: 5px;
   font-weight: 500;
-  color: #1a3b5d;
+  color: #565656 !important;
+  font-family: "San Francisco", sans-serif !important;
   width: 100%;
   display: block;
   user-select: none;

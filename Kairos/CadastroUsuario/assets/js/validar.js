@@ -27,9 +27,17 @@ const limpar_inputs = function(){
 
 const limpar_alertas = function(){
     let alerta = document.getElementsByClassName('alerta')
+    let underline = document.getElementsByClassName('underline')
+
     for(let i = 0; i < alerta.length ; i++){
         if (!alerta[i].classList.contains('none')){
             alerta[i].classList.toggle('none')
+        }
+    }
+
+    for(let i = 0; i < underline.length ; i++){
+        if (underline[i].style.background == 'rgb(255, 0, 0)'){
+            underline[i].style.background = '#4e6ef1a6'
         }
     }
 }
@@ -142,8 +150,10 @@ function apenasLetras(event) { // deixa apenas letras com ou sem acento serem di
 }
 
 function alertaDeErro(elemento, mensagem){
+    document.getElementById(elemento).classList.add('vermei')
     document.getElementById(elemento+'Alert').innerHTML = mensagem
     document.getElementById(elemento+'Alert').classList.toggle('none')
+    document.getElementById(elemento+'underline').style.background = '#ff0000'
 }
 
 $(document).ready(function(){ // desabilita CTRL+V por motivos de incompatibilidade de máscara
@@ -186,6 +196,7 @@ const dispararEvento = function(elemento, evento, stringCondicao){  //dispara um
             }
             elemento.removeEventListener(evento,funcao)
             document.getElementById('butao').disabled = false
+            document.getElementById(elemento.id+'underline').style.background = '#4e6ef1a6'
         }
     }
 
@@ -206,32 +217,29 @@ function validar(){
         dispararEvento(nome, 'keyup', 'condicaoNome')
         alertaDeErro(nome.id, "Insira apenas letras!")
         nome.focus()
-        nome.classList.add("vermei")
 
     } else if (tel.value.length != 15) {
         dispararEvento(tel, 'keyup', 'condicaoTel')
-        alertaDeErro(tel.id, "Preencha o telefone!")
+        alertaDeErro(tel.id, "Preencha o telefone completo!")
         tel.focus()
-        tel.classList.add("vermei")
 
     } else if (!validarEmail(email.value)){
         dispararEvento(email, 'keyup', 'condicaoEmail')
         alertaDeErro(email.id, "Insira um email válido!")
         email.focus()
-        email.classList.add("vermei")
 
     } else if (vazio(senha.value) || vazio(confirm_senha.value)){
         dispararEvento(senha, 'keyup', 'condicaoSenha')
         alertaDeErro(senha.id, "Preencha ambas as senhas!")
         senha.focus()
         senha.classList.add("vermei")
-        confirm_senha.classList.add("vermei")
 
     } else if (senha.value != confirm_senha.value){
-        alertaDeErro(senha.id, "Senhas não coincidem! Por favor, verifique-as!")
+        alertaDeErro(senha.id, "Senhas não coincidem. Por favor, verifique-as!")
         senha.focus()
         senha.classList.add("vermei")
         confirm_senha.classList.add("vermei")
+        document.getElementById('confirm_senhaunderline').style.background = '#ff0000'
         senha.value=""
         confirm_senha.value=""
 
