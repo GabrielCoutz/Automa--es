@@ -7,28 +7,27 @@ function fadeout() { // animação de loader inicial/2
     document.querySelector('.preloader').style.display = 'none';
 }
 
-const nome = document.getElementById('nome')
-const cep = document.getElementById('cep')
-const numero = document.getElementById('numero')
-const endereco = document.getElementById('endereco')
-
 const nome_input = document.getElementById('nome_input')
 const cep_input = document.getElementById('cep_input')
 const numero_input = document.getElementById('numero_input')
+const endereco = document.getElementById('endereco')
 
-const conteudo_nome = document.getElementById('nome').innerText.trim()
-const conteudo_cep = document.getElementById('cep').innerText.trim()
-const conteudo_numero = document.getElementById('numero').innerText.trim()
-const conteudo_endereco = document.getElementById('endereco').innerText.trim()
+const conteudo_nome_input = document.getElementById('nome_input').value
+const conteudo_cep_input = document.getElementById('cep_input').value
+const conteudo_numero_input = document.getElementById('numero_input').value
+const conteudo_endereco = document.getElementById('endereco').innerText
+
+const salvarbtn = document.getElementById('salvarbtn')
+const cancelarbtn = document.getElementById('cancelarbtn')
 
 $(document).ready(function(){
-    if(vazio(conteudo_cep)){
-        cep.innerHTML = 'Não cadastrado'
-        endereco.innerHTML = 'Não cadastrado'
+    if(vazio(cep_input.value)){
+        cep.value = '00.000-000'
+        endereco.value = 'Não cadastrado'
     }
 
-    if (vazio(conteudo_numero)){
-        numero.innerHTML = 'Não cadastrado'
+    if (vazio(numero_input.value)){
+        numero.value = 'Não cadastrado'
     }
 });
 
@@ -142,6 +141,76 @@ switch (true) {
         break;
 }
 
+document.querySelectorAll('input').forEach(item => {
+    item.addEventListener('keyup', function(){
+        switch (this.id) {
+            case 'nome_input':
+                console.log('nome')
+
+                switch (true) {
+                    case this.value == conteudo_nome_input:
+                        salvarbtn.disabled = true
+                        cancelarbtn.disabled = true
+                        break;
+
+                    case this.value.length < 4:
+                        salvarbtn.disabled = true
+                        cancelarbtn.disabled = false
+                        alertaDeErro(this.id, 'O nome deve ter no mínimo 4 letras!')
+                        break;
+
+                    default:
+                        limpar_inputs()
+                        salvarbtn.disabled = false
+                        cancelarbtn.disabled = false
+                }
+                break;
+
+            case 'cep_input':
+                console.log('cep')
+                switch (true) {
+                    case this.value == conteudo_cep_input:
+                        salvarbtn.disabled = true
+                        cancelarbtn.disabled = true
+                        break;
+
+                    case this.value.length < 10:
+                        salvarbtn.disabled = true
+                        cancelarbtn.disabled = false
+                        alertaDeErro(this.id, 'Complete o CEP!')
+                        break;
+
+                    default:
+                        limpar_inputs()
+                        salvarbtn.disabled = false
+                        cancelarbtn.disabled = false
+                }
+                break;
+
+            case 'numero_input':
+                console.log('numero')
+                switch (true) {
+                    case this.value == conteudo_numero_input:
+                        salvarbtn.disabled = true
+                        cancelarbtn.disabled = true
+                        break;
+
+                    case vazio(this.value):
+                        salvarbtn.disabled = true
+                        cancelarbtn.disabled = false
+                        alertaDeErro(this.id, 'Preencha o número!')
+                        break;
+
+                    default:
+                        limpar_inputs()
+                        salvarbtn.disabled = false
+                        cancelarbtn.disabled = false
+                }
+                break;
+        }
+    })
+  })
+
 function verificar_input(){ // se ouver entrada nos inputs, o botão de salvar é liberado
 
     let lista = document.getElementsByClassName('adicional')
@@ -171,13 +240,6 @@ function verificar_input(){ // se ouver entrada nos inputs, o botão de salvar �
             }
         };
     }
-
-    if (vazio(nome_input.value) && vazio(numero_input.value) && !deletar && !tel_input && cep_input.value.length != 10){ // se houver dados alterados, o usuário é liberado para salvá-los
-        document.getElementById('salvarbtn').disabled = true
-
-    } else {
-        document.getElementById('salvarbtn').disabled = false
-    }
 }
 
 function alteracao(evento){ // se houver erros no input o botão de salvar é desabilitado até que sejam resolvidos
@@ -200,21 +262,16 @@ function alteracao(evento){ // se houver erros no input o botão de salvar é de
 
 function ler_cep(cep){ // preenche o endereço automaticamente do usuario usando o cep
     if(cep.value.length == 10){
-        let temp = cep.value
         $.ajax({
             url: 'https://viacep.com.br/ws/'+cep.value.replace(/-/, '').replace('.', '')+'/json/',
             dataType: 'json',
             success: function(resposta){
                 if(resposta.logradouro == undefined || resposta.bairro == undefined || resposta.localidade == undefined || resposta.uf == undefined){
-                    abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','Alteração Inválida', 'falha')
-                    cep_input.classList.add('vermei')
+                    alertaDeErro(cep.id, 'CEP inválido!')
                     cep_input.focus()
-                    cep_input.placeholder = temp
-                    cep_input.value = ''
                     return
-                } else {
+                } else if (cep.value != conteudo_cep_input){
                     Cookies.set('endereco',1)
-                    cep_input.classList.remove('vermei')
                     document.getElementsByName('rua')[0].value = resposta.logradouro
                     document.getElementsByName('bairro')[0].value = resposta.bairro
                     document.getElementsByName('cidade')[0].value = resposta.localidade
@@ -222,6 +279,7 @@ function ler_cep(cep){ // preenche o endereço automaticamente do usuario usando
                     document.getElementById('endereco').innerHTML = resposta.logradouro + ', ' + resposta.bairro + ', ' + resposta.localidade + ', ' + resposta.uf
                     numero_input.focus()
                 }
+                limpar_inputs()
             }
         })
     }
@@ -279,12 +337,6 @@ $(function(){ // código para adicionar/remover números de telefone
 
 });
 
-if(document.getElementById('editarbtn').addEventListener('click',function(){ // libera eventelistener para ver alterações de inputs
-    document.getElementById('salvarbtn').disabled = true
-    alteracao('click')
-    alteracao('keyup')
-}))
-
 
 // -------------------- início validador de senha --------------------
 
@@ -337,8 +389,11 @@ function deletar_tel(tel){
 }
 
 function alertaDeErro(elemento, mensagem){
-    document.getElementById(elemento+'Alert').innerHTML = mensagem
-    document.getElementById(elemento+'Alert').classList.toggle('none')
+    if(!document.getElementById(elemento).classList.contains('vermei')){
+        document.getElementById(elemento).classList.add('vermei')
+        document.getElementById(elemento+'Alert').innerHTML = mensagem
+        document.getElementById(elemento+'Alert').classList.toggle('none')
+    }
 }
 
 function apenasLetras(event) { // deixa apenas letras com ou sem acento serem digitadas
@@ -351,7 +406,6 @@ function apenasLetras(event) { // deixa apenas letras com ou sem acento serem di
 function alterar_edicao(chave){
     if(chave == 'senha'){
         document.getElementById("editarsenha").classList.toggle("none");
-        document.getElementById("editarbtn").classList.toggle("none");
         document.getElementById("salvar_senhabtn").classList.toggle("none");
         document.getElementById("cancelar_senhabtn").classList.toggle("none");
 
@@ -371,78 +425,6 @@ function alterar_edicao(chave){
 
         return
     }
-
-    //remove sinalização de erros
-    nome_input.classList.remove('vermei')
-    cep_input.classList.remove('vermei')
-    numero_input.classList.remove('vermei')
-
-    // esconde divs de conteúdo
-    nome.classList.toggle("none")
-    cep.classList.toggle("none")
-    numero.classList.toggle("none")
-
-    //torna visível botões de edição
-    document.getElementById('editarbtn').classList.add('none')
-    document.getElementById('salvarbtn').classList.toggle('none')
-    document.getElementById('cancelarbtn').classList.toggle('none')
-    document.getElementById('botoes_tel').classList.toggle('none')
-
-    
-    // torna visível input para edição
-    nome_input.classList.toggle("none")
-    cep_input.classList.toggle("none")
-    numero_input.classList.toggle("none")
-
-    if(document.getElementById('del_tel').style.display == 'none'){
-        $('#del_tel').toggle();
-    };
-    if(document.getElementById('add_tel').style.display == 'none'){
-        $('#add_tel').toggle();
-    };
-}
-
-function editar(item){
-    if(item.id == 'editarsenha'){
-        let password = document.getElementById('senha_nova')
-        let verificarSenha2 = function(){
-            clearTimeout(timeout);
-            timeout = setTimeout(() => StrengthChecker(password.value), 500);
-        }
-
-        document.getElementById("pass").classList.toggle("none");
-        document.getElementById("editarsenha").classList.toggle("none");
-        document.getElementById("pass2").classList.toggle("none");
-        document.getElementById("pass3").classList.toggle("none");
-
-        document.getElementById('pass').style.display = 'block'
-        document.getElementById('pass2').style.display = 'block'
-        document.getElementById('pass3').style.display = 'block'
-
-        document.getElementById("editarbtn").classList.toggle("none");
-        document.getElementById("salvar_senhabtn").classList.toggle("none");
-        document.getElementById("cancelar_senhabtn").classList.toggle("none");
-
-        document.getElementsByClassName('senha')[0].innerText = 'Alterar Senha'
-
-        password.addEventListener("keyup", verificarSenha2)
-
-        document.getElementById('togglePassword_antigo').addEventListener('click', verSenhaAntiga)
-        document.getElementById('togglePassword_novo').addEventListener('click', verSenhaAntigaNovo)
-        document.getElementById('togglePassword_novo_dup').addEventListener('click', verSenhaAntigaNovoDup)
-
-        document.getElementById('divplano').classList.add('none')
-        return
-    }
-    document.getElementById('divplano').classList.add('none')
-    document.getElementById('senha').classList.toggle('none')
-    alterar_edicao()
-
-    // coloca o conteúdo em placeholder
-    nome_input.placeholder = conteudo_nome
-
-    cep_input.placeholder = vazio(conteudo_cep) ? 'xx.xxx-xxx' : conteudo_cep
-    numero_input.placeholder = vazio(conteudo_numero) ? 'xxx' : conteudo_numero
 }
 
 function cancelar(item){
@@ -464,29 +446,22 @@ function cancelar(item){
 
         return
     }
-
-    if(document.getElementById('divplano').classList.contains('none')){
-        document.getElementById('divplano').classList.remove('none')
-    }
-    document.removeEventListener('click', verificar_input)
-    document.removeEventListener('keyup', verificar_input)
-
+    limpar_inputs()
     document.getElementById('editarsenha').disabled = false
-    alterar_edicao()
 
-    document.getElementById('editarbtn').classList.remove('none')
-    document.getElementById('senha').classList.toggle('none')
+    //$('.adicional').closest('.phone-input').remove();
+    //$('.exclusao_tel').remove();
+//
+    //if(document.getElementById('tel').style.display == 'none'){
+    //    $('#tel').toggle();
+    //}
+    endereco.innerHTML = vazio(conteudo_endereco.replace(', , ,','')) ? 'Não Cadastrado' : endereco.innerText
+    nome_input.value = conteudo_nome_input
+    cep_input.value = conteudo_cep_input
+    numero_input.value = conteudo_numero_input
 
-    $('.adicional').closest('.phone-input').remove();
-    $('.exclusao_tel').remove();
-
-    if(document.getElementById('tel').style.display == 'none'){
-        $('#tel').toggle();
-    }
-    endereco.innerHTML = vazio(conteudo_endereco.replace(', , ,','')) ? 'Não Cadastrado' : conteudo_endereco
-    nome_input.value = ''
-    cep_input.value = ''
-    numero_input.value = ''
+    salvarbtn.disabled = true
+    cancelarbtn.disabled = true
 }
 
 function salvar(item){

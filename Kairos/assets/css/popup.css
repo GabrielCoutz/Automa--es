@@ -444,3 +444,16 @@ h1{
   background: #4e6ef1a6;
   transition: all 200ms ease-out;
 }
+/* icone de ajuda */
+.bi-question-circle{
+    opacity: 0.7 !important;
+    margin-left: 5px !important;
+    position: absolute !important;
+    margin-top: 1px !important;
+    cursor: pointer !important;
+    transform: scale(0.9) !important;
+}
+
+button:disabled{
+    cursor: not-allowed !important;
+}

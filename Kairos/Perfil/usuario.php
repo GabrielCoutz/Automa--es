@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="../assets/css/icones.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="assets/css/light-bootstrap-dashboard.css?v=2.0.0 " rel="stylesheet" />
@@ -42,14 +42,14 @@
         }
       
 
-      if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
-        header("Refresh:0; url=usuario".'?'.md5('erro=true'));
-        exit;
-      } else {
-        $email=$_SESSION['email'];
-      }
+      //if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
+      //  header("Refresh:0; url=usuario".'?'.md5('erro=true'));
+      //  exit;
+      //} else {
+      //  $email=$_SESSION['email'];
+      //}
 
-      
+      $email='gabriel@gmail.com';
       $select=mysqli_query($conec, "SELECT * FROM usuario WHERE email = '$email'")->fetch_assoc();
 
       $id=$select['id'];
@@ -166,10 +166,8 @@
                                             <div class="col-md-5 pr-1">
                                                 <div class="form-group">
                                                     <label>Nome</label>
-                                                    <input type="text" class="form-control none" id='nome_input' name='nome' onkeyup="apenasLetras(this)" maxlength="50">
-                                                    <div id='nome' class='text-secondary'>
-                                                        <a><?= $select['nome'] ?></a>
-                                                    </div>
+                                                    <i class="bi bi-question-circle"></i>
+                                                    <input type="text" class="form-control" id='nome_input' name='nome' onkeyup="apenasLetras(this)" maxlength="50" value="<?= $select['nome'] ?>">
                                                 </div>
                                                 <div class='none alerta' id='nome_inputAlert'></div>
                                             </div>
@@ -196,15 +194,16 @@
                                             <div class="col-md-6 pr-1">
                                                 <div class="form-group">
                                                     <label>Telefone</label>
+                                                    <i class="bi bi-question-circle"></i>
                                                     <div class="phone-list">
-                                                        <div class="none" id='botoes_tel'>
+                                                        <div id='botoes_tel'>
                                                             <button class="btn btn-success btn-sm btn-add-phone" id='add_tel'>Adicionar telefone</button>
                                                             <button class="btn btn-sm btn-del-phone" id='del_tel'>Excluir telefone</button>
                                                         </div>
                                                     </div>
                                                         <div id='tel' class='text-secondary'>
                                                             <a><?= $result_telefone['tel']?></a>
-                                                            <a><?= '<br>'.$numeros ?></a>
+                                                            <a><?= $numeros ?></a>
                                                         </div>
                                                 </div>
                                             </div>
@@ -213,8 +212,8 @@
                                             <div class="col-md-4 pr-1">
                                                 <div class="form-group">
                                                     <label>CEP</label>
-                                                    <input type="tel" class="form-control none" id='cep_input' onkeypress="$(this).mask('00.000-000')" onkeyup="ler_cep(this)" name='cep' maxlength="15">
-                                                    <div id='cep' class='text-secondary' ><a><?= $select_endereco['cep'] ?></a></div>
+                                                    <i class="bi bi-question-circle"></i>
+                                                    <input type="tel" class="form-control" id='cep_input' onkeypress="$(this).mask('00.000-000')" onkeyup="ler_cep(this)" name='cep' maxlength="15" value='<?= $select_endereco['cep'] ?>'>
                                                 </div>
                                                 <div class='none alerta' id='cep_inputAlert'></div>
                                             </div>
@@ -222,8 +221,8 @@
                                             <div class="col-md-4 px-1">
                                                 <div class="form-group">
                                                     <label>Número</label>
-                                                    <input type="tel" class="form-control none small-input" id='numero_input' pattern="[0-9]" name='numero' maxlength="15">
-                                                    <div id='numero' class='text-secondary'><a><?= $select_endereco['numero'] ?></a></div>
+                                                    <i class="bi bi-question-circle"></i>
+                                                    <input type="tel" class="form-control small-input" id='numero_input' name='numero' maxlength="15" value='<?= $select_endereco['numero'] ?>'>
                                                 </div>
                                             </div>
                                         </div>
@@ -294,11 +293,10 @@
                                         </div>
                         
                                         </div>
-                                        <button class="btn btn-info btn-fill pull-right" id='editarbtn' onclick="editar(this)">Editar</button>
-                                        <button class="btn btn-info btn-fill pull-right none" id='salvarbtn' onclick="salvar(this)">Salvar</button>
-                                        <button class="btn btn-info btn-fill pull-right none" id='cancelarbtn' onclick="cancelar(this)">Cancelar</button>
+                                        <button class="btn btn-info btn-fill pull-right" id='salvarbtn' onclick="salvar(this)" disabled='true'>Salvar</button>
+                                        <button class="btn btn-info btn-fill pull-right" id='cancelarbtn' onclick="cancelar(this)" disabled='true'>Cancelar</button>
 
-                                        <button class="btn btn-info btn-fill pull-right none" id='salvar_senhabtn' onclick="salvar(this)">Salvar Alteração</button>
+                                        <button class="btn btn-info btn-fill pull-right none" id='salvar_senhabtn' onclick="salvar(this)">Salvar</button>
                                         <button class="btn btn-info btn-fill pull-right none" id='cancelar_senhabtn' onclick="cancelar(this)" style="color:#4E6EF1;background-color:white;border-color:#4E6EF1 !important;">Cancelar</button>
                                     </form>
                                 </div>
