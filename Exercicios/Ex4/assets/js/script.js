@@ -21,19 +21,11 @@ function sinalizarErro(elemento, mensagem){
 
 function validar(){
     limparErros()
-    let num1 = document.getElementById('num1')
-    let num2 = document.getElementById('num2')
+    let idade = document.getElementById('num')
 
-    switch (true) {
-        case num1.value == '':
-            sinalizarErro(num1.id, 'Digite pelo menos 1 número!')
-            break;
-
-        case num2.value == '':
-            sinalizarErro(num2.id, 'Digite pelo menos 1 número!')
-            break;
-
-        default:
-            document.getElementById('form').submit()
+    if(idade.value == '0'){
+        sinalizarErro(idade.id, 'Insira sua idade!')
+    } else {
+        document.getElementById('form').submit()
     }
 }

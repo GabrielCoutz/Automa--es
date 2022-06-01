@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exercício 1</title>
+    <title>Exercício 4</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
@@ -14,16 +14,11 @@
 
     <form class="col-12" id='form' method="POST" action='assets/php/mostrar.php' onsubmit="return false">
       <div class="form-group">
-        <label>Insira o Primeiro Número</label>
-        <input type="number" class="form-control" name='num1' id="num1" placeholder="0 a 999">
-        <div class= 'alerta none'id='num1Alert'></div>
+        <label>Selecione sua idade</label>
+        <input type="range" class="form-control" name='num' id="num" placeholder="0 a 999" min='0' max='100' value='0' oninput="this.nextElementSibling.value = this.value+' Anos'"><output></output>
+        <div class= 'alerta none'id='numAlert'></div>
       </div>
 
-      <div class="form-group">
-        <label>Insira o Segundo Número</label>
-        <input type="number" class="form-control" name='num2' id="num2" placeholder="0 a 999">
-        <div class= 'alerta none'id='num2Alert'></div>
-      </div>
       <button type="submit" onclick="validar()">Enviar</button>
     </form>
   </div>
