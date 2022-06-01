@@ -1979,7 +1979,7 @@ fieldset[disabled] .btn-neutral.active {
     filter: alpha(opacity=100);
 }
 
-.form-control {
+.form-control, input {
     background-color: #ededed;
     border: 1px solid #E3E3E3;
     border-radius: 4px;
@@ -2096,6 +2096,7 @@ fieldset[disabled] .btn-neutral.active {
 .form-control[disabled],
 .form-control[readonly],
 fieldset[disabled] .form-control {
+    opacity: 0.5;
     background-color: #F5F5F5;
     color: #888888;
     cursor: not-allowed;

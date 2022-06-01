@@ -4,6 +4,33 @@
   src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
 }
 
+#passwordText{
+  opacity: 0;
+  display: none;
+  transition: all 1s;
+}
+
+i#passwordTip:hover ~ span#passwordText{
+  border: #6e6e6e 1px dotted;
+  padding: 10px;
+  display: block !important;
+  opacity: 1 !important;
+  z-index: 100;
+  left: 310px;
+  margin: 10px;
+  width: 320px;
+  box-shadow: 10px 10px 10px -5px #dbdbdb;
+  text-align: left;
+  position: absolute;
+  font-family: 'San Francisco';
+  font-weight: 700;
+  top: -76px;
+  font-size: 15px;
+  color: #3a3a3a;
+  text-decoration: none;
+  border-radius: 10px;
+  font-style: italic;
+}
 
 #del_tel{
     position: relative;
@@ -24,6 +51,10 @@
 }
 .close-layer{
   display: none !important;
+}
+
+#senha_antiga, #senha_nova, #senha_nova_dup{
+  height: 30px !important;
 }
 
 #cancelarbtn{
@@ -69,6 +100,8 @@ button:hover{
 #StrengthDisp{
   justify-content: center;
   margin-top: -15px;
+  font-family: 'San Francisco';
+  letter-spacing: 0.5px;
 }
 
 p{
@@ -238,6 +271,11 @@ input:focus, input:hover{
 }
 
 @media(max-width: 500px){
+  #passwordTip:hover span{
+    width: 140px !important;
+    left: 110px !important;
+  }
+
   button{
     width: 100%;
   }

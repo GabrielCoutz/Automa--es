@@ -167,9 +167,9 @@
                                                 <div class="form-group">
                                                     <label>Nome</label>
                                                     <i class="bi bi-question-circle"></i>
-                                                    <input type="text" class="form-control" id='nome_input' name='nome' onkeyup="apenasLetras(this)" maxlength="50" value="<?= $select['nome'] ?>">
+                                                    <input type="text" class="form-control" id='nome' name='nome' onkeyup="apenasLetras(this)" maxlength="50" value="<?= $select['nome'] ?>">
                                                 </div>
-                                                <div class='none alerta' id='nome_inputAlert'></div>
+                                                <div class='none alerta' id='nomeAlert'></div>
                                             </div>
 
                                             <div class="col-md-3 px-1">
@@ -183,10 +183,9 @@
                                             <div class="col-md-4 pl-1">
                                                 <div class="form-group">
                                                     <label>Email</label>
-                                                    <input class="form-control none" id='email'>
+                                                    <input class="form-control none">
                                                     <div class='text-secondary'><a><?= $select['email'] ?></a></div>
                                                 </div>
-                                                <div class='none alerta' id='email_inputAlert'></div>
                                             </div>
 
                                         </div>
@@ -213,17 +212,18 @@
                                                 <div class="form-group">
                                                     <label>CEP</label>
                                                     <i class="bi bi-question-circle"></i>
-                                                    <input type="tel" class="form-control" id='cep_input' onkeypress="$(this).mask('00.000-000')" onkeyup="ler_cep(this)" name='cep' maxlength="15" value='<?= $select_endereco['cep'] ?>'>
+                                                    <input type="tel" class="form-control" id='cep' onkeypress="$(this).mask('00.000-000')" onkeyup="ler_cep(this)" name='cep' maxlength="15" value='<?= $select_endereco['cep'] ?>'>
                                                 </div>
-                                                <div class='none alerta' id='cep_inputAlert'></div>
+                                                <div class='none alerta' id='cepAlert'></div>
                                             </div>
 
                                             <div class="col-md-4 px-1">
                                                 <div class="form-group">
                                                     <label>Número</label>
                                                     <i class="bi bi-question-circle"></i>
-                                                    <input type="tel" class="form-control small-input" id='numero_input' name='numero' maxlength="15" value='<?= $select_endereco['numero'] ?>'>
+                                                    <input type="tel" class="form-control small-input" id='numero' name='numero' maxlength="15" value='<?= $select_endereco['numero'] ?>'>
                                                 </div>
+                                                <div class='none alerta' id='numeroAlert'></div>
                                             </div>
                                         </div>
 
@@ -258,7 +258,7 @@
                                                 <div class='col-md-12'>
                                                     <label class='senha'>Senha</label>
                                                     <br>
-                                                    <button class="btn btn-info btn-fill pull-left" onclick="editar(this)" type="submit" id="editarsenha">Editar Senha</button>
+                                                    <button class="btn btn-info btn-fill pull-left" onclick="alterar_edicao()" type="submit" id="editarsenha">Editar Senha</button>
                                                     <div class='row' style="margin-left: 0; margin-right: 0;">
 
                                                     <div class="none" id='pass'>
@@ -270,12 +270,14 @@
                                                     </div>
 
                                                     <div class="none" id='pass2'>
+                                                        <i class="bi bi-question-circle" style="margin-left: 87px !important;" id='passwordTip'></i>
+                                                        <span id='passwordText'>Uma senha forte deve ter no mínimo 10 caracteres, 1 letra maiúscula, 1 número e 1 caractere especial.</span>
                                                         <div class='texto'>Senha nova</div>
                                                         <p class='p-senha'>
-                                                            <input type="password" id='senha_nova' name='senha_nova' class='pr-password'>
+                                                            <input type="password" id='senha_nova' name='senha_nova'>
                                                             <i class="gg-eye eye" id="togglePassword_novo" style="margin-top: 5px !important;"></i>
                                                         </p>
-                                                        <span id="StrengthDisp" class="badge displayBadge">Validando senha...</span>
+                                                        <span id="StrengthDisp" class="badge displayBadge none">Validando senha...</span>
                                                         <br>
                                                     </div>
                                                     
@@ -288,8 +290,10 @@
                                                         <br>
                                                     </div>
                                                 </div>
-                                                <div class='none alerta' id='senha_antigaAlert'></div>
                                             </div>
+                                            <div class='none alerta' id='senha_antigaAlert'></div>
+                                            <div class='none alerta' id='senha_novaAlert'></div>
+                                            <div class='none alerta' id='senha_nova_dupAlert'></div>
                                         </div>
                         
                                         </div>

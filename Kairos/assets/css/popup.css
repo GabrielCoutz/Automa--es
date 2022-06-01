@@ -445,13 +445,20 @@ h1{
   transition: all 200ms ease-out;
 }
 /* icone de ajuda */
+
+@media(min-width: 501px){
+    .bi-question-circle{
+      transform: scale(0.9) !important;
+    }
+}
+
 .bi-question-circle{
     opacity: 0.7 !important;
     margin-left: 5px !important;
     position: absolute !important;
     margin-top: 1px !important;
-    cursor: pointer !important;
-    transform: scale(0.9) !important;
+    cursor: help !important;
+    transform: none;
 }
 
 button:disabled{

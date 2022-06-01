@@ -7,29 +7,33 @@ function fadeout() { // animação de loader inicial/2
     document.querySelector('.preloader').style.display = 'none';
 }
 
-const nome_input = document.getElementById('nome_input')
-const cep_input = document.getElementById('cep_input')
-const numero_input = document.getElementById('numero_input')
+const nome = document.getElementById('nome')
+const cep = document.getElementById('cep')
+const numero = document.getElementById('numero')
 const endereco = document.getElementById('endereco')
+const senha_antiga = document.getElementById('senha_antiga')
+const senha_nova = document.getElementById('senha_nova')
+const senha_nova_dup = document.getElementById('senha_nova_dup')
 
-const conteudo_nome_input = document.getElementById('nome_input').value
-const conteudo_cep_input = document.getElementById('cep_input').value
-const conteudo_numero_input = document.getElementById('numero_input').value
+const conteudo_nome = document.getElementById('nome').value
+const conteudo_cep = document.getElementById('cep').value
+const conteudo_numero = document.getElementById('numero').value
 const conteudo_endereco = document.getElementById('endereco').innerText
 
 const salvarbtn = document.getElementById('salvarbtn')
 const cancelarbtn = document.getElementById('cancelarbtn')
 
 $(document).ready(function(){
-    if(vazio(cep_input.value)){
+    if(vazio(cep.value)){
         cep.value = '00.000-000'
         endereco.value = 'Não cadastrado'
     }
 
-    if (vazio(numero_input.value)){
+    if (vazio(numero.value)){
         numero.value = 'Não cadastrado'
     }
 });
+
 
 const verSenhaAntiga = function () {
     let elemento = document.getElementById('togglePassword_antigo')
@@ -143,12 +147,12 @@ switch (true) {
 
 document.querySelectorAll('input').forEach(item => {
     item.addEventListener('keyup', function(){
-        switch (this.id) {
-            case 'nome_input':
-                console.log('nome')
 
+        switch (this.id) {
+            case 'nome':
+                console.log('nome')
                 switch (true) {
-                    case this.value == conteudo_nome_input:
+                    case this.value == conteudo_nome:
                         salvarbtn.disabled = true
                         cancelarbtn.disabled = true
                         break;
@@ -166,10 +170,10 @@ document.querySelectorAll('input').forEach(item => {
                 }
                 break;
 
-            case 'cep_input':
+            case 'cep':
                 console.log('cep')
                 switch (true) {
-                    case this.value == conteudo_cep_input:
+                    case this.value == conteudo_cep:
                         salvarbtn.disabled = true
                         cancelarbtn.disabled = true
                         break;
@@ -187,10 +191,10 @@ document.querySelectorAll('input').forEach(item => {
                 }
                 break;
 
-            case 'numero_input':
+            case 'numero':
                 console.log('numero')
                 switch (true) {
-                    case this.value == conteudo_numero_input:
+                    case this.value == conteudo_numero:
                         salvarbtn.disabled = true
                         cancelarbtn.disabled = true
                         break;
@@ -268,16 +272,18 @@ function ler_cep(cep){ // preenche o endereço automaticamente do usuario usando
             success: function(resposta){
                 if(resposta.logradouro == undefined || resposta.bairro == undefined || resposta.localidade == undefined || resposta.uf == undefined){
                     alertaDeErro(cep.id, 'CEP inválido!')
-                    cep_input.focus()
+                    cep.focus()
+                    salvarbtn.disabled = true
+                    cancelarbtn.disabled = false
                     return
-                } else if (cep.value != conteudo_cep_input){
+                } else if (cep.value != conteudo_cep){
                     Cookies.set('endereco',1)
                     document.getElementsByName('rua')[0].value = resposta.logradouro
                     document.getElementsByName('bairro')[0].value = resposta.bairro
                     document.getElementsByName('cidade')[0].value = resposta.localidade
                     document.getElementsByName('estado')[0].value = resposta.uf
                     document.getElementById('endereco').innerHTML = resposta.logradouro + ', ' + resposta.bairro + ', ' + resposta.localidade + ', ' + resposta.uf
-                    numero_input.focus()
+                    numero.focus()
                 }
                 limpar_inputs()
             }
@@ -341,13 +347,12 @@ $(function(){ // código para adicionar/remover números de telefone
 // -------------------- início validador de senha --------------------
 
 var timeout;
-let password = document.getElementById('senha_nova')
 let strengthBadge = document.getElementById('StrengthDisp')
 let strongPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})')
 let mediumPassword = new RegExp('((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))')
 const verificarSenha = function(){
     clearTimeout(timeout);
-    timeout = setTimeout(() => StrengthChecker(password.value), 500);
+    timeout = setTimeout(() => StrengthChecker(senha_nova.value), 500);
 }
 
 
@@ -378,6 +383,7 @@ function StrengthChecker(PasswordParameter){
         strengthBadge.textContent = 'Senha Fraca'
     }
 }
+
 // -------------------- fim validador de senha --------------------
 function deletar_tel(tel){
     let elemento = document.getElementById(tel.id.replace('btn',''))
@@ -393,6 +399,8 @@ function alertaDeErro(elemento, mensagem){
         document.getElementById(elemento).classList.add('vermei')
         document.getElementById(elemento+'Alert').innerHTML = mensagem
         document.getElementById(elemento+'Alert').classList.toggle('none')
+    } else {
+        console.log('n tem')
     }
 }
 
@@ -403,51 +411,76 @@ function apenasLetras(event) { // deixa apenas letras com ou sem acento serem di
     }
 }
 
-function alterar_edicao(chave){
-    if(chave == 'senha'){
-        document.getElementById("editarsenha").classList.toggle("none");
-        document.getElementById("salvar_senhabtn").classList.toggle("none");
-        document.getElementById("cancelar_senhabtn").classList.toggle("none");
-
-        document.getElementById("pass").classList.toggle("none");
-        document.getElementById("pass2").classList.toggle("none");
-        document.getElementById("pass3").classList.toggle("none");
-
-        document.getElementsByClassName('senha')[0].innerText = 'Senha'
-
-        document.getElementById('senha_antiga').value = ''
-        document.getElementById('senha_nova').value = ''
-        document.getElementById('senha_nova_dup').value = ''
-
-        senha_antiga.classList.remove('vermei')
-        senha_nova.classList.remove('vermei')
-        senha_nova_dup.classList.remove('vermei')
-
-        return
+function alterar_edicao(){
+    let verificarSenha2 = function(){
+        clearTimeout(timeout);
+        timeout = setTimeout(() => StrengthChecker(senha_nova.value), 500);
     }
+
+    document.getElementById("editarsenha").classList.toggle("none")
+    document.getElementById("salvar_senhabtn").classList.toggle("none")
+    document.getElementById("cancelar_senhabtn").classList.toggle("none")
+
+    document.getElementById("pass").classList.toggle("none");
+    document.getElementById("pass2").classList.toggle("none");
+    document.getElementById("pass3").classList.toggle("none");
+
+    salvarbtn.classList.add('none')
+    cancelarbtn.classList.add('none')
+
+    document.getElementById('togglePassword_antigo').addEventListener('click', verSenhaAntiga)
+    document.getElementById('togglePassword_novo').addEventListener('click', verSenhaAntigaNovo)
+    document.getElementById('togglePassword_novo_dup').addEventListener('click', verSenhaAntigaNovoDup)
+
+    document.getElementsByClassName('senha')[0].innerText = 'Senha'
+
+    nome.disabled = true
+    cep.disabled = true
+    numero.disabled = true
+    document.getElementById('add_tel').disabled = true
+    document.getElementById('del_tel').disabled = true
+
+    senha_antiga.value = ''
+    senha_nova.value = ''
+    senha_nova_dup.value = ''
+
+    limpar_inputs()
+
+    senha_nova.addEventListener("keyup", verificarSenha2)
+
 }
 
 function cancelar(item){
     limpar_alertas()
     if(item.id == 'cancelar_senhabtn'){
-        alterar_edicao('senha')
+        alterar_edicao()
         let verificarSenha2 = function(){
             clearTimeout(timeout);
-            timeout = setTimeout(() => StrengthChecker(password.value), 500);
+            timeout = setTimeout(() => StrengthChecker(senha_nova.value), 500);
         }
 
         document.getElementById('togglePassword_antigo').removeEventListener('click', verSenhaAntiga)
         document.getElementById('togglePassword_novo').removeEventListener('click', verSenhaAntigaNovo)
         document.getElementById('togglePassword_novo_dup').removeEventListener('click', verSenhaAntigaNovoDup)
 
-        password.removeEventListener("keyup", verificarSenha2)
+        senha_nova.removeEventListener("keyup", verificarSenha2)
         strengthBadge.classList.add('none')
         document.getElementById('divplano').classList.remove('none')
+
+        document.getElementById('cancelar_senhabtn').classList.add('none')
+        document.getElementById('salvar_senhabtn').classList.add('none')
+        salvarbtn.classList.remove('none')
+        cancelarbtn.classList.remove('none')
+
+        nome.disabled = false
+        cep.disabled = false
+        numero.disabled = false
+        document.getElementById('add_tel').disabled = false
+        document.getElementById('del_tel').disabled = false
 
         return
     }
     limpar_inputs()
-    document.getElementById('editarsenha').disabled = false
 
     //$('.adicional').closest('.phone-input').remove();
     //$('.exclusao_tel').remove();
@@ -456,9 +489,9 @@ function cancelar(item){
     //    $('#tel').toggle();
     //}
     endereco.innerHTML = vazio(conteudo_endereco.replace(', , ,','')) ? 'Não Cadastrado' : endereco.innerText
-    nome_input.value = conteudo_nome_input
-    cep_input.value = conteudo_cep_input
-    numero_input.value = conteudo_numero_input
+    nome.value = conteudo_nome
+    cep.value = conteudo_cep
+    numero.value = conteudo_numero
 
     salvarbtn.disabled = true
     cancelarbtn.disabled = true
@@ -466,25 +499,19 @@ function cancelar(item){
 
 function salvar(item){
     if (item.id == 'salvar_senhabtn'){
-        let senha_antiga = document.getElementById("senha_antiga")
-        let senha_nova = document.getElementById("senha_nova")
-        let senha_nova_dup = document.getElementById("senha_nova_dup")
-
-        senha_antiga.classList.remove('vermei')
-        senha_nova.classList.remove('vermei')
-        senha_nova_dup.classList.remove('vermei')
+        limpar_inputs()
 
         if(vazio(senha_antiga.value) || vazio(senha_nova.value) || vazio(senha_nova_dup.value) || senha_nova.value != senha_nova_dup.value){
-            senha_antiga.classList.add('vermei')
             senha_nova.classList.add('vermei')
             senha_nova_dup.classList.add('vermei')
             alertaDeErro(senha_antiga.id, 'Por favor, verifique os campos e tente novamente!')
 
         } else {
-            abrirjanela('blue','Verificando dados','Validando Alteração', 'carregar')
-            Cookies.set('senha',1)
-            document.getElementById('asdf_cancelar').style.display = 'none'
-            setTimeout(nada , 3000)
+            //abrirjanela('blue','Verificando dados','Validando Alteração', 'carregar')
+            //Cookies.set('senha',1)
+            //document.getElementById('asdf_cancelar').style.display = 'none'
+            //setTimeout(nada , 3000)
+            console.log('tudo certo')
         }
         return
     }
@@ -554,10 +581,10 @@ function salvar(item){
         Cookies.set('tels',tels)
     }
 
-    if (!vazio(cep_input.value) && cep_input.value.length <= 10 && vazio(numero_input.value)){
-        alertaDeErro(cep_input.id, 'Complete o endereço!')
-        cep_input.classList.add('vermei')
-        numero_input.classList.add('vermei')
+    if (!vazio(cep.value) && cep.value.length <= 10 && vazio(numero.value)){
+        alertaDeErro(cep.id, 'Complete o endereço!')
+        cep.classList.add('vermei')
+        numero.classList.add('vermei')
 
     } else {
         Cookies.set('usuario',1)
