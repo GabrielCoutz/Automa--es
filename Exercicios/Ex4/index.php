@@ -15,7 +15,7 @@
     <form class="col-12" id='form' method="POST" action='assets/php/mostrar.php' onsubmit="return false">
       <div class="form-group">
         <label>Selecione sua idade</label>
-        <input type="range" class="form-control" name='num' id="num" placeholder="0 a 999" min='0' max='100' value='0' oninput="this.nextElementSibling.value = this.value+' Anos'"><output></output>
+        <input type="range" class="form-control" name='num' id="num" min='0' max='100' value='0' oninput="this.nextElementSibling.value = this.value+' Anos'"><output></output>
         <div class= 'alerta none'id='numAlert'></div>
       </div>
 
