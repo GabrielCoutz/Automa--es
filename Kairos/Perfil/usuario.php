@@ -42,7 +42,7 @@
         }
       
 
-      //if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
+      //if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER//['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
       //  header("Refresh:0; url=usuario".'?'.md5('erro=true'));
       //  exit;
       //} else {
@@ -166,7 +166,8 @@
                                             <div class="col-md-5 pr-1">
                                                 <div class="form-group">
                                                     <label>Nome</label>
-                                                    <i class="bi bi-question-circle"></i>
+                                                    <i class="bi bi-question-circle" id='nameTip'></i>
+                                                    <span id='nameText'>Insira somente letras, sem caracteres especiais ou números.</span>
                                                     <input type="text" class="form-control" id='nome' name='nome' onkeyup="apenasLetras(this)" maxlength="50" value="<?= $select['nome'] ?>">
                                                 </div>
                                                 <div class='none alerta' id='nomeAlert'></div>
@@ -193,7 +194,8 @@
                                             <div class="col-md-6 pr-1">
                                                 <div class="form-group">
                                                     <label>Telefone</label>
-                                                    <i class="bi bi-question-circle"></i>
+                                                    <i class="bi bi-question-circle" id='telTip'></i>
+                                                    <span id='telText'>Insira o DDD (xx) juntamente com o número completo xxxxx-xxxx.</span>
                                                     <div class="phone-list">
                                                         <div id='botoes_tel'>
                                                             <button class="btn btn-success btn-sm btn-add-phone" id='add_tel'>Adicionar telefone</button>
@@ -211,7 +213,8 @@
                                             <div class="col-md-4 pr-1">
                                                 <div class="form-group">
                                                     <label>CEP</label>
-                                                    <i class="bi bi-question-circle"></i>
+                                                    <i class="bi bi-question-circle" id='cepTip'></i>
+                                                    <span id='cepText'>Insira o CEP (xx.xxx-xxx) por completo.</span>
                                                     <input type="tel" class="form-control" id='cep' onkeypress="$(this).mask('00.000-000')" onkeyup="ler_cep(this)" name='cep' maxlength="15" value='<?= $select_endereco['cep'] ?>'>
                                                 </div>
                                                 <div class='none alerta' id='cepAlert'></div>
@@ -220,7 +223,8 @@
                                             <div class="col-md-4 px-1">
                                                 <div class="form-group">
                                                     <label>Número</label>
-                                                    <i class="bi bi-question-circle"></i>
+                                                    <i class="bi bi-question-circle" id='numeroTip'></i>
+                                                    <span id='numeroText'>Insira apenas números.</span>
                                                     <input type="tel" class="form-control small-input" id='numero' name='numero' maxlength="15" value='<?= $select_endereco['numero'] ?>'>
                                                 </div>
                                                 <div class='none alerta' id='numeroAlert'></div>
@@ -259,7 +263,7 @@
                                                     <label class='senha'>Senha</label>
                                                     <br>
                                                     <button class="btn btn-info btn-fill pull-left" onclick="alterar_edicao()" type="submit" id="editarsenha">Editar Senha</button>
-                                                    <div class='row' style="margin-left: 0; margin-right: 0;">
+                                                    <div class='row' style="margin-left: 0; margin-right: 0;" id='rowSenha'>
 
                                                     <div class="none" id='pass'>
                                                         <div class='texto'>Senha antiga</div>
@@ -278,7 +282,6 @@
                                                             <i class="gg-eye eye" id="togglePassword_novo" style="margin-top: 5px !important;"></i>
                                                         </p>
                                                         <span id="StrengthDisp" class="badge displayBadge none">Validando senha...</span>
-                                                        <br>
                                                     </div>
                                                     
                                                     <div class="none" id='pass3'>

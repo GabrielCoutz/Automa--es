@@ -4,32 +4,66 @@
   src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
 }
 
-#passwordText{
+#passwordText, #nameText, #telText, #cepText, #numeroText{
   opacity: 0;
   display: none;
   transition: all 1s;
 }
 
-i#passwordTip:hover ~ span#passwordText{
+i#passwordTip:hover ~ span#passwordText, i#nameTip:hover ~ span#nameText, i#telTip:hover ~ span#telText, i#cepTip:hover ~ span#cepText, i#numeroTip:hover ~ span#numeroText{
   border: #6e6e6e 1px dotted;
   padding: 10px;
   display: block !important;
   opacity: 1 !important;
   z-index: 100;
-  left: 310px;
   margin: 10px;
-  width: 320px;
-  box-shadow: 10px 10px 10px -5px #dbdbdb;
+  box-shadow: 10px 10px 7px -10px #bbbbbb;
   text-align: left;
   position: absolute;
   font-family: 'San Francisco';
   font-weight: 700;
-  top: -76px;
   font-size: 15px;
   color: #3a3a3a;
   text-decoration: none;
   border-radius: 10px;
   font-style: italic;
+  background: white;
+}
+
+span#passwordText{
+  width: 352px;
+  top: -49px;
+  left: 326px;
+}
+
+span#nameText{
+  width: 410px;
+  top: -51px;
+  left: 310px;
+}
+
+span#nameText{
+  width: 320px;
+  top: -76px;
+  left: 60px;
+}
+
+span#telText{
+  width: 410px;
+  top: -66px;
+  left: 80px;
+}
+
+span#cepText{
+  width: 270px;
+  top: -51px;
+  left: 50px;
+} 
+
+span#numeroText{
+  width: 175px;
+  left: 77px;
+  top: -53px;
 }
 
 #del_tel{
@@ -72,7 +106,14 @@ i#passwordTip:hover ~ span#passwordText{
 .adicional{
   margin-bottom: 3px;
   margin-top: 3px;
+  height: 35px !important;
+  width: 150px;
 }
+
+input[name='phone0number']{
+  margin-top: 10px;
+}
+
 lord-icon{
   position: absolute !important;
   margin-top: -14px;
@@ -196,10 +237,13 @@ input::-webkit-input-placeholder {
     font-family: "Archivo Black", sans-serif !important;
     letter-spacing: 0.3px !important;
     color: #6c757d!important;
-
 }
+
+.phone-list > .input-group{
+  align-items: center !important;
+}
+
 .btn-remove-phone {
-    margin-top: 4px;
     padding: 5px !important;
     height: 29px;
     border-radius: 0.25rem !important;
@@ -242,12 +286,11 @@ input:focus, input:hover{
   height: 35px;
 }
 
-
 @media(min-width: 991px){
-  #btnfechar{
-    display: none;
+  .input-group-btn{
+    margin-top: 4px !important;
   }
-  #btnsair{
+  #btnfechar, #btnsair{
     display: none;
   }
   #btnsair-v{
@@ -259,6 +302,19 @@ input:focus, input:hover{
 }
 
 @media(max-width: 990px){
+  span#passwordText{
+    top: 18px !important;
+    left: 108px !important;
+  }
+  #rowSenha{
+    flex-direction: column;
+    align-items: flex-start;
+    align-content: flex-start;
+  }
+  #pass2{
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+  }
   #btnsair{
     display: block;
   }
@@ -271,9 +327,18 @@ input:focus, input:hover{
 }
 
 @media(max-width: 500px){
-  #passwordTip:hover span{
-    width: 140px !important;
-    left: 110px !important;
+  span#nameText{
+    width: 249px !important;
+  }
+  span#telText{
+    width: 235px !important;
+  }
+  span#cepText{
+    width: 267px !important;
+  }
+  span#passwordText{
+    top: -8px !important;
+    width: 198px !important;
   }
 
   button{

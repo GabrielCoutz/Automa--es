@@ -25,12 +25,12 @@ const cancelarbtn = document.getElementById('cancelarbtn')
 
 $(document).ready(function(){
     if(vazio(cep.value)){
-        cep.value = '00.000-000'
-        endereco.value = 'Não cadastrado'
+        cep.placeholder = '00.000-000'
+        endereco.innerHTML = 'Não cadastrado'
     }
 
     if (vazio(numero.value)){
-        numero.value = 'Não cadastrado'
+        numero.placeholder = 'Não cadastrado'
     }
 });
 
@@ -145,10 +145,20 @@ switch (true) {
         break;
 }
 
+function verificarTelefone(input){
+    if(input.value.length == 15){
+        input.classList.remove('vermei')
+        salvarbtn.disabled = false
+    } else {
+        input.classList.add('vermei')
+        salvarbtn.disabled = true
+    }
+}
+
 document.querySelectorAll('input').forEach(item => {
     item.addEventListener('keyup', function(){
-
         switch (this.id) {
+            
             case 'nome':
                 console.log('nome')
                 switch (true) {
@@ -298,7 +308,7 @@ function removerTelefoneAdicional(elemento){
 $(function(){ // código para adicionar/remover números de telefone
     
     $('.btn-add-phone').click(function(){
-
+        cancelarbtn.disabled = false
         if(document.getElementById('del_tel').style.display != 'none'){
             $('#del_tel').toggle();
         };
@@ -310,8 +320,8 @@ $(function(){ // código para adicionar/remover números de telefone
         var num = "'(00) 0000-00009'"
         $('.phone-list').append(''+
                 '<div class="input-group phone-input">'+
-                    '<input type="tel" name="phone'+index+'number" placeholder="(00) 0000-00000" class="adicional" onkeypress="$(this).mask('+num+')"/>'+
-                    '<span class="input-group-btn">'+
+                    '<input type="tel" name="phone'+index+'number" placeholder="(00) 0000-00000" class="adicional" onkeypress="$(this).mask('+num+')"/ onkeyup="verificarTelefone(this)">'+
+                    '<span class="input-group-btn" >'+
                         '<button class="btn btn-danger btn-remove-phone btn-info" type="button" onclick="removerTelefoneAdicional(this)"><i class="gg-remove remove"></button>'+
                     '</span>'+
                 '</div>'
@@ -320,6 +330,7 @@ $(function(){ // código para adicionar/remover números de telefone
     });
         
     $('.btn-del-phone').click(function(){
+        cancelarbtn.disabled = false
         var pos = 1
         if(document.getElementById('tel').style.display != 'none'){
             $('#tel').toggle();
@@ -389,8 +400,10 @@ function deletar_tel(tel){
     let elemento = document.getElementById(tel.id.replace('btn',''))
     if(elemento.style.opacity != '0.5'){
         elemento.style.opacity = '0.5'
+        salvarbtn.disabled = false
     } else {
         elemento.style.opacity = '1'
+        salvarbtn.disabled = true
     }
 }
 
@@ -482,12 +495,12 @@ function cancelar(item){
     }
     limpar_inputs()
 
-    //$('.adicional').closest('.phone-input').remove();
-    //$('.exclusao_tel').remove();
-//
-    //if(document.getElementById('tel').style.display == 'none'){
-    //    $('#tel').toggle();
-    //}
+    $('.adicional').closest('.phone-input').remove();
+    $('.exclusao_tel').remove();
+
+    if(document.getElementById('tel').style.display == 'none'){
+        $('#tel').toggle();
+    }
     endereco.innerHTML = vazio(conteudo_endereco.replace(', , ,','')) ? 'Não Cadastrado' : endereco.innerText
     nome.value = conteudo_nome
     cep.value = conteudo_cep
@@ -495,6 +508,8 @@ function cancelar(item){
 
     salvarbtn.disabled = true
     cancelarbtn.disabled = true
+    document.getElementById('del_tel').style.display = 'inline-block'
+    document.getElementById('add_tel').style.display = 'inline-block'
 }
 
 function salvar(item){

@@ -444,6 +444,10 @@ h1{
   background: #4e6ef1a6;
   transition: all 200ms ease-out;
 }
+
+input.vermei ~ span.underline{
+    background: rgb(255, 0, 0) !important;
+}
 /* icone de ajuda */
 
 @media(min-width: 501px){
