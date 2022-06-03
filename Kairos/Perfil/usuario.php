@@ -22,8 +22,8 @@
     <link href="../assets/css/popup.css" rel="stylesheet"/>
     <link  href="../assets/css/jquery.passwordRequirements.css" rel="stylesheet">
     <?php
-      session_start();
-      error_reporting(E_ERROR | E_PARSE);
+        session_start();
+        error_reporting(E_ERROR | E_PARSE);
 
 
         $dbHost     = 'localhost';
@@ -40,44 +40,44 @@
             $dbName = 'epiz_30663895_Banco_Kairos';
             $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
         }
-      
+        
 
-      //if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER//['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
-      //  header("Refresh:0; url=usuario".'?'.md5('erro=true'));
-      //  exit;
-      //} else {
-      //  $email=$_SESSION['email'];
-      //}
+        //if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER//['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
+        //  header("Refresh:0; url=usuario".'?'.md5('erro=true'));
+        //  exit;
+        //} else {
+        //  $email=$_SESSION['email'];
+        //}
 
-      $email='gabriel@gmail.com';
-      $select=mysqli_query($conec, "SELECT * FROM usuario WHERE email = '$email'")->fetch_assoc();
+        $email='gabriel@gmail.com';
+        $select=mysqli_query($conec, "SELECT * FROM usuario WHERE email = '$email'")->fetch_assoc();
 
-      $id=$select['id'];
-      $cpf=$select['cpf'];
-      if(empty($cpf)){
-          $cpf = 'Não Cadastrado';
-      } else {
-          $cpf = substr($select['cpf'], 0, 3).'.***.***'.substr($select['cpf'], -3, 3);
-      }
-      $_SESSION['email_padrao']=$select['email'];
-      $_SESSION['nome_padrao']=$select['nome'];
+        $id=$select['id'];
+        $cpf=$select['cpf'];
+        if(empty($cpf)){
+            $cpf = 'Não Cadastrado';
+        } else {
+            $cpf = substr($select['cpf'], 0, 3).'.***.***'.substr($select['cpf'], -3, 3);
+        }
+        $_SESSION['email_padrao']=$email;
+        $_SESSION['nome_padrao']=$select['nome'];
 
-      $select_telefone=mysqli_query($conec, "SELECT * FROM telefone WHERE email_usuario = '$email'");
+        $select_telefone=mysqli_query($conec, "SELECT * FROM telefone WHERE email_usuario = '$email'");
 
-      $result_telefone=$select_telefone->fetch_assoc();
-      $numeros = '';
+        $result_telefone=$select_telefone->fetch_assoc();
+        $numeros = '';
 
-      while ($row = mysqli_fetch_assoc($select_telefone)) {
+        while ($row = mysqli_fetch_assoc($select_telefone)) {
         if($row['tel'] != ""){
             $numeros .= $row["tel"].'<br>';
+            }
         }
-      }
 
-      $_SESSION['tel_padrao']=$result_telefone['tel'];
+        $_SESSION['tel_padrao']=$result_telefone['tel'];
 
-      $select_endereco=mysqli_query($conec, "SELECT * FROM endereco WHERE email_usuario = '$email'")->fetch_assoc();
+        $select_endereco=mysqli_query($conec, "SELECT * FROM endereco WHERE email_usuario = '$email'")->fetch_assoc();
 
-      $select_cartao=mysqli_query($conec, "SELECT * FROM cartao WHERE email_usuario = '$email'")->fetch_assoc();
+        $select_cartao=mysqli_query($conec, "SELECT * FROM cartao WHERE email_usuario = '$email'")->fetch_assoc();
 
   ?>
 </head>

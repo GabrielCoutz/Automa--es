@@ -108,7 +108,7 @@ $(document).keypress( // desativa a tecla Enter
       if (event.which == '13') {
         event.preventDefault();
       }
-  });
+});
 
 function limparURL(url){ // tira o disparador de popup da url, limpando-a
     let nextURL = window.location.href.replace(url,'').replace('?','');
@@ -366,7 +366,6 @@ const verificarSenha = function(){
     timeout = setTimeout(() => StrengthChecker(senha_nova.value), 500);
 }
 
-
 function StrengthChecker(PasswordParameter){
 
     if (vazio(PasswordParameter)){
@@ -463,6 +462,10 @@ function alterar_edicao(){
 
 }
 
+function apagarCookie(nome){
+    document.cookie = nome+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
+
 function cancelar(item){
     limpar_alertas()
     if(item.id == 'cancelar_senhabtn'){
@@ -490,6 +493,7 @@ function cancelar(item){
         numero.disabled = false
         document.getElementById('add_tel').disabled = false
         document.getElementById('del_tel').disabled = false
+        apagarCookie('senha')
 
         return
     }
@@ -510,6 +514,9 @@ function cancelar(item){
     cancelarbtn.disabled = true
     document.getElementById('del_tel').style.display = 'inline-block'
     document.getElementById('add_tel').style.display = 'inline-block'
+    apagarCookie('endereco')
+    apagarCookie('excluir_num')
+    apagarCookie('tels')
 }
 
 function salvar(item){
@@ -522,10 +529,10 @@ function salvar(item){
             alertaDeErro(senha_antiga.id, 'Por favor, verifique os campos e tente novamente!')
 
         } else {
-            //abrirjanela('blue','Verificando dados','Validando Alteração', 'carregar')
-            //Cookies.set('senha',1)
-            //document.getElementById('asdf_cancelar').style.display = 'none'
-            //setTimeout(nada , 3000)
+            abrirjanela('blue', 'Verificando dados', 'Validando Alteração', 'carregar')
+            Cookies.set('senha', 1)
+            document.getElementById('asdf_cancelar').style.display = 'none'
+            setTimeout(nada, 3000)
             console.log('tudo certo')
         }
         return
@@ -534,8 +541,6 @@ function salvar(item){
     limpar_inputs()
 
     let numeros = []
-    let adicional = false
-    let valido = false
 
     if (document.getElementsByClassName('exclusao_tel')[0] != undefined){ // se existirem números a serem excluídos, cada um selecionado vai para lista de Cookies, usada como lista de exclusão
 
@@ -557,41 +562,14 @@ function salvar(item){
     }
 
     var tels = 0
-    document.querySelectorAll('.adicional').forEach((item)=>{ // se existirem números a serem adicionados, são guardados nos Cookies, usados como lista de adição
-        item.classList.remove('vermei')
-        tels ++
-        Cookies.set(item.getAttribute('name'), item.value)
-        Cookies.set('usuario',1)
-
-        if (item){
-            adicional = true
-        }
-    });
-
-    if(adicional){ // se houver números adicionais é verificado se todos estão preenchidos, senão é sinalizado com bordas vermelhas
-        document.querySelectorAll('.adicional').forEach((item)=>{
-            if (item.value.length == 15){
-            } else {
-                item.classList.add('vermei')
-                return
-            }
+    if(document.querySelectorAll('.adicional')[0]){
+        document.querySelectorAll('.adicional').forEach((item)=>{ // se existirem números a serem adicionados, são guardados nos Cookies, usados como lista de adição
+            item.classList.remove('vermei')
+            tels ++
+            Cookies.set(item.getAttribute('name'), item.value)
+            Cookies.set('usuario',1)
+    
         });
-        
-        document.querySelectorAll('.adicional').forEach((element) => {// caso existam bordas vermelhas significa que há algum erro, então o usuário é alertado
-            if(element.classList.toString().includes('vermei')){
-                valido = false
-                return
-            } else {
-                valido = true
-            }
-            
-        });
-    }
-
-    if(!valido && adicional){
-        abrirjanela('red','Telefone adicional incompleto<br> Por favor verifique-o ou remova-o!','Dados incompletos', 'falha')
-        return
-    } else {
         Cookies.set('usuario',1)
         Cookies.set('tels',tels)
     }
@@ -605,7 +583,7 @@ function salvar(item){
         Cookies.set('usuario',1)
         abrirjanela('blue','Verificando dados','Validando Alteração', 'carregar')
         document.getElementById('asdf_cancelar').style.display = 'none'
-        setTimeout(nada , 3000)
+        setTimeout(nada , 2000)
     }
 }
 
