@@ -110,9 +110,44 @@ function abrirjanela(cor, texto, titulo, trigger){ // trigger é usado para sina
 }
 
 function abrirJanelaMarketing(){
-    img = ' <img src="assets/images/teste2.png" id="img"> '
+    img = ' <img src="assets/img/teste2.png" id="img"> '
     janelaPopUp.abre( "asdf", 'p' + " " + 'blue' + ' ' + 'alert', 'Faça sua análise hoje mesmo!' , 'Sabia que você pode impulsionar sua gestão de marketing com alguns clicks?')
     document.getElementById('asdf_cancelar').innerHTML = 'Realizar Agora'
-    $('#asdf').append('<div id="esqueci" >' + '<a href="#"> Talvez, depois </a>' + '</div>')
+    $('#asdf').append('<div id="esqueci" >' + '<a href="#" style="text-align: center;cursor: pointer; display: block; font-weight: bold; font-family: '+"'San Francisco'"+' !important; font-size: 15px; color: #4e6ef1 !important;"> Talvez, depois </a>' + '</div>')
     document.getElementById('asdf').classList.add('marketing')
+    Cookies.set(md5('analise'),md5('true'))
+
+    document.getElementById('asdf_cancelar').addEventListener('click', function(){ //BTN - Realizar Agora
+        window.location.href = "AnaliseMarketing/ColetarDados/ColetadeDados"
+    })
+    document.getElementById('esqueci').addEventListener('click', function(){ //BTN - Talvez, depois
+        janelaPopUp.fecha('asdf')
+    })
+}
+
+function abrirJanelaPlanos(plano_mudança, plano_atual){
+    img = ''
+    janelaPopUp.abre( "asdf", 'p' + " " + 'blue' + ' ' + 'alert', 'Mudança de Planos' , 'Você está prestes a mudar seu plano de <text>'+ plano_atual +'</text>  para <text>' + plano_mudança + '</text><br>Deseja completar a mudança?')
+    document.getElementById('asdf_cancelar').innerHTML = 'Sim, desejo mudar'
+    $('#asdf').append('<div id="esqueci" >' + '<a href="#"> Não, mudei de ideia </a>' + '</div>')
+    document.getElementById('asdf').classList.add('plano')
+
+    document.getElementById('asdf_cancelar').addEventListener('click', function(){ //BTN - Sim, desejo mudar
+        window.location.href = "../CadastroCartao/assets/php/enviar_cartao?alterar_plano=true&assinatura="+plano_mudança
+    })
+
+    document.getElementById('esqueci').addEventListener('click', function(){ // BTN - Não, mudei de ideia
+        janelaPopUp.fecha('asdf')
+
+        let abrir = function (){
+            setTimeout(abrirjanela('blue','Sem problemas, redirecionando para seu perfil','Mudança de Planos', 'carregar'), 3000)
+            document.getElementById('asdf_cancelar').style.display = 'none'
+        }
+        let redirecionar = function(){
+            window.location.href = "../Perfil/usuario"
+        }
+
+        setTimeout(abrir, 2500)
+        setTimeout(redirecionar, 6000)
+    })
 }

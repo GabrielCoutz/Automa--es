@@ -15,7 +15,7 @@
       
       session_start();
 
-      if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
+      if(!isset($_SESSION['email_padrao']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
         header("Refresh:0; url=ColetadeDados".'?'.md5('erro=true'));
         exit;
       }

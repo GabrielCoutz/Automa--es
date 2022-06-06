@@ -1,14 +1,72 @@
-/* ============================
-  Template Name: Bliss
-  Author: uideck
-  Description: Digital Agency Bootstrap 5 Landing Page.
-  Version: 1.0
-=============================== */
 @import url("https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap");
 .counter-up-section .counter-up-content .counter-up-wrapper .single-counter .icon, .footer .widget-wrapper .footer-widget .socials li a {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.escolhido{
+  border: 8px solid #0d6efd;
+  transform: scale(1.07);
+}
+
+.escolhido >.card-body.p-5> .d-grid{
+  cursor: not-allowed !important;
+}
+
+lord-icon{
+  position: absolute !important;
+  margin-top: -14px;
+  right: 127px;
+}
+
+text {
+  color: #4e6ef1;
+  font-weight: bold;
+}
+
+.blue.plano.p{
+  max-width: 400px !important;
+  max-height: 241px !important;
+}
+
+#asdf.plano{
+  border-radius: 16px !important;
+  color: #666666;
+  font-weight: bold;
+}
+
+#asdf.plano, .plano > button, .popUp.plano h1, .plano > #conteudoPopUp{
+  font-family: 'San Francisco';
+}
+
+.plano > .puCancelar {
+  width: 60% !important;
+  margin-bottom: 8px;
+  background-color: #4E6EF1 !important;
+  border: none;
+  border-color: none !important;
+  color: #ffffff;
+  margin-left: 20% !important;
+}
+
+.popUp.plano h1{
+  padding-top: 16px !important;
+  font-size: 24px;
+  text-align: center;
+}
+
+.plano > #conteudoPopUp{
+  color: #505050 !important;
+  padding-right: 8px ;
+  font-size: 17px ;
+  font-weight: 100 ;
+  padding-left: 8px ;
+}
+
+.plano > #conteudoPopUp > span{
+  text-align: center;
+  width: auto;
 }
 
 body{

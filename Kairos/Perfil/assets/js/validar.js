@@ -91,14 +91,6 @@ const limpar_alertas = function(){
     }
 }
 
-if(vazio(document.getElementById('plano').innerText)){ // sem plano contratado
-    document.getElementById('assinarbtn').classList.toggle('none')
-}
-
-function assinar(){
-    window.location.href = "assets/php/enviar_usuario?assinar=true"
-}
-
 function vazio(item){ // verifica se o valor passado está vazio
     return item == ''
 }
@@ -142,6 +134,11 @@ switch (true) {
     case window.location.href.includes(md5('sucesso=false')):
         abrirjanela('red','Não foi possível realizar a operação solicitada. Por favor, tente novamente ou entre em contato conosco.', 'Erro inesperado', 'falha')
         limparURL(md5('sucesso=false'))
+        break;
+
+    case window.location.href.includes(md5('analise=false')):
+        abrirJanelaMarketing()
+        limparURL(md5('analise=false'))
         break;
 }
 
@@ -481,7 +478,6 @@ function cancelar(item){
 
         senha_nova.removeEventListener("keyup", verificarSenha2)
         strengthBadge.classList.add('none')
-        document.getElementById('divplano').classList.remove('none')
 
         document.getElementById('cancelar_senhabtn').classList.add('none')
         document.getElementById('salvar_senhabtn').classList.add('none')

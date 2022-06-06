@@ -42,15 +42,20 @@
         }
         
 
-        //if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER//['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
-        //  header("Refresh:0; url=usuario".'?'.md5('erro=true'));
-        //  exit;
-        //} else {
-        //  $email=$_SESSION['email'];
-        //}
+        if(!isset($_SESSION['email']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
+          header("Refresh:0; url=usuario".'?'.md5('erro=true'));
+          exit;
+        } else {
+          $email=$_SESSION['email'];
+        }
 
-        $email='gabriel@gmail.com';
+        //$email='gabriel@gmail.com';
         $select=mysqli_query($conec, "SELECT * FROM usuario WHERE email = '$email'")->fetch_assoc();
+
+        if (empty(mysqli_query($conec, "SELECT * FROM analise_swot WHERE email_usuario = '$email'")->fetch_assoc()) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('analise=false')) && !$_COOKIE[md5('analise')]){
+            header("Refresh:0; url=usuario".'?'.md5('analise=false'));
+            exit;
+        }
 
         $id=$select['id'];
         $cpf=$select['cpf'];
@@ -114,6 +119,12 @@
                         <a class="nav-link" href="AnaliseMarketing/resultado">
                             <i class="nc-icon nc-bulb-63"></i>
                             <p>Análise de Marketing</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link" href="../Assinaturas/assinatura">
+                            <i class="nc-icon nc-credit-card"></i>
+                            <p>Assinatura</p>
                         </a>
                     </li>
                 </ul>
@@ -246,17 +257,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        
-                                        <div class="row" id='divplano'>
-                                            <div class="col-md-12">
-                                                <div class="form-group">
-                                                    <label>Assinatura</label>
-                                                    <br>
-                                                    <button class="btn btn-info btn-fill pull-left none" id='assinarbtn' onclick="assinar()">Assinar Plano</button>
-                                                    <div id='plano' class='text-secondary'><a><?= ucwords($select_cartao['assinatura']) ?></a></div>
-                                                </div>
-                                            </div>
-                                        </div>
+
                                         <div class="row" id='senha'>
                                             <div class="form-group">
                                                 <div class='col-md-12'>

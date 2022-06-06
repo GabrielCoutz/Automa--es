@@ -29,7 +29,6 @@ i#passwordTip:hover ~ span#passwordText, i#nameTip:hover ~ span#nameText, i#telT
   font-style: italic;
   background: white;
 }
-
 span#passwordText{
   width: 352px;
   top: -49px;
@@ -99,9 +98,6 @@ span#numeroText{
   border-color: #4E6EF1 !important;
 }
 
-#assinarbtn{
-  margin-bottom: 11px;
-}
 
 .adicional{
   margin-bottom: 3px;
@@ -137,6 +133,12 @@ button:hover{
   box-shadow: 0px 6px 10px 1px rgb(0 0 0 / 31%) !important;
   transform: translateY(-0.10em);
 }
+
+button:active{
+  box-shadow: 0px 10px 15px -15px rgb(0 0 0) !important;
+  transform: translateY(0em) !important;
+}
+
 
 #StrengthDisp{
   justify-content: center;
@@ -181,7 +183,7 @@ button{
     color: white;
     background: #20a837 !important;
 }
-#editarsenha, #editarbtn, #assinarbtn{
+#editarsenha, #editarbtn{
   background: #4E6EF1 !important;
 }
 
@@ -202,6 +204,7 @@ input{
     font-family: 'San Francisco' !important;
     font-style: normal !important;
 }
+
 
 .small-input {
     -moz-appearance: textfield;

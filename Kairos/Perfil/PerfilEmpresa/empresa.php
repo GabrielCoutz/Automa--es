@@ -108,7 +108,13 @@
                              <i class="nc-icon nc-bulb-63"></i>
                              <p>Análise de Marketing</p>
                          </a>
-                     </li> 
+                     </li>
+                     <li>
+                        <a class="nav-link" href="../../Assinaturas/assinatura">
+                            <i class="nc-icon nc-credit-card"></i>
+                            <p>Assinatura</p>
+                        </a>
+                    </li>
                  </ul>
              </div>
          </div>

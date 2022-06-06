@@ -96,6 +96,11 @@ $(document).keypress( // desativa tecla ENTER
       }
 });
 
+function apagarCookie(nome){
+    document.cookie = nome+"=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+}
+apagarCookie(md5('analise'))
+
 function validar(){
     limpar_inputs()
     let email = document.getElementById("email")

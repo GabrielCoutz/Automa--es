@@ -33,9 +33,7 @@ function verificarOperacao($query, $url){ // retorna uma sinalização de erro
 }
 
 if(isset($_GET['assinar'])){
-    $_SESSION['cadastro']=md5('valido');
-    $_SESSION['assinar']=md5('valido');
-    header('Location: ../../../Assinaturas/assinatura?'.md5('cadastro=true'));
+    header('Location: ../../../Assinaturas/assinatura');
     exit;
 }
 
