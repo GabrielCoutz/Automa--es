@@ -34,7 +34,8 @@
         </div>
       </div>
     </div>
-		<div class="wrapper">
+	<button id='voltar'>Página Inicial</button>
+	<div class="wrapper">
 			<div class="inner">
 				<form method="POST" id="login" action="assets/php/config?validar=true" style="padding: 72px 48px 72px;" onsubmit="return false">
 					<h3 style="font-family: 'San Francisco' !important;">Login</h3>

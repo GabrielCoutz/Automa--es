@@ -52,7 +52,7 @@
         //$email='gabriel@gmail.com';
         $select=mysqli_query($conec, "SELECT * FROM usuario WHERE email = '$email'")->fetch_assoc();
 
-        if (empty(mysqli_query($conec, "SELECT * FROM analise_swot WHERE email_usuario = '$email'")->fetch_assoc()) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('analise=false')) && !$_COOKIE[md5('analise')]){
+        if (empty(mysqli_query($conec, "SELECT * FROM analise_swot WHERE email_usuario = '$email'")->fetch_assoc()) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('analise=false')) && !$_COOKIE[md5('analise')] && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
             header("Refresh:0; url=usuario".'?'.md5('analise=false'));
             exit;
         }
@@ -235,7 +235,7 @@
                                                 <div class="form-group">
                                                     <label>Número</label>
                                                     <i class="bi bi-question-circle" id='numeroTip'></i>
-                                                    <span id='numeroText'>Insira apenas números.</span>
+                                                    <span id='numeroText'>Insira letras apenas se necessário.</span>
                                                     <input type="tel" class="form-control small-input" id='numero' name='numero' maxlength="15" value='<?= $select_endereco['numero'] ?>'>
                                                 </div>
                                                 <div class='none alerta' id='numeroAlert'></div>

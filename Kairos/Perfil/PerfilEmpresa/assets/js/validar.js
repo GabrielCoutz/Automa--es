@@ -14,18 +14,15 @@ const cep_empresa = document.getElementById('cep_empresa')
 const numero_empresa = document.getElementById('numero_empresa')
 const endereco_empresa = document.getElementById('endereco_empresa')
 
-const nome_empresa_input = document.getElementById('nome_empresa_input')
-const nome_fantasia_input = document.getElementById('nome_fantasia_input')
-const ramo_input = document.getElementById('ramo_input')
-const cep_empresa_input = document.getElementById('cep_empresa_input')
-const numero_empresa_input = document.getElementById('numero_empresa_input')
+const conteudo_nome_empresa = document.getElementById('nome_empresa').value
+const conteudo_ramo = document.getElementById('ramo_select').innerText
+const conteudo_nome_fantasia = document.getElementById('nome_fantasia').value
+const conteudo_cep_empresa = document.getElementById('cep_empresa').value
+const conteudo_numero_empresa = document.getElementById('numero_empresa').value
+const conteudo_endereco = document.getElementById('endereco_empresa').innerText
 
-const conteudo_nome_empresa = document.getElementById('nome_empresa').innerText.trim()
-const conteudo_ramo = document.getElementById('ramo').innerText.trim()
-const conteudo_nome_fantasia = document.getElementById('nome_fantasia').innerText.trim()
-const conteudo_cep_empresa = document.getElementById('cep_empresa').innerText.trim()
-const conteudo_numero_empresa = document.getElementById('numero_empresa').innerText.trim()
-const conteudo_endereco = document.getElementById('endereco_empresa').innerText.trim()
+const salvarbtn = document.getElementById('salvarbtn')
+const cancelarbtn = document.getElementById('cancelarbtn')
 
 const IniciarCadastroEmpresa = function(){
     let popup = function(){
@@ -80,7 +77,10 @@ function abrirEmpresa(){
     document.getElementById('asdf_cancelar').innerHTML = 'Sim, gostaria'
 }
 
-// -------------------- fim código popup --------------------
+if(conteudo_ramo != ''){
+    console.log(conteudo_ramo)
+    ramo_empresa.value = conteudo_ramo
+}
 
 function erro(){
     document.getElementById('asdf_cancelar').addEventListener('click', function(){
@@ -113,14 +113,14 @@ switch (true) {
 
     case window.location.href.includes(md5('nome_empresa_duplicado=true')):
         document.getElementById('editarbtn').click()
-        document.getElementById("nome_empresa_input").classList.add('vermei')
+        document.getElementById("nome_empresa").classList.add('vermei')
         alerta+='Nome para Empresa já cadastrado!<br>'
         limparURL(md5('nome_empresa_duplicado=true'))
         break;
 
     case window.location.href.includes(md5('nome_fantasia_duplicado=true')):
         document.getElementById('editarbtn').click()
-        document.getElementById("nome_fantasia_input").classList.add('vermei')
+        document.getElementById("nome_fantasia").classList.add('vermei')
         alerta+='Nome Fantasia já cadastrado!<br>'
         limparURL(md5('nome_fantasia_duplicado=true'))
         break;
@@ -139,9 +139,18 @@ switch (true) {
         abrirjanela('red','Não foi possível realizar a operação solicitada. Por favor, tente novamente ou entre em contato conosco.', 'Erro inesperado', 'falha')
         limparURL(md5('sucesso=false'))
         break;
-
-
 }
+
+$('select').on('change', function() {
+    if (this.value == conteudo_ramo) {
+        salvarbtn.disabled = true
+        cancelarbtn.disabled = true
+    } else {
+      salvarbtn.disabled = false
+      cancelarbtn.disabled = false
+    }
+}).change();
+
 
 if(!vazio(alerta)){
     abrirjanela('red',alerta, 'Alteração Inválida', 'falha')
@@ -152,7 +161,7 @@ $(document).keypress(
       if (event.which == '13') {
         event.preventDefault();
       }
-  });
+});
 
 function nada(){
     document.getElementById('asdf_cancelar').addEventListener('click', function(){
@@ -165,128 +174,142 @@ function vazio(item){ // verifica se o valor passado está vazio
     return item == ''
 }
 
-$('select').on('change', function() {
-    if (this.value == null) {
-      $(this).css('opacity', '0.7');
-    } else {
-      $(this).css('opacity', '1');
-    }
-}).change();
 
 function ler_cep(cep){ // preenche o endereço automaticamente da empresa usando o cep
     if(cep.value.length == 10){
-        let temp = cep.value
         $.ajax({
             url: 'https://viacep.com.br/ws/'+cep.value.replace(/-/, '').replace('.', '')+'/json/',
             dataType: 'json',
             success: function(resposta){
                 if(resposta.logradouro == undefined || resposta.bairro == undefined || resposta.localidade == undefined || resposta.uf == undefined){
-                    abrirjanela('red','CEP inválido!<br>Por favor, verifique os números e tente novamente.','Alteração Inválida', 'falha')
-                    cep_empresa_input.classList.add('vermei')
-                    cep_empresa_input.focus()
-                    cep_empresa_input.placeholder = temp
-                    cep_empresa_input.value = ''
+                    alertaDeErro(cep.id, 'CEP inválido!')
+                    cep_empresa.focus()
+                    salvarbtn.disabled = true
+                    cancelarbtn.disabled = false
                     return
                     
                 } else {
-                    cep_empresa_input.classList.remove('vermei')
-                    numero_empresa_input.classList.remove('vermei')
-                    document.getElementsByName('rua_empresa_input')[0].value = resposta.logradouro
-                    document.getElementsByName('bairro_empresa_input')[0].value = resposta.bairro
-                    document.getElementsByName('cidade_empresa_input')[0].value = resposta.localidade
-                    document.getElementsByName('estado_empresa_input')[0].value = resposta.uf
+                    document.getElementsByName('rua_empresa')[0].value = resposta.logradouro
+                    document.getElementsByName('bairro_empresa')[0].value = resposta.bairro
+                    document.getElementsByName('cidade_empresa')[0].value = resposta.localidade
+                    document.getElementsByName('estado_empresa')[0].value = resposta.uf
                     endereco_empresa.innerHTML = resposta.logradouro + ', ' + resposta.bairro + ', ' + resposta.localidade + ', ' + resposta.uf
-                    numero_empresa_input.focus()
+                    numero_empresa.focus()
                     Cookies.set('endereco_empresa',1)
                 }
+                limpar_inputs()
             }
         })
     }
 }
 
-function verificar_input(){
+document.querySelectorAll('input').forEach(item => {
+    item.addEventListener('keyup', function(){
+        switch (this.id) {
+            
+            case 'nome_empresa':
+                switch (true) {
+                    case this.value == conteudo_nome_empresa:
+                        salvarbtn.disabled = true
+                        cancelarbtn.disabled = true
+                        break;
+                    
+                    case this.value.length < 2:
+                        salvarbtn.disabled = true
+                        cancelarbtn.disabled = false
+                        alertaDeErro(this.id, 'O nome deve ter no mínimo 2 letras!')
+                        break;
+                        
+                        default:
+                            limpar_inputs()
+                            salvarbtn.disabled = false
+                            cancelarbtn.disabled = false
+                }
+                break;
 
-    if (vazio(nome_empresa_input.value) && vazio(nome_fantasia_input.value) && cep_empresa_input.value.length != 10 && vazio(numero_empresa_input.value) && ramo_input.value == conteudo_ramo){
-        document.getElementById('salvarbtn').disabled = true
+            case 'nome_fantasia':
+                switch (true) {
+                    case this.value == conteudo_nome_fantasia:
+                        salvarbtn.disabled = true
+                        cancelarbtn.disabled = true
+                        break;
 
-    } else {
-        document.getElementById('salvarbtn').disabled = false
+                    default:
+                        limpar_inputs()
+                        salvarbtn.disabled = false
+                        cancelarbtn.disabled = false
+                }
+                break;
+
+            case 'cep_empresa':
+                switch (true) {
+                    case this.value == conteudo_cep_empresa:
+                        salvarbtn.disabled = true
+                        cancelarbtn.disabled = true
+                        break;
+
+                    case this.value.length < 10:
+                        salvarbtn.disabled = true
+                        cancelarbtn.disabled = false
+                        alertaDeErro(this.id, 'Complete o CEP!')
+                        break;
+
+                    default:
+                        limpar_inputs()
+                        salvarbtn.disabled = false
+                        cancelarbtn.disabled = false
+                }
+                break;
+
+            case 'numero_empresa':
+                switch (true) {
+                    case this.value == conteudo_numero_empresa:
+                        salvarbtn.disabled = true
+                        cancelarbtn.disabled = true
+                        break;
+
+                    case vazio(this.value):
+                        salvarbtn.disabled = true
+                        cancelarbtn.disabled = false
+                        alertaDeErro(this.id, 'Preencha o número!')
+                        break;
+
+                    default:
+                        limpar_inputs()
+                        salvarbtn.disabled = false
+                        cancelarbtn.disabled = false
+                }
+                break;
+        }
+    })
+  })
+
+function alertaDeErro(elemento, mensagem){
+    if(!document.getElementById(elemento).classList.contains('vermei')){
+        document.getElementById(elemento).classList.add('vermei')
+        document.getElementById(elemento+'Alert').innerHTML = mensagem
+        document.getElementById(elemento+'Alert').classList.toggle('none')
     }
 }
 
-function alertaDeErro(elemento, mensagem){
-    document.getElementById(elemento+'Alert').innerHTML = mensagem
-    document.getElementById(elemento+'Alert').classList.toggle('none')
-}
-
-document.getElementById('editarbtn').addEventListener('click',function(){ // libera eventelistener para ver alterações de inputs
-
-    document.addEventListener('click', verificar_input)
-    document.addEventListener('keyup', verificar_input)
-})
-
-function alterar_edicao(){
-    //remove sinalização de erros
-    nome_empresa_input.classList.remove('vermei')
-    nome_fantasia_input.classList.remove('vermei')
-    cep_empresa_input.classList.remove('vermei')
-    numero_empresa_input.classList.remove('vermei')
-
-    // esconde divs de conteúdo
-    nome_empresa.classList.toggle("none")
-    nome_fantasia.classList.toggle("none")
-    cep_empresa.classList.toggle("none")
-    numero_empresa.classList.toggle("none")
-
-    //torna visível botões de edição
-    document.getElementById('editarbtn').classList.add('none')
-    document.getElementById('salvarbtn').classList.toggle('none')
-    document.getElementById('salvarbtn').disabled = true
-    document.getElementById('cancelarbtn').classList.toggle('none')
-
-    // torna visível input para edição
-    nome_empresa_input.classList.toggle("none")
-    ramo.classList.toggle("none")
-    ramo_input.classList.toggle("none")
-    nome_fantasia_input.classList.toggle("none")
-    cep_empresa_input.classList.toggle("none")
-    numero_empresa_input.classList.toggle("none")
-}
-
-function editar(){
-    alterar_edicao()
-
-    // coloca o conteúdo em placeholder
-    nome_empresa_input.placeholder = conteudo_nome_empresa
-    nome_fantasia_input.placeholder = conteudo_nome_fantasia
-    cep_empresa_input.placeholder = conteudo_cep_empresa
-    numero_empresa_input.placeholder = conteudo_numero_empresa
-    ramo_input.value = conteudo_ramo
-}
-
 function cancelar(){
-    limpar_alertas()
-    alterar_edicao()
+    limpar_inputs()
 
-    document.removeEventListener('click', verificar_input)
-    document.removeEventListener('keyup', verificar_input)
-
-    document.getElementById('editarbtn').classList.remove('none')
-
-    nome_empresa_input.value = ''
-    nome_fantasia_input.value = ''
-    cep_empresa_input.value = ''
-    numero_empresa_input.value = ''
-    ramo_input.value = conteudo_ramo
+    nome_empresa.value = conteudo_nome_empresa
+    nome_fantasia.value = conteudo_nome_fantasia
+    cep_empresa.value = conteudo_cep_empresa
+    numero_empresa.value = conteudo_numero_empresa
+    ramo.value = conteudo_ramo
     endereco_empresa.innerHTML = conteudo_endereco
+    salvarbtn.disabled = true
+    cancelarbtn.disabled = true
 }
 
 function salvar(){
     limpar_inputs()
-    if(!vazio(cep_empresa_input.value) && cep_empresa_input.value.length <= 10 && vazio(numero_empresa_input.value)){
-        alertaDeErro(cep_empresa_input.id, 'Complete o endereço!')
-        cep_empresa_input.classList.add('vermei')
-        numero_empresa_input.classList.add('vermei')
+    if(!vazio(cep_empresa.value) && cep_empresa.value.length <= 10 && vazio(numero_empresa.value)){
+        alertaDeErro(cep_empresa.id, 'Complete o endereço!')
+        numero_empresa.classList.add('vermei')
 
     } else {
         Cookies.set('empresa',1)

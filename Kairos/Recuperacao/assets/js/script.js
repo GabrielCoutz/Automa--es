@@ -28,7 +28,6 @@ function nada(){
 
 const nome = document.getElementById('nome')
 const email = document.getElementById('email')
-const cpf = document.getElementById('cpf')
 const captcha = document.getElementById('captcha')
 
 function alertaDeErro(elemento, mensagem){
@@ -52,7 +51,6 @@ if (window.location.href.includes(md5('sucesso=false'))) { // dados incorretos o
 
     nome.classList.add('vermei')
     email.classList.add('vermei')
-    cpf.classList.add('vermei')
 }
 
 $(document).keypress( // desativa tecla ENTER
@@ -77,27 +75,20 @@ $("#recuperacao").submit(function(e) {
         e.preventDefault();
 });
 
-$(document).ready(function(){ // desabilita CTRL+V por motivos de incompatibilidade de máscara
-    $('#cpf').on("cut copy paste",function(e) {
-        e.preventDefault();
-     });
-});
-
 function validar(){
     if(vazio(nome.value)){
         alertaDeErro(nome.id, "Por favor, insira um nome válido!")
         nome.focus()
         nome.classList.add("vermei")
+
     } else if (vazio(email.value) ||  !/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/gi.test(email.value)){
         alertaDeErro(email.id, "Por favor, insira um email válido!")
         email.focus()
         email.classList.add("vermei")
-    } else if (vazio(cpf.value)){
-        alertaDeErro(cpf.id, 'Por favor, preencha o CPF!')
-        cpf.focus()
-        cpf.classList.add('vermei')
+
     } else if (grecaptcha.getResponse() == ""){
         alertaDeErro(captcha.id, 'Por favor, preencha o CAPTCHA!')
+
     } else {
         abrirjanela('blue','Validando Dados','Recuperação de Conta', 'carregar')
         document.getElementById('asdf_cancelar').style.display = 'none'

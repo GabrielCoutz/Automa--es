@@ -13,9 +13,9 @@
 
     <link rel="stylesheet" href="https://use.typekit.net/kog7goj.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
     <link rel="stylesheet" href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
 
     <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="assets/css/light-bootstrap-dashboard.css?v=2.0.0 " rel="stylesheet" />
@@ -52,7 +52,7 @@
     $select_empresa=mysqli_query($conec, "SELECT * FROM empresa WHERE email_usuario = '$email'")->fetch_assoc();
 
     switch (true) {
-        case !isset($_SESSION['email']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true')):
+        case !isset($_SESSION['email_padrao']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true')):
             header("Refresh:0; url=empresa".'?'.md5('erro=true'));
             exit;
             break;
@@ -165,23 +165,21 @@
                                             <div class="col-md-5 pr-1">
                                                 <div class="form-group">
                                                     <label>Nome da Empresa</label>
-                                                    <input type="text" class="form-control none" id='nome_empresa_input' name='nome_empresa_input'>
-                                                    <div id='nome_empresa' class='text-secondary'>
-                                                        <a><?= $select_empresa['nome'] ?></a>
-                                                    </div>
+                                                    <i class="bi bi-question-circle" id='nomeEmpresaTip'></i>
+                                                    <span id='nomeEmpresaText'>O nome a inserir pode conter caracteres especiais ou números.</span>
+                                                    <input type="text" class="form-control" id='nome_empresa' name='nome_empresa' value='<?= $select_empresa['nome'] ?>'>
                                                 </div>
-                                                <div class='none alerta' id='nome_empresa_inputAlert'></div>
+                                                <div class='none alerta' id='nome_empresaAlert'></div>
                                             </div>
 
                                             <div class="col-md-3 px-1">
                                                 <div class="form-group">
                                                     <label>Nome Fantasia</label>
-                                                    <input type="text" class="form-control none" id='nome_fantasia_input' name='nome_fantasia_input'>
-                                                    <div id='nome_fantasia' class='text-secondary'>
-                                                        <a><?= $select_empresa['nome_fantasia'] ?></a>
-                                                    </div>
+                                                    <i class="bi bi-question-circle" id='FantasiaTip'></i>
+                                                    <span id='FantasiaText'>O nome fantasia a inserir pode conter caracteres especiais ou números.</span>
+                                                    <input type="text" class="form-control" id='nome_fantasia' name='nome_fantasia' value='<?= $select_empresa['nome_fantasia'] ?>'>
                                                 </div>
-                                                <div class='none alerta' id='nome_fantasia_inputAlert'></div>
+                                                <div class='none alerta' id='nome_fantasiaAlert'></div>
                                             </div>
 
                                             <div class="col-md-4 pl-1">
@@ -199,7 +197,8 @@
                                                 <div class="form-group">
                                                     <label>Ramo</label>
                                                     <br>
-                                                    <select class="form-group selectpicker select none" id="ramo_input" name="ramo_input"> 
+                                                    <div class='none' id='ramo_select'><a><?= ucwords($select_empresa['ramo']) ?></a></div>
+                                                    <select class="form-group selectpicker select" id="ramo" name="ramo">
                                                         <option value disabled selected>Selecione o Ramo</option>
                                                         <option>Alimentação</option>
                                                         <option>Saúde</option>
@@ -207,11 +206,8 @@
                                                         <option>Tecnologia</option>
                                                         <option>Moda</option>
                                                     </select> 
-                                                    <div class='text-secondary' id='ramo'>
-                                                        <a><?= ucwords($select_empresa['ramo']) ?></a>
-                                                    </div>
                                                 </div>
-                                                <div class='none alerta' id='ramo_inputAlert'></div>
+                                                <div class='none alerta' id='ramoAlert'></div>
                                             </div>
                                         </div>
 
@@ -219,19 +215,21 @@
                                             <div class="col-md-4 pr-1">
                                                 <div class="form-group">
                                                     <label>CEP</label>
-                                                    <input type="tel" class="form-control none" id='cep_empresa_input' onkeypress="$(this).mask('00.000-000')" onkeyup="ler_cep(this)" name='cep_empresa_input'>
-                                                    <div id='cep_empresa' class='text-secondary' ><a><?= $select_empresa_endereco['cep'] ?></a></div>
+                                                    <i class="bi bi-question-circle" id='cepEmpresaTip'></i>
+                                                    <span id='cepEmpresaText'>Insira o CEP (xx.xxx-xxx) por completo.</span>
+                                                    <input type="tel" class="form-control" id='cep_empresa' onkeypress="$(this).mask('00.000-000')" onkeyup="ler_cep(this)" name='cep_empresa' value='<?= $select_empresa_endereco['cep'] ?>'>
                                                 </div>
-                                                <div class='none alerta' id='cep_empresa_inputAlert'></div>
+                                                <div class='none alerta' id='cep_empresaAlert'></div>
                                             </div>
 
                                             <div class="col-md-4 px-1">
                                                 <div class="form-group">
                                                     <label>Número</label>
-                                                    <input type="tel" class="form-control none small-input" id='numero_empresa_input' pattern="[0-9]" name='numero_empresa_input' maxlength="15">
-                                                    <div id='numero_empresa' class='text-secondary'><a><?= $select_empresa_endereco['numero'] ?></a></div>
+                                                    <i class="bi bi-question-circle" id='cepEmpresaTip'></i>
+                                                    <span id='cepEmpresaText'>Insira letras apenas se necessário.</span>
+                                                    <input type="tel" class="form-control small-input" id='numero_empresa' pattern="[0-9]" name='numero_empresa' maxlength="15" value='<?= $select_empresa_endereco['numero'] ?>'>
                                                 </div>
-                                                <div class='none alerta' id='numero_empresa_inputAlert'></div>
+                                                <div class='none alerta' id='numero_empresaAlert'></div>
                                             </div>
                                         </div>
 
@@ -240,19 +238,17 @@
                                                 <div class="form-group">
                                                     <label>Endereço</label>
                                                     <div class='text-secondary'>
-                                                        <input type="text" name='rua_empresa_input' class='none' value='<a><?= ucwords($select_empresa_endereco['rua']) ?></a>'>
-                                                        <input type="text" name='bairro_empresa_input' class='none' value='<a><?= ucwords($select_empresa_endereco['bairro']) ?></a>'>
-                                                        <input type="text" name='cidade_empresa_input' class='none' value='<a><?= ucwords($select_empresa_endereco['cidade']) ?></a>'>
-                                                        <input type="text" name='estado_empresa_input' class='none' value='<a><?= ucwords($select_empresa_endereco['estado']) ?></a>'>
+                                                        <input type="text" name='rua_empresa' class='none' value='<a><?= ucwords($select_empresa_endereco['rua']) ?></a>'>
+                                                        <input type="text" name='bairro_empresa' class='none' value='<a><?= ucwords($select_empresa_endereco['bairro']) ?></a>'>
+                                                        <input type="text" name='cidade_empresa' class='none' value='<a><?= ucwords($select_empresa_endereco['cidade']) ?></a>'>
+                                                        <input type="text" name='estado_empresa' class='none' value='<a><?= ucwords($select_empresa_endereco['estado']) ?></a>'>
                                                         <p id='endereco_empresa'><a><?= ucwords($select_empresa_endereco['rua']) ?>, <?= ucwords($select_empresa_endereco['bairro']) ?>, <?= ucwords($select_empresa_endereco['cidade']) ?>, <?= $select_empresa_endereco['estado'] ?></a></p>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
-                                            <button class="btn btn-info btn-fill pull-right" id='editarbtn' onclick="editar()">Editar</button>
-                                            <button class="btn btn-info btn-fill pull-right none" id='salvarbtn' onclick="salvar()">Salvar</button>
-                                            <button class="btn btn-info btn-fill pull-right none" id='cancelarbtn' onclick="cancelar()">Cancelar</button>
+                                            <button class="btn btn-info btn-fill pull-right" id='salvarbtn' onclick="salvar()" disabled='true'>Salvar</button>
+                                            <button class="btn btn-info btn-fill pull-right" id='cancelarbtn' onclick="cancelar()" disabled='true'>Cancelar</button>
                                     </form>
                                 </div>
                             </div>

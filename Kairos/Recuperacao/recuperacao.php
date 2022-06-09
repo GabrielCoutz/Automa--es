@@ -62,14 +62,6 @@
 					</div>
 					<div class='none alerta' id='emailAlert'></div>
 
-					<div class="form-holder">
-						<i class="gg-user user"></i>
-						<p>
-							<input type="tel" class="form-control" placeholder="CPF" id="cpf" name='cpf' onkeypress="$(this).mask('000.000.000-00')">
-						</p>
-					</div>
-					<div class='none alerta' id='cpfAlert'></div>
-
 					<div class="g-recaptcha" data-sitekey="6Ld5L3oeAAAAAAH8CgndVZBek5uasbGl5mroKjP5" id="captcha"></div>
                 	<div class='none alerta' id='captchaAlert'></div>
 

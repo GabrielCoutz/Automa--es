@@ -39,16 +39,14 @@ if(isset($_POST['g-recaptcha-response']) && $_POST['g-recaptcha-response'] != ""
 }
 
 $email=$_POST['email'];
-$cpf=$_POST['cpf'];
 $nome=strtolower($_POST['nome']);
 $_SESSION['mudar'] = 'true';
 
 
-$select=mysqli_query($conec, "SELECT email, nome, senha, cpf FROM usuario WHERE cpf ='$cpf'")->fetch_assoc();
+$select=mysqli_query($conec, "SELECT email, nome, senha FROM usuario WHERE email ='$email'")->fetch_assoc();
 
 if($select){
-    if(trim($email) == $select['email'] && trim($nome) == strtolower($select['nome']) && $cpf == $select['cpf']){ // dados corretos
-        $_SESSION['cpf']=$select['cpf'];
+    if(trim($email) == $select['email'] && trim($nome) == strtolower($select['nome'])){ // dados corretos
         header('Location: ../../recuperacao?'.md5('sucesso=true'));
         exit;
 

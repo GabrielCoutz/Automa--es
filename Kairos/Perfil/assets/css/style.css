@@ -116,7 +116,7 @@ lord-icon{
   right: 127px;
 }
 
-#nome_inputAlert, #email_inputAlert{
+#nomeAlert, #emailAlert{
   text-align: left;
   margin-top: -7px;
 }
@@ -347,7 +347,7 @@ input:focus, input:hover{
   button{
     width: 100%;
   }
-  #nome_inputAlert, #email_inputAlert{
+  #nomeAlert, #emailAlert{
     text-align: center;
     margin-top: -7px;
   }

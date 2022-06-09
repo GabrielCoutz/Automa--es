@@ -408,8 +408,6 @@ function alertaDeErro(elemento, mensagem){
         document.getElementById(elemento).classList.add('vermei')
         document.getElementById(elemento+'Alert').innerHTML = mensagem
         document.getElementById(elemento+'Alert').classList.toggle('none')
-    } else {
-        console.log('n tem')
     }
 }
 

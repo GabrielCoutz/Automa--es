@@ -4,6 +4,32 @@
   src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
 }
 
+#nomeEmpresaText, #FantasiaText, #cepEmpresaText,#numeroEmpresaText{
+  opacity: 0;
+  display: none;
+  transition: all 1s;
+}
+
+i#nomeEmpresaTip:hover ~ span#nomeEmpresaText, i#FantasiaTip:hover ~ span#FantasiaText, i#cepEmpresaTip:hover ~ span#cepEmpresaText, i#numeroEmpresaTip:hover ~ span#numeroEmpresaText{
+  border: #6e6e6e 1px dotted;
+  padding: 10px;
+  display: block !important;
+  opacity: 1 !important;
+  z-index: 100;
+  margin: 10px;
+  box-shadow: 10px 10px 7px -10px #bbbbbb;
+  text-align: left;
+  position: absolute;
+  font-family: 'San Francisco';
+  font-weight: 700;
+  font-size: 15px;
+  color: #3a3a3a;
+  text-decoration: none;
+  border-radius: 10px;
+  font-style: italic;
+  background: white;
+}
+
 #cancelarbtn{
   position: relative;
   color: #4E6EF1 !important;
@@ -61,6 +87,11 @@ lord-icon{
 button:hover{
   box-shadow: 0px 6px 10px 1px rgb(0 0 0 / 31%) !important;
   transform: translateY(-0.10em);
+}
+
+button:active{
+  box-shadow: 0px 10px 15px -15px rgb(0 0 0) !important;
+  transform: translateY(0em) !important;
 }
 
 button{
