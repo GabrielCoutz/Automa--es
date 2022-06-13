@@ -36,9 +36,17 @@ const limpar_inputs = function(){
 
 const limpar_alertas = function(){
     let alerta = document.getElementsByClassName('alerta')
+    let underline = document.getElementsByClassName('underline')
+
     for(let i = 0; i < alerta.length ; i++){
         if (!alerta[i].classList.contains('none')){
             alerta[i].classList.toggle('none')
+        }
+    }
+
+    for(let i = 0; i < underline.length ; i++){
+        if (underline[i].style.background == 'rgb(255, 0, 0)'){
+            underline[i].style.background = '#4e6ef1a6'
         }
     }
 }
@@ -180,8 +188,10 @@ cnpj.addEventListener('keyup',function(){
 })
 
 function alertaDeErro(elemento, mensagem){
+    document.getElementById(elemento).classList.add('vermei')
     document.getElementById(elemento+'Alert').innerHTML = mensagem
     document.getElementById(elemento+'Alert').classList.toggle('none')
+    document.getElementById(elemento+'underline').style.background = '#ff0000'
 }
 
 const dispararEvento = function(elemento, evento, stringCondicao){  //dispara um evento de confirmação para o input no qual o valor inserido é inválido ou insatisfatório
@@ -200,6 +210,7 @@ const dispararEvento = function(elemento, evento, stringCondicao){  //dispara um
             document.getElementById(elemento.id+'Alert').classList.add('none')
             elemento.removeEventListener(evento,funcao)
             document.getElementById('butao').disabled = false
+            document.getElementById(elemento.id+'underline').style.background = '#4e6ef1a6'
         }
     }
 
@@ -217,33 +228,27 @@ function validar(){
     if(vazio(nome_empresa.value)){
         alertaDeErro(nome_empresa.id, "Preencha o nome da Empresa!")
         nome_empresa.focus()
-        nome_empresa.classList.add("vermei")
 
     } else if (vazio(nome_fantasia.value)) {
         alertaDeErro(nome_fantasia.id, "Preencha o Nome Fantasia!")
         nome_fantasia.focus()
-        nome_fantasia.classList.add("vermei")
 
     } else if(vazio(cnpj.value) || cnpj.value.length != 18){
         dispararEvento(cnpj, 'keyup', 'condicaoCNPJ')
         alertaDeErro(cnpj.id, "Preencha o CNPJ!")
         cnpj.focus()
-        cnpj.classList.add("vermei")
 
     }else if (vazio(ramo.value)){
         alertaDeErro(ramo.id, "Selecione o ramo!")
         ramo.focus()
-        ramo.classList.add("vermei")
 
     } else if(vazio(cep_empresa.value)){
         alertaDeErro(cep_empresa.id, "Preencha o CEP!")
         cep_empresa.focus()
-        cep_empresa.classList.add("vermei")
 
     }else if (vazio(numero_empresa.value)){
         alertaDeErro(numero_empresa.id, "Preencha o Número!")
         numero_empresa.focus()
-        numero_empresa.classList.add("vermei")
 
     } else {
         localStorage.setItem(nome_empresa.id,nome_empresa.value)

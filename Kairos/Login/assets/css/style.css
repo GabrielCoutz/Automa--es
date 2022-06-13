@@ -30,7 +30,7 @@ h3{
       position: absolute;
       margin-top: 24px;
       margin-left: 24px;
-      max-width: 160px;
+      max-width: 172px;
       background: white;
       padding: 10px;
       text-decoration: underline;
@@ -292,6 +292,10 @@ a:hover {
 
     cursor:pointer;  
 
+}
+
+#textoHome{
+  margin-left: 26px;
 }
 
   #signup{

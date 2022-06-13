@@ -7,6 +7,7 @@
 @import url("https://css.gg/organisation.css");
 @import url("https://css.gg/pin.css");
 @import url("https://css.gg/remove.css");
+@import url("https://css.gg/home-alt.css");
 
 .lock{
     margin-top: 10px !important;
@@ -18,7 +19,7 @@
 
 .user{
     margin-left: 13px !important;
-    margin-top: 12px !important;
+    margin-top: 15px !important;
     position: absolute;
     cursor: default;
 }
@@ -76,4 +77,44 @@
 .remove{
     margin-top: -2px !important;
     cursor: pointer;
+}
+
+.home{
+    margin-top: 5px;
+    position: absolute;
+}
+
+
+.label-float{
+    position: relative;
+}
+
+.label-float label{
+    opacity: 0;
+    font-weight: bold;
+    margin-left: 42px;
+    visibility: hidden;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: all 0.3s ease-out;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+}
+
+.label-float input:focus::placeholder {
+    color: transparent;
+}
+
+.label-float input:focus ~ label{
+    opacity: 1;
+    visibility: visible;
+}
+
+.label-float input:focus + label,
+.label-float input:not(:placeholder-shown) + label{
+    font-size: 13px;
+    margin-top: -10px;
+    color: #9999a3;
 }

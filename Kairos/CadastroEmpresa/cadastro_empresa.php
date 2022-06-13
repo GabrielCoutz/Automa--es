@@ -44,19 +44,49 @@
 					<h3 style="font-family: 'Muli-Regular' !important;">Cadastro Empresarial</h3>
 					<div class="form-holder">
 						<i class="gg-organisation organisation"></i>
-						<input type="text" class="form-control" placeholder="Nome da Empresa"  id='nome_empresa' name='nome_empresa' maxlength="50">
+						<div class="input-content">
+							<div class='inputbox'>
+								<div class='inputbox-content'>
+									<div class="label-float">
+										<input type="text" class="form-control" placeholder="Nome da Empresa"  id='nome_empresa' name='nome_empresa' maxlength="50">
+										<label>Nome da Empresa</label>
+										<span class="underline" style="padding-right: 0px !important;" id='nome_empresaunderline'></span>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class='none alerta' id='nome_empresaAlert'></div>
 
 					<div class="form-holder">
 						<i class="gg-organisation organisation"></i>
-						<input type="text" class="form-control" placeholder="Nome Fantasia"  id="nome_fantasia" name="nome_fantasia" maxlength="50">
+						<div class="input-content">
+							<div class='inputbox'>
+								<div class='inputbox-content'>
+									<div class="label-float">
+										<input type="text" class="form-control" placeholder="Nome Fantasia"  id="nome_fantasia" name="nome_fantasia" maxlength="50">
+										<label>Nome Fantasia</label>
+										<span class="underline" style="padding-right: 0px !important;" id='nome_fantasiaunderline'></span>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class='none alerta' id='nome_fantasiaAlert'></div>
 
 					<div class="form-holder">
 						<i class="gg-organisation organisation"></i>
-						<input type="tel" class="form-control" placeholder="CNPJ"  id="cnpj" name="cnpj" onkeypress="$(this).mask('00.000.000/0000-00')">
+						<div class="input-content">
+							<div class='inputbox'>
+								<div class='inputbox-content'>
+									<div class="label-float">
+										<input type="tel" class="form-control" placeholder="CNPJ"  id="cnpj" name="cnpj" onkeypress="$(this).mask('00.000.000/0000-00')">
+										<label>CNPJ</label>
+										<span class="underline" style="padding-right: 0px !important;" id='cnpjunderline'></span>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class='none alerta' id='cnpjAlert'></div>
 
@@ -80,13 +110,33 @@
 
 					<div class="form-holder">
 						<i class="gg-pin pin"></i>
-						<input type="tel" class="form-control" placeholder="CEP"  id="cep_empresa" name="cep_empresa" onkeypress="$(this).mask('00.000-000')" onkeyup="ler(this)">
+						<div class="input-content">
+							<div class='inputbox'>
+								<div class='inputbox-content'>
+									<div class="label-float">
+										<input type="tel" class="form-control" placeholder="CEP"  id="cep_empresa" name="cep_empresa" onkeypress="$(this).mask('00.000-000')" onkeyup="ler(this)">
+										<label>CEP</label>
+										<span class="underline" style="padding-right: 0px !important;" id='cep_empresaunderline'></span>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class='none alerta' id='cep_empresaAlert'></div>
 
 					<div class="form-holder">
 						<i class="gg-pin pin"></i>
-						<input type="tel" class="form-control" placeholder="Número"  id="numero_empresa" name="numero_empresa" maxlength="15">
+						<div class="input-content">
+							<div class='inputbox'>
+								<div class='inputbox-content'>
+									<div class="label-float">
+										<input type="tel" class="form-control" placeholder="Número"  id="numero_empresa" name="numero_empresa" maxlength="15">
+										<label>Número</label>
+										<span class="underline" style="padding-right: 0px !important;" id='numero_empresaunderline'></span>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class='none alerta' id='numero_empresaAlert'></div>
 

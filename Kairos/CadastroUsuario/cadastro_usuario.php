@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Cadastro</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
 
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="../assets/css/popup.css">
@@ -46,8 +46,11 @@
                     <div class="input-content">
                         <div class='inputbox'>
                             <div class='inputbox-content'>
-                                <input type="text" class="form-control" placeholder="Nome Completo" id='nome' name='nome' onkeyup="apenasLetras(this)" maxlength="100">
-                                <span class="underline" style="padding-right: 0px !important;" id='nomeunderline'></span>
+                                <div class="label-float">
+                                    <input type="text" class="form-control" placeholder="Nome Completo" id='nome' name='nome' onkeyup="apenasLetras(this)" maxlength="100">
+                                    <label>Nome Completo</label>
+                                    <span class="underline" style="padding-right: 0px !important;" id='nomeunderline'></span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -59,8 +62,11 @@
                     <div class="input-content">
                         <div class='inputbox'>
                             <div class='inputbox-content'>
-                                <input type="tel" class="form-control" placeholder="Telefone" id="tel" name='tel' onkeypress="$(this).mask('(00) 0000-00009')" maxlength="15">
-                                <span class="underline" style="padding-right: 0px !important;" id='telunderline'></span>
+                                <div class="label-float">
+                                    <input type="tel" class="form-control" placeholder="Telefone" id="tel" name='tel' onkeypress="$(this).mask('(00) 0000-00009')" maxlength="15">
+                                    <label>Telefone</label>
+                                    <span class="underline" style="padding-right: 0px !important;" id='telunderline'></span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -73,8 +79,11 @@
                     <div class="input-content">
                         <div class='inputbox'>
                             <div class='inputbox-content'>
-                                <input type="email" class="form-control" placeholder="Email" id="email" name='email' maxlength="50">
-                                <span class="underline" style="padding-right: 0px !important;" id='emailunderline'></span>
+                                <div class="label-float">
+                                    <input type="email" class="form-control" placeholder="Email" id="email" name='email' maxlength="50">
+                                    <label>Email</label>
+                                    <span class="underline" style="padding-right: 0px !important;" id='emailunderline'></span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -87,9 +96,12 @@
                         <div class="input-content">
                             <div class='inputbox'>
                                 <div class='inputbox-content'>
+                                <div class="label-float">
                                     <input type="password" class="form-control pr-password" placeholder="Senha" id="senha" name='senha'>
+                                    <label>Senha</label>
                                     <i class="gg-eye eye" id="togglePassword"></i>
                                     <span class="underline" style="padding-right: 0px !important;" id='senhaunderline'></span>
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -103,9 +115,12 @@
                         <div class="input-content">
                             <div class='inputbox'>
                                 <div class='inputbox-content'>
+                                <div class="label-float">
                                     <input type="password" class="form-control" placeholder="Confirmar Senha" id="confirm_senha" name='confirm_senha'>
+                                    <label>Confirmar Senha</label>
                                     <i class="gg-eye eye" id="togglePassword_confirm"></i>
                                     <span class="underline" style="padding-right: 0px !important;" id='confirm_senhaunderline'></span>
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -133,6 +148,5 @@
     <script src="../assets/js/jquery.passwordRequirements.min.js"></script>
     <script src="assets/js/validar.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
-
 </body>
 </html>

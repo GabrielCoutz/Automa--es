@@ -34,7 +34,7 @@
         </div>
       </div>
     </div>
-	<button id='voltar'>Página Inicial</button>
+	<button id='voltar'><i class="gg-home-alt home"></i><span id='textoHome'>Página Inicial</span></button>
 	<div class="wrapper">
 			<div class="inner">
 				<form method="POST" id="login" action="assets/php/config?validar=true" style="padding: 72px 48px 72px;" onsubmit="return false">
@@ -44,8 +44,11 @@
 						<div class="input-content">
 							<div class='inputbox'>
 								<div class='inputbox-content'>
-									<input type="email" class="form-control" placeholder="Email" id="email" name='email' maxlength="50">
-									<span class="underline" id='emailunderline'></span>
+									<div class="label-float">
+										<input type="email" class="form-control" placeholder="Email" id="email" name='email' maxlength="50">
+										<label>Email</label>
+										<span class="underline" id='emailunderline'></span>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -57,9 +60,12 @@
 						<div class="input-content">
 							<div class='inputbox'>
 								<div class='inputbox-content'>
-									<input type="password" class="form-control" placeholder="Senha" id="senha" name='senha'>
-									<i class="gg-eye eye" id="togglePassword"></i>
-									<span class="underline" id='senhaunderline'></span>
+									<div class="label-float">
+										<input type="password" class="form-control" placeholder="Senha" id="senha" name='senha'>
+										<label>Senha</label>
+										<i class="gg-eye eye" id="togglePassword"></i>
+										<span class="underline" id='senhaunderline'></span>
+									</div>
 								</div>
 							</div>
 						</div>

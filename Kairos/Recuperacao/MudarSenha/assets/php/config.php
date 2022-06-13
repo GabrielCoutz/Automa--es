@@ -19,10 +19,10 @@ function verificarOperacao($query, $url){ // retorna uma sinalização de erro
 }
 
 if($conec->connect_error){ // se não for localhost, usa a conexão do banco no site
-    $dbHost = 'sql210.epizy.com';
-    $dbUname = 'epiz_30663895';
-    $dbPass = 'ndLdcOqYk0K';
-    $dbName = 'epiz_30663895_Banco_Kairos';
+    $dbHost = 'sql309.epizy.com';
+    $dbUname = 'epiz_31926454';
+    $dbPass = 'VOjqZcbwH38iVo';
+    $dbName = 'epiz_31926454_Banco_Kairos';
     $conec=new mysqli($dbHost,$dbUname,$dbPass,$dbName,"3306");
 }
 

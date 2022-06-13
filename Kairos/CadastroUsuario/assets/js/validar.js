@@ -207,7 +207,6 @@ const dispararEvento = function(elemento, evento, stringCondicao){  //dispara um
         confirm_senha.addEventListener(evento,funcao)
     }
     elemento.addEventListener(evento,funcao)
-
 }
 
 function validar(){
