@@ -129,3 +129,7 @@ function validar(){
 function registrar(){
     window.location.href = "../CadastroUsuario/cadastro_usuario";
 }
+
+function paginaInicial(){
+    window.location.href = "../index";
+}

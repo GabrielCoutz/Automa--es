@@ -34,7 +34,7 @@
             </div>
         </div>
     </div>
-
+    <button id='voltar' onclick="paginaInicial()"><i class="gg-home-alt home"></i><span id='textoHome'>Página Inicial</span></button>
     <div class="wrapper">
         <div class="inner">
             <form action="assets/php/enviar_usuario" method="POST" class="gridado" name="cadastro"

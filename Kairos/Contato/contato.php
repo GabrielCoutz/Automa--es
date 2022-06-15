@@ -15,10 +15,6 @@
     <link rel="shortcut icon" href="../assets/img/favicon/favicon.ico" type="image/x-icon"/>
 
     <title>Contato</title>
-
-    <?php
-    session_start();
-    ?>
   </head>
   <body>
   <div class="preloader">
@@ -51,7 +47,7 @@
             <div class="col-md-6">
               
               <h3 class="heading mb-4">Estamos sempre à disposição</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptas debitis, fugit natus?</p>
+              <p>Ninguém gosta quando algo não vai bem, certo? Mas não se preocupe, pode nos contar o que aconteceu e te auxiliaremos da melhor forma possível &#128521;.</p>
 
               <p><img src="assets/images/imagem.png" alt="Image" class="img-fluid"></p>
 

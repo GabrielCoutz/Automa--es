@@ -47,6 +47,7 @@ $select=mysqli_query($conec, "SELECT email, nome, senha FROM usuario WHERE email
 
 if($select){
     if(trim($email) == $select['email'] && trim($nome) == strtolower($select['nome'])){ // dados corretos
+        $_SESSION['email'] = $email;
         header('Location: ../../recuperacao?'.md5('sucesso=true'));
         exit;
 

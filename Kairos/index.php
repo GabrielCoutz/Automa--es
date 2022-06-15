@@ -156,7 +156,7 @@
 									</div>
 								</div>
 							</div>
-							<a href="CadastroUsuario/cadastro_usuario" class="main-btn btn-hover">Incrível né? =D</a>
+							<a href="CadastroUsuario/cadastro_usuario" class="main-btn btn-hover">&#128516; Incrível, né?</a>
 						</div>
 					</div>
 				</div>
@@ -236,7 +236,7 @@
                                 <ul class="list-unstyled mb-4">
                                     <li class="mb-2">
                                         <i class="bi bi-check text-primary"></i>
-                                        Definição de Cores
+                                        Análise de Marketing
                                     </li>
                                     <li class="mb-2">
                                         <i class="bi bi-check text-primary"></i>
@@ -253,10 +253,6 @@
                                     <li class="mb-2 text-muted">
                                         <i class="bi bi-x"></i>
                                         Consultoria de Marketing
-                                    </li>
-                                    <li class="mb-2 text-muted">
-                                        <i class="bi bi-x"></i>
-                                        Dedicated support
                                     </li>
                                     <li class="mb-2 text-muted">
                                         <i class="bi bi-x"></i>
@@ -286,7 +282,7 @@
                                 <ul class="list-unstyled mb-4">
                                     <li class="mb-2">
                                         <i class="bi bi-check text-primary"></i>
-                                        Definição de Cores
+                                        Análise de Marketing
                                     </li>
                                     <li class="mb-2">
                                         <i class="bi bi-check text-primary"></i>
@@ -303,10 +299,6 @@
                                     <li class="mb-2">
                                         <i class="bi bi-check text-primary"></i>
                                         Consultoria de Marketing
-                                    </li>
-                                    <li class="mb-2">
-                                        <i class="bi bi-check text-primary"></i>
-                                        Dedicated support
                                     </li>
                                     <li class="mb-2">
                                         <i class="bi bi-x"></i>
@@ -333,7 +325,7 @@
                                 <ul class="list-unstyled mb-4">
                                     <li class="mb-2">
                                         <i class="bi bi-check text-primary"></i>
-                                        Definição de Cores
+                                        Análise de Marketing
                                     </li>
                                     <li class="mb-2">
                                         <i class="bi bi-check text-primary"></i>
@@ -341,7 +333,7 @@
                                     </li>
                                     <li class="mb-2">
                                         <i class="bi bi-check text-primary"></i>
-                                        xampson
+                                        Suporte 24h
                                     </li>
                                     <li class="mb-2">
                                         <i class="bi bi-check text-primary"></i>
@@ -350,10 +342,6 @@
                                     <li class="mb-2">
                                         <i class="bi bi-check text-primary"></i>
                                         Consultoria de Marketing
-                                    </li>
-                                    <li class="mb-2">
-                                        <i class="bi bi-check text-primary"></i>
-                                        Dedicated support
                                     </li>
                                     <li class="mb-2">
                                         <i class="bi bi-check text-primary"></i>
@@ -384,7 +372,7 @@
 					</div>
 					<div class="col-xl-6 col-lg-5">
 						<div class="cta-btn text-lg-end mb-50">
-							<a href="CadastroUsuario/cadastro_usuario" class="main-btn btn-hover text-uppercase">Basta nos contatar!</a>
+							<a href="CadastroUsuario/cadastro_usuario" class="main-btn btn-hover">Basta nos contatar!</a>
 						</div>
 					</div>
 				</div>

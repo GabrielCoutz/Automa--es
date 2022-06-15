@@ -256,3 +256,7 @@ function validar(){
             })
     }
 }
+
+function paginaInicial(){
+    window.location.href = "../index";
+}

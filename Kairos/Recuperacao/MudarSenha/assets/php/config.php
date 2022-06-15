@@ -27,9 +27,9 @@ if($conec->connect_error){ // se não for localhost, usa a conexão do banco no 
 }
 
 $senha_nova = md5($_POST['senha_nova']);
-$cpf = $_SESSION['cpf'];
+$email = $_SESSION['email'];
 
-$result_senha=mysqli_query($conec,"UPDATE usuario SET senha = '$senha_nova' WHERE cpf = '$cpf'");
+$result_senha=mysqli_query($conec,"UPDATE usuario SET senha = '$senha_nova' WHERE email = '$email'");
 verificarOperacao($result_senha, '../../../../Login/login?');
 header('Location: ../../../../Login/login?'.md5('sucesso_senha=true'));
 exit;

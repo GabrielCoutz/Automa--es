@@ -41,6 +41,7 @@
         </div>
       </div>
     </div>
+		<button id='voltar' onclick="paginaInicial()"><i class="gg-home-alt home"></i><span id='textoHome'>Página Inicial</span></button>
 		<div class="wrapper">
 			<div class="inner">
 				<form method="POST" id="mudar" action="assets/php/config" style="padding: 72px 48px 72px;" >
@@ -48,8 +49,18 @@
                 <div class="form-holder">
                     <i class="gg-lock lock"></i>
                     <p>
-                        <input type="password" class="form-control pr-password" placeholder="Nova Senha" id="senha_nova" name='senha_nova'>
-                        <i class="gg-eye eye" id="togglePassword"></i>
+					<div class="input-content">
+						<div class='inputbox'>
+							<div class='inputbox-content'>
+								<div class='label-float'>
+									<input type="password" class="form-control pr-password" placeholder="Nova Senha" id="senha_nova" name='senha_nova'>
+									<label>Nova Senha</label>
+									<i class="gg-eye eye" id="togglePassword"></i>
+									<span class='underline' id='senha_novaunderline'></span>
+								</div>
+							</div>
+						</div>
+					</div>
                     </p>
                     <span id="StrengthDisp" class="badge displayBadge">Validando senha...</span>
                 </div>
@@ -57,8 +68,18 @@
                 <div class="form-holder">
                     <i class="gg-lock lock"></i>
                     <p>
-                        <input type="password" class="form-control" placeholder="Digite Novamente" id="senha_nova_dup" name='senha_nova_dup'>
-                        <i class="gg-eye eye" id="togglePassword_dup"></i>
+						<div class="input-content">
+							<div class='inputbox'>
+								<div class='inputbox-content'>
+									<div class='label-float'>
+										<input type="password" class="form-control" placeholder="Digite Novamente" id="senha_nova_dup" name='senha_nova_dup'>
+										<label>Digite Novamente</label>
+										<i class="gg-eye eye" id="togglePassword_dup"></i>
+										<span class='underline' id='senha_nova_dupunderline'></span>
+									</div>
+								</div>
+							</div>
+						</div>
                     </p>
                 </div>
                 <div class='none alerta' id='senha_novaAlert'></div>

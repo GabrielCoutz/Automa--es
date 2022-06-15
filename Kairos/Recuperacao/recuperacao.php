@@ -38,6 +38,7 @@
         </div>
       </div>
     </div>
+		<button id='voltar' onclick="paginaInicial()"><i class="gg-home-alt home"></i><span id='textoHome'>Página Inicial</span></button>
 		<div class="wrapper">
 			<div class="inner">
 				<form method="POST" id="recuperacao" action="assets/php/config" style="padding: 72px 48px 72px;">
@@ -51,14 +52,34 @@
                     <div class="form-holder" id='primeiro'>
 						<i class="gg-user user"></i>
 						<p>
-							<input type="text" class="form-control" placeholder="Nome Completo" id="nome" name='nome' maxlength="100" onkeyup="apenasLetras(this)">
+						<div class="input-content">
+							<div class='inputbox'>
+								<div class='inputbox-content'>
+									<div class='label-float'>
+										<input type="text" class="form-control" placeholder="Nome Completo" id="nome" name='nome' maxlength="100" onkeyup="apenasLetras(this)">
+										<label>Nome Completo</label>
+										<span class='underline' id='nomeunderline'></span>
+									</div>	
+								</div>
+							</div>
+						</div>
 						</p>
 					</div>
 					<div class='none alerta' id='nomeAlert'></div>
 
 					<div class="form-holder">
 						<i class="gg-user user"></i>
-						<input type="email" class="form-control" placeholder="Email" id="email" name='email' maxlength="50">
+						<div class="input-content">
+							<div class='inputbox'>
+								<div class='inputbox-content'>
+									<div class="label-float">
+										<input type="email" class="form-control" placeholder="Email" id="email" name='email' maxlength="50">
+										<label>Email</label>
+										<span class='underline' id='emailunderline'></span>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 					<div class='none alerta' id='emailAlert'></div>
 

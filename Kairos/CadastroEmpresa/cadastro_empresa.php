@@ -5,10 +5,10 @@
 	error_reporting(E_ERROR | E_PARSE);
 
 
-	//if(!isset($_SESSION['cadastro']) && !strpos//($protocol . $_SERVER['HTTP_HOST'] . //$_SERVER['REQUEST_URI'],md5('erro=true'))){
-	//	header("Refresh:0; //url=cadastro_empresa".'?'.md5//('erro=true'));
-    //    exit;
-	//}
+	if(!isset($_SESSION['cadastro']) && !strpos($protocol . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],md5('erro=true'))){
+		header("Refresh:0; //url=cadastro_empresa".'?'.md5('erro=true'));
+        exit;
+	}
 	?>
 	<head>
 		<meta charset="utf-8">
@@ -38,6 +38,7 @@
         </div>
       </div>
     </div>
+	<button id='voltar' onclick="paginaInicial()"><i class="gg-home-alt home"></i><span id='textoHome'>Página Inicial</span></button>
 		<div class="wrapper">
 			<div class="inner">
 				<form action="assets/php/enviar_empresa" method="POST" name="cadastro" onsubmit="return false" id="cadastro_empresa">

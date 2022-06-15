@@ -266,3 +266,7 @@ function validar(){
         setTimeout(nada , 1500)
     }
 }
+
+function paginaInicial(){
+    window.location.href = "../index";
+}

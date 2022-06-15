@@ -34,7 +34,7 @@
         </div>
       </div>
     </div>
-	<button id='voltar'><i class="gg-home-alt home"></i><span id='textoHome'>Página Inicial</span></button>
+	<button id='voltar' onclick="paginaInicial()"><i class="gg-home-alt home"></i><span id='textoHome'>Página Inicial</span></button>
 	<div class="wrapper">
 			<div class="inner">
 				<form method="POST" id="login" action="assets/php/config?validar=true" style="padding: 72px 48px 72px;" onsubmit="return false">
