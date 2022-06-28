@@ -1,3 +1,4 @@
+<meta charset="UTF-8">
 <?php
 session_start();
 error_reporting(E_ERROR | E_PARSE);
@@ -38,6 +39,7 @@ $numero=$_POST['numero'];
 $bairro=$_POST['bairro'];
 $cidade=$_POST['cidade'];
 $estado=$_POST['estado'];
+$assinatura = $_GET['assinatura'];
 
 function verificarOperacao($query, $url){ // retorna uma sinalização de erro
     if(!$query){ // se a operação não tiver retorno, não foi feita. Então manda uma sinalização de erro mostrando que houve falha.
@@ -55,6 +57,7 @@ if (isset($select['cpf'])){
     $local=$local.'?'.md5('cpf=false').'?plano='.$assinatura;
     header("Refresh:0; url="."$local");
     exit;
+
 } else {
     $assinatura=$_SESSION['assinatura'];
     $result=mysqli_query($conec, "INSERT INTO cartao(email_usuario, titular, numero, validade, cvv, assinatura) VALUES((SELECT email FROM usuario WHERE email = '$email'), '$titular', '$num_cartao', '$validade', '$cvv_cartao','$assinatura')") or die(mysqli_error($conec)."result");

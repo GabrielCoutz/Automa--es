@@ -39,7 +39,7 @@
         </div>
       </div>
     </div>
-
+    <button id='voltar' onclick="voltar()"><i class="gg-home-alt home"></i><span id='textoHome'>Voltar</span></button>
 <div class="wrapper" id="app">
     <div class="card-form">
       <div class="card-list">

@@ -61,6 +61,7 @@
         </div>
         <div>
         <div class='none' id='plano'><a><?= $plano['assinatura'] ?></a></div>
+        <button id='voltar' onclick="voltar()"><i class="gg-home-alt home"></i><span id='textoHome'>Voltar</span></button>
         <section class="bg-light py-5 border-bottom mouseoff" id="pricing">
             <input type="text" name='assinatura' class="none" value='123'>
                 <div class="container px-5 my-5">

@@ -57,3 +57,7 @@ function enviar(assinatura){
         abrirJanelaPlanos(assinatura.name, plano)
     }
 }
+
+function voltar(){
+    window.location.href = "../Perfil/usuario";
+}

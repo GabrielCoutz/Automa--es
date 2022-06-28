@@ -74,21 +74,19 @@ function erro(){
 }
 
 const limpar_inputs = function(){
-    let elementos = document.getElementsByTagName('input')
-    for(let i = 0; i < elementos.length ; i++){
-        elementos[i].classList.remove('vermei')
-    }
+    document.querySelectorAll('input').forEach(element => {
+        element.classList.remove('vermei')
+    });
 
     limpar_alertas()
 }
 
 const limpar_alertas = function(){
-    let alerta = document.getElementsByClassName('alerta')
-    for(let i = 0; i < alerta.length ; i++){
-        if (!alerta[i].classList.contains('none')){
-            alerta[i].classList.toggle('none')
+    document.querySelectorAll('.alerta').forEach(element => {
+        if (!element.classList.contains('none')){
+            element.classList.toggle('none')
         }
-    }
+    });
 }
 
 function vazio(item){ // verifica se o valor passado está vazio
@@ -251,24 +249,6 @@ function verificar_input(){ // se ouver entrada nos inputs, o botão de salvar �
             }
         };
     }
-}
-
-function alteracao(evento){ // se houver erros no input o botão de salvar é desabilitado até que sejam resolvidos
-    let livre = true
-    let lista = document.getElementsByTagName('input')
-
-    for (let index = 0; index < lista.length; index++) {
-        if(lista[index].classList.toString().includes('vermei')){
-            livre = false
-            return
-        } else{
-            livre = true
-        }
-    };
-    if(livre){
-        document.addEventListener(evento, verificar_input)
-    }
-
 }
 
 function ler_cep(cep){ // preenche o endereço automaticamente do usuario usando o cep

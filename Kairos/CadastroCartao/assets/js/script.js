@@ -367,3 +367,7 @@ new Vue({
     }
   }
 });
+
+function voltar(){
+  window.location.href = "../Perfil/usuario";
+}
